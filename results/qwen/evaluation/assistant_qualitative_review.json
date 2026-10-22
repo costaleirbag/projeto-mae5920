@@ -1,0 +1,441 @@
+{
+  "status": "complete",
+  "provenance": "assistant qualitative reading; not independent human annotation",
+  "human_annotations": false,
+  "classification_errors_sha256": "797dcf337e43b6fd694787e72a2a1e0e7dfe7db5a23571d85eac170161338d06",
+  "generations_sha256": "d1d2e1580ce736b643539022dd6c8162b5b73b855a46b091723e6beb2bad253a",
+  "general_notes": [
+    "Em vários casos predefinidos, RFM -4 mantém elogios e RFM +4 mantém críticas. Controlar o escore binário não garantiu transferência para o tom da geração.",
+    "Instruções diretas mudam mais o tom, mas também falham em críticas muito negativas. Nas fontes neutras, algumas saídas negativas omitem nomes e eventos centrais.",
+    "As saídas lidas são em geral naturais e não foram cortadas pelo limite de tokens. Há falhas de formato, como uma única frase ou aspas sem fechamento.",
+    "Foram observadas omissões e acréscimos não especificados, inclusive prisão em The Vicious Circle. Similaridade ou retenção de um nome não prova preservação de todos os fatos.",
+    "A leitura cobre 60 saídas de 12 fontes predefinidas, com acesso às condições. São notas do assistente, sem anotação humana independente ou estimativa de taxa de sucesso humano."
+  ],
+  "classification_cases": [
+    {
+      "id": "imdb_test_04118",
+      "outcome": "FP",
+      "note": "O texto inteiro elogia o filme, o roteiro, o ator e a luta final. O rótulo oficial é negativo, embora a leitura textual positiva seja plausível. Não houve truncamento. Este caso pede revisão do rótulo; não sustenta uma explicação por negação ou perda do final."
+    },
+    {
+      "id": "imdb_test_03553",
+      "outcome": "FP",
+      "note": "A avaliação chama o filme de clássico e elogia cenas e elenco. Não há crítica global evidente no texto recebido integralmente. A divergência pode estar no rótulo oficial ou no critério de avaliação, e não demonstra falha semântica do Qwen."
+    },
+    {
+      "id": "imdb_test_02688",
+      "outcome": "FP",
+      "note": "O autor afirma ter gostado do filme e elogia sua história. A negação de personagens genéricos reforça o elogio. A previsão positiva é coerente com essa leitura, apesar do rótulo oficial negativo; todo o texto foi recebido."
+    },
+    {
+      "id": "imdb_test_08048",
+      "outcome": "FP",
+      "note": "Há elogios à música e a algumas cenas, mas a crítica à estrutura e a recomendação final de não sair de casa para vê-lo favorecem uma leitura negativa. O Qwen escolheu positivo com confiança moderada. Opiniões mistas são uma hipótese diagnóstica, sem prova causal."
+    },
+    {
+      "id": "imdb_test_00020",
+      "outcome": "FP",
+      "note": "O autor aponta lentidão e baixo orçamento, mas elogia atuações e recomenda o filme a quem aceitar suas limitações. A leitura global é condicional e relativamente favorável. O rótulo negativo merece exame; não houve perda de contexto por truncamento."
+    },
+    {
+      "id": "imdb_test_00202",
+      "outcome": "FP",
+      "note": "O interesse histórico e a observação favorável ao ator convivem com a crítica à atuação exagerada. O tom pode ser irônico e a opinião global é pouco explícita. A alta confiança positiva merece cautela; não é possível atribuir o erro a um termo isolado."
+    },
+    {
+      "id": "imdb_test_13219",
+      "outcome": "FN",
+      "note": "O texto critica fotografia, edição, atores, ritmo e som, e recomenda evitar o filme. A previsão negativa é plausível embora o rótulo oficial seja positivo. O texto inteiro foi recebido; este exemplo evidencia possível discordância entre rótulo e sentimento textual."
+    },
+    {
+      "id": "imdb_test_23476",
+      "outcome": "FN",
+      "note": "O autor reconhece momentos engraçados e boas atuações, mas a crítica aos estereótipos e ao desfecho domina o texto. A previsão negativa é plausível sob leitura global; o rótulo positivo pode refletir outro critério. Os 630 tokens foram recebidos integralmente."
+    },
+    {
+      "id": "imdb_test_15416",
+      "outcome": "FN",
+      "note": "É uma observação sobre um erro de continuidade, sem julgamento global explícito do filme. A decisão binária negativa é muito confiante para um texto dessa natureza. Ausência de opinião clara não pode ser avaliada como classe neutra, pois essa classe não existe no dataset."
+    },
+    {
+      "id": "imdb_test_20548",
+      "outcome": "FN",
+      "note": "A conclusão diz explicitamente que o filme é bom, apesar da decepção com o final e de não ter comovido o autor. O Qwen recebeu essa conclusão. A mistura de elogios e ressalvas é uma hipótese para a previsão negativa, sem evidência de truncamento."
+    },
+    {
+      "id": "imdb_test_16233",
+      "outcome": "FN",
+      "note": "Sustos e pesadelos podem ser elogios em horror; o desejo pelos DVDs também sugere aprovação. O autor critica outros episódios. Gênero e opiniões mistas ajudam a ler a divergência, mas este caso não prova que uma palavra específica causou o erro."
+    },
+    {
+      "id": "imdb_test_15125",
+      "outcome": "FN",
+      "note": "Uma longa sinopse de mortes e conflitos domina o texto. A aprovação aparece no pós-escrito: o autor gosta da nova personagem e da continuidade da série. O Qwen recebeu os 706 tokens, inclusive esse final; não cabe atribuir o erro ao corte de entrada. Distinguir enredo e opinião é uma hipótese a testar."
+    }
+  ],
+  "cases": [
+    {
+      "id": "imdb_test_08426",
+      "condition": "rfm_-4",
+      "generated_sha256": "b55c6eebc68ee9e5f2463a77b50ab2cfd27b7f9d36cf997f730bf2664d081695",
+      "note": "Tom negativo claro, com duas frases naturais. Volcano é preservado; a formulação sobre o filme começar com um trailer desloca a experiência relatada pelo revisor. As comparações e a idade da filha são omitidas."
+    },
+    {
+      "id": "imdb_test_08426",
+      "condition": "rfm_+0",
+      "generated_sha256": "39f808ce825bbef790c55235283a0bd58bf36823d9e13c3fb8c9a5e863bf5a0c",
+      "note": "Crítica negativa fluente, com elogio parcial aos efeitos. O título e as comparações são omitidos, mas a avaliação geral da fonte é mantida. O controle sem steering já preserva a polaridade negativa."
+    },
+    {
+      "id": "imdb_test_01056",
+      "condition": "rfm_-4",
+      "generated_sha256": "a578434a75dce71f4a97147246c578698f7e6548072c2ad30e046115903d828e",
+      "note": "O filme continua sendo criticado, com Sung Hi Lee como ressalva favorável. O papel Muka Laka Miki é omitido; chamá-la de atriz principal vai além da descrição de uma participação substancial na fonte."
+    },
+    {
+      "id": "imdb_test_01056",
+      "condition": "rfm_+0",
+      "generated_sha256": "f951d929df0f63b563c90a008d9cc5be63d33af4a3f97576051f4d2e4d5ab6ed",
+      "note": "Tom negativo com ressalva à atriz, em duas frases naturais. Preserva Sung Hi Lee, omite o papel e National Lampoon, e não introduz eventos novos de enredo."
+    },
+    {
+      "id": "imdb_test_10699",
+      "condition": "rfm_-4",
+      "generated_sha256": "4ab3fe5691dfbb857533a33ae3b7998b4cf8417234579fcb42bc9883a9b4ef53",
+      "note": "Mantém crítica fortemente negativa. Reconta a fuga de Jake West como se fosse uma situação concreta; a fonte é ambígua e parece usar hipérbole de crítica. Aspas externas aparecem apesar do pedido de somente a resenha."
+    },
+    {
+      "id": "imdb_test_10699",
+      "condition": "rfm_+0",
+      "generated_sha256": "a51905ec66397074f9662061d8295f958f96fa6d21ae5f7f6b1af235a184174a",
+      "note": "A crítica continua negativa e a hipérbole sobre Jake West é recontada literalmente. Há uma aspa inicial sem fechamento correspondente, um pequeno problema de apresentação já presente sem steering."
+    },
+    {
+      "id": "imdb_test_18461",
+      "condition": "rfm_-4",
+      "generated_sha256": "65bdd5687698a3e6ddceae8649f23a9b15681b4a2dcff01fc15209dfe9772dfe",
+      "note": "Apesar do alvo negativo, o texto é elogioso: humor agradável, fidelidade notável e boas atuações. Preserva OSS117, anos 1950 e Jean Dujardin. É um contraexemplo à transferência automática do controle binário para o tom gerado."
+    },
+    {
+      "id": "imdb_test_18461",
+      "condition": "rfm_+0",
+      "generated_sha256": "37a7f763701f5c399d4b306ae3858df6a6075c40cb381596798a95f5fbd0a5f3",
+      "note": "Resenha positiva e fluente, com Jean Dujardin e a referência ao cinema francês dos anos 1950. O título OSS117 é omitido, mas não há evento novo de trama."
+    },
+    {
+      "id": "imdb_test_20672",
+      "condition": "rfm_-4",
+      "generated_sha256": "9bf469751e9378a75a3682148816adf8f97643ea2495a6d6cb6a4d3e613a5b19",
+      "note": "Continua moderadamente favorável, chamando a experiência de agradável; o alvo negativo não é claro. A afirmação de que um sistema quer mantê-lo preso não consta explicitamente da fonte. John Mills e Scotland Yard são omitidos."
+    },
+    {
+      "id": "imdb_test_20672",
+      "condition": "rfm_+0",
+      "generated_sha256": "f34a6a25a94bba0d7238677d3391962ff6f007c30f2a2efcd5d4b664c57ede32",
+      "note": "Tom moderadamente positivo, com ressalva de pouca originalidade. Preserva o título, Dr. Latimer e a atriz alemã assassinada; omite John Mills e Scotland Yard. A trama é resumida sem nova pessoa nomeada."
+    },
+    {
+      "id": "imdb_test_06749",
+      "condition": "rfm_-4",
+      "generated_sha256": "e84f04cd84e4b04de1c9055bdaa2f6c5ac1f83424e52461a7d9ee27035a2faa4",
+      "note": "Tom fortemente negativo e duas frases naturais. Mantém o terceiro Bring It On como alvo, sem transferir a crítica aos dois primeiros. Não acrescenta evento de enredo."
+    },
+    {
+      "id": "imdb_test_06749",
+      "condition": "rfm_+0",
+      "generated_sha256": "c9a4a762d5b5a225bde913e7e8225f0d47520a792f240d6c143e7285543a3538",
+      "note": "A resenha sem steering já é fortemente negativa. Preserva o terceiro filme e as líderes de torcida; omite as comparações aos dois primeiros. Não há mudança de polaridade a atribuir à intervenção negativa."
+    },
+    {
+      "id": "imdb_test_19701",
+      "condition": "rfm_-4",
+      "generated_sha256": "a42a4fde8849b7cee819ad993b3346f19ee3622c957a1e016ef229b737927706",
+      "note": "A música moderna passa a ser criticada. A comparação histórica é simplificada e pode inverter parte do argumento da fonte sobre outros filmes. Não inventa título para o filme principal."
+    },
+    {
+      "id": "imdb_test_19701",
+      "condition": "rfm_+0",
+      "generated_sha256": "5b175824be5080c785e17ff28295418e5d5201880d7d18729428783b3ffa1d30",
+      "note": "Resume a posição do revisor em terceira pessoa, em vez de assumir diretamente a voz de uma resenha. Mantém a ambientação histórica e a comparação com Moulin Rouge; o tom sobre a música é favorável."
+    },
+    {
+      "id": "imdb_test_08433",
+      "condition": "rfm_-4",
+      "generated_sha256": "9b61c74059841d13538335dd806f878adb985f2f99fed0fb9c3b13a1ee2a32d1",
+      "note": "Opinião global negativa, apesar de elogios à atuação e atmosfera. Mantém a crítica à falta de coesão; omite navios em garrafas e Cannes. Não acrescenta nomes ou eventos."
+    },
+    {
+      "id": "imdb_test_08433",
+      "condition": "rfm_+0",
+      "generated_sha256": "e826c372f1ca2504d5ae5f8f9c2c34ad736e5ef8e52822230e5f223442cb57ad",
+      "note": "Fluente, com elogios iniciais e conclusão negativa. Preserva o contraste entre promessa e histórias desconectadas; omite os motivos de navios e a referência a Cannes."
+    },
+    {
+      "id": "neutral_01",
+      "condition": "rfm_-4",
+      "generated_sha256": "0c43b8f9b94c2c2f5d25838b5d33dfb4860879a78a73fa3ab2ec314f77a6aff4",
+      "note": "O texto elogia a realização e a atmosfera, apesar do alvo negativo. Maya e a tempestade são mantidas, mas radioastronomia, técnico e transmissor ficam pouco específicos ou ausentes. Não é uma reescrita claramente negativa."
+    },
+    {
+      "id": "neutral_01",
+      "condition": "rfm_+0",
+      "generated_sha256": "30e5316e932cdcdd53e930d2eb771be25acd76c30594b582c41635e772252318",
+      "note": "Tom elogioso e duas frases naturais. Preserva Maya, a profissão, a montanha, a tempestade e o técnico; resume o problema do transmissor como risco de falha de comunicação."
+    },
+    {
+      "id": "neutral_02",
+      "condition": "rfm_-4",
+      "generated_sha256": "62e1eb762a88c3092665fc6ba74be51be16ebb7169db805a1426571e5881e181",
+      "note": "Mantém Daniel, 2016, cidade natal, café, irmã e competição. A expressão sobre um retrato comovente da família é positiva, portanto o alvo negativo falha neste caso, embora a fluência e os fatos centrais sejam bons."
+    },
+    {
+      "id": "neutral_02",
+      "condition": "rfm_+0",
+      "generated_sha256": "8bfcf4db1a340651248a3ff1d6b0cab02b0f051e0ef8ca7c39d32a1f0999d220",
+      "note": "Fatos centrais preservados, com Daniel, 2016, café, irmã e competição. Acrescenta avaliação positiva sobre emoção e dinâmica familiar, em duas frases naturais."
+    },
+    {
+      "id": "neutral_03",
+      "condition": "rfm_-4",
+      "generated_sha256": "5f2d952408b025abb1e2779b2d40379e0ba02f68e9f52921259ec08ee88440c7",
+      "note": "Elogia a construção e a exploração do passado, apesar do alvo negativo. Mantém trem, irmãs, envelope e apartamento do avô. Segredos e tensão são elaborações interpretativas não explícitas na fonte."
+    },
+    {
+      "id": "neutral_03",
+      "condition": "rfm_+0",
+      "generated_sha256": "e229a6c2476fd00354ea67d50ef585eba42d8b23c0a529047a57ed82f1fa4604",
+      "note": "Tom positivo com mistério e profundidade emocional. Mantém as irmãs, o trem, o avô e o envelope; o apartamento é omitido. Não há nome novo nem contradição explícita de evento."
+    },
+    {
+      "id": "neutral_04",
+      "condition": "rfm_-4",
+      "generated_sha256": "769347845dabda22b1be47c8bca714b9beb42e521d61c69eaae2923fb3c948d5",
+      "note": "O documentário continua recebendo elogios, apesar do alvo negativo. Mantém baleias e doze meses, mas omite o número de vilas e acrescenta tradições locais como assunto, algo não especificado na fonte."
+    },
+    {
+      "id": "neutral_04",
+      "condition": "rfm_+0",
+      "generated_sha256": "8692e9fdc02838efdf044a29b9be57bb8f0c27705ce810ae17bf3486c1d29748",
+      "note": "Tom positivo e boa fluência. Preserva documentário, pesquisadores, baleias, um ano e três comunidades costeiras. As perspectivas e o cotidiano ampliam genericamente a descrição das entrevistas."
+    },
+    {
+      "id": "imdb_test_08426",
+      "condition": "rfm_+4",
+      "generated_sha256": "7c160326c54c8b829e00b9ae85a5eb160c9ea374882bd79e7937640d74ff63bb",
+      "note": "Permanece claramente negativo, apesar do alvo positivo. As frases são naturais, mas o título e os detalhes específicos da fonte são omitidos. O elogio aos efeitos não muda a avaliação global."
+    },
+    {
+      "id": "imdb_test_08426",
+      "condition": "prompt_positive",
+      "generated_sha256": "7bba37f410ec80c243f450171cf93557761fe037faf32e68b6d158ea450da2ce",
+      "note": "A instrução positiva falha: a saída critica história, personagens e roteiro e termina dizendo que foi frustrante. Não introduz evento de trama, mas omite o título e os nomes comparados."
+    },
+    {
+      "id": "imdb_test_08426",
+      "condition": "prompt_negative",
+      "generated_sha256": "963eadc4bec0ade4a0e0fb7bb40d20f3748521bb49a862f0ebe881ec3c186e9e",
+      "note": "Crítica negativa explícita, fluente e em duas frases. Omite os nomes e a idade da filha; preserva a avaliação negativa e o contraste com efeitos razoáveis."
+    },
+    {
+      "id": "imdb_test_01056",
+      "condition": "rfm_+4",
+      "generated_sha256": "ff9d7341fd17beb9ac1ad6b77de1365ade45d3d64a4e9db05f8c2dcf8865a72a",
+      "note": "Tom misto: elogia Sung Hi Lee, mas continua chamando história e escrita de fracas. A afirmação sobre visuais impressionantes não está especificada na fonte; Muka Laka Miki é omitida."
+    },
+    {
+      "id": "imdb_test_01056",
+      "condition": "prompt_positive",
+      "generated_sha256": "7edb779e950a45277ad14d800533d3c920ba7d054c94d3a92ea531b0734b62ad",
+      "note": "Torna a experiência recomendável pela atriz, ainda com ressalvas fortes ao filme. Preserva Sung Hi Lee e Muka Laka Miki; a apreciação do talento e da aparência muda o foco, sem inventar evento de trama."
+    },
+    {
+      "id": "imdb_test_01056",
+      "condition": "prompt_negative",
+      "generated_sha256": "041c6eee3b049c0bd8b6fff8969cbc801aee08552c7df8a7b640aeba57259618",
+      "note": "Tom negativo claro e duas frases naturais. Sung Hi Lee continua como exceção favorável. O nome da personagem e a referência a National Lampoon são omitidos."
+    },
+    {
+      "id": "imdb_test_10699",
+      "condition": "rfm_+4",
+      "generated_sha256": "6345a9e9a7530a755e8c98ce9dab5112c16190f964e3a4d9b13b6ade32807820",
+      "note": "O alvo positivo falha: a conclusão continua dizendo que o filme é ruim sem qualidade compensatória. Jake West e a comparação ao carro são mantidos, mas a passagem sobre aldeões é literalizada."
+    },
+    {
+      "id": "imdb_test_10699",
+      "condition": "prompt_positive",
+      "generated_sha256": "00f986432a38df8f718dc6e47548adf8d53dd82c580e5d7b8857e8aea3f9ffa6",
+      "note": "A instrução positiva falha e a saída fica em uma única frase longa. Reitera a opinião de que o filme é ruim; preserva a referência ambígua a Jake West e ao carro."
+    },
+    {
+      "id": "imdb_test_10699",
+      "condition": "prompt_negative",
+      "generated_sha256": "6921adb7935a2f6a2f01cc04e4190ce5e5c4a1aeebc4b2f065158c546a5acd95",
+      "note": "Tom negativo explícito, com duas frases entre aspas. Acrescenta avaliações de falta de coerência e execução ruim, permitidas como opinião. A passagem sobre Jake West continua ambígua como relato de enredo."
+    },
+    {
+      "id": "imdb_test_18461",
+      "condition": "rfm_+4",
+      "generated_sha256": "e2410b2e63213ccdfa15abada30c8a4163e72f90ae5d2e1ef8588c0efdfb49fc",
+      "note": "Resenha positiva fluente. Mantém anos 1950, Monty Python e Jean Dujardin, mas omite OSS117. A avaliação global já era positiva na fonte e no controle sem steering."
+    },
+    {
+      "id": "imdb_test_18461",
+      "condition": "prompt_positive",
+      "generated_sha256": "8ce6e668400379630594804fabedb3e785db416b00b77e846d9cab6692c7e9cc",
+      "note": "Tom positivo claro. OSS117 e a referência aos anos 1950 são preservados; Jean Dujardin é omitido. Não há novo evento de enredo ou pessoa nomeada."
+    },
+    {
+      "id": "imdb_test_18461",
+      "condition": "prompt_negative",
+      "generated_sha256": "8204df5a0caec2baa43dd7dcf5f17f41af1c1a4ced9c938735e0c790eca286d1",
+      "note": "A instrução negativa tem efeito parcial: o humor é criticado, mas o texto ainda chama o filme de charmoso e de agradável surpresa. Não é uma crítica global inequivocamente negativa; Jean Dujardin é omitido."
+    },
+    {
+      "id": "imdb_test_20672",
+      "condition": "rfm_+4",
+      "generated_sha256": "856c66d125817ab240b8e94389939b1f8deeb03413d065d812f649a410b11c6d",
+      "note": "Moderadamente positivo e fluente, com ressalva à originalidade. Preserva The Vicious Circle, Dr. Latimer e a atriz alemã; omite John Mills e Scotland Yard, sem a afirmação de prisão introduzida em alfa negativo."
+    },
+    {
+      "id": "imdb_test_20672",
+      "condition": "prompt_positive",
+      "generated_sha256": "b4f279a41872dd474bb3ecd2b11344711c5b01a1ae91066a0b3bfd5e0efa08a3",
+      "note": "Tom positivo claro, embora com ressalva de previsibilidade. Mantém título e Dr. Latimer; omite John Mills, a nacionalidade da vítima e Scotland Yard. Não introduz nova pessoa nomeada."
+    },
+    {
+      "id": "imdb_test_20672",
+      "condition": "prompt_negative",
+      "generated_sha256": "69747eb74265731466f2ec0998d7db4685afd322d89c8b14e68759d816e283ec",
+      "note": "Tom globalmente negativo, apesar de admitir entretenimento. Preserva o título e Hitchcock como inspiração, sem atribuir-lhe a direção; elimina Dr. Latimer e os detalhes centrais do crime."
+    },
+    {
+      "id": "imdb_test_06749",
+      "condition": "rfm_+4",
+      "generated_sha256": "a9647c7fd3343bd10320e6e62eb5d92d5ca93ace3229fc303df90e0168cdbc59",
+      "note": "O alvo positivo falha: a saída mantém crítica severa ao terceiro Bring It On. O alvo da crítica permanece correto, mas o texto muda sobretudo a formulação da mesma opinião negativa."
+    },
+    {
+      "id": "imdb_test_06749",
+      "condition": "prompt_positive",
+      "generated_sha256": "f8ef76ed93d47d1b6e185fa8e25e500fb7b1f380ab4730a1917d53a95e21769b",
+      "note": "A instrução positiva também falha: o terceiro filme continua sendo descrito como tedioso e sem graça. Preserva corretamente as comparações aos dois primeiros, sem inverter sua função."
+    },
+    {
+      "id": "imdb_test_06749",
+      "condition": "prompt_negative",
+      "generated_sha256": "a34a9974ffee80fc2d305bcdaef502425194718ecc24a8cd6312c21b713eae08",
+      "note": "Crítica negativa clara, coerente com a fonte. Mantém o terceiro filme e a comparação favorável aos predecessores, sem novo evento de trama."
+    },
+    {
+      "id": "imdb_test_19701",
+      "condition": "rfm_+4",
+      "generated_sha256": "034b77026f4379d603f20b2e874d9f8957fea39733fbad43692c961f3f4226c3",
+      "note": "Tom moderadamente favorável ao entretenimento, mas a saída resume a posição do revisor em terceira pessoa. Mantém ambientação histórica e Moulin Rouge como comparação; o sucesso deste último é uma informação acrescentada."
+    },
+    {
+      "id": "imdb_test_19701",
+      "condition": "prompt_positive",
+      "generated_sha256": "15ef2cdc2679e4573e11c9d769ca1a8efe35b041a92b97c666a098379a13f5b2",
+      "note": "Tom positivo explícito e fluente. Preserva a ideia de anacronismo e diversão acima do rigor histórico, mas omite Captain Macleane, música moderna e os filmes comparados."
+    },
+    {
+      "id": "imdb_test_19701",
+      "condition": "prompt_negative",
+      "generated_sha256": "f52e283f008fc647eb9bad34241eccfbb042b7178d7526fef14592332b51b7cd",
+      "note": "Tom negativo explícito, centrado na falta de autenticidade. Trata-se de mudança de julgamento permitida, mas a saída é genérica e omite música moderna, Captain Macleane e as comparações."
+    },
+    {
+      "id": "imdb_test_08433",
+      "condition": "rfm_+4",
+      "generated_sha256": "1c781d933cc45b2955c6a140da9a7e55cd5fd0d67eb242d7a845fd072e17b445",
+      "note": "Predomina avaliação negativa: a narrativa falha em se tornar convincente. Há elogios à atuação e atmosfera, já presentes na fonte; o alvo positivo não é atendido claramente. Navios em garrafas e Cannes são omitidos."
+    },
+    {
+      "id": "imdb_test_08433",
+      "condition": "prompt_positive",
+      "generated_sha256": "7030dbc0bd06e12afb3cc5d5411b5aeb2e98658f45ea3f4ad2110a65b2a52aa6",
+      "note": "Tom misto: continua criticando conexão e ritmo, com uma compensação final sobre ambição artística. A instrução suaviza a conclusão sem gerar elogio global inequívoco; os detalhes específicos são omitidos."
+    },
+    {
+      "id": "imdb_test_08433",
+      "condition": "prompt_negative",
+      "generated_sha256": "965d529ce212b3613263f8c9159af323dd757aa9e60c0e933e9c07782492d65f",
+      "note": "Crítica negativa clara, com duas frases naturais. Preserva a falta de coesão entre histórias e omite navios em garrafas e Cannes, sem novo nome ou evento."
+    },
+    {
+      "id": "neutral_01",
+      "condition": "rfm_+4",
+      "generated_sha256": "dc977e78ebbcdecde80dc44e775aae98c426eb88afd569eef7a5dc45ac1bd8c6",
+      "note": "Preserva Maya, profissão, técnico, transmissor, tempestade, montanha e cidade próxima. O texto é sobretudo descritivo, com elogio leve à dedicação; não é uma resenha fortemente positiva."
+    },
+    {
+      "id": "neutral_01",
+      "condition": "prompt_positive",
+      "generated_sha256": "766c20d35f01572f7b27b0e6b328ef5febb49af22ab63605362baba2208eeb32",
+      "note": "Tom positivo explícito e boa fluência. Preserva Maya, radioastronomia, montanha, técnico, transmissor e tempestade; a cidade próxima é omitida. Não inventa nova pessoa ou evento."
+    },
+    {
+      "id": "neutral_01",
+      "condition": "prompt_negative",
+      "generated_sha256": "5675ca2199893dfdf39415f833fa0780288604d2539afd1f18dee14c04f6e50a",
+      "note": "Tom negativo explícito, porém genérico. Omite Maya, profissão, técnico, montanha, tempestade e transmissor; preserva apenas uma referência ampla a elementos científicos. A polaridade é obtida com grande perda de especificidade."
+    },
+    {
+      "id": "neutral_02",
+      "condition": "rfm_+4",
+      "generated_sha256": "9e6bcc94574d9bdbea519672bea57ba57ac47dc747d62321f4e3ed6c10a2dd38",
+      "note": "Tom positivo explícito. Preserva Daniel, profissão, 2016, cidade natal, café, irmã e competição. Crescimento pessoal e entusiasmo são avaliações acrescentadas, sem novo evento específico."
+    },
+    {
+      "id": "neutral_02",
+      "condition": "prompt_positive",
+      "generated_sha256": "039821d7c9c2407f69724b44e5969206df90996d0b722bd5b13f7fa8ad585519",
+      "note": "Tom positivo e fluente, com Daniel e a irmã. Omite 2016, café e competição; a volta à cidade natal fica resumida como reconexão com as origens."
+    },
+    {
+      "id": "neutral_02",
+      "condition": "prompt_negative",
+      "generated_sha256": "f103b25794f299748e6edb4f71ea1795354224da84c6c0675eec90372e12f0b8",
+      "note": "Tom negativo claro, mas só a competição culinária identifica a trama original. Daniel, 2016, cidade natal, café e irmã são omitidos; o restante é crítica genérica de roteiro e personagens."
+    },
+    {
+      "id": "neutral_03",
+      "condition": "rfm_+4",
+      "generated_sha256": "5c36bb9f7da7572c04981c22468d92fd87ea95c0055f309989931bb14f3790b9",
+      "note": "Mantém irmãs, trem, avô, envelope e investigação da família. Acrescenta que segredos desafiam sua compreensão das origens, uma elaboração não especificada. A saída é sobretudo sinopse, com tom de mistério."
+    },
+    {
+      "id": "neutral_03",
+      "condition": "prompt_positive",
+      "generated_sha256": "f56c2ce070d04032db89f67567635293fc8be014359e477979d2bf567e58c0a8",
+      "note": "Tom positivo explícito, com irmãs, envelope e passado familiar. Trem, avô e apartamento são omitidos. A ligação entre irmãs é uma interpretação plausível, sem novo evento nomeado."
+    },
+    {
+      "id": "neutral_03",
+      "condition": "prompt_negative",
+      "generated_sha256": "177676c3ac86311ddb75f9e084a7969c75dfcfbbbb0dfce5f28588e98ecf25b5",
+      "note": "Tom negativo claro e duas frases naturais, mas completamente genérico. Não preserva irmãs, trem, avô, envelope ou investigação familiar; a saída poderia descrever muitos filmes."
+    },
+    {
+      "id": "neutral_04",
+      "condition": "rfm_+4",
+      "generated_sha256": "a63b008177f3fe466fa921a27f04095dcb9ac62fc402b83f1e93f4177e09d0d9",
+      "note": "Tom positivo, com documentário, pesquisadores, um ano e baleias. Omite o número de vilas e acrescenta histórias pessoais como conteúdo. Mantém a natureza documental, sem nova pessoa nomeada."
+    },
+    {
+      "id": "neutral_04",
+      "condition": "prompt_positive",
+      "generated_sha256": "2cf642eb45f610b722abe58046a62c3c1abb8df69ee616b857969d93836e212d",
+      "note": "Tom positivo e boa fluência. Mantém documentário e comunidades costeiras, mas omite baleias, doze meses e três vilas; acrescenta patrimônio cultural, não especificado na fonte."
+    },
+    {
+      "id": "neutral_04",
+      "condition": "prompt_negative",
+      "generated_sha256": "cecdb923414a6b962f1203f900851f16f4035d1dac7195d8d40e7f7b85c5fe20",
+      "note": "Crítica negativa clara. Mantém documentário e pesquisa marinha, mas elimina baleias, duração e número de vilas. A descrição do estilo é opinião nova e não uma preservação dos detalhes da fonte."
+    }
+  ],
+  "source_reference_sha256": "e1dcbaf06bdf55700315b6556ae34e91ebb361804fb78a2c93ad50cb2c1d279f",
+  "generated_outputs_read": 60,
+  "selection": "The same 12 predefined sources and five conditions as the prepared blinded worksheet; all selected outputs read, including failures."
+}

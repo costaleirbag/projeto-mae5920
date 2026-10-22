@@ -1,0 +1,134 @@
+[
+  {
+    "id": "imdb_test_04118",
+    "outcome": "FP",
+    "p_positive": 0.9937920700808985,
+    "word_count": 60,
+    "text": "This is definitely one of the best Kung fu movies in the history of Cinema. The screenplay is really well done (which is not often the case for this type of movies) and you can see that Chuck (in one of his first role)is a great actor. The final fight with the sherif deputy in the bullring is a masterpiece!",
+    "qwen_input_prefix": "This is definitely one of the best Kung fu movies in the history of Cinema. The screenplay is really well done (which is not often the case for this type of movies) and you can see that Chuck (in one of his first role)is a great actor. The final fight with the sherif deputy in the bullring is a masterpiece!",
+    "review_truncated": false,
+    "original_review_tokens": 71,
+    "used_review_tokens": 71
+  },
+  {
+    "id": "imdb_test_03553",
+    "outcome": "FP",
+    "p_positive": 0.9933480453774252,
+    "word_count": 74,
+    "text": "This film has the language, the style and the attitude down ... plus greats rides from Occy (a world champ) and the great Jerry Lopez. John Philbin as Turtle has the surf pidgin down, and the surfing scenes are still the best ever. A true classic that can be seen many times. Nia Peeples is a babe, and Laird Hamilton shows the early stuff that has made him the world's number one extreme surfer.",
+    "qwen_input_prefix": "This film has the language, the style and the attitude down ... plus greats rides from Occy (a world champ) and the great Jerry Lopez. John Philbin as Turtle has the surf pidgin down, and the surfing scenes are still the best ever. A true classic that can be seen many times. Nia Peeples is a babe, and Laird Hamilton shows the early stuff that has made him the world's number one extreme surfer.",
+    "review_truncated": false,
+    "original_review_tokens": 93,
+    "used_review_tokens": 93
+  },
+  {
+    "id": "imdb_test_02688",
+    "outcome": "FP",
+    "p_positive": 0.9918178127581783,
+    "word_count": 45,
+    "text": "I really liked this quirky movie. The characters are not the bland beautiful people that show up in so many movies and on TV. It has a realistic edge, with a captivating story line. The main title sequence alone makes this movie fun to watch.",
+    "qwen_input_prefix": "I really liked this quirky movie. The characters are not the bland beautiful people that show up in so many movies and on TV. It has a realistic edge, with a captivating story line. The main title sequence alone makes this movie fun to watch.",
+    "review_truncated": false,
+    "original_review_tokens": 50,
+    "used_review_tokens": 50
+  },
+  {
+    "id": "imdb_test_08048",
+    "outcome": "FP",
+    "p_positive": 0.6355823699355326,
+    "word_count": 203,
+    "text": "Have you ever watched a film, when after it's conclusion, your left pondering what in the world it was all about? Well, say hello to \"Scream, Baby, Scream\". It's not that the story's complex or anything like that, it's just that it plays out in three completely different modes...1. A fun 60s drug movie...2. A much overplayed soap opera...and 3. a horror flick (with very little to \"Scream\" about). Much to my surprise, I've found out that it was written by one of my all-time favorites, Larry Cohen. Well, I guess even the best have to learn through trial and error. Playing out much like something from H.G. Lewis(only with lesser fx), this \"bad\" film does have it's perks. For most of it's short running time there's a pretty cool jazz score to be heard, and there are a couple of memorable scenes...one of those being where a group of kids decide to experiment with acid and take a nice long motor bike ride to the zoo. The camera tricks the director uses to indicate their hallucinatory state is just plain retarded, but amusing. Trust me when I tell you, there's no need to run out of the house to catch this one!",
+    "qwen_input_prefix": "Have you ever watched a film, when after it's conclusion, your left pondering what in the world it was all about? Well, say hello to \"Scream, Baby, Scream\". It's not that the story's complex or anything like that, it's just that it plays out in three completely different modes...1. A fun 60s drug movie...2. A much overplayed soap opera...and 3. a horror flick (with very little to \"Scream\" about). Much to my surprise, I've found out that it was written by one of my all-time favorites, Larry Cohen. Well, I guess even the best have to learn through trial and error. Playing out much like something from H.G. Lewis(only with lesser fx), this \"bad\" film does have it's perks. For most of it's short running time there's a pretty cool jazz score to be heard, and there are a couple of memorable scenes...one of those being where a group of kids decide to experiment with acid and take a nice long motor bike ride to the zoo. The camera tricks the director uses to indicate their hallucinatory state is just plain retarded, but amusing. Trust me when I tell you, there's no need to run out of the house to catch this one!",
+    "review_truncated": false,
+    "original_review_tokens": 267,
+    "used_review_tokens": 267
+  },
+  {
+    "id": "imdb_test_00020",
+    "outcome": "FP",
+    "p_positive": 0.8673022890603415,
+    "word_count": 173,
+    "text": "Low budget horror movie. If you don't raise your expectations too high, you'll probably enjoy this little flick. Beginning and end are pretty good, middle drags at times and seems to go nowhere for long periods as we watch the goings on of the insane that add atmosphere but do not advance the plot. Quite a bit of gore. I enjoyed Bill McGhee's performance which he made quite believable for such a low budget picture, he managed to carry the movie at times when nothing much seemed to be happening. Nurse Charlotte Beale, played by Jesse Lee, played her character well so be prepared to want to slap her toward the end! She makes some really stupid mistakes but then, that's what makes these low budget movies so good! I would have been out of that place and five states away long before she even considered that it might be a good idea to leave! If you enjoy this movie, try Committed from 1988 which is basically a rip off of this movie.",
+    "qwen_input_prefix": "Low budget horror movie. If you don't raise your expectations too high, you'll probably enjoy this little flick. Beginning and end are pretty good, middle drags at times and seems to go nowhere for long periods as we watch the goings on of the insane that add atmosphere but do not advance the plot. Quite a bit of gore. I enjoyed Bill McGhee's performance which he made quite believable for such a low budget picture, he managed to carry the movie at times when nothing much seemed to be happening. Nurse Charlotte Beale, played by Jesse Lee, played her character well so be prepared to want to slap her toward the end! She makes some really stupid mistakes but then, that's what makes these low budget movies so good! I would have been out of that place and five states away long before she even considered that it might be a good idea to leave! If you enjoy this movie, try Committed from 1988 which is basically a rip off of this movie.",
+    "review_truncated": false,
+    "original_review_tokens": 202,
+    "used_review_tokens": 202
+  },
+  {
+    "id": "imdb_test_00202",
+    "outcome": "FP",
+    "p_positive": 0.9377120898262704,
+    "word_count": 53,
+    "text": "An interesting period picec showing us what was amazing in 1938. Gosh, Ma, a fake accident ring suing for $25,000!!! I guess projected into the 21st century it would amount to a lot of money. The acting would amount to pure 21st century ham. Nice to see the president as a hard-working newcomer.",
+    "qwen_input_prefix": "An interesting period picec showing us what was amazing in 1938. Gosh, Ma, a fake accident ring suing for $25,000!!! I guess projected into the 21st century it would amount to a lot of money. The acting would amount to pure 21st century ham. Nice to see the president as a hard-working newcomer.",
+    "review_truncated": false,
+    "original_review_tokens": 80,
+    "used_review_tokens": 80
+  },
+  {
+    "id": "imdb_test_13219",
+    "outcome": "FN",
+    "p_positive": 0.00540634612625116,
+    "word_count": 139,
+    "text": "This seemed to be a lackluster film to me that betrays a low budget with poor cinematography and not all that great of a job of editing. It may be of interest to those who know something about submarines during the World War II era, but I recommend that all others beware. Many of the scenes in this film were flat and some of the actors were a bit weak. The story about the men getting called back to duty during a short leave seems realistic enough, but there's no real pacing or tension in the story. I also had a tough time understanding what the actors were saying, partially due to some strong English accents and perhaps some due to an inferior job of sound recording. I give this a 55/100. Most folks will want to \"steer\" clear.",
+    "qwen_input_prefix": "This seemed to be a lackluster film to me that betrays a low budget with poor cinematography and not all that great of a job of editing. It may be of interest to those who know something about submarines during the World War II era, but I recommend that all others beware. Many of the scenes in this film were flat and some of the actors were a bit weak. The story about the men getting called back to duty during a short leave seems realistic enough, but there's no real pacing or tension in the story. I also had a tough time understanding what the actors were saying, partially due to some strong English accents and perhaps some due to an inferior job of sound recording. I give this a 55/100. Most folks will want to \"steer\" clear.",
+    "review_truncated": false,
+    "original_review_tokens": 163,
+    "used_review_tokens": 163
+  },
+  {
+    "id": "imdb_test_23476",
+    "outcome": "FN",
+    "p_positive": 0.0062079299191015415,
+    "word_count": 483,
+    "text": "While amiable and amusing for gay audiences, Frank Oz's film \"In and Out,\" about a closeted gay teacher who has been outed on national television by a former student, has been sanitized and deodorized to appeal to the larger and more profitable straight viewers that patronized \"The Bird Cage.\" Although audiences likely patted themselves on the back for being tolerant and liberal enough to see the film, the movie revolves around Kevin Kline's Howard Brackett, who is a grossly stereotyped gay man. The movie asserts that a tendency to dance to disco music, revel in Barbra Streisand movies, and dress well indicates one's sexual orientation. Like \"Queer Eye,\" the film actually takes a backhanded slap at straight men and stereotypes them as slovenly, dim witted, and lacking in taste and culture. OK, so \"In and Out\" is only a comedy, but even comedies send messages that can hurt. Unfortunately, at the center of the film's humor lies a somewhat pathetic character. Howard is middle aged, deeply closeted or in self-denial, and evidently has never had a sex life. A three-year engagement to a female teacher in the school where he works is described as a series of sunsets, long talks, and watching \"Funny Lady.\" Fortunately, Joan Cusack plays Howard's intended, Emily Montgomery, and she steals the show throughout. Most of the film's funniest moments belong to her, although Kline's attempts to resist dancing during an instruction tape on macho behavior are hilarious. He is a gifted physical performer, but the film gives him only few moments to shine. Matt Dillon also stands out as the student turned actor, and the clip from his Oscar-nominated film about a gay soldier is hysterical. However, despite the movie's gay theme, there is no boy-meets-boy romance, and only one male-to-male kiss, and that smooch is about as erotic as the one between Michael and Fredo Corleone in \"Godfather II.\" Although well intentioned, \"In and Out\" fails to address the injustices and prejudices that it illustrates. Howard is fired from his teaching job despite his outstanding performance and credentials, yet little outrage is expressed. Most of the characters are more upset about the cancelled wedding than about Howard's self-realization, which seems to take place overnight, and his abrupt and unjust dismissal. Not surprisingly, Howard's parents, endearingly portrayed by Debbie Reynolds and Wilford Brimley, and his students rise to support him. However, the sugary finale is as embarrassing to the audience as it evidently was to Howard Brackett in the film. The movie would have been more refreshing if it had revolved around a gay man who dressed like a slob, was a rabid fan of football, drove a station wagon, listened to country music, and lived on fast food. Despite some good performances and funny situations, \"In and Out\" perpetuates stereotypes and, whether they be positive or negative, stereotypes should be consigned to the dustbin of social history.",
+    "qwen_input_prefix": "While amiable and amusing for gay audiences, Frank Oz's film \"In and Out,\" about a closeted gay teacher who has been outed on national television by a former student, has been sanitized and deodorized to appeal to the larger and more profitable straight viewers that patronized \"The Bird Cage.\" Although audiences likely patted themselves on the back for being tolerant and liberal enough to see the film, the movie revolves around Kevin Kline's Howard Brackett, who is a grossly stereotyped gay man. The movie asserts that a tendency to dance to disco music, revel in Barbra Streisand movies, and dress well indicates one's sexual orientation. Like \"Queer Eye,\" the film actually takes a backhanded slap at straight men and stereotypes them as slovenly, dim witted, and lacking in taste and culture. OK, so \"In and Out\" is only a comedy, but even comedies send messages that can hurt. Unfortunately, at the center of the film's humor lies a somewhat pathetic character. Howard is middle aged, deeply closeted or in self-denial, and evidently has never had a sex life. A three-year engagement to a female teacher in the school where he works is described as a series of sunsets, long talks, and watching \"Funny Lady.\" Fortunately, Joan Cusack plays Howard's intended, Emily Montgomery, and she steals the show throughout. Most of the film's funniest moments belong to her, although Kline's attempts to resist dancing during an instruction tape on macho behavior are hilarious. He is a gifted physical performer, but the film gives him only few moments to shine. Matt Dillon also stands out as the student turned actor, and the clip from his Oscar-nominated film about a gay soldier is hysterical. However, despite the movie's gay theme, there is no boy-meets-boy romance, and only one male-to-male kiss, and that smooch is about as erotic as the one between Michael and Fredo Corleone in \"Godfather II.\" Although well intentioned, \"In and Out\" fails to address the injustices and prejudices that it illustrates. Howard is fired from his teaching job despite his outstanding performance and credentials, yet little outrage is expressed. Most of the characters are more upset about the cancelled wedding than about Howard's self-realization, which seems to take place overnight, and his abrupt and unjust dismissal. Not surprisingly, Howard's parents, endearingly portrayed by Debbie Reynolds and Wilford Brimley, and his students rise to support him. However, the sugary finale is as embarrassing to the audience as it evidently was to Howard Brackett in the film. The movie would have been more refreshing if it had revolved around a gay man who dressed like a slob, was a rabid fan of football, drove a station wagon, listened to country music, and lived on fast food. Despite some good performances and funny situations, \"In and Out\" perpetuates stereotypes and, whether they be positive or negative, stereotypes should be consigned to the dustbin of social history.",
+    "review_truncated": false,
+    "original_review_tokens": 630,
+    "used_review_tokens": 630
+  },
+  {
+    "id": "imdb_test_15416",
+    "outcome": "FN",
+    "p_positive": 0.006651954622574813,
+    "word_count": 35,
+    "text": "Goof: Factual error When Charlie walks out of the room to commit suicide he takes his gun with a silencer. After a few seconds we hear a loud bang from the same gun being fired.",
+    "qwen_input_prefix": "Goof: Factual error When Charlie walks out of the room to commit suicide he takes his gun with a silencer. After a few seconds we hear a loud bang from the same gun being fired.",
+    "review_truncated": false,
+    "original_review_tokens": 41,
+    "used_review_tokens": 41
+  },
+  {
+    "id": "imdb_test_20548",
+    "outcome": "FN",
+    "p_positive": 0.31759819761964264,
+    "word_count": 164,
+    "text": "I watched this film with high expectations but was somewhat disappointed. Although I like this film and was engrossed by the story, I did not find it moving and think the ending falls flat. The story consists of the friendship between a man running a photo shop and his best customer who is a traffic Policewoman. The location is a quaint Korean village. This film is in some ways realistic as there is an element of tragedy and yet it is not melodramatic. However I was not ultimately moved by a film depicting a man who is loved so much by a woman, yet does not even give her the choice to enter his life. In my mind he is a sweet, noble loser. Good points - Excellent acting by the two main leads, enjoyable snapshot of village life Cons - Flat ending Overall - Good but I prefer the Before Sunrise and After Sunset films (or is it Before Sunset and After Sunrise)",
+    "qwen_input_prefix": "I watched this film with high expectations but was somewhat disappointed. Although I like this film and was engrossed by the story, I did not find it moving and think the ending falls flat. The story consists of the friendship between a man running a photo shop and his best customer who is a traffic Policewoman. The location is a quaint Korean village. This film is in some ways realistic as there is an element of tragedy and yet it is not melodramatic. However I was not ultimately moved by a film depicting a man who is loved so much by a woman, yet does not even give her the choice to enter his life. In my mind he is a sweet, noble loser. Good points - Excellent acting by the two main leads, enjoyable snapshot of village life Cons - Flat ending Overall - Good but I prefer the Before Sunrise and After Sunset films (or is it Before Sunset and After Sunrise)",
+    "review_truncated": false,
+    "original_review_tokens": 183,
+    "used_review_tokens": 183
+  },
+  {
+    "id": "imdb_test_16233",
+    "outcome": "FN",
+    "p_positive": 0.22243322326201787,
+    "word_count": 94,
+    "text": "There's no point in comparing this with the original series. Though different in look and content, both are true to the original idea. That is, an SF/horror anthology series. Due to indifferent scheduling in Australia, I've only managed to catch a small number of episodes spread over the first few seasons. The very first episode really did give me the creeps (nightmares at my age ...!) but a number of others did fall flat; generally when the stories moved into horror realms and away from SF. I only hope the DVDs reach us eventually.",
+    "qwen_input_prefix": "There's no point in comparing this with the original series. Though different in look and content, both are true to the original idea. That is, an SF/horror anthology series. Due to indifferent scheduling in Australia, I've only managed to catch a small number of episodes spread over the first few seasons. The very first episode really did give me the creeps (nightmares at my age ...!) but a number of others did fall flat; generally when the stories moved into horror realms and away from SF. I only hope the DVDs reach us eventually.",
+    "review_truncated": false,
+    "original_review_tokens": 113,
+    "used_review_tokens": 113
+  },
+  {
+    "id": "imdb_test_15125",
+    "outcome": "FN",
+    "p_positive": 0.3644176300644674,
+    "word_count": 557,
+    "text": "I watched this episode a lot of times because I didn't get how Prue died. This is what happened. Prue, Piper, and Phoebe try and save their innocent,A Doctor, because Shax wants to kill him. Phoebe goes upstairs to look in The Book Of Shadows while Prue and Piper are protecting their innocent. Shax appears while Phoebe is still upstairs, so Shax throw an energy ball at the doctor but Prue pushes him out of the way and Prue get hit in the chest with it and smashes against the wall, same with Piper. So Phoebe comes downstairs and says the spell, since it was only Phoebe who said it and not the power of three Shax only got wounded. Phoebes calls Leo to heal Piper and Prue. So Leo heals them. Phoebe went into the Underworld to find Cole, meanwhile Prue and Piper are looking for Shax in the streets. Piper and Prue see Shax and Piper uses her Power to Blow up Shax, meanwhile a New reporter got it all on tape. So its all over the new about the three powerful Halliwell sisters, meanwhile Phoebe doesn't know anything because she is still in the Underworld. There's Repoters and people all over the Halliwell house. Then a maniac comes in the house and says \"Can I be Part Of Your Coven?\" and Prue says \"No this is our house get out of here!\" and Prue uses her powers to throw her out. As the maniac come out of the house crying saying \"There Mean Witches\". The maniac gets so mad that she shoots Piper right through the stomach. Prue get in her car and trays to go to the hospital but people won't let her through ,so Prue uses her powers to move people out of the way, making people wanna kill her more. They got to the hospital but Piper didn't make it. Meanwhile Phoebe is in the Underworld.Phoebe finds out that they have been exposed, so Phoebe asks Cole to ask the source if he can reverse time.The Source says he will only reverse time if Phoebe promises to stay here in The Underworld, so Cole told Phoebe what the source told him. Phoebe says \"What would Make him think i would make a deal like that?\" and then Cole says, \"So you can save one of your sisters lives.\" Leo goes to the hospital to find out the Piper really is dead so he tells Phoebe that its true. Then Phoebe agrees to stay only if Cole will go back to warn Piper and Prue about the exposer and death of Piper. Back at the hospital SWAT is about the shoot Prue, but the second before they do time is rewound back when they were at the manor with the doctor but this time Phoebe wasn't there to call Leo to heal Prue and Piper, so the doctor get throw in the wall too. The doctor died and so did Prue. But this is what I didn't get, if Piper was throw against the wall too how come only Prue died? Why did they not show Leo come and heal Piper and Leo trying to heal Prue? If you know the answer please e-mail me at angelpuss924@yahoo.com PS. I miss Prue but I like Paige too and i'm glad the show continued",
+    "qwen_input_prefix": "I watched this episode a lot of times because I didn't get how Prue died. This is what happened. Prue, Piper, and Phoebe try and save their innocent,A Doctor, because Shax wants to kill him. Phoebe goes upstairs to look in The Book Of Shadows while Prue and Piper are protecting their innocent. Shax appears while Phoebe is still upstairs, so Shax throw an energy ball at the doctor but Prue pushes him out of the way and Prue get hit in the chest with it and smashes against the wall, same with Piper. So Phoebe comes downstairs and says the spell, since it was only Phoebe who said it and not the power of three Shax only got wounded. Phoebes calls Leo to heal Piper and Prue. So Leo heals them. Phoebe went into the Underworld to find Cole, meanwhile Prue and Piper are looking for Shax in the streets. Piper and Prue see Shax and Piper uses her Power to Blow up Shax, meanwhile a New reporter got it all on tape. So its all over the new about the three powerful Halliwell sisters, meanwhile Phoebe doesn't know anything because she is still in the Underworld. There's Repoters and people all over the Halliwell house. Then a maniac comes in the house and says \"Can I be Part Of Your Coven?\" and Prue says \"No this is our house get out of here!\" and Prue uses her powers to throw her out. As the maniac come out of the house crying saying \"There Mean Witches\". The maniac gets so mad that she shoots Piper right through the stomach. Prue get in her car and trays to go to the hospital but people won't let her through ,so Prue uses her powers to move people out of the way, making people wanna kill her more. They got to the hospital but Piper didn't make it. Meanwhile Phoebe is in the Underworld.Phoebe finds out that they have been exposed, so Phoebe asks Cole to ask the source if he can reverse time.The Source says he will only reverse time if Phoebe promises to stay here in The Underworld, so Cole told Phoebe what the source told him. Phoebe says \"What would Make him think i would make a deal like that?\" and then Cole says, \"So you can save one of your sisters lives.\" Leo goes to the hospital to find out the Piper really is dead so he tells Phoebe that its true. Then Phoebe agrees to stay only if Cole will go back to warn Piper and Prue about the exposer and death of Piper. Back at the hospital SWAT is about the shoot Prue, but the second before they do time is rewound back when they were at the manor with the doctor but this time Phoebe wasn't there to call Leo to heal Prue and Piper, so the doctor get throw in the wall too. The doctor died and so did Prue. But this is what I didn't get, if Piper was throw against the wall too how come only Prue died? Why did they not show Leo come and heal Piper and Leo trying to heal Prue? If you know the answer please e-mail me at angelpuss924@yahoo.com PS. I miss Prue but I like Paige too and i'm glad the show continued",
+    "review_truncated": false,
+    "original_review_tokens": 706,
+    "used_review_tokens": 706
+  }
+]

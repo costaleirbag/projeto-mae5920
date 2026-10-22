@@ -1,0 +1,17 @@
+{
+  "seconds": 2070.736608806066,
+  "selected_layer": 24,
+  "scale": 12.947524865976407,
+  "identity_max_error": {
+    "validation": 0.0,
+    "test": 0.0
+  },
+  "full_hook_cached_max_error": 0.0,
+  "hook_restoration_exact": true,
+  "nonzero_hook_changes_logits": true,
+  "scope": "all_nonpadding",
+  "normalization": "All unit directions share one training-only RFM projection SD per token. Same scope and number of positions within each comparison.",
+  "source_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+  "subset_manifest_sha256": "fc94ee8a2c9f6cd736f3b7933f78145aa7c3fbae8ad52789ef0171611f695c16",
+  "caveat": "These scores change with identical input text. Intervened probabilities are not assumed calibrated."
+}

@@ -1,0 +1,29 @@
+{
+  "rows": [
+    {
+      "split": "train",
+      "n": 512,
+      "linear_direction_auc": 0.9902037079423209,
+      "label_correlation": 0.9202558924297716,
+      "projection_positive_mean": 9.433704566067364,
+      "projection_negative_mean": -14.373266239030034
+    },
+    {
+      "split": "validation",
+      "n": 256,
+      "linear_direction_auc": 0.9771714582188854,
+      "label_correlation": 0.8826435403935586,
+      "projection_positive_mean": 8.96538053760381,
+      "projection_negative_mean": -13.483899745123258
+    },
+    {
+      "split": "test",
+      "n": 256,
+      "linear_direction_auc": 0.9942626953125,
+      "label_correlation": 0.9285131430897853,
+      "projection_positive_mean": 9.57912175171497,
+      "projection_negative_mean": -13.958884287470754
+    }
+  ],
+  "distinction": "The old reported 0.994 test AUC belonged to the nonlinear kernel predictor, not to the single AGOP direction or to generated text control."
+}

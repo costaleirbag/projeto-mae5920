@@ -1,0 +1,43 @@
+/usr/local/lib/python3.12/dist-packages/torch/library.py:356: UserWarning: Warning only once for all operators,  other operators may also be overridden.
+  Overriding a previously registered kernel for the same operator and the same dispatch key
+  operator: flash_attn::_flash_attn_backward(Tensor dout, Tensor q, Tensor k, Tensor v, Tensor out, Tensor softmax_lse, Tensor(a6!)? dq, Tensor(a7!)? dk, Tensor(a8!)? dv, float dropout_p, float softmax_scale, bool causal, SymInt window_size_left, SymInt window_size_right, float softcap, Tensor? alibi_slopes, bool deterministic, Tensor? rng_state=None) -> Tensor
+    registered at /usr/local/lib/python3.12/dist-packages/torch/_library/custom_ops.py:922
+  dispatch key: ADInplaceOrView
+  previous kernel: no debug info
+       new kernel: registered at /usr/local/lib/python3.12/dist-packages/torch/_library/custom_ops.py:922 (Triggered internally at /opt/pytorch/pytorch/aten/src/ATen/core/dispatch/OperatorEntry.cpp:208.)
+  self.m.impl(
+BERT activations extracted for train, validation and held-out test subsets
+RFM {'layer': 3, 'bandwidth': 10.0, 'validation_auc': 0.8694378318989195, 'selected_iteration': 1}
+RFM {'layer': 3, 'bandwidth': 30.0, 'validation_auc': 0.8856741744491241, 'selected_iteration': 1}
+RFM {'layer': 3, 'bandwidth': 100.0, 'validation_auc': 0.8853689800402857, 'selected_iteration': 1}
+RFM {'layer': 6, 'bandwidth': 10.0, 'validation_auc': 0.8635170603674541, 'selected_iteration': 1}
+RFM {'layer': 6, 'bandwidth': 30.0, 'validation_auc': 0.8737715925044254, 'selected_iteration': 1}
+RFM {'layer': 6, 'bandwidth': 100.0, 'validation_auc': 0.8699871818348288, 'selected_iteration': 1}
+RFM {'layer': 9, 'bandwidth': 10.0, 'validation_auc': 0.958188365989135, 'selected_iteration': 1}
+RFM {'layer': 9, 'bandwidth': 30.0, 'validation_auc': 0.9619727766587317, 'selected_iteration': 1}
+RFM {'layer': 9, 'bandwidth': 100.0, 'validation_auc': 0.9594701825062564, 'selected_iteration': 1}
+Steering validation rfm_agop complete
+Steering validation difference_in_means complete
+Steering validation logistic_probe complete
+Steering validation random_1 complete
+Steering validation random_2 complete
+Steering validation random_3 complete
+Steering validation random_4 complete
+Steering validation random_5 complete
+Steering test rfm_agop complete
+Steering test difference_in_means complete
+Steering test logistic_probe complete
+Steering test random_1 complete
+Steering test random_2 complete
+Steering test random_3 complete
+Steering test random_4 complete
+Steering test random_5 complete
+Steering synthetic rfm_agop complete
+Steering synthetic difference_in_means complete
+Steering synthetic logistic_probe complete
+Steering synthetic random_1 complete
+Steering synthetic random_2 complete
+Steering synthetic random_3 complete
+Steering synthetic random_4 complete
+Steering synthetic random_5 complete
+RFM steering complete, selected block 9

@@ -1,0 +1,59 @@
+{
+  "model": {
+    "seed": 20261020,
+    "threads": 8,
+    "model_id": "Qwen/Qwen3-8B",
+    "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+    "dtype": "bfloat16",
+    "attention": "sdpa",
+    "max_review_tokens": 768,
+    "batch_size": 8,
+    "feature_train_n": 512,
+    "feature_validation_n": 256,
+    "feature_test_n": 256,
+    "layers": [
+      12,
+      24,
+      32
+    ],
+    "rfm_bandwidths": [
+      30.0,
+      60.0
+    ],
+    "rfm_regularization": 0.001,
+    "rfm_iterations": 4,
+    "intervention_alphas": [
+      -4,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      4
+    ],
+    "random_controls": 3,
+    "intervention_scope": "all_nonpadding",
+    "generation_real_n": 24,
+    "generation_synthetic_n": 8,
+    "generation_alphas": [
+      -4,
+      -2,
+      0,
+      2,
+      4
+    ],
+    "generation_control_alpha": 4,
+    "generation_batch_size": 8,
+    "max_new_tokens": 96,
+    "do_sample": false,
+    "enable_thinking": false
+  },
+  "parameters": 8190735360,
+  "trainable_parameters": 0,
+  "dtype": "torch.bfloat16",
+  "attention": "sdpa",
+  "accelerator": "NVIDIA GB10",
+  "do_sample": false,
+  "max_new_tokens": 112,
+  "source_code_sha256": "59f7361a28c9bc167521789aa622fea828c11244f368f63bcb2db5212843e887"
+}

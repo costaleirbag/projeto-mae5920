@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "evidence": [
+    {
+      "layer": 12,
+      "validation_auc_recomputed": 0.848928767624977,
+      "agop_factor_max_error": 1.81603863891322e-18
+    },
+    {
+      "layer": 24,
+      "validation_auc_recomputed": 0.9821156076420681,
+      "agop_factor_max_error": 5.929230630780102e-19
+    },
+    {
+      "layer": 32,
+      "validation_auc_recomputed": 0.98522859061222,
+      "agop_factor_max_error": 9.893344823930228e-19
+    }
+  ]
+}

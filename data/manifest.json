@@ -1,0 +1,94 @@
+{
+  "source": "stanfordnlp/imdb",
+  "revision": "e6281661ce1c48d982bc483cf8a173c1bbeb5d31",
+  "seed": 42,
+  "download_and_prepare_seconds": 14.528840791004768,
+  "labels": {
+    "0": "negative",
+    "1": "positive"
+  },
+  "splits": {
+    "train": {
+      "n": 19823,
+      "label_counts": {
+        "1": 9954,
+        "0": 9869
+      },
+      "word_count_quantiles": {
+        "0.0": 10.0,
+        "0.25": 126.0,
+        "0.5": 173.0,
+        "0.75": 280.0,
+        "0.95": 589.0,
+        "1.0": 2459.0
+      },
+      "sha256": "353b1bbcb2d878e686ef9e45ea97fb1517cb75c35864c0f46bc3210127683629"
+    },
+    "validation": {
+      "n": 2478,
+      "label_counts": {
+        "1": 1245,
+        "0": 1233
+      },
+      "word_count_quantiles": {
+        "0.0": 12.0,
+        "0.25": 126.0,
+        "0.5": 174.0,
+        "0.75": 283.75,
+        "0.95": 613.4500000000003,
+        "1.0": 1716.0
+      },
+      "sha256": "d52a3fb89476e954eb9ac275090bf9299aeb69d1a818fb9a58dbb779003388ac"
+    },
+    "calibration": {
+      "n": 2478,
+      "label_counts": {
+        "1": 1244,
+        "0": 1234
+      },
+      "word_count_quantiles": {
+        "0.0": 31.0,
+        "0.25": 125.0,
+        "0.5": 173.0,
+        "0.75": 289.75,
+        "0.95": 597.0,
+        "1.0": 1184.0
+      },
+      "sha256": "5800463d3be72024ab5f372baf4b81139955a9113220463c89bec758a045d17d"
+    },
+    "test": {
+      "n": 25000,
+      "label_counts": {
+        "0": 12500,
+        "1": 12500
+      },
+      "word_count_quantiles": {
+        "0.0": 4.0,
+        "0.25": 125.0,
+        "0.5": 170.0,
+        "0.75": 274.0,
+        "0.95": 576.0,
+        "1.0": 2235.0
+      },
+      "sha256": "491f3801523a42232e584bb2e732d08b2269e34e474161c153a73c2068fd887a"
+    }
+  },
+  "audit": {
+    "official_train_n": 25000,
+    "official_test_n": 25000,
+    "train_rows_matching_test_text": 123,
+    "conflicting_train_rows_excluded": 0,
+    "duplicate_train_rows_excluded": 98,
+    "retained_train_pool_n": 24779,
+    "duplicate_test_rows_retained": 201,
+    "test_policy": "Original test retained. Training duplicates removed using test text hashes only."
+  },
+  "unsupervised_reviews_used": false,
+  "neutral_class": "Absent. Probability close to 0.5 means uncertainty, not a neutral ground-truth label.",
+  "roles": {
+    "train": "fit vocabulary and weights",
+    "validation": "choose hyperparameters and checkpoints",
+    "calibration": "fit temperature only, after selection",
+    "test": "locked final evaluation and post-hoc descriptive analysis"
+  }
+}

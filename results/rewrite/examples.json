@@ -1,0 +1,2452 @@
+[
+  {
+    "id": "neutral_a",
+    "kind": "synthetic_neutral",
+    "method": "rfm_agop",
+    "alpha": -8,
+    "original": "The movie was ordinary and the acting was average.",
+    "masked_input": "[CLS] the movie was [MASK] and the acting was [MASK]. [SEP]",
+    "edited": "the movie was cancelled and the acting was cancelled.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "cancelled",
+          "suspended",
+          "banned"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "cancelled",
+          "suspended",
+          "cut"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.05613400717673281,
+    "tfidf_edited_p_positive": 0.3502624538834704,
+    "cnn_original_p_positive": 0.43968465924263,
+    "cnn_edited_p_positive": 0.22552083432674408,
+    "bert_original_p_positive": 0.0500430092215538,
+    "bert_edited_p_positive": 0.36903443932533264,
+    "semantic_cosine_to_original": 0.503853440284729,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_a",
+    "kind": "synthetic_neutral",
+    "method": "rfm_agop",
+    "alpha": -4,
+    "original": "The movie was ordinary and the acting was average.",
+    "masked_input": "[CLS] the movie was [MASK] and the acting was [MASK]. [SEP]",
+    "edited": "the movie was cancelled and the acting was cancelled.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "cancelled",
+          "banned",
+          "bad"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "cancelled",
+          "cut",
+          "suspended"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.05613400717673281,
+    "tfidf_edited_p_positive": 0.3502624538834704,
+    "cnn_original_p_positive": 0.43968465924263,
+    "cnn_edited_p_positive": 0.22552083432674408,
+    "bert_original_p_positive": 0.0500430092215538,
+    "bert_edited_p_positive": 0.36903443932533264,
+    "semantic_cosine_to_original": 0.503853440284729,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_a",
+    "kind": "synthetic_neutral",
+    "method": "rfm_agop",
+    "alpha": -2,
+    "original": "The movie was ordinary and the acting was average.",
+    "masked_input": "[CLS] the movie was [MASK] and the acting was [MASK]. [SEP]",
+    "edited": "the movie was bad and the acting was bad.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "bad",
+          "banned",
+          "poor"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "bad",
+          "worst",
+          "awful"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.05613400717673281,
+    "tfidf_edited_p_positive": 9.709947097396122e-05,
+    "cnn_original_p_positive": 0.43968465924263,
+    "cnn_edited_p_positive": 0.014597112312912941,
+    "bert_original_p_positive": 0.0500430092215538,
+    "bert_edited_p_positive": 0.0384083166718483,
+    "semantic_cosine_to_original": 0.6285372972488403,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_a",
+    "kind": "synthetic_neutral",
+    "method": "rfm_agop",
+    "alpha": 0,
+    "original": "The movie was ordinary and the acting was average.",
+    "masked_input": "[CLS] the movie was [MASK] and the acting was [MASK]. [SEP]",
+    "edited": "the movie was successful and the acting was praised.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "praised",
+          "released"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "praised",
+          "excellent",
+          "successful"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.05613400717673281,
+    "tfidf_edited_p_positive": 0.09577140036630559,
+    "cnn_original_p_positive": 0.43968465924263,
+    "cnn_edited_p_positive": 0.25228169560432434,
+    "bert_original_p_positive": 0.0500430092215538,
+    "bert_edited_p_positive": 0.9048307538032532,
+    "semantic_cosine_to_original": 0.538209080696106,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_a",
+    "kind": "synthetic_neutral",
+    "method": "rfm_agop",
+    "alpha": 2,
+    "original": "The movie was ordinary and the acting was average.",
+    "masked_input": "[CLS] the movie was [MASK] and the acting was [MASK]. [SEP]",
+    "edited": "the movie was successful and the acting was excellent.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "praised",
+          "popular"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "excellent",
+          "praised",
+          "successful"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.05613400717673281,
+    "tfidf_edited_p_positive": 0.8943107608147807,
+    "cnn_original_p_positive": 0.43968465924263,
+    "cnn_edited_p_positive": 0.5376293659210205,
+    "bert_original_p_positive": 0.0500430092215538,
+    "bert_edited_p_positive": 0.9074755907058716,
+    "semantic_cosine_to_original": 0.6337468028068542,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_a",
+    "kind": "synthetic_neutral",
+    "method": "rfm_agop",
+    "alpha": 4,
+    "original": "The movie was ordinary and the acting was average.",
+    "masked_input": "[CLS] the movie was [MASK] and the acting was [MASK]. [SEP]",
+    "edited": "the movie was successful and the acting was excellent.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "popular",
+          "praised"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "excellent",
+          "praised",
+          "successful"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.05613400717673281,
+    "tfidf_edited_p_positive": 0.8943107608147807,
+    "cnn_original_p_positive": 0.43968465924263,
+    "cnn_edited_p_positive": 0.5376293659210205,
+    "bert_original_p_positive": 0.0500430092215538,
+    "bert_edited_p_positive": 0.9074755907058716,
+    "semantic_cosine_to_original": 0.6337468028068542,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_a",
+    "kind": "synthetic_neutral",
+    "method": "rfm_agop",
+    "alpha": 8,
+    "original": "The movie was ordinary and the acting was average.",
+    "masked_input": "[CLS] the movie was [MASK] and the acting was [MASK]. [SEP]",
+    "edited": "the movie was successful and the acting was strong.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "popular",
+          "celebrated"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "strong",
+          "excellent",
+          "superb"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.05613400717673281,
+    "tfidf_edited_p_positive": 0.3879307781595593,
+    "cnn_original_p_positive": 0.43968465924263,
+    "cnn_edited_p_positive": 0.425414502620697,
+    "bert_original_p_positive": 0.0500430092215538,
+    "bert_edited_p_positive": 0.8875920176506042,
+    "semantic_cosine_to_original": 0.5947710275650024,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_a",
+    "kind": "synthetic_neutral",
+    "method": "random_1",
+    "alpha": -8,
+    "original": "The movie was ordinary and the acting was average.",
+    "masked_input": "[CLS] the movie was [MASK] and the acting was [MASK]. [SEP]",
+    "edited": "the movie was successful and the acting was successful.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "unsuccessful",
+          "slow"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "successful",
+          "popular",
+          "good"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.05613400717673281,
+    "tfidf_edited_p_positive": 0.08584933607263376,
+    "cnn_original_p_positive": 0.43968465924263,
+    "cnn_edited_p_positive": 0.25481605529785156,
+    "bert_original_p_positive": 0.0500430092215538,
+    "bert_edited_p_positive": 0.8335233330726624,
+    "semantic_cosine_to_original": 0.5835703611373901,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_a",
+    "kind": "synthetic_neutral",
+    "method": "random_1",
+    "alpha": -4,
+    "original": "The movie was ordinary and the acting was average.",
+    "masked_input": "[CLS] the movie was [MASK] and the acting was [MASK]. [SEP]",
+    "edited": "the movie was successful and the acting was successful.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "released",
+          "good"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "successful",
+          "excellent",
+          "popular"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.05613400717673281,
+    "tfidf_edited_p_positive": 0.08584933607263376,
+    "cnn_original_p_positive": 0.43968465924263,
+    "cnn_edited_p_positive": 0.25481605529785156,
+    "bert_original_p_positive": 0.0500430092215538,
+    "bert_edited_p_positive": 0.8335233330726624,
+    "semantic_cosine_to_original": 0.5835703611373901,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_a",
+    "kind": "synthetic_neutral",
+    "method": "random_1",
+    "alpha": -2,
+    "original": "The movie was ordinary and the acting was average.",
+    "masked_input": "[CLS] the movie was [MASK] and the acting was [MASK]. [SEP]",
+    "edited": "the movie was successful and the acting was praised.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "released",
+          "good"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "praised",
+          "excellent",
+          "successful"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.05613400717673281,
+    "tfidf_edited_p_positive": 0.09577140036630559,
+    "cnn_original_p_positive": 0.43968465924263,
+    "cnn_edited_p_positive": 0.25228169560432434,
+    "bert_original_p_positive": 0.0500430092215538,
+    "bert_edited_p_positive": 0.9048307538032532,
+    "semantic_cosine_to_original": 0.538209080696106,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_a",
+    "kind": "synthetic_neutral",
+    "method": "random_1",
+    "alpha": 0,
+    "original": "The movie was ordinary and the acting was average.",
+    "masked_input": "[CLS] the movie was [MASK] and the acting was [MASK]. [SEP]",
+    "edited": "the movie was successful and the acting was praised.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "praised",
+          "released"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "praised",
+          "excellent",
+          "successful"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.05613400717673281,
+    "tfidf_edited_p_positive": 0.09577140036630559,
+    "cnn_original_p_positive": 0.43968465924263,
+    "cnn_edited_p_positive": 0.25228169560432434,
+    "bert_original_p_positive": 0.0500430092215538,
+    "bert_edited_p_positive": 0.9048307538032532,
+    "semantic_cosine_to_original": 0.538209080696106,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_a",
+    "kind": "synthetic_neutral",
+    "method": "random_1",
+    "alpha": 2,
+    "original": "The movie was ordinary and the acting was average.",
+    "masked_input": "[CLS] the movie was [MASK] and the acting was [MASK]. [SEP]",
+    "edited": "the movie was praised and the acting was praised.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "praised",
+          "successful",
+          "good"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "praised",
+          "excellent",
+          "outstanding"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.05613400717673281,
+    "tfidf_edited_p_positive": 0.08472192611054156,
+    "cnn_original_p_positive": 0.43968465924263,
+    "cnn_edited_p_positive": 0.1886134147644043,
+    "bert_original_p_positive": 0.0500430092215538,
+    "bert_edited_p_positive": 0.9257402420043945,
+    "semantic_cosine_to_original": 0.5046268105506897,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_a",
+    "kind": "synthetic_neutral",
+    "method": "random_1",
+    "alpha": 4,
+    "original": "The movie was ordinary and the acting was average.",
+    "masked_input": "[CLS] the movie was [MASK] and the acting was [MASK]. [SEP]",
+    "edited": "the movie was praised and the acting was praised.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "praised",
+          "successful",
+          "excellent"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "praised",
+          "outstanding",
+          "excellent"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.05613400717673281,
+    "tfidf_edited_p_positive": 0.08472192611054156,
+    "cnn_original_p_positive": 0.43968465924263,
+    "cnn_edited_p_positive": 0.1886134147644043,
+    "bert_original_p_positive": 0.0500430092215538,
+    "bert_edited_p_positive": 0.9257402420043945,
+    "semantic_cosine_to_original": 0.5046268105506897,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_a",
+    "kind": "synthetic_neutral",
+    "method": "random_1",
+    "alpha": 8,
+    "original": "The movie was ordinary and the acting was average.",
+    "masked_input": "[CLS] the movie was [MASK] and the acting was [MASK]. [SEP]",
+    "edited": "the movie was praised and the acting was outstanding.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "praised",
+          "appreciated",
+          "excellent"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "outstanding",
+          "praised",
+          "excellent"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.05613400717673281,
+    "tfidf_edited_p_positive": 0.42057448621596516,
+    "cnn_original_p_positive": 0.43968465924263,
+    "cnn_edited_p_positive": 0.35816675424575806,
+    "bert_original_p_positive": 0.0500430092215538,
+    "bert_edited_p_positive": 0.9520308971405029,
+    "semantic_cosine_to_original": 0.5813953876495361,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_b",
+    "kind": "synthetic_neutral",
+    "method": "rfm_agop",
+    "alpha": -8,
+    "original": "The story was simple and the ending was predictable.",
+    "masked_input": "[CLS] the story was [MASK] and the ending was [MASK]. [SEP]",
+    "edited": "the story was cancelled and the ending was cancelled.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "cancelled",
+          "suspended",
+          "cut"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "cancelled",
+          "scrapped",
+          "cut"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.5042483063272611,
+    "tfidf_edited_p_positive": 0.7986283046957192,
+    "cnn_original_p_positive": 0.8633745908737183,
+    "cnn_edited_p_positive": 0.39933088421821594,
+    "bert_original_p_positive": 0.04598934203386307,
+    "bert_edited_p_positive": 0.44864287972450256,
+    "semantic_cosine_to_original": 0.6040787696838379,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_b",
+    "kind": "synthetic_neutral",
+    "method": "rfm_agop",
+    "alpha": -4,
+    "original": "The story was simple and the ending was predictable.",
+    "masked_input": "[CLS] the story was [MASK] and the ending was [MASK]. [SEP]",
+    "edited": "the story was cut and the ending was cut.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "cut",
+          "cancelled",
+          "suspended"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "cut",
+          "edited",
+          "changed"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.5042483063272611,
+    "tfidf_edited_p_positive": 0.591613635528695,
+    "cnn_original_p_positive": 0.8633745908737183,
+    "cnn_edited_p_positive": 0.4183498024940491,
+    "bert_original_p_positive": 0.04598934203386307,
+    "bert_edited_p_positive": 0.31678634881973267,
+    "semantic_cosine_to_original": 0.6700555682182312,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_b",
+    "kind": "synthetic_neutral",
+    "method": "rfm_agop",
+    "alpha": -2,
+    "original": "The story was simple and the ending was predictable.",
+    "masked_input": "[CLS] the story was [MASK] and the ending was [MASK]. [SEP]",
+    "edited": "the story was cut and the ending was changed.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "cut",
+          "cancelled",
+          "suspended"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "changed",
+          "cut",
+          "edited"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.5042483063272611,
+    "tfidf_edited_p_positive": 0.6534554221359089,
+    "cnn_original_p_positive": 0.8633745908737183,
+    "cnn_edited_p_positive": 0.3926498591899872,
+    "bert_original_p_positive": 0.04598934203386307,
+    "bert_edited_p_positive": 0.34605297446250916,
+    "semantic_cosine_to_original": 0.6611307859420776,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_b",
+    "kind": "synthetic_neutral",
+    "method": "rfm_agop",
+    "alpha": 0,
+    "original": "The story was simple and the ending was predictable.",
+    "masked_input": "[CLS] the story was [MASK] and the ending was [MASK]. [SEP]",
+    "edited": "the story was changed and the ending was changed.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "changed",
+          "cut",
+          "cancelled"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "changed",
+          "altered",
+          "removed"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.5042483063272611,
+    "tfidf_edited_p_positive": 0.6958837691560691,
+    "cnn_original_p_positive": 0.8633745908737183,
+    "cnn_edited_p_positive": 0.5425745844841003,
+    "bert_original_p_positive": 0.04598934203386307,
+    "bert_edited_p_positive": 0.5342426300048828,
+    "semantic_cosine_to_original": 0.6706626415252686,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_b",
+    "kind": "synthetic_neutral",
+    "method": "rfm_agop",
+    "alpha": 2,
+    "original": "The story was simple and the ending was predictable.",
+    "masked_input": "[CLS] the story was [MASK] and the ending was [MASK]. [SEP]",
+    "edited": "the story was released and the ending was released.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "released",
+          "changed",
+          "praised"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "released",
+          "revealed",
+          "announced"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.5042483063272611,
+    "tfidf_edited_p_positive": 0.7921605445554686,
+    "cnn_original_p_positive": 0.8633745908737183,
+    "cnn_edited_p_positive": 0.7448824644088745,
+    "bert_original_p_positive": 0.04598934203386307,
+    "bert_edited_p_positive": 0.7551167607307434,
+    "semantic_cosine_to_original": 0.6440187692642212,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_b",
+    "kind": "synthetic_neutral",
+    "method": "rfm_agop",
+    "alpha": 4,
+    "original": "The story was simple and the ending was predictable.",
+    "masked_input": "[CLS] the story was [MASK] and the ending was [MASK]. [SEP]",
+    "edited": "the story was released and the ending was released.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "released",
+          "praised",
+          "successful"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "released",
+          "announced",
+          "confirmed"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.5042483063272611,
+    "tfidf_edited_p_positive": 0.7921605445554686,
+    "cnn_original_p_positive": 0.8633745908737183,
+    "cnn_edited_p_positive": 0.7448824644088745,
+    "bert_original_p_positive": 0.04598934203386307,
+    "bert_edited_p_positive": 0.7551167607307434,
+    "semantic_cosine_to_original": 0.6440187692642212,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_b",
+    "kind": "synthetic_neutral",
+    "method": "rfm_agop",
+    "alpha": 8,
+    "original": "The story was simple and the ending was predictable.",
+    "masked_input": "[CLS] the story was [MASK] and the ending was [MASK]. [SEP]",
+    "edited": "the story was continued and the ending was celebrated.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "continued",
+          "successful",
+          "completed"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "celebrated",
+          "continued",
+          "released"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.5042483063272611,
+    "tfidf_edited_p_positive": 0.48862458777986106,
+    "cnn_original_p_positive": 0.8633745908737183,
+    "cnn_edited_p_positive": 0.5874125957489014,
+    "bert_original_p_positive": 0.04598934203386307,
+    "bert_edited_p_positive": 0.9105715155601501,
+    "semantic_cosine_to_original": 0.5992516279220581,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_b",
+    "kind": "synthetic_neutral",
+    "method": "random_1",
+    "alpha": -8,
+    "original": "The story was simple and the ending was predictable.",
+    "masked_input": "[CLS] the story was [MASK] and the ending was [MASK]. [SEP]",
+    "edited": "the story was cancelled and the ending was cancelled.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "cancelled",
+          "stopped",
+          "halted"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "cancelled",
+          "canceled",
+          "scrapped"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.5042483063272611,
+    "tfidf_edited_p_positive": 0.7986283046957192,
+    "cnn_original_p_positive": 0.8633745908737183,
+    "cnn_edited_p_positive": 0.39933088421821594,
+    "bert_original_p_positive": 0.04598934203386307,
+    "bert_edited_p_positive": 0.44864287972450256,
+    "semantic_cosine_to_original": 0.6040787696838379,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_b",
+    "kind": "synthetic_neutral",
+    "method": "random_1",
+    "alpha": -4,
+    "original": "The story was simple and the ending was predictable.",
+    "masked_input": "[CLS] the story was [MASK] and the ending was [MASK]. [SEP]",
+    "edited": "the story was cancelled and the ending was cancelled.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "cancelled",
+          "changed",
+          "cut"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "cancelled",
+          "scrapped",
+          "canceled"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.5042483063272611,
+    "tfidf_edited_p_positive": 0.7986283046957192,
+    "cnn_original_p_positive": 0.8633745908737183,
+    "cnn_edited_p_positive": 0.39933088421821594,
+    "bert_original_p_positive": 0.04598934203386307,
+    "bert_edited_p_positive": 0.44864287972450256,
+    "semantic_cosine_to_original": 0.6040787696838379,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_b",
+    "kind": "synthetic_neutral",
+    "method": "random_1",
+    "alpha": -2,
+    "original": "The story was simple and the ending was predictable.",
+    "masked_input": "[CLS] the story was [MASK] and the ending was [MASK]. [SEP]",
+    "edited": "the story was changed and the ending was changed.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "changed",
+          "cancelled",
+          "cut"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "changed",
+          "altered",
+          "removed"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.5042483063272611,
+    "tfidf_edited_p_positive": 0.6958837691560691,
+    "cnn_original_p_positive": 0.8633745908737183,
+    "cnn_edited_p_positive": 0.5425745844841003,
+    "bert_original_p_positive": 0.04598934203386307,
+    "bert_edited_p_positive": 0.5342426300048828,
+    "semantic_cosine_to_original": 0.6706626415252686,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_b",
+    "kind": "synthetic_neutral",
+    "method": "random_1",
+    "alpha": 0,
+    "original": "The story was simple and the ending was predictable.",
+    "masked_input": "[CLS] the story was [MASK] and the ending was [MASK]. [SEP]",
+    "edited": "the story was changed and the ending was changed.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "changed",
+          "cut",
+          "cancelled"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "changed",
+          "altered",
+          "removed"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.5042483063272611,
+    "tfidf_edited_p_positive": 0.6958837691560691,
+    "cnn_original_p_positive": 0.8633745908737183,
+    "cnn_edited_p_positive": 0.5425745844841003,
+    "bert_original_p_positive": 0.04598934203386307,
+    "bert_edited_p_positive": 0.5342426300048828,
+    "semantic_cosine_to_original": 0.6706626415252686,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_b",
+    "kind": "synthetic_neutral",
+    "method": "random_1",
+    "alpha": 2,
+    "original": "The story was simple and the ending was predictable.",
+    "masked_input": "[CLS] the story was [MASK] and the ending was [MASK]. [SEP]",
+    "edited": "the story was changed and the ending was changed.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "changed",
+          "cut",
+          "altered"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "changed",
+          "altered",
+          "removed"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.5042483063272611,
+    "tfidf_edited_p_positive": 0.6958837691560691,
+    "cnn_original_p_positive": 0.8633745908737183,
+    "cnn_edited_p_positive": 0.5425745844841003,
+    "bert_original_p_positive": 0.04598934203386307,
+    "bert_edited_p_positive": 0.5342426300048828,
+    "semantic_cosine_to_original": 0.6706626415252686,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_b",
+    "kind": "synthetic_neutral",
+    "method": "random_1",
+    "alpha": 4,
+    "original": "The story was simple and the ending was predictable.",
+    "masked_input": "[CLS] the story was [MASK] and the ending was [MASK]. [SEP]",
+    "edited": "the story was changed and the ending was changed.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "changed",
+          "cut",
+          "altered"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "changed",
+          "altered",
+          "removed"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.5042483063272611,
+    "tfidf_edited_p_positive": 0.6958837691560691,
+    "cnn_original_p_positive": 0.8633745908737183,
+    "cnn_edited_p_positive": 0.5425745844841003,
+    "bert_original_p_positive": 0.04598934203386307,
+    "bert_edited_p_positive": 0.5342426300048828,
+    "semantic_cosine_to_original": 0.6706626415252686,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "neutral_b",
+    "kind": "synthetic_neutral",
+    "method": "random_1",
+    "alpha": 8,
+    "original": "The story was simple and the ending was predictable.",
+    "masked_input": "[CLS] the story was [MASK] and the ending was [MASK]. [SEP]",
+    "edited": "the story was praised and the ending was praised.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "praised",
+          "changed",
+          "improved"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "praised",
+          "commended",
+          "outstanding"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.5042483063272611,
+    "tfidf_edited_p_positive": 0.6442749078753036,
+    "cnn_original_p_positive": 0.8633745908737183,
+    "cnn_edited_p_positive": 0.3495056927204132,
+    "bert_original_p_positive": 0.04598934203386307,
+    "bert_edited_p_positive": 0.9293655753135681,
+    "semantic_cosine_to_original": 0.571120023727417,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_a",
+    "kind": "synthetic_negative",
+    "method": "rfm_agop",
+    "alpha": -8,
+    "original": "The acting was terrible and the story was boring.",
+    "masked_input": "[CLS] the acting was [MASK] and the story was [MASK]. [SEP]",
+    "edited": "the acting was suspended and the story was suspended.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "suspended",
+          "cut",
+          "banned"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "suspended",
+          "cancelled",
+          "banned"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.00023757575567454265,
+    "tfidf_edited_p_positive": 0.20742328774347119,
+    "cnn_original_p_positive": 0.0055567133240401745,
+    "cnn_edited_p_positive": 0.3443445563316345,
+    "bert_original_p_positive": 0.035401601344347,
+    "bert_edited_p_positive": 0.40285056829452515,
+    "semantic_cosine_to_original": 0.44589826464653015,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_a",
+    "kind": "synthetic_negative",
+    "method": "rfm_agop",
+    "alpha": -4,
+    "original": "The acting was terrible and the story was boring.",
+    "masked_input": "[CLS] the acting was [MASK] and the story was [MASK]. [SEP]",
+    "edited": "the acting was suspended and the story was suspended.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "suspended",
+          "cut",
+          "bad"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "suspended",
+          "cancelled",
+          "cut"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.00023757575567454265,
+    "tfidf_edited_p_positive": 0.20742328774347119,
+    "cnn_original_p_positive": 0.0055567133240401745,
+    "cnn_edited_p_positive": 0.3443445563316345,
+    "bert_original_p_positive": 0.035401601344347,
+    "bert_edited_p_positive": 0.40285056829452515,
+    "semantic_cosine_to_original": 0.44589826464653015,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_a",
+    "kind": "synthetic_negative",
+    "method": "rfm_agop",
+    "alpha": -2,
+    "original": "The acting was terrible and the story was boring.",
+    "masked_input": "[CLS] the acting was [MASK] and the story was [MASK]. [SEP]",
+    "edited": "the acting was bad and the story was bad.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "bad",
+          "suspended",
+          "cut"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "bad",
+          "broken",
+          "dead"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.00023757575567454265,
+    "tfidf_edited_p_positive": 0.00038903366890914194,
+    "cnn_original_p_positive": 0.0055567133240401745,
+    "cnn_edited_p_positive": 0.020649034529924393,
+    "bert_original_p_positive": 0.035401601344347,
+    "bert_edited_p_positive": 0.043920110911130905,
+    "semantic_cosine_to_original": 0.8226817846298218,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_a",
+    "kind": "synthetic_negative",
+    "method": "rfm_agop",
+    "alpha": 0,
+    "original": "The acting was terrible and the story was boring.",
+    "masked_input": "[CLS] the acting was [MASK] and the story was [MASK]. [SEP]",
+    "edited": "the acting was good and the story was good.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "good",
+          "praised",
+          "excellent"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "good",
+          "solid",
+          "excellent"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.00023757575567454265,
+    "tfidf_edited_p_positive": 0.7856755201986207,
+    "cnn_original_p_positive": 0.0055567133240401745,
+    "cnn_edited_p_positive": 0.5025830268859863,
+    "bert_original_p_positive": 0.035401601344347,
+    "bert_edited_p_positive": 0.947338879108429,
+    "semantic_cosine_to_original": 0.7358614206314087,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_a",
+    "kind": "synthetic_negative",
+    "method": "rfm_agop",
+    "alpha": 2,
+    "original": "The acting was terrible and the story was boring.",
+    "masked_input": "[CLS] the acting was [MASK] and the story was [MASK]. [SEP]",
+    "edited": "the acting was excellent and the story was outstanding.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "excellent",
+          "good",
+          "praised"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "outstanding",
+          "fantastic",
+          "wonderful"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.00023757575567454265,
+    "tfidf_edited_p_positive": 0.9937324561638319,
+    "cnn_original_p_positive": 0.0055567133240401745,
+    "cnn_edited_p_positive": 0.9904236197471619,
+    "bert_original_p_positive": 0.035401601344347,
+    "bert_edited_p_positive": 0.9633330702781677,
+    "semantic_cosine_to_original": 0.6778378486633301,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_a",
+    "kind": "synthetic_negative",
+    "method": "rfm_agop",
+    "alpha": 4,
+    "original": "The acting was terrible and the story was boring.",
+    "masked_input": "[CLS] the acting was [MASK] and the story was [MASK]. [SEP]",
+    "edited": "the acting was excellent and the story was wonderful.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "excellent",
+          "fine",
+          "good"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "wonderful",
+          "engaging",
+          "fun"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.00023757575567454265,
+    "tfidf_edited_p_positive": 0.9981405301109826,
+    "cnn_original_p_positive": 0.0055567133240401745,
+    "cnn_edited_p_positive": 0.9933748841285706,
+    "bert_original_p_positive": 0.035401601344347,
+    "bert_edited_p_positive": 0.9694949984550476,
+    "semantic_cosine_to_original": 0.6881784200668335,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_a",
+    "kind": "synthetic_negative",
+    "method": "rfm_agop",
+    "alpha": 8,
+    "original": "The acting was terrible and the story was boring.",
+    "masked_input": "[CLS] the acting was [MASK] and the story was [MASK]. [SEP]",
+    "edited": "the acting was fine and the story was wonderful.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "fine",
+          "excellent",
+          "strong"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "wonderful",
+          "solid",
+          "fine"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.00023757575567454265,
+    "tfidf_edited_p_positive": 0.9393572118200905,
+    "cnn_original_p_positive": 0.0055567133240401745,
+    "cnn_edited_p_positive": 0.8516555428504944,
+    "bert_original_p_positive": 0.035401601344347,
+    "bert_edited_p_positive": 0.9616332054138184,
+    "semantic_cosine_to_original": 0.7208282351493835,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_a",
+    "kind": "synthetic_negative",
+    "method": "random_1",
+    "alpha": -8,
+    "original": "The acting was terrible and the story was boring.",
+    "masked_input": "[CLS] the acting was [MASK] and the story was [MASK]. [SEP]",
+    "edited": "the acting was bad and the story was bad.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "bad",
+          "illegal",
+          "poor"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "bad",
+          "worst",
+          "awful"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.00023757575567454265,
+    "tfidf_edited_p_positive": 0.00038903366890914194,
+    "cnn_original_p_positive": 0.0055567133240401745,
+    "cnn_edited_p_positive": 0.020649034529924393,
+    "bert_original_p_positive": 0.035401601344347,
+    "bert_edited_p_positive": 0.043920110911130905,
+    "semantic_cosine_to_original": 0.8226817846298218,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_a",
+    "kind": "synthetic_negative",
+    "method": "random_1",
+    "alpha": -4,
+    "original": "The acting was terrible and the story was boring.",
+    "masked_input": "[CLS] the acting was [MASK] and the story was [MASK]. [SEP]",
+    "edited": "the acting was bad and the story was bad.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "bad",
+          "poor",
+          "good"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "bad",
+          "awful",
+          "dead"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.00023757575567454265,
+    "tfidf_edited_p_positive": 0.00038903366890914194,
+    "cnn_original_p_positive": 0.0055567133240401745,
+    "cnn_edited_p_positive": 0.020649034529924393,
+    "bert_original_p_positive": 0.035401601344347,
+    "bert_edited_p_positive": 0.043920110911130905,
+    "semantic_cosine_to_original": 0.8226817846298218,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_a",
+    "kind": "synthetic_negative",
+    "method": "random_1",
+    "alpha": -2,
+    "original": "The acting was terrible and the story was boring.",
+    "masked_input": "[CLS] the acting was [MASK] and the story was [MASK]. [SEP]",
+    "edited": "the acting was good and the story was good.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "good",
+          "poor",
+          "fine"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "good",
+          "solid",
+          "excellent"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.00023757575567454265,
+    "tfidf_edited_p_positive": 0.7856755201986207,
+    "cnn_original_p_positive": 0.0055567133240401745,
+    "cnn_edited_p_positive": 0.5025830268859863,
+    "bert_original_p_positive": 0.035401601344347,
+    "bert_edited_p_positive": 0.947338879108429,
+    "semantic_cosine_to_original": 0.7358614206314087,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_a",
+    "kind": "synthetic_negative",
+    "method": "random_1",
+    "alpha": 0,
+    "original": "The acting was terrible and the story was boring.",
+    "masked_input": "[CLS] the acting was [MASK] and the story was [MASK]. [SEP]",
+    "edited": "the acting was good and the story was good.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "good",
+          "praised",
+          "excellent"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "good",
+          "solid",
+          "excellent"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.00023757575567454265,
+    "tfidf_edited_p_positive": 0.7856755201986207,
+    "cnn_original_p_positive": 0.0055567133240401745,
+    "cnn_edited_p_positive": 0.5025830268859863,
+    "bert_original_p_positive": 0.035401601344347,
+    "bert_edited_p_positive": 0.947338879108429,
+    "semantic_cosine_to_original": 0.7358614206314087,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_a",
+    "kind": "synthetic_negative",
+    "method": "random_1",
+    "alpha": 2,
+    "original": "The acting was terrible and the story was boring.",
+    "masked_input": "[CLS] the acting was [MASK] and the story was [MASK]. [SEP]",
+    "edited": "the acting was praised and the story was praised.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "praised",
+          "excellent",
+          "good"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "praised",
+          "enjoyable",
+          "positive"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.00023757575567454265,
+    "tfidf_edited_p_positive": 0.21898305941585888,
+    "cnn_original_p_positive": 0.0055567133240401745,
+    "cnn_edited_p_positive": 0.2798752188682556,
+    "bert_original_p_positive": 0.035401601344347,
+    "bert_edited_p_positive": 0.929729163646698,
+    "semantic_cosine_to_original": 0.5101591348648071,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_a",
+    "kind": "synthetic_negative",
+    "method": "random_1",
+    "alpha": 4,
+    "original": "The acting was terrible and the story was boring.",
+    "masked_input": "[CLS] the acting was [MASK] and the story was [MASK]. [SEP]",
+    "edited": "the acting was praised and the story was praised.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "praised",
+          "excellent",
+          "fine"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "praised",
+          "outstanding",
+          "positive"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.00023757575567454265,
+    "tfidf_edited_p_positive": 0.21898305941585888,
+    "cnn_original_p_positive": 0.0055567133240401745,
+    "cnn_edited_p_positive": 0.2798752188682556,
+    "bert_original_p_positive": 0.035401601344347,
+    "bert_edited_p_positive": 0.929729163646698,
+    "semantic_cosine_to_original": 0.5101591348648071,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_a",
+    "kind": "synthetic_negative",
+    "method": "random_1",
+    "alpha": 8,
+    "original": "The acting was terrible and the story was boring.",
+    "masked_input": "[CLS] the acting was [MASK] and the story was [MASK]. [SEP]",
+    "edited": "the acting was praised and the story was outstanding.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "praised",
+          "excellent",
+          "fine"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "outstanding",
+          "praised",
+          "appreciated"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.00023757575567454265,
+    "tfidf_edited_p_positive": 0.6614357533029078,
+    "cnn_original_p_positive": 0.0055567133240401745,
+    "cnn_edited_p_positive": 0.5031139850616455,
+    "bert_original_p_positive": 0.035401601344347,
+    "bert_edited_p_positive": 0.9533523917198181,
+    "semantic_cosine_to_original": 0.5518379807472229,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_b",
+    "kind": "synthetic_negative",
+    "method": "rfm_agop",
+    "alpha": -8,
+    "original": "The movie was dull and the performances were poor.",
+    "masked_input": "[CLS] the movie was [MASK] and the performances were [MASK]. [SEP]",
+    "edited": "the movie was cancelled and the performances were cancelled.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "cancelled",
+          "suspended",
+          "banned"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "cancelled",
+          "suspended",
+          "canceled"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.0008986494506057632,
+    "tfidf_edited_p_positive": 0.7035799110742965,
+    "cnn_original_p_positive": 0.33826932311058044,
+    "cnn_edited_p_positive": 0.6705115437507629,
+    "bert_original_p_positive": 0.0492556095123291,
+    "bert_edited_p_positive": 0.4951607882976532,
+    "semantic_cosine_to_original": 0.4523974657058716,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_b",
+    "kind": "synthetic_negative",
+    "method": "rfm_agop",
+    "alpha": -4,
+    "original": "The movie was dull and the performances were poor.",
+    "masked_input": "[CLS] the movie was [MASK] and the performances were [MASK]. [SEP]",
+    "edited": "the movie was cancelled and the performances were cancelled.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "cancelled",
+          "banned",
+          "cut"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "cancelled",
+          "suspended",
+          "canceled"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.0008986494506057632,
+    "tfidf_edited_p_positive": 0.7035799110742965,
+    "cnn_original_p_positive": 0.33826932311058044,
+    "cnn_edited_p_positive": 0.6705115437507629,
+    "bert_original_p_positive": 0.0492556095123291,
+    "bert_edited_p_positive": 0.4951607882976532,
+    "semantic_cosine_to_original": 0.4523974657058716,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_b",
+    "kind": "synthetic_negative",
+    "method": "rfm_agop",
+    "alpha": -2,
+    "original": "The movie was dull and the performances were poor.",
+    "masked_input": "[CLS] the movie was [MASK] and the performances were [MASK]. [SEP]",
+    "edited": "the movie was cancelled and the performances were cancelled.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "cancelled",
+          "delayed",
+          "banned"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "cancelled",
+          "canceled",
+          "suspended"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.0008986494506057632,
+    "tfidf_edited_p_positive": 0.7035799110742965,
+    "cnn_original_p_positive": 0.33826932311058044,
+    "cnn_edited_p_positive": 0.6705115437507629,
+    "bert_original_p_positive": 0.0492556095123291,
+    "bert_edited_p_positive": 0.4951607882976532,
+    "semantic_cosine_to_original": 0.4523974657058716,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_b",
+    "kind": "synthetic_negative",
+    "method": "rfm_agop",
+    "alpha": 0,
+    "original": "The movie was dull and the performances were poor.",
+    "masked_input": "[CLS] the movie was [MASK] and the performances were [MASK]. [SEP]",
+    "edited": "the movie was successful and the performances were praised.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "released",
+          "praised"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "praised",
+          "excellent",
+          "stellar"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.0008986494506057632,
+    "tfidf_edited_p_positive": 0.5448658162650948,
+    "cnn_original_p_positive": 0.33826932311058044,
+    "cnn_edited_p_positive": 0.6364696621894836,
+    "bert_original_p_positive": 0.0492556095123291,
+    "bert_edited_p_positive": 0.9259397983551025,
+    "semantic_cosine_to_original": 0.5357078313827515,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_b",
+    "kind": "synthetic_negative",
+    "method": "rfm_agop",
+    "alpha": 2,
+    "original": "The movie was dull and the performances were poor.",
+    "masked_input": "[CLS] the movie was [MASK] and the performances were [MASK]. [SEP]",
+    "edited": "the movie was successful and the performances were praised.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "praised",
+          "released"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "praised",
+          "stellar",
+          "excellent"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.0008986494506057632,
+    "tfidf_edited_p_positive": 0.5448658162650948,
+    "cnn_original_p_positive": 0.33826932311058044,
+    "cnn_edited_p_positive": 0.6364696621894836,
+    "bert_original_p_positive": 0.0492556095123291,
+    "bert_edited_p_positive": 0.9259397983551025,
+    "semantic_cosine_to_original": 0.5357078313827515,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_b",
+    "kind": "synthetic_negative",
+    "method": "rfm_agop",
+    "alpha": 4,
+    "original": "The movie was dull and the performances were poor.",
+    "masked_input": "[CLS] the movie was [MASK] and the performances were [MASK]. [SEP]",
+    "edited": "the movie was successful and the performances were praised.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "praised",
+          "popular"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "praised",
+          "stellar",
+          "strong"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.0008986494506057632,
+    "tfidf_edited_p_positive": 0.5448658162650948,
+    "cnn_original_p_positive": 0.33826932311058044,
+    "cnn_edited_p_positive": 0.6364696621894836,
+    "bert_original_p_positive": 0.0492556095123291,
+    "bert_edited_p_positive": 0.9259397983551025,
+    "semantic_cosine_to_original": 0.5357078313827515,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_b",
+    "kind": "synthetic_negative",
+    "method": "rfm_agop",
+    "alpha": 8,
+    "original": "The movie was dull and the performances were poor.",
+    "masked_input": "[CLS] the movie was [MASK] and the performances were [MASK]. [SEP]",
+    "edited": "the movie was successful and the performances were strong.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "celebrated",
+          "popular"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "strong",
+          "continued",
+          "stellar"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.0008986494506057632,
+    "tfidf_edited_p_positive": 0.8281707875533052,
+    "cnn_original_p_positive": 0.33826932311058044,
+    "cnn_edited_p_positive": 0.8342304229736328,
+    "bert_original_p_positive": 0.0492556095123291,
+    "bert_edited_p_positive": 0.9249712824821472,
+    "semantic_cosine_to_original": 0.5786697864532471,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_b",
+    "kind": "synthetic_negative",
+    "method": "random_1",
+    "alpha": -8,
+    "original": "The movie was dull and the performances were poor.",
+    "masked_input": "[CLS] the movie was [MASK] and the performances were [MASK]. [SEP]",
+    "edited": "the movie was successful and the performances were successful.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "released",
+          "sold"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "successful",
+          "popular",
+          "excellent"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.0008986494506057632,
+    "tfidf_edited_p_positive": 0.5175351149424059,
+    "cnn_original_p_positive": 0.33826932311058044,
+    "cnn_edited_p_positive": 0.645758867263794,
+    "bert_original_p_positive": 0.0492556095123291,
+    "bert_edited_p_positive": 0.8926328420639038,
+    "semantic_cosine_to_original": 0.5217205286026001,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_b",
+    "kind": "synthetic_negative",
+    "method": "random_1",
+    "alpha": -4,
+    "original": "The movie was dull and the performances were poor.",
+    "masked_input": "[CLS] the movie was [MASK] and the performances were [MASK]. [SEP]",
+    "edited": "the movie was successful and the performances were praised.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "released",
+          "popular"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "praised",
+          "excellent",
+          "popular"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.0008986494506057632,
+    "tfidf_edited_p_positive": 0.5448658162650948,
+    "cnn_original_p_positive": 0.33826932311058044,
+    "cnn_edited_p_positive": 0.6364696621894836,
+    "bert_original_p_positive": 0.0492556095123291,
+    "bert_edited_p_positive": 0.9259397983551025,
+    "semantic_cosine_to_original": 0.5357078313827515,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_b",
+    "kind": "synthetic_negative",
+    "method": "random_1",
+    "alpha": -2,
+    "original": "The movie was dull and the performances were poor.",
+    "masked_input": "[CLS] the movie was [MASK] and the performances were [MASK]. [SEP]",
+    "edited": "the movie was successful and the performances were praised.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "released",
+          "praised"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "praised",
+          "excellent",
+          "stellar"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.0008986494506057632,
+    "tfidf_edited_p_positive": 0.5448658162650948,
+    "cnn_original_p_positive": 0.33826932311058044,
+    "cnn_edited_p_positive": 0.6364696621894836,
+    "bert_original_p_positive": 0.0492556095123291,
+    "bert_edited_p_positive": 0.9259397983551025,
+    "semantic_cosine_to_original": 0.5357078313827515,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_b",
+    "kind": "synthetic_negative",
+    "method": "random_1",
+    "alpha": 0,
+    "original": "The movie was dull and the performances were poor.",
+    "masked_input": "[CLS] the movie was [MASK] and the performances were [MASK]. [SEP]",
+    "edited": "the movie was successful and the performances were praised.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "released",
+          "praised"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "praised",
+          "excellent",
+          "stellar"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.0008986494506057632,
+    "tfidf_edited_p_positive": 0.5448658162650948,
+    "cnn_original_p_positive": 0.33826932311058044,
+    "cnn_edited_p_positive": 0.6364696621894836,
+    "bert_original_p_positive": 0.0492556095123291,
+    "bert_edited_p_positive": 0.9259397983551025,
+    "semantic_cosine_to_original": 0.5357078313827515,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_b",
+    "kind": "synthetic_negative",
+    "method": "random_1",
+    "alpha": 2,
+    "original": "The movie was dull and the performances were poor.",
+    "masked_input": "[CLS] the movie was [MASK] and the performances were [MASK]. [SEP]",
+    "edited": "the movie was praised and the performances were praised.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "praised",
+          "successful",
+          "released"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "praised",
+          "outstanding",
+          "appreciated"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.0008986494506057632,
+    "tfidf_edited_p_positive": 0.5209295324078689,
+    "cnn_original_p_positive": 0.33826932311058044,
+    "cnn_edited_p_positive": 0.5837827324867249,
+    "bert_original_p_positive": 0.0492556095123291,
+    "bert_edited_p_positive": 0.9410969614982605,
+    "semantic_cosine_to_original": 0.53752201795578,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_b",
+    "kind": "synthetic_negative",
+    "method": "random_1",
+    "alpha": 4,
+    "original": "The movie was dull and the performances were poor.",
+    "masked_input": "[CLS] the movie was [MASK] and the performances were [MASK]. [SEP]",
+    "edited": "the movie was praised and the performances were praised.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "praised",
+          "successful",
+          "released"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "praised",
+          "outstanding",
+          "appreciated"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.0008986494506057632,
+    "tfidf_edited_p_positive": 0.5209295324078689,
+    "cnn_original_p_positive": 0.33826932311058044,
+    "cnn_edited_p_positive": 0.5837827324867249,
+    "bert_original_p_positive": 0.0492556095123291,
+    "bert_edited_p_positive": 0.9410969614982605,
+    "semantic_cosine_to_original": 0.53752201795578,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "negative_b",
+    "kind": "synthetic_negative",
+    "method": "random_1",
+    "alpha": 8,
+    "original": "The movie was dull and the performances were poor.",
+    "masked_input": "[CLS] the movie was [MASK] and the performances were [MASK]. [SEP]",
+    "edited": "the movie was praised and the performances were praised.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "praised",
+          "appreciated",
+          "lauded"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "praised",
+          "outstanding",
+          "strong"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.0008986494506057632,
+    "tfidf_edited_p_positive": 0.5209295324078689,
+    "cnn_original_p_positive": 0.33826932311058044,
+    "cnn_edited_p_positive": 0.5837827324867249,
+    "bert_original_p_positive": 0.0492556095123291,
+    "bert_edited_p_positive": 0.9410969614982605,
+    "semantic_cosine_to_original": 0.53752201795578,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "positive_a",
+    "kind": "synthetic_positive",
+    "method": "rfm_agop",
+    "alpha": -8,
+    "original": "The movie was wonderful and the actors were brilliant.",
+    "masked_input": "[CLS] the movie was [MASK] and the actors were [MASK]. [SEP]",
+    "edited": "the movie was cancelled and the actors were suspended.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "cancelled",
+          "suspended",
+          "banned"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "suspended",
+          "dismissed",
+          "cancelled"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.9501674475397571,
+    "tfidf_edited_p_positive": 0.22866910256702785,
+    "cnn_original_p_positive": 0.9774607419967651,
+    "cnn_edited_p_positive": 0.2898021936416626,
+    "bert_original_p_positive": 0.9724938273429871,
+    "bert_edited_p_positive": 0.41810962557792664,
+    "semantic_cosine_to_original": 0.3893146514892578,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "positive_a",
+    "kind": "synthetic_positive",
+    "method": "rfm_agop",
+    "alpha": -4,
+    "original": "The movie was wonderful and the actors were brilliant.",
+    "masked_input": "[CLS] the movie was [MASK] and the actors were [MASK]. [SEP]",
+    "edited": "the movie was cancelled and the actors were suspended.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "cancelled",
+          "banned",
+          "canceled"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "suspended",
+          "dismissed",
+          "fired"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.9501674475397571,
+    "tfidf_edited_p_positive": 0.22866910256702785,
+    "cnn_original_p_positive": 0.9774607419967651,
+    "cnn_edited_p_positive": 0.2898021936416626,
+    "bert_original_p_positive": 0.9724938273429871,
+    "bert_edited_p_positive": 0.41810962557792664,
+    "semantic_cosine_to_original": 0.3893146514892578,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "positive_a",
+    "kind": "synthetic_positive",
+    "method": "rfm_agop",
+    "alpha": -2,
+    "original": "The movie was wonderful and the actors were brilliant.",
+    "masked_input": "[CLS] the movie was [MASK] and the actors were [MASK]. [SEP]",
+    "edited": "the movie was cancelled and the actors were fired.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "cancelled",
+          "banned",
+          "delayed"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "fired",
+          "suspended",
+          "dismissed"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.9501674475397571,
+    "tfidf_edited_p_positive": 0.2441602526418596,
+    "cnn_original_p_positive": 0.9774607419967651,
+    "cnn_edited_p_positive": 0.30978620052337646,
+    "bert_original_p_positive": 0.9724938273429871,
+    "bert_edited_p_positive": 0.35952645540237427,
+    "semantic_cosine_to_original": 0.4201769530773163,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "positive_a",
+    "kind": "synthetic_positive",
+    "method": "rfm_agop",
+    "alpha": 0,
+    "original": "The movie was wonderful and the actors were brilliant.",
+    "masked_input": "[CLS] the movie was [MASK] and the actors were [MASK]. [SEP]",
+    "edited": "the movie was successful and the actors were popular.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "released",
+          "popular"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "popular",
+          "cast",
+          "successful"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.9501674475397571,
+    "tfidf_edited_p_positive": 0.14291446371646996,
+    "cnn_original_p_positive": 0.9774607419967651,
+    "cnn_edited_p_positive": 0.4783805012702942,
+    "bert_original_p_positive": 0.9724938273429871,
+    "bert_edited_p_positive": 0.8414998054504395,
+    "semantic_cosine_to_original": 0.699506938457489,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "positive_a",
+    "kind": "synthetic_positive",
+    "method": "rfm_agop",
+    "alpha": 2,
+    "original": "The movie was wonderful and the actors were brilliant.",
+    "masked_input": "[CLS] the movie was [MASK] and the actors were [MASK]. [SEP]",
+    "edited": "the movie was successful and the actors were popular.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "popular",
+          "praised"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "popular",
+          "successful",
+          "cast"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.9501674475397571,
+    "tfidf_edited_p_positive": 0.14291446371646996,
+    "cnn_original_p_positive": 0.9774607419967651,
+    "cnn_edited_p_positive": 0.4783805012702942,
+    "bert_original_p_positive": 0.9724938273429871,
+    "bert_edited_p_positive": 0.8414998054504395,
+    "semantic_cosine_to_original": 0.699506938457489,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "positive_a",
+    "kind": "synthetic_positive",
+    "method": "rfm_agop",
+    "alpha": 4,
+    "original": "The movie was wonderful and the actors were brilliant.",
+    "masked_input": "[CLS] the movie was [MASK] and the actors were [MASK]. [SEP]",
+    "edited": "the movie was successful and the actors were popular.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "popular",
+          "praised"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "popular",
+          "successful",
+          "engaged"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.9501674475397571,
+    "tfidf_edited_p_positive": 0.14291446371646996,
+    "cnn_original_p_positive": 0.9774607419967651,
+    "cnn_edited_p_positive": 0.4783805012702942,
+    "bert_original_p_positive": 0.9724938273429871,
+    "bert_edited_p_positive": 0.8414998054504395,
+    "semantic_cosine_to_original": 0.699506938457489,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "positive_a",
+    "kind": "synthetic_positive",
+    "method": "rfm_agop",
+    "alpha": 8,
+    "original": "The movie was wonderful and the actors were brilliant.",
+    "masked_input": "[CLS] the movie was [MASK] and the actors were [MASK]. [SEP]",
+    "edited": "the movie was successful and the actors were engaged.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "popular",
+          "celebrated"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "engaged",
+          "popular",
+          "successful"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.9501674475397571,
+    "tfidf_edited_p_positive": 0.10888753849280199,
+    "cnn_original_p_positive": 0.9774607419967651,
+    "cnn_edited_p_positive": 0.44023481011390686,
+    "bert_original_p_positive": 0.9724938273429871,
+    "bert_edited_p_positive": 0.8245158195495605,
+    "semantic_cosine_to_original": 0.6092772483825684,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "positive_a",
+    "kind": "synthetic_positive",
+    "method": "random_1",
+    "alpha": -8,
+    "original": "The movie was wonderful and the actors were brilliant.",
+    "masked_input": "[CLS] the movie was [MASK] and the actors were [MASK]. [SEP]",
+    "edited": "the movie was successful and the actors were successful.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "slow",
+          "free"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "successful",
+          "popular",
+          "famous"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.9501674475397571,
+    "tfidf_edited_p_positive": 0.11397914274473744,
+    "cnn_original_p_positive": 0.9774607419967651,
+    "cnn_edited_p_positive": 0.3831241726875305,
+    "bert_original_p_positive": 0.9724938273429871,
+    "bert_edited_p_positive": 0.8132277131080627,
+    "semantic_cosine_to_original": 0.7079567909240723,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "positive_a",
+    "kind": "synthetic_positive",
+    "method": "random_1",
+    "alpha": -4,
+    "original": "The movie was wonderful and the actors were brilliant.",
+    "masked_input": "[CLS] the movie was [MASK] and the actors were [MASK]. [SEP]",
+    "edited": "the movie was successful and the actors were popular.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "released",
+          "popular"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "popular",
+          "successful",
+          "hired"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.9501674475397571,
+    "tfidf_edited_p_positive": 0.14291446371646996,
+    "cnn_original_p_positive": 0.9774607419967651,
+    "cnn_edited_p_positive": 0.4783805012702942,
+    "bert_original_p_positive": 0.9724938273429871,
+    "bert_edited_p_positive": 0.8414998054504395,
+    "semantic_cosine_to_original": 0.699506938457489,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "positive_a",
+    "kind": "synthetic_positive",
+    "method": "random_1",
+    "alpha": -2,
+    "original": "The movie was wonderful and the actors were brilliant.",
+    "masked_input": "[CLS] the movie was [MASK] and the actors were [MASK]. [SEP]",
+    "edited": "the movie was successful and the actors were popular.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "released",
+          "popular"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "popular",
+          "successful",
+          "cast"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.9501674475397571,
+    "tfidf_edited_p_positive": 0.14291446371646996,
+    "cnn_original_p_positive": 0.9774607419967651,
+    "cnn_edited_p_positive": 0.4783805012702942,
+    "bert_original_p_positive": 0.9724938273429871,
+    "bert_edited_p_positive": 0.8414998054504395,
+    "semantic_cosine_to_original": 0.699506938457489,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "positive_a",
+    "kind": "synthetic_positive",
+    "method": "random_1",
+    "alpha": 0,
+    "original": "The movie was wonderful and the actors were brilliant.",
+    "masked_input": "[CLS] the movie was [MASK] and the actors were [MASK]. [SEP]",
+    "edited": "the movie was successful and the actors were popular.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "released",
+          "popular"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "popular",
+          "cast",
+          "successful"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.9501674475397571,
+    "tfidf_edited_p_positive": 0.14291446371646996,
+    "cnn_original_p_positive": 0.9774607419967651,
+    "cnn_edited_p_positive": 0.4783805012702942,
+    "bert_original_p_positive": 0.9724938273429871,
+    "bert_edited_p_positive": 0.8414998054504395,
+    "semantic_cosine_to_original": 0.699506938457489,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "positive_a",
+    "kind": "synthetic_positive",
+    "method": "random_1",
+    "alpha": 2,
+    "original": "The movie was wonderful and the actors were brilliant.",
+    "masked_input": "[CLS] the movie was [MASK] and the actors were [MASK]. [SEP]",
+    "edited": "the movie was successful and the actors were popular.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "successful",
+          "praised",
+          "filmed"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "popular",
+          "cast",
+          "successful"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.9501674475397571,
+    "tfidf_edited_p_positive": 0.14291446371646996,
+    "cnn_original_p_positive": 0.9774607419967651,
+    "cnn_edited_p_positive": 0.4783805012702942,
+    "bert_original_p_positive": 0.9724938273429871,
+    "bert_edited_p_positive": 0.8414998054504395,
+    "semantic_cosine_to_original": 0.699506938457489,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "positive_a",
+    "kind": "synthetic_positive",
+    "method": "random_1",
+    "alpha": 4,
+    "original": "The movie was wonderful and the actors were brilliant.",
+    "masked_input": "[CLS] the movie was [MASK] and the actors were [MASK]. [SEP]",
+    "edited": "the movie was praised and the actors were praised.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "praised",
+          "successful",
+          "filmed"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "praised",
+          "appreciated",
+          "impressed"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.9501674475397571,
+    "tfidf_edited_p_positive": 0.1130871290598983,
+    "cnn_original_p_positive": 0.9774607419967651,
+    "cnn_edited_p_positive": 0.27876386046409607,
+    "bert_original_p_positive": 0.9724938273429871,
+    "bert_edited_p_positive": 0.9277411699295044,
+    "semantic_cosine_to_original": 0.6809352040290833,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  },
+  {
+    "id": "positive_a",
+    "kind": "synthetic_positive",
+    "method": "random_1",
+    "alpha": 8,
+    "original": "The movie was wonderful and the actors were brilliant.",
+    "masked_input": "[CLS] the movie was [MASK] and the actors were [MASK]. [SEP]",
+    "edited": "the movie was praised and the actors were praised.",
+    "choices": [
+      {
+        "position": 4,
+        "top_tokens": [
+          "praised",
+          "filmed",
+          "successful"
+        ]
+      },
+      {
+        "position": 9,
+        "top_tokens": [
+          "praised",
+          "appreciated",
+          "impressed"
+        ]
+      }
+    ],
+    "tfidf_original_p_positive": 0.9501674475397571,
+    "tfidf_edited_p_positive": 0.1130871290598983,
+    "cnn_original_p_positive": 0.9774607419967651,
+    "cnn_edited_p_positive": 0.27876386046409607,
+    "bert_original_p_positive": 0.9724938273429871,
+    "bert_edited_p_positive": 0.9277411699295044,
+    "semantic_cosine_to_original": 0.6809352040290833,
+    "human_fluency_and_sentiment_review": "Required for a linguistic success claim; not automatically inferred from model probability."
+  }
+]

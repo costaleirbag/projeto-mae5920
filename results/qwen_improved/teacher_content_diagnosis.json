@@ -1,0 +1,16 @@
+{
+  "rows": [
+    {
+      "target": "negative",
+      "n": 160,
+      "names_and_year_retained_mean": 0.43125
+    },
+    {
+      "target": "positive",
+      "n": 160,
+      "names_and_year_retained_mean": 0.8458333333333332
+    }
+  ],
+  "interpretation": "Potential confound: label polarity is associated with different retention of source-specific entities. This diagnostic does not establish a causal mechanism.",
+  "next_comparison": "Pairs with an identical factual sentence and opposite evaluative sentences, plus contrastive writing-intent prompts."
+}

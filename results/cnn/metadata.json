@@ -1,0 +1,82 @@
+{
+  "environment": {
+    "python": "3.12.14",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "logical_cpus": 8,
+    "memory_gb": 8.589934592,
+    "device": "mps",
+    "packages": {
+      "torch": "2.14.1",
+      "transformers": "4.57.6",
+      "datasets": "4.8.5",
+      "numpy": "2.5.4",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.18.1",
+      "sentence-transformers": "5.7.0"
+    },
+    "determinism": "Seeds fixed; warn-only deterministic torch; MPS may differ across runs."
+  },
+  "config": {
+    "max_tokens": 20000,
+    "max_length": 400,
+    "embedding_dim": 128,
+    "filters": 100,
+    "kernels": [
+      3,
+      4,
+      5
+    ],
+    "dropout": 0.5,
+    "batch_size": 64,
+    "epochs": 5,
+    "lr": 0.001,
+    "patience": 2
+  },
+  "vocab_size": 20000,
+  "best_epoch": 5,
+  "history": [
+    {
+      "epoch": 1,
+      "training_loss": 0.6541380288742484,
+      "validation_f1_macro": 0.799414050260074,
+      "seconds": 30.879222417002893
+    },
+    {
+      "epoch": 2,
+      "training_loss": 0.49773558211279695,
+      "validation_f1_macro": 0.8417666794159981,
+      "seconds": 27.49534333399788
+    },
+    {
+      "epoch": 3,
+      "training_loss": 0.42887113020722323,
+      "validation_f1_macro": 0.8475204286526057,
+      "seconds": 27.033765708001738
+    },
+    {
+      "epoch": 4,
+      "training_loss": 0.35843740493782306,
+      "validation_f1_macro": 0.878529471111261,
+      "seconds": 26.835081042001548
+    },
+    {
+      "epoch": 5,
+      "training_loss": 0.3093153319165546,
+      "validation_f1_macro": 0.8796456865393742,
+      "seconds": 27.177507458000036
+    }
+  ],
+  "selection_split": "validation",
+  "training_seconds": 139.62282666700048,
+  "total_seconds": 164.7806120000023,
+  "all_splits_inference_seconds": 20.715816999996605,
+  "host_peak_rss_gb": 0.8564736,
+  "total_parameters": 2714502,
+  "input_scope": "Prefix truncated to 400 word tokens",
+  "trainable_parameters": 2714502,
+  "temperature": 1.0601125187358598,
+  "calibration_fit_split": "calibration",
+  "threshold": 0.5
+}

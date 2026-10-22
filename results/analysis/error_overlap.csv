@@ -1,0 +1,4 @@
+model_a,model_b,both_wrong,only_a_wrong,only_b_wrong,both_correct,mcnemar_exact_p,caveat
+tfidf,cnn,1589,875,1715,20821,3.872611425456282e-62,Unadjusted exploratory paired test; retained test duplicates violate strict independence.
+tfidf,bert,963,1501,1301,21235,0.00016931992791636597,Unadjusted exploratory paired test; retained test duplicates violate strict independence.
+cnn,bert,1089,2215,1175,20521,2.36966704942385e-72,Unadjusted exploratory paired test; retained test duplicates violate strict independence.

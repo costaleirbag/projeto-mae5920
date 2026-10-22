@@ -1,0 +1,33 @@
+# Ambientes e arquivos locais
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.cache/
+*.egg-info/
+.ipynb_checkpoints/
+.DS_Store
+.env
+.env.*
+*.pem
+*.key
+
+# Dados e checkpoints; o manifesto e o tokenizer de leitura são distribuídos
+data/*
+!data/manifest.json
+artifacts/*
+!artifacts/qwen/
+artifacts/qwen/*
+!artifacts/qwen/tokenizer/
+
+# Caches de análise e arquivos temporários de retomada
+results/analysis/embeddings.npz
+results/qwen/features/*.npz
+results/qwen/rfm/*.npz
+results/qwen/generation/parts/
+results/qwen_improved/features_*.npz
+tmp/
+dist/
+*.zip
+*.tar.gz

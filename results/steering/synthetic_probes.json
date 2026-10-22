@@ -1,0 +1,42 @@
+[
+  {
+    "id": "neutral_1",
+    "probe_kind": "neutral_probe",
+    "clean_text": "The film follows a family moving to a new town. It lasts about two hours."
+  },
+  {
+    "id": "neutral_2",
+    "probe_kind": "neutral_probe",
+    "clean_text": "I watched the movie yesterday. The story takes place in a city and has several characters."
+  },
+  {
+    "id": "neutral_3",
+    "probe_kind": "neutral_probe",
+    "clean_text": "The movie was ordinary and the acting was average."
+  },
+  {
+    "id": "negative_1",
+    "probe_kind": "negative_probe",
+    "clean_text": "The acting was terrible and the story was boring. I regret watching this movie."
+  },
+  {
+    "id": "negative_2",
+    "probe_kind": "negative_probe",
+    "clean_text": "I found the film dull, disappointing and forgettable."
+  },
+  {
+    "id": "positive_1",
+    "probe_kind": "positive_probe",
+    "clean_text": "The acting was excellent and the story was wonderful. I loved this movie."
+  },
+  {
+    "id": "mixed_1",
+    "probe_kind": "mixed_probe",
+    "clean_text": "The actors were excellent, but the story was so boring that I wanted to leave."
+  },
+  {
+    "id": "negation_1",
+    "probe_kind": "negation_probe",
+    "clean_text": "I expected to hate this film, but it was not bad at all. I enjoyed it."
+  }
+]

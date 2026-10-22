@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "evidence": {
+    "data": "Source hashes match; disjoint normalized texts across splits; official 25,000-row test retained.",
+    "classification": "All 29,956 IDs, labels, decisions, probabilities and split metrics recomputed; temperature refitted from calibration only.",
+    "input_and_prompt": "Input truncation metadata reconstructed with saved tokenizer; prompt-order and prefix audits contain validation IDs only.",
+    "rfm": "Subset roles checked; validation probe AUC and selections recomputed; exact saved AGOP factor recomputed from gradients; PSD, principal direction and train-only scale verified.",
+    "classification_interventions": "All norm-matched methods and coefficients retained; per-ID changes match summaries; zero identity, actual full-hook/cache equivalence and restoration recorded.",
+    "comparison": "All four reported system metrics recomputed on the exact same official test IDs.",
+    "generation": "All 32 x 17 outputs retained; token IDs decode exactly; source/prompts and norm-matched conditions reconstructed; prefill and decode hooks active; zero replay and nonzero cached/full generation verified on real 8B.",
+    "evaluation": "Independent frozen judge checkpoint hashes verified; all paired summary means and bootstrap intervals recomputed; blank human worksheet distinguished from assistant qualitative reading.",
+    "deliverables": "10 notebook code cells executed without errors; standalone HTML and 8-page PDF; every experiment stage complete."
+  },
+  "limitations": [
+    "No independent human annotations.",
+    "No audit of possible IMDb pretraining contamination.",
+    "Exploratory extension reuses the official test already inspected in the previous stage.",
+    "Single model/prompt/configuration; small generation set.",
+    "Automated sentiment and semantic proxies do not establish human fluency or factual preservation."
+  ]
+}

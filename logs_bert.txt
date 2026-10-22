@@ -1,0 +1,30 @@
+/usr/local/lib/python3.12/dist-packages/torch/library.py:356: UserWarning: Warning only once for all operators,  other operators may also be overridden.
+  Overriding a previously registered kernel for the same operator and the same dispatch key
+  operator: flash_attn::_flash_attn_backward(Tensor dout, Tensor q, Tensor k, Tensor v, Tensor out, Tensor softmax_lse, Tensor(a6!)? dq, Tensor(a7!)? dk, Tensor(a8!)? dv, float dropout_p, float softmax_scale, bool causal, SymInt window_size_left, SymInt window_size_right, float softcap, Tensor? alibi_slopes, bool deterministic, Tensor? rng_state=None) -> Tensor
+    registered at /usr/local/lib/python3.12/dist-packages/torch/_library/custom_ops.py:922
+  dispatch key: ADInplaceOrView
+  previous kernel: no debug info
+       new kernel: registered at /usr/local/lib/python3.12/dist-packages/torch/_library/custom_ops.py:922 (Triggered internally at /opt/pytorch/pytorch/aten/src/ATen/core/dispatch/OperatorEntry.cpp:208.)
+  self.m.impl(
+Some weights of BertForSequenceClassification were not initialized from the model checkpoint at google-bert/bert-base-uncased and are newly initialized: ['classifier.bias', 'classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+bert device cuda trainable 109483778
+bert epoch 1 batch 100 / 620 loss 0.6022 elapsed_s 34.9
+bert epoch 1 batch 200 / 620 loss 0.4776 elapsed_s 69.4
+bert epoch 1 batch 300 / 620 loss 0.4165 elapsed_s 104.0
+bert epoch 1 batch 400 / 620 loss 0.3834 elapsed_s 138.7
+bert epoch 1 batch 500 / 620 loss 0.3654 elapsed_s 173.3
+bert epoch 1 batch 600 / 620 loss 0.3474 elapsed_s 208.1
+bert {'epoch': 1, 'training_loss': 0.34432129823947444, 'validation_f1_macro': 0.9018851323112118, 'seconds': 222.1425004932098}
+bert epoch 2 batch 100 / 620 loss 0.1933 elapsed_s 34.9
+bert epoch 2 batch 200 / 620 loss 0.1923 elapsed_s 70.1
+bert epoch 2 batch 300 / 620 loss 0.1862 elapsed_s 105.2
+bert epoch 2 batch 400 / 620 loss 0.1844 elapsed_s 140.1
+bert epoch 2 batch 500 / 620 loss 0.1842 elapsed_s 174.9
+bert epoch 2 batch 600 / 620 loss 0.1806 elapsed_s 209.7
+bert {'epoch': 2, 'training_loss': 0.18023710741075108, 'validation_f1_macro': 0.9128028818083243, 'seconds': 223.74347543297336}
+bert train evaluated 19823 seconds 59.7
+bert validation evaluated 2478 seconds 7.5
+bert calibration evaluated 2478 seconds 7.5
+bert test evaluated 25000 seconds 75.3
+bert test {'n': 25000, 'accuracy': 0.90944, 'f1_macro': 0.9094144331296065, 'log_loss': 0.22783477078935652, 'brier': 0.0670063925728374, 'roc_auc': 0.9699478368000001, 'ece_10': 0.015498387266619696, 'tn': 11158, 'fp': 1342, 'fn': 922, 'tp': 11578, 'false_positive_rate': 0.10736, 'false_negative_rate': 0.07376}

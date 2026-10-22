@@ -1,0 +1,47 @@
+{
+  "selected": {
+    "layer": 24,
+    "bandwidth": 30.0,
+    "selected_iteration": 1,
+    "validation_auc": 0.9821156076420681,
+    "scale": 12.947524865976407,
+    "leading_eigenvalue_fraction": 0.31294131704355416,
+    "cached_identity_max_error": 0.0,
+    "validation_directional_response": 0.6989414695074896
+  },
+  "all_candidates": [
+    {
+      "layer": 12,
+      "bandwidth": 60.0,
+      "selected_iteration": 1,
+      "validation_auc": 0.848928767624977,
+      "scale": 0.3384121599241802,
+      "leading_eigenvalue_fraction": 0.9146348129414293,
+      "cached_identity_max_error": 0.0,
+      "validation_directional_response": 0.006634401088939671
+    },
+    {
+      "layer": 24,
+      "bandwidth": 30.0,
+      "selected_iteration": 1,
+      "validation_auc": 0.9821156076420681,
+      "scale": 12.947524865976407,
+      "leading_eigenvalue_fraction": 0.31294131704355416,
+      "cached_identity_max_error": 0.0,
+      "validation_directional_response": 0.6989414695074896
+    },
+    {
+      "layer": 32,
+      "bandwidth": 30.0,
+      "selected_iteration": 1,
+      "validation_auc": 0.98522859061222,
+      "scale": 32.99913670836056,
+      "leading_eigenvalue_fraction": 0.2809188831163953,
+      "cached_identity_max_error": 0.0,
+      "validation_directional_response": 0.10134687655476962
+    }
+  ],
+  "criterion": "Largest mean P(positive,+2) minus P(positive,-2), measured on validation only; probe validation AUC breaks ties.",
+  "heldout_probe_auc": 0.99407958984375,
+  "generation_conditions": "All predeclared generation coefficients retained; no selection on generated test outputs."
+}

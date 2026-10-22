@@ -1,0 +1,14 @@
+{
+  "pdf_sha256": "5319be0e8a8339688e20404f582dccce0eff6b5c72966a48c3d339d269c0158e",
+  "html_sha256": "bb0ff0d7c95b596da5ef7d2711ecbfa418b1d7ca3b10831b9c61e32aa4298c69",
+  "notebook_sha256": "d54f4555c3edadd621dd6af7771f493cfbcc2029bace1ffe854dbfdb15409374",
+  "selection_sha256": "f2864af36243d988fa6e72478f4b1c194630f1cc322130edc83307538044c491",
+  "test_analysis_sha256": "b6e09b32de1566504d525b72ac7752ba4df8313b5485239154c3091ef32ed4ef",
+  "manual_reading_sha256": "cadd31707897f3a99c7e6fd74c629f2ebb097b6394154dee1b82cf1c1654bfa0",
+  "visual_qa": {
+    "pages_reviewed": 7,
+    "status": "passed",
+    "render_dpi": 100,
+    "notes": "All seven rendered pages inspected; no clipping, overlap, missing glyphs or unreadable plots."
+  }
+}

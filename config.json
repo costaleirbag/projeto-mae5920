@@ -1,0 +1,12 @@
+{
+  "seed": 42,
+  "threads": 4,
+  "dataset": "stanfordnlp/imdb",
+  "dataset_revision": "e6281661ce1c48d982bc483cf8a173c1bbeb5d31",
+  "validation_fraction": 0.2,
+  "baseline": {"c_grid": [0.5, 2.0, 8.0], "max_features": 80000},
+  "cnn": {"max_tokens": 20000, "max_length": 400, "embedding_dim": 128, "filters": 100, "kernels": [3, 4, 5], "dropout": 0.5, "batch_size": 64, "epochs": 5, "lr": 0.001, "patience": 2},
+  "bert": {"model_id": "google-bert/bert-base-uncased", "revision": "86b5e0934494bd15c9632b12f734a8a67f723594", "max_length": 192, "batch_size": 32, "accumulation_steps": 1, "epochs": 2, "lr": 0.00002, "patience": 2, "train_last_n_layers": -1, "gradient_checkpointing": false},
+  "analysis": {"encoder": "sentence-transformers/all-MiniLM-L6-v2", "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41", "train_cluster_sample": 2500, "n_clusters": 8, "batch_size": 32},
+  "steering": {"layers": [3, 6, 9], "train_n": 512, "validation_n": 256, "test_n": 256, "rfm_iterations": 4, "regularization": 0.001, "bandwidths": [10.0, 30.0, 100.0], "alphas": [-4, -2, -1, -0.5, 0, 0.5, 1, 2, 4], "random_controls": 5}
+}

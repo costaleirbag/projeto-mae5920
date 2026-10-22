@@ -1,0 +1,16 @@
+{
+  "directions": [
+    {
+      "name": "intent_256_L28_means",
+      "context": "intent",
+      "n": 256,
+      "layer": 28,
+      "method": "means",
+      "hidden_norm": 321.1955745499904,
+      "natural_scale": 100.85103234900045,
+      "projection_auc": 1.0,
+      "gradient_aggregation": "Not used: this is a direct difference of class-conditional means."
+    }
+  ],
+  "purpose": "The exact selected training activations, labels, and IDs. Enables CPU recomputation of a selected difference-of-means direction; no model weights are included."
+}

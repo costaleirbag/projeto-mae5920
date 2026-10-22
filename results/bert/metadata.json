@@ -1,0 +1,62 @@
+{
+  "environment": {
+    "python": "3.12.3",
+    "platform": "Linux-6.17.0-1032-nvidia-aarch64-with-glibc2.39",
+    "machine": "aarch64",
+    "logical_cpus": 20,
+    "memory_gb": 130.663165952,
+    "device": "cuda",
+    "accelerator": "NVIDIA GB10",
+    "packages": {
+      "torch": "2.10.0a0+b4e4ee81d3.nv25.12",
+      "transformers": "4.57.6",
+      "datasets": "4.8.5",
+      "numpy": "2.5.4",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.18.1",
+      "sentence-transformers": "5.7.0"
+    },
+    "determinism": "Seeds fixed; warn-only deterministic torch; results may differ across devices and runtimes."
+  },
+  "config": {
+    "model_id": "google-bert/bert-base-uncased",
+    "max_length": 192,
+    "batch_size": 32,
+    "accumulation_steps": 1,
+    "epochs": 2,
+    "lr": 2e-05,
+    "patience": 2,
+    "train_last_n_layers": -1,
+    "gradient_checkpointing": false
+  },
+  "pretrained_model_id": "google-bert/bert-base-uncased",
+  "revision": "86b5e0934494bd15c9632b12f734a8a67f723594",
+  "fine_tuning_policy": "All encoder blocks, embeddings, pooler and classifier trained.",
+  "best_epoch": 2,
+  "history": [
+    {
+      "epoch": 1,
+      "training_loss": 0.34432129823947444,
+      "validation_f1_macro": 0.9018851323112118,
+      "seconds": 222.1425004932098
+    },
+    {
+      "epoch": 2,
+      "training_loss": 0.18023710741075108,
+      "validation_f1_macro": 0.9128028818083243,
+      "seconds": 223.74347543297336
+    }
+  ],
+  "selection_split": "validation",
+  "training_seconds": 446.3805068130605,
+  "total_seconds": 630.1842431649566,
+  "all_splits_inference_seconds": 149.91203271504492,
+  "host_peak_rss_gb": 4.058505216,
+  "total_parameters": 109483778,
+  "input_scope": "Prefix truncated to 192 WordPiece tokens including specials",
+  "trainable_parameters": 109483778,
+  "temperature": 1.4021648464080956,
+  "calibration_fit_split": "calibration",
+  "threshold": 0.5
+}

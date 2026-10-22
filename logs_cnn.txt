@@ -1,0 +1,26 @@
+cnn device mps trainable 2714502
+cnn epoch 1 batch 100 / 310 loss 0.7697 elapsed_s 11.6
+cnn epoch 1 batch 200 / 310 loss 0.696 elapsed_s 20.2
+cnn epoch 1 batch 300 / 310 loss 0.6567 elapsed_s 28.7
+cnn {'epoch': 1, 'training_loss': 0.6541380288742484, 'validation_f1_macro': 0.799414050260074, 'seconds': 30.879222417002893}
+cnn epoch 2 batch 100 / 310 loss 0.5252 elapsed_s 8.6
+cnn epoch 2 batch 200 / 310 loss 0.5072 elapsed_s 17.1
+cnn epoch 2 batch 300 / 310 loss 0.4982 elapsed_s 25.6
+cnn {'epoch': 2, 'training_loss': 0.49773558211279695, 'validation_f1_macro': 0.8417666794159981, 'seconds': 27.49534333399788}
+cnn epoch 3 batch 100 / 310 loss 0.4201 elapsed_s 8.4
+cnn epoch 3 batch 200 / 310 loss 0.4233 elapsed_s 16.8
+cnn epoch 3 batch 300 / 310 loss 0.4296 elapsed_s 25.2
+cnn {'epoch': 3, 'training_loss': 0.42887113020722323, 'validation_f1_macro': 0.8475204286526057, 'seconds': 27.033765708001738}
+cnn epoch 4 batch 100 / 310 loss 0.363 elapsed_s 8.3
+cnn epoch 4 batch 200 / 310 loss 0.3595 elapsed_s 16.7
+cnn epoch 4 batch 300 / 310 loss 0.3593 elapsed_s 25.0
+cnn {'epoch': 4, 'training_loss': 0.35843740493782306, 'validation_f1_macro': 0.878529471111261, 'seconds': 26.835081042001548}
+cnn epoch 5 batch 100 / 310 loss 0.3094 elapsed_s 8.4
+cnn epoch 5 batch 200 / 310 loss 0.3153 elapsed_s 16.8
+cnn epoch 5 batch 300 / 310 loss 0.3073 elapsed_s 25.3
+cnn {'epoch': 5, 'training_loss': 0.3093153319165546, 'validation_f1_macro': 0.8796456865393742, 'seconds': 27.177507458000036}
+cnn train evaluated 19823 seconds 8.3
+cnn validation evaluated 2478 seconds 1.0
+cnn calibration evaluated 2478 seconds 1.0
+cnn test evaluated 25000 seconds 10.3
+cnn test {'n': 25000, 'accuracy': 0.86784, 'f1_macro': 0.8678166883626529, 'log_loss': 0.3037034063095721, 'brier': 0.09404775533848152, 'roc_auc': 0.9435718208, 'ece_10': 0.006554201183898715, 'tn': 10682, 'fp': 1818, 'fn': 1486, 'tp': 11014, 'false_positive_rate': 0.14544, 'false_negative_rate': 0.11888}

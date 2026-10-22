@@ -1,0 +1,178 @@
+{
+  "seconds": 595.3793892450631,
+  "config": {
+    "seed": 20261020,
+    "threads": 8,
+    "model_id": "Qwen/Qwen3-8B",
+    "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+    "dtype": "bfloat16",
+    "attention": "sdpa",
+    "max_review_tokens": 768,
+    "batch_size": 8,
+    "feature_train_n": 512,
+    "feature_validation_n": 256,
+    "feature_test_n": 256,
+    "layers": [
+      12,
+      24,
+      32
+    ],
+    "rfm_bandwidths": [
+      30.0,
+      60.0
+    ],
+    "rfm_regularization": 0.001,
+    "rfm_iterations": 4,
+    "intervention_alphas": [
+      -4,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      4
+    ],
+    "random_controls": 3,
+    "intervention_scope": "all_nonpadding",
+    "generation_real_n": 24,
+    "generation_synthetic_n": 8,
+    "generation_alphas": [
+      -4,
+      -2,
+      0,
+      2,
+      4
+    ],
+    "generation_control_alpha": 4,
+    "generation_batch_size": 8,
+    "max_new_tokens": 96,
+    "do_sample": false,
+    "enable_thinking": false
+  },
+  "source_n": 32,
+  "conditions_n": 17,
+  "outputs_n": 544,
+  "condition_times": [
+    {
+      "condition": "rfm_-4",
+      "seconds": 29.72066281409934,
+      "output_tokens": 1706
+    },
+    {
+      "condition": "rfm_-2",
+      "seconds": 26.910816570278257,
+      "output_tokens": 1692
+    },
+    {
+      "condition": "rfm_+0",
+      "seconds": 26.692079963628203,
+      "output_tokens": 1647
+    },
+    {
+      "condition": "rfm_+2",
+      "seconds": 28.5582666574046,
+      "output_tokens": 1647
+    },
+    {
+      "condition": "rfm_+4",
+      "seconds": 28.172115025110543,
+      "output_tokens": 1736
+    },
+    {
+      "condition": "difference_in_means_-4",
+      "seconds": 29.0281561804004,
+      "output_tokens": 1729
+    },
+    {
+      "condition": "difference_in_means_+4",
+      "seconds": 30.403345867060125,
+      "output_tokens": 1743
+    },
+    {
+      "condition": "logistic_probe_-4",
+      "seconds": 30.14498360780999,
+      "output_tokens": 1770
+    },
+    {
+      "condition": "logistic_probe_+4",
+      "seconds": 29.842725140973926,
+      "output_tokens": 1721
+    },
+    {
+      "condition": "random_1_-4",
+      "seconds": 27.795986925717443,
+      "output_tokens": 1721
+    },
+    {
+      "condition": "random_1_+4",
+      "seconds": 29.55362096428871,
+      "output_tokens": 1734
+    },
+    {
+      "condition": "random_2_-4",
+      "seconds": 27.942997462116182,
+      "output_tokens": 1711
+    },
+    {
+      "condition": "random_2_+4",
+      "seconds": 28.20511599862948,
+      "output_tokens": 1769
+    },
+    {
+      "condition": "random_3_-4",
+      "seconds": 27.94104657601565,
+      "output_tokens": 1683
+    },
+    {
+      "condition": "random_3_+4",
+      "seconds": 28.026797058060765,
+      "output_tokens": 1719
+    },
+    {
+      "condition": "prompt_positive",
+      "seconds": 27.3554367441684,
+      "output_tokens": 1674
+    },
+    {
+      "condition": "prompt_negative",
+      "seconds": 26.393342562019825,
+      "output_tokens": 1584
+    }
+  ],
+  "selected_layer": 24,
+  "scale": 12.947524865976407,
+  "source_revision": "b968826d9c46dd6066d109eabc6255188de91218",
+  "thinking_enabled": false,
+  "backbone_frozen": true,
+  "trainable_backbone_parameters": 0,
+  "generation_positions": "GenerationMixin recomputes position IDs from the growing attention mask; no fixed position_ids passed.",
+  "zero_generation_replay_exact": true,
+  "all_hooks_removed": true,
+  "environment": {
+    "python": "3.12.3",
+    "platform": "Linux-6.17.0-1032-nvidia-aarch64-with-glibc2.39",
+    "machine": "aarch64",
+    "logical_cpus": 20,
+    "memory_gb": 130.663165952,
+    "device": "cuda",
+    "accelerator": "NVIDIA GB10",
+    "packages": {
+      "torch": "2.10.0a0+b4e4ee81d3.nv25.12",
+      "transformers": "4.57.6",
+      "datasets": "4.8.5",
+      "numpy": "2.5.4",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.18.1",
+      "sentence-transformers": "5.7.0"
+    },
+    "determinism": "Seeds fixed; warn-only deterministic torch; results may differ across devices and runtimes."
+  },
+  "selection": "All predeclared conditions and outputs retained. No sentiment-guided candidate reranking.",
+  "caveats": [
+    "Greedy, non-thinking decoding; results are not averages over sampling seeds.",
+    "Neutral sources are synthetic descriptions, not neutral IMDb labels.",
+    "Prompt-only conditions explicitly ask for a target polarity; activation conditions share the same untargeted prompt.",
+    "Sentiment scores and embedding similarity do not establish human-rated fluency or factual preservation."
+  ]
+}

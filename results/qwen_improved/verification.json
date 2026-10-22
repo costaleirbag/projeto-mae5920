@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "evidence": {
+    "frozen_inputs": "Configuration, datasets, complete direction archive, validation evidence, code and preselected reading cases match their frozen hashes.",
+    "directions": "All 109 unit vectors finite; first 85 unchanged; selected mean direction exactly reconstructed from saved training states and labels.",
+    "heldout_sources": "64 unique sources, balanced real labels, disjoint from training/validation and the old intervention/generation subsets.",
+    "test": "704 actual outputs: exact tokens, source, prompt, vector fingerprints and unchanged factual prefixes verified; semantic audit linked to exact outputs.",
+    "regression": "160 actual outputs: exact tokens, source, prompt, vector fingerprints and unchanged factual prefixes verified; semantic audit linked to exact outputs.",
+    "controls": "Three random directions use identical perturbation norms, layers, phase masks and prompt profile to the selected controller.",
+    "qualitative_reading": "All 12 preselected trios have assistant notes linked to their exact saved outputs; no independent human annotation claimed.",
+    "deliverables": "Seven-page PDF contains exact demonstration outputs; HTML has all 64 trios without text changes; all 10 notebook code cells executed without errors; output hashes match."
+  },
+  "limitations": [
+    "Same base model is the semantic judge; no independent human ground truth.",
+    "Direction, layer, amplitude and intervention position change together relative to the original controller.",
+    "Explicit FACT/REVIEW format; no universal free-text control claim.",
+    "Unchanged factual prefix can still contain baseline summarization errors."
+  ]
+}

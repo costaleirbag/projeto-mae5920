@@ -1,0 +1,26 @@
+{
+  "pid": 216,
+  "stage": "steer",
+  "config_sha256": "79badf23f46fb5d5c0ea3004b9fff8c1dfbebdfc94111a240b03693aa2fbef63",
+  "status": "complete",
+  "environment": {
+    "python": "3.12.3",
+    "platform": "Linux-6.17.0-1032-nvidia-aarch64-with-glibc2.39",
+    "machine": "aarch64",
+    "logical_cpus": 20,
+    "memory_gb": 130.663165952,
+    "device": "cuda",
+    "accelerator": "NVIDIA GB10",
+    "packages": {
+      "torch": "2.10.0a0+b4e4ee81d3.nv25.12",
+      "transformers": "4.57.6",
+      "datasets": "4.8.5",
+      "numpy": "2.5.4",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.18.1",
+      "sentence-transformers": "5.7.0"
+    },
+    "determinism": "Seeds fixed; warn-only deterministic torch; results may differ across devices and runtimes."
+  }
+}

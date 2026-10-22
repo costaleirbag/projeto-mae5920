@@ -1,0 +1,35 @@
+[
+  {
+    "name": "baseline",
+    "layers": [],
+    "gain": 0,
+    "scope": "after_fact",
+    "prompt_profile": "fact_review_v2"
+  },
+  {
+    "name": "intent_256_L28_means_contrast_g+2_last_all_fielded_0.5_-1",
+    "layers": [
+      [
+        28,
+        "intent_256_L28_means",
+        100.85103234900045
+      ]
+    ],
+    "gain": -1.0,
+    "scope": "after_fact",
+    "prompt_profile": "fact_review_v2"
+  },
+  {
+    "name": "intent_256_L28_means_contrast_g+2_last_all_fielded_0.5_+1",
+    "layers": [
+      [
+        28,
+        "intent_256_L28_means",
+        100.85103234900045
+      ]
+    ],
+    "gain": 1.0,
+    "scope": "after_fact",
+    "prompt_profile": "fact_review_v2"
+  }
+]

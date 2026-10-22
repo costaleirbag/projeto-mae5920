@@ -1,0 +1,45 @@
+{
+  "rows": [
+    {
+      "context": "class",
+      "split": "train",
+      "n": 2048,
+      "old_direction_auc": 0.9874877810361682,
+      "old_direction_correlation": 0.9098133418912685,
+      "median_hidden_norm": 154.70791625976562,
+      "mean_projection_negative": -14.040622365568007,
+      "mean_projection_positive": 9.034933934506387
+    },
+    {
+      "context": "class",
+      "split": "probe_validation",
+      "n": 256,
+      "old_direction_auc": 0.9772324971006532,
+      "old_direction_correlation": 0.8819982644816684,
+      "median_hidden_norm": 154.79031372070312,
+      "mean_projection_negative": -13.526573475075335,
+      "mean_projection_positive": 8.907598429765242
+    },
+    {
+      "context": "writer",
+      "split": "train",
+      "n": 2048,
+      "old_direction_auc": 0.7066866938464107,
+      "old_direction_correlation": 0.338701359472868,
+      "median_hidden_norm": 146.18527221679688,
+      "mean_projection_negative": 0.8372330280851824,
+      "mean_projection_positive": 2.1278034648228723
+    },
+    {
+      "context": "writer",
+      "split": "probe_validation",
+      "n": 256,
+      "old_direction_auc": 0.7156808887261186,
+      "old_direction_correlation": 0.3539304628735694,
+      "median_hidden_norm": 145.87368774414062,
+      "mean_projection_negative": 0.6735349523372856,
+      "mean_projection_positive": 1.9218290579175825
+    }
+  ],
+  "caveat": "Descriptive comparison: prompt task, captured token positions and pooling differ. It does not isolate a single causal factor or establish generative control."
+}

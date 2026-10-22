@@ -1,0 +1,36 @@
+{
+  "protocol": "Original classification representation and original raw-AGOP implementation; nested 32/128 subsets, plus all original 512 examples (255 negative/257 positive); previously inspected old test only; not evidence of generative control.",
+  "rows": [
+    {
+      "n": 32,
+      "bandwidth": 60.0,
+      "selected_iteration": 1,
+      "validation_probe_auc": 0.9832143075138864,
+      "validation_direction_auc": 0.9798571690166635,
+      "old_test_probe_auc": 0.994873046875,
+      "old_test_direction_auc": 0.994873046875
+    },
+    {
+      "n": 128,
+      "bandwidth": 30.0,
+      "selected_iteration": 1,
+      "validation_probe_auc": 0.985045473966917,
+      "validation_direction_auc": 0.9780870414454007,
+      "old_test_probe_auc": 0.994873046875,
+      "old_test_direction_auc": 0.99053955078125
+    },
+    {
+      "n": 512,
+      "class_counts": {
+        "1": 257,
+        "0": 255
+      },
+      "bandwidth": 30.0,
+      "selected_iteration": 1,
+      "validation_probe_auc": 0.9821156076420681,
+      "validation_direction_auc": 0.9771714582188854,
+      "old_test_probe_auc": 0.99407958984375,
+      "old_test_direction_auc": 0.9942626953125
+    }
+  ]
+}

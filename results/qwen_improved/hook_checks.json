@@ -1,0 +1,9 @@
+{
+  "status": "passed",
+  "zero_logits_exact": true,
+  "restoration_exact": true,
+  "nonzero_changes_logits": true,
+  "zero_generation_exact": true,
+  "decode_only_preserves_first_token": true,
+  "decode_hook_called": true
+}

@@ -1,0 +1,57 @@
+{
+  "seconds": 34.225221341941506,
+  "config": {
+    "layers": [
+      3,
+      6,
+      9
+    ],
+    "train_n": 512,
+    "validation_n": 256,
+    "test_n": 256,
+    "rfm_iterations": 4,
+    "regularization": 0.001,
+    "bandwidths": [
+      10.0,
+      30.0,
+      100.0
+    ],
+    "alphas": [
+      -4,
+      -2,
+      -1,
+      -0.5,
+      0,
+      0.5,
+      1,
+      2,
+      4
+    ],
+    "random_controls": 5
+  },
+  "selected_layer": 9,
+  "subset_sizes": {
+    "train": 512,
+    "validation": 256,
+    "test": 256
+  },
+  "zero_alpha_max_logit_difference": {
+    "validation": 0.0,
+    "test": 0.0,
+    "synthetic": 0.0
+  },
+  "hook_restoration_exact": true,
+  "nonzero_hook_changes_logits": true,
+  "source": "https://arxiv.org/html/2502.03708v2",
+  "scope": "CLS after an intermediate BERT encoder block",
+  "agop_definition": "mean_i grad f_RFM(h_i) grad f_RFM(h_i)^T, computed analytically",
+  "hessian_note": "AGOP is not the exact Hessian. For squared loss, its scaled contribution is a Gauss-Newton term; a residual Hessian term remains.",
+  "method_adaptation": "Paper's Laplace-kernel RFM applied to an encoder classifier's CLS, rather than a decoder's final-token representation.",
+  "limitations": [
+    "Classifier predictions change while the source review remains identical.",
+    "Steered probabilities are out of distribution; ordinary temperature calibration is not validated for interventions.",
+    "Synthetic neutral probes are demonstrations, not a neutral class in IMDb.",
+    "Norm-matched random controls and simple concept directions are included.",
+    "The separate masked-LM exercise is required to actually modify text."
+  ]
+}

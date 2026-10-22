@@ -1,0 +1,66 @@
+{
+  "status": "failed",
+  "reason": "Requested newline missing in some real reviews, so intervention did not start. Replaced by explicit generated FACT/REVIEW markers in the next profile. All outputs retained.",
+  "conditions": {
+    "intent_256_L28_means_contrast_g+2_last_all_gated_0.5_-1": {
+      "n": 16,
+      "gate_fired_n": 10,
+      "nonempty_identical_prefix_n": 10
+    },
+    "intent_256_L28_means_contrast_g+2_last_all_gated_0.5_+1": {
+      "n": 16,
+      "gate_fired_n": 10,
+      "nonempty_identical_prefix_n": 10
+    },
+    "intent_256_L28_means_contrast_g+2_last_all_gated_1_-1": {
+      "n": 16,
+      "gate_fired_n": 10,
+      "nonempty_identical_prefix_n": 10
+    },
+    "intent_256_L28_means_contrast_g+2_last_all_gated_1_+1": {
+      "n": 16,
+      "gate_fired_n": 10,
+      "nonempty_identical_prefix_n": 10
+    },
+    "factual_256_L24_means_relative_g+0.3_last_all_gated_0.5_-1": {
+      "n": 16,
+      "gate_fired_n": 10,
+      "nonempty_identical_prefix_n": 10
+    },
+    "factual_256_L24_means_relative_g+0.3_last_all_gated_0.5_+1": {
+      "n": 16,
+      "gate_fired_n": 10,
+      "nonempty_identical_prefix_n": 10
+    },
+    "factual_256_L24_means_relative_g+0.3_last_all_gated_1_-1": {
+      "n": 16,
+      "gate_fired_n": 10,
+      "nonempty_identical_prefix_n": 10
+    },
+    "factual_256_L24_means_relative_g+0.3_last_all_gated_1_+1": {
+      "n": 16,
+      "gate_fired_n": 10,
+      "nonempty_identical_prefix_n": 10
+    },
+    "writer_2048_L24_g+0.3_last_gated_0.5_-1": {
+      "n": 16,
+      "gate_fired_n": 10,
+      "nonempty_identical_prefix_n": 10
+    },
+    "writer_2048_L24_g+0.3_last_gated_0.5_+1": {
+      "n": 16,
+      "gate_fired_n": 10,
+      "nonempty_identical_prefix_n": 10
+    },
+    "writer_2048_L24_g+0.3_last_gated_1_-1": {
+      "n": 16,
+      "gate_fired_n": 10,
+      "nonempty_identical_prefix_n": 10
+    },
+    "writer_2048_L24_g+0.3_last_gated_1_+1": {
+      "n": 16,
+      "gate_fired_n": 10,
+      "nonempty_identical_prefix_n": 10
+    }
+  }
+}

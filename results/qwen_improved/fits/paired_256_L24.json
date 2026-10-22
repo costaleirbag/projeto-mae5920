@@ -1,0 +1,188 @@
+[
+  {
+    "name": "paired_256_L24",
+    "context": "paired",
+    "n": 256,
+    "layer": 24,
+    "method": "rfm",
+    "hidden_norm": 172.7439767154931,
+    "bandwidth": 10,
+    "iteration": 3,
+    "projection_auc": 1.0,
+    "probe_auc": 1.0,
+    "eigen_residual": 9.648068279291738e-16,
+    "candidates": [
+      {
+        "bandwidth": 10,
+        "history": [
+          {
+            "iteration": 1,
+            "projection_auc": 0.599609375,
+            "probe_auc": 1.0,
+            "eigenvalue": 7.538535190847815e-06,
+            "eigen_residual": 1.6970730048630203e-12
+          },
+          {
+            "iteration": 2,
+            "projection_auc": 0.9990234375,
+            "probe_auc": 1.0,
+            "eigenvalue": 2.925228869927333e-05,
+            "eigen_residual": 7.335035036567692e-16
+          },
+          {
+            "iteration": 3,
+            "projection_auc": 1.0,
+            "probe_auc": 1.0,
+            "eigenvalue": 8.617840543151032e-05,
+            "eigen_residual": 9.648068279291738e-16
+          }
+        ]
+      },
+      {
+        "bandwidth": 30,
+        "history": [
+          {
+            "iteration": 1,
+            "projection_auc": 0.9873046875,
+            "probe_auc": 1.0,
+            "eigenvalue": 9.073560706130912e-06,
+            "eigen_residual": 1.9065190591922613e-14
+          },
+          {
+            "iteration": 2,
+            "projection_auc": 1.0,
+            "probe_auc": 1.0,
+            "eigenvalue": 2.053807755796374e-05,
+            "eigen_residual": 8.030484475873667e-16
+          },
+          {
+            "iteration": 3,
+            "projection_auc": 1.0,
+            "probe_auc": 1.0,
+            "eigenvalue": 3.249932471109834e-05,
+            "eigen_residual": 7.504250772161108e-16
+          }
+        ]
+      },
+      {
+        "bandwidth": 60,
+        "history": [
+          {
+            "iteration": 1,
+            "projection_auc": 0.9912109375,
+            "probe_auc": 1.0,
+            "eigenvalue": 8.714660289993788e-06,
+            "eigen_residual": 1.5118371313652662e-15
+          },
+          {
+            "iteration": 2,
+            "projection_auc": 1.0,
+            "probe_auc": 1.0,
+            "eigenvalue": 2.071450882940306e-05,
+            "eigen_residual": 2.120945130801589e-15
+          },
+          {
+            "iteration": 3,
+            "projection_auc": 1.0,
+            "probe_auc": 1.0,
+            "eigenvalue": 2.8657330190505624e-05,
+            "eigen_residual": 8.375899922834521e-16
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "paired_256_L24_means",
+    "context": "paired",
+    "n": 256,
+    "layer": 24,
+    "method": "means",
+    "hidden_norm": 172.7439767154931,
+    "bandwidth": 10,
+    "iteration": 3,
+    "projection_auc": 1.0,
+    "probe_auc": 1.0,
+    "eigen_residual": 9.648068279291738e-16,
+    "candidates": [
+      {
+        "bandwidth": 10,
+        "history": [
+          {
+            "iteration": 1,
+            "projection_auc": 0.599609375,
+            "probe_auc": 1.0,
+            "eigenvalue": 7.538535190847815e-06,
+            "eigen_residual": 1.6970730048630203e-12
+          },
+          {
+            "iteration": 2,
+            "projection_auc": 0.9990234375,
+            "probe_auc": 1.0,
+            "eigenvalue": 2.925228869927333e-05,
+            "eigen_residual": 7.335035036567692e-16
+          },
+          {
+            "iteration": 3,
+            "projection_auc": 1.0,
+            "probe_auc": 1.0,
+            "eigenvalue": 8.617840543151032e-05,
+            "eigen_residual": 9.648068279291738e-16
+          }
+        ]
+      },
+      {
+        "bandwidth": 30,
+        "history": [
+          {
+            "iteration": 1,
+            "projection_auc": 0.9873046875,
+            "probe_auc": 1.0,
+            "eigenvalue": 9.073560706130912e-06,
+            "eigen_residual": 1.9065190591922613e-14
+          },
+          {
+            "iteration": 2,
+            "projection_auc": 1.0,
+            "probe_auc": 1.0,
+            "eigenvalue": 2.053807755796374e-05,
+            "eigen_residual": 8.030484475873667e-16
+          },
+          {
+            "iteration": 3,
+            "projection_auc": 1.0,
+            "probe_auc": 1.0,
+            "eigenvalue": 3.249932471109834e-05,
+            "eigen_residual": 7.504250772161108e-16
+          }
+        ]
+      },
+      {
+        "bandwidth": 60,
+        "history": [
+          {
+            "iteration": 1,
+            "projection_auc": 0.9912109375,
+            "probe_auc": 1.0,
+            "eigenvalue": 8.714660289993788e-06,
+            "eigen_residual": 1.5118371313652662e-15
+          },
+          {
+            "iteration": 2,
+            "projection_auc": 1.0,
+            "probe_auc": 1.0,
+            "eigenvalue": 2.071450882940306e-05,
+            "eigen_residual": 2.120945130801589e-15
+          },
+          {
+            "iteration": 3,
+            "projection_auc": 1.0,
+            "probe_auc": 1.0,
+            "eigenvalue": 2.8657330190505624e-05,
+            "eigen_residual": 8.375899922834521e-16
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,115 @@
+{
+  "provenance": "Leitura qualitativa do assistente de 12 trios completos, definidos antes da geração do teste. Não é anotação humana independente.",
+  "case_selection_sha256": "74fbe8d5479458aa2c50916d75e28c04a75a428d70039286bb22b53c00d41239",
+  "selection_sha256": "f2864af36243d988fa6e72478f4b1c194630f1cc322130edc83307538044c491",
+  "cases": [
+    {
+      "id": "imdb_test_01721",
+      "reading": "A opinião muda de falta de clareza e estilo datado para elogio da estética retrô e da atuação. O prefixo permanece igual, mas ainda reproduz juízos da fonte, como questionable fashion; não é inteiramente neutro.",
+      "output_sha256": {
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1": "a3816e3ac86d0ac3a9492f42dfb2e285ec0142129989da4e19c2a26ea28cde32",
+        "baseline": "3521ef2c375292ad2b5e954674cea3ff0c4b1162c7e36d8ed43604548ed6e8cc",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1": "b7d0f60914c9444013dc8e875a2ce3ba0e8a77047157c9cda44837c3b56ac3aa"
+      }
+    },
+    {
+      "id": "imdb_test_05223",
+      "reading": "O sentido negativo critica direção e narrativa; o positivo elogia, mas inventa uma cidade pequena e uma época mágica do ano. É uma falha factual na frase REVIEW, apesar do prefixo idêntico.",
+      "output_sha256": {
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1": "ffb475d2bfe063f4bcba1e29445730795890d54ee210b57b4c3eab4cc2e94f2b",
+        "baseline": "9522c2dc09b3725d4746a8d185957c37a651bab7c981dc482f4cb9bbf04d5f7a",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1": "fd48151fd41a89cdbf0a27f087553f80854f507a56d84199e3ceec57a6f1048b"
+      }
+    },
+    {
+      "id": "imdb_test_00181",
+      "reading": "A crítica a produção e narrativa dá lugar a elogio das atuações e da premissa do assalto. A construção unique premise but is enhanced soa pouco natural. FACT inclui avaliações de produção copiadas da fonte.",
+      "output_sha256": {
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1": "35e85a5311768b57d7da72856fdaaff968ade2b97425a66af23e1329fc8676fc",
+        "baseline": "6383a0be252e5035f2f9acaf8781dd1ec06bae83cba65cd47aabcabcc8e8c0eb",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1": "7ce0b95c0d4607c855c7bc0f693ae859427c2bdfb090cd08b7682a91bebd5c5f"
+      }
+    },
+    {
+      "id": "imdb_test_12109",
+      "reading": "A avaliação passa de narrativa sem coerência para elogio do cenário e da trilha. O prefixo conserva a crítica citada do autor original; o novo elogio está no campo REVIEW.",
+      "output_sha256": {
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1": "b3d18e707705649d9c9cc6837627adb02e3bf914aa0300d3cfca269e46ec098f",
+        "baseline": "e6685518afdd1c051d4eaaea8e3eefce63baa76ce00609660528a99beff92ac4",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1": "bffef01e7c249a291595332dc4333b9891bec00c587077e88692084c0ed0ec5f"
+      }
+    },
+    {
+      "id": "imdb_test_15518",
+      "reading": "O sentido negativo critica ritmo e direção genéricos; o positivo elogia humor leve, imagens e atuação de Raquel Welch. Há mudança clara de avaliação; o resumo comum ainda relata a opinião do primeiro autor.",
+      "output_sha256": {
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1": "1a2f90926eac39d46fc2c52e54becc3b3fc01856776d80896908508c9f16a2e4",
+        "baseline": "30196787024dbfb88701ba766a16bdc6e5d0b5d7d905b6e55ea1d5fee3b098f1",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1": "cd3d27f0419d52e3376de952480c37bbc1091e7a4204cc370c58f3cdeccff1d0"
+      }
+    },
+    {
+      "id": "imdb_test_13510",
+      "reading": "O positivo elogia a construção e a emoção do filme. O negativo mistura crítica ao filme com crítica ao sentimento do resenhista: lack critical evaluation não é uma avaliação clara da realização cinematográfica. Controle de alvo parcial.",
+      "output_sha256": {
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1": "0a8d6c5ae5a5cd08a9345f129a6a836ad9143b6dd939542eed193cbd80e8efb3",
+        "baseline": "837b50906abd6f552ca3398ff7f95d20f89762afe49199c1d9dcefec0c830ff2",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1": "77fbe6d72fda2030a30ed85345b4ab35d26f0cd88aa19c5d94a52f06132fdaa3"
+      }
+    },
+    {
+      "id": "imdb_test_22261",
+      "reading": "As opiniões em REVIEW se opõem, mas o FACT comum fica ambíguo: parece atribuir ao próprio resenhista as críticas à aparência de Harrison Ford que ele rejeita. É um problema de resumo já presente sem steering.",
+      "output_sha256": {
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1": "f4195f0cc98a842ab2d3f0bae5cc6961b6b43bc2c515ffd221f7cd9ee2160f96",
+        "baseline": "31a4205c8f439d4d7c54ae7f6cd01bf0fbe1bf8358683d1fe46c6300e2d53c32",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1": "37bf8d1493c645d9d27f21782020403b56dfd58acf3d9aa0fbd9c3cd34162f9f"
+      }
+    },
+    {
+      "id": "imdb_test_14490",
+      "reading": "O negativo censura enredo convoluto e excesso de reviravoltas; o positivo elogia originalidade e atuações. As duas frases avaliam o filme, mantendo o trecho comum.",
+      "output_sha256": {
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1": "a1b9424febd9b7f23469b7ddbf39b8eeb6ebc09cea842b17fc5dfd4e5f7134cc",
+        "baseline": "f02144caef55a42d4dbd10a6065e5186ac97f88684ec011def5eb5c6fa1633a8",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1": "c22820dd79360fc425ac257e3d12fea675b99dcb246147ebf16faa4eb4b99b4e"
+      }
+    },
+    {
+      "id": "test_plot_000",
+      "reading": "A tentativa de organizar uma apresentação é mantida nos três textos, sem inventar sucesso ou fracasso. REVIEW muda de crítica à direção e ao ritmo para elogio da narrativa e das atuações. FACT usa duas frases, embora o prompt peça uma.",
+      "output_sha256": {
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1": "4e605e6fbcd82628e80307102ccfe301688f06b896c5e6e68948a366f3e3631a",
+        "baseline": "a03349e88ab731c5bf6005d0c20a365dab32e6504e3745538d4e8650a236920f",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1": "2bb2354634c89aae53778f12cfcef87a2015cce239f7bc82d56f96b000299e95"
+      }
+    },
+    {
+      "id": "test_plot_001",
+      "reading": "O arquivo, Ivo, Faye e a busca antes do fechamento são mantidos. A avaliação passa de ritmo irregular e falta de direção para uma apreciação mais suave do mistério; não surgem desfechos novos.",
+      "output_sha256": {
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1": "83cef652ce082e59ed51b025d054f49e1ca3a5feb9eec03e5ab80ec0188e85de",
+        "baseline": "42136f79f2543d7268ba4a6c0ed80bfe5060006ae17f3bce35a25637f60dac26",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1": "3ec14f9c727da4a45301386c5f5bceed89cf2845ea7440c63e2ffa6851822be6"
+      }
+    },
+    {
+      "id": "test_plot_002",
+      "reading": "A direção negativa critica coerência e ritmo; a positiva aprecia narrativa e interação. O ano e o título são omitidos no resumo comum, mas Lena, Ivo, o observatório e a tentativa até o festival são mantidos.",
+      "output_sha256": {
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1": "b147291c4e1f93dea9e9197ba5b86ebb90c000729504e6c3e9c63f6c00db8c0a",
+        "baseline": "f724214b48d5d4c077469ae8e68170f46fe172699cc2c6e24343488c7af8aa87",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1": "3f728eae5032dae892e6a118e7038aeba6e92eb1b56b539b77b8a960e378e1f3"
+      }
+    },
+    {
+      "id": "test_plot_003",
+      "reading": "O rádio, as duas personagens e a tentativa de restabelecer contato durante a tempestade permanecem iguais. A avaliação muda de direção e ritmo ruins para apreciação da exploração e colaboração; não é afirmado um resultado da tentativa.",
+      "output_sha256": {
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1": "5e8a613cd0da75bc50807a10f1d1f186d5779670cc97bb993eedb6b63b02f689",
+        "baseline": "0f278fd152700dfe3d4990620e56ed0e86a41c8dbaa3acb4e0da21dd03a030bd",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1": "69c6fa3f66e317b39b655d8bfe87a409aa33193ebe9a4a55257f9c67d2c51555"
+      }
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "status": "passed",
+  "zero_exact": true,
+  "single_controller_equivalence_exact": true,
+  "row_independence_exact": true,
+  "restoration_exact": true
+}

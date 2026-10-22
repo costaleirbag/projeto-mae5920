@@ -1,0 +1,31 @@
+{
+  "seconds": 7.283657545689493,
+  "selected_layer": 9,
+  "encoder_matches_classifier": true,
+  "encoder_transfer_missing_keys": [],
+  "mlm_head": "MLM transform and bias from pretraining; output projection remains tied to the fine-tuned input embeddings. Encoder exactly matches the classifier.",
+  "decoder_tied_to_fine_tuned_embeddings": true,
+  "method": "Sequentially fill two explicit opinion masks; additive RFM direction at every non-padding position",
+  "alphas": [
+    -8,
+    -4,
+    -2,
+    0,
+    2,
+    4,
+    8
+  ],
+  "norm_matched_random_control": "random_1",
+  "probe_n": 5,
+  "results_n": 70,
+  "selection": "All generated outputs retained. No sentiment-guided candidate reranking.",
+  "caveats": [
+    "A masked-LM editing extension, not the paper's autoregressive generation experiment.",
+    "Synthetic probes are not a held-out benchmark of general rewriting.",
+    "The masked LM sees masks, so compare each steering condition to alpha=0 as well as the original.",
+    "Transferring a CLS concept direction to all tokens and an MLM head may fail.",
+    "Large interventions can damage fluency or change unrelated content.",
+    "Classifier probabilities and semantic similarity do not establish human-rated success.",
+    "No claim that a neutral IMDb class exists."
+  ]
+}

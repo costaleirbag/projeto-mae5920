@@ -1,0 +1,374 @@
+[
+  {
+    "name": "baseline",
+    "layers": [],
+    "gain": 0,
+    "scope": "last"
+  },
+  {
+    "name": "factual_256_L24_means_relative_g-0.3_last",
+    "layers": [
+      [
+        24,
+        "factual_256_L24_means",
+        146.18527221679688
+      ]
+    ],
+    "gain": -0.3,
+    "scope": "last"
+  },
+  {
+    "name": "factual_256_L24_means_relative_g+0.3_last",
+    "layers": [
+      [
+        24,
+        "factual_256_L24_means",
+        146.18527221679688
+      ]
+    ],
+    "gain": 0.3,
+    "scope": "last"
+  },
+  {
+    "name": "intent_256_L28_means_contrast_g-2_last",
+    "layers": [
+      [
+        28,
+        "intent_256_L28_means",
+        100.85103234900045
+      ]
+    ],
+    "gain": -2.0,
+    "scope": "last"
+  },
+  {
+    "name": "intent_256_L28_means_contrast_g+2_last",
+    "layers": [
+      [
+        28,
+        "intent_256_L28_means",
+        100.85103234900045
+      ]
+    ],
+    "gain": 2.0,
+    "scope": "last"
+  },
+  {
+    "name": "factual_256_L20_means_relative_g-0.3_last",
+    "layers": [
+      [
+        20,
+        "factual_256_L20_means",
+        80.1808090209961
+      ]
+    ],
+    "gain": -0.3,
+    "scope": "last"
+  },
+  {
+    "name": "factual_256_L20_means_relative_g+0.3_last",
+    "layers": [
+      [
+        20,
+        "factual_256_L20_means",
+        80.1808090209961
+      ]
+    ],
+    "gain": 0.3,
+    "scope": "last"
+  },
+  {
+    "name": "writer_512_L24_g-0.3_last",
+    "layers": [
+      [
+        24,
+        "writer_512_L24",
+        146.18527221679688
+      ]
+    ],
+    "gain": -0.3,
+    "scope": "last"
+  },
+  {
+    "name": "writer_512_L24_g+0.3_last",
+    "layers": [
+      [
+        24,
+        "writer_512_L24",
+        146.18527221679688
+      ]
+    ],
+    "gain": 0.3,
+    "scope": "last"
+  },
+  {
+    "name": "writer_2048_L24_g-0.3_last",
+    "layers": [
+      [
+        24,
+        "writer_2048_L24",
+        146.18527221679688
+      ]
+    ],
+    "gain": -0.3,
+    "scope": "last"
+  },
+  {
+    "name": "writer_2048_L24_g+0.3_last",
+    "layers": [
+      [
+        24,
+        "writer_2048_L24",
+        146.18527221679688
+      ]
+    ],
+    "gain": 0.3,
+    "scope": "last"
+  },
+  {
+    "name": "writer_2048_L20_g-0.3_last",
+    "layers": [
+      [
+        20,
+        "writer_2048_L20",
+        80.1808090209961
+      ]
+    ],
+    "gain": -0.3,
+    "scope": "last"
+  },
+  {
+    "name": "writer_2048_L20_g+0.3_last",
+    "layers": [
+      [
+        20,
+        "writer_2048_L20",
+        80.1808090209961
+      ]
+    ],
+    "gain": 0.3,
+    "scope": "last"
+  },
+  {
+    "name": "class_512_L12_g-0.3_last",
+    "layers": [
+      [
+        12,
+        "class_512_L12",
+        44.349754333496094
+      ]
+    ],
+    "gain": -0.3,
+    "scope": "last"
+  },
+  {
+    "name": "class_512_L12_g+0.3_last",
+    "layers": [
+      [
+        12,
+        "class_512_L12",
+        44.349754333496094
+      ]
+    ],
+    "gain": 0.3,
+    "scope": "last"
+  },
+  {
+    "name": "class_2048_L12_g-0.3_last",
+    "layers": [
+      [
+        12,
+        "class_2048_L12",
+        44.349754333496094
+      ]
+    ],
+    "gain": -0.3,
+    "scope": "last"
+  },
+  {
+    "name": "class_2048_L12_g+0.3_last",
+    "layers": [
+      [
+        12,
+        "class_2048_L12",
+        44.349754333496094
+      ]
+    ],
+    "gain": 0.3,
+    "scope": "last"
+  },
+  {
+    "name": "paired_means_multi_g-0.1_last",
+    "layers": [
+      [
+        12,
+        "paired_256_L12_means",
+        44.349754333496094
+      ],
+      [
+        16,
+        "paired_256_L16_means",
+        57.088478088378906
+      ],
+      [
+        20,
+        "paired_256_L20_means",
+        80.1808090209961
+      ],
+      [
+        24,
+        "paired_256_L24_means",
+        146.18527221679688
+      ]
+    ],
+    "gain": -0.1,
+    "scope": "last"
+  },
+  {
+    "name": "paired_means_multi_g+0.1_last",
+    "layers": [
+      [
+        12,
+        "paired_256_L12_means",
+        44.349754333496094
+      ],
+      [
+        16,
+        "paired_256_L16_means",
+        57.088478088378906
+      ],
+      [
+        20,
+        "paired_256_L20_means",
+        80.1808090209961
+      ],
+      [
+        24,
+        "paired_256_L24_means",
+        146.18527221679688
+      ]
+    ],
+    "gain": 0.1,
+    "scope": "last"
+  },
+  {
+    "name": "factual_256_L24_means_relative_g-0.3_last_decode",
+    "layers": [
+      [
+        24,
+        "factual_256_L24_means",
+        146.18527221679688
+      ]
+    ],
+    "gain": -0.3,
+    "scope": "decode"
+  },
+  {
+    "name": "factual_256_L24_means_relative_g+0.3_last_decode",
+    "layers": [
+      [
+        24,
+        "factual_256_L24_means",
+        146.18527221679688
+      ]
+    ],
+    "gain": 0.3,
+    "scope": "decode"
+  },
+  {
+    "name": "factual_256_L24_means_relative_g-0.3_last_all",
+    "layers": [
+      [
+        24,
+        "factual_256_L24_means",
+        146.18527221679688
+      ]
+    ],
+    "gain": -0.3,
+    "scope": "all"
+  },
+  {
+    "name": "factual_256_L24_means_relative_g+0.3_last_all",
+    "layers": [
+      [
+        24,
+        "factual_256_L24_means",
+        146.18527221679688
+      ]
+    ],
+    "gain": 0.3,
+    "scope": "all"
+  },
+  {
+    "name": "intent_256_L28_means_contrast_g-2_last_decode",
+    "layers": [
+      [
+        28,
+        "intent_256_L28_means",
+        100.85103234900045
+      ]
+    ],
+    "gain": -2.0,
+    "scope": "decode"
+  },
+  {
+    "name": "intent_256_L28_means_contrast_g+2_last_decode",
+    "layers": [
+      [
+        28,
+        "intent_256_L28_means",
+        100.85103234900045
+      ]
+    ],
+    "gain": 2.0,
+    "scope": "decode"
+  },
+  {
+    "name": "intent_256_L28_means_contrast_g-2_last_all",
+    "layers": [
+      [
+        28,
+        "intent_256_L28_means",
+        100.85103234900045
+      ]
+    ],
+    "gain": -2.0,
+    "scope": "all"
+  },
+  {
+    "name": "intent_256_L28_means_contrast_g+2_last_all",
+    "layers": [
+      [
+        28,
+        "intent_256_L28_means",
+        100.85103234900045
+      ]
+    ],
+    "gain": 2.0,
+    "scope": "all"
+  },
+  {
+    "name": "original_exact_-1_all",
+    "layers": [
+      [
+        24,
+        "original_L24",
+        12.947524865976407
+      ]
+    ],
+    "gain": -4,
+    "scope": "all"
+  },
+  {
+    "name": "original_exact_+1_all",
+    "layers": [
+      [
+        24,
+        "original_L24",
+        12.947524865976407
+      ]
+    ],
+    "gain": 4,
+    "scope": "all"
+  }
+]

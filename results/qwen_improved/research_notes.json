@@ -1,0 +1,30 @@
+{
+  "status": "verified",
+  "heldout_generation_test_used": true,
+  "confirmed_observations": [
+    "The original layer-24 direction already had high label-projection AUC; classification separability did not ensure writing control.",
+    "The selected generation direction is the normalized mean contrast of 128 positive/negative writing-intent pairs, at block 28. It is not the original RFM/AGOP direction.",
+    "All factual prefixes and their generated token IDs match zero exactly under opinion-only steering, on the 64 held-out and 32 replay sources.",
+    "The semantic judge identified both target film opinions for 55/64 new sources: 24/32 real reviews and 31/32 synthetic plots. Whole-text TFIDF, CNN and BERT separation also improved.",
+    "Texts remain imperfect: a positive review invents a small-town setting; some contrastive wording is awkward; the common baseline summary can be ambiguous.",
+    "Ten automatic positive fact flags were read post-hoc. One is a clear new setting, while nine appear to confuse changed film opinion with plot error. The automatic labels are retained; no corrected factual accuracy is claimed."
+  ],
+  "current_protocol_refinement": "FACT:/REVIEW: common untargeted format. Only after the generated REVIEW: marker is consumed, add the vector. All text is generated in a single autoregressive pass; none is replaced.",
+  "failed_protocols": [
+    {
+      "profile": "fact_opinion_v1",
+      "reason": "A requested newline was absent on some real reviews. The opinion gate did not fire, and the prefix assertion failed. All 336 generated outputs were preserved remotely."
+    }
+  ],
+  "completion_evidence": {
+    "verification_sha256": "ad68d6637d5bd5b574c95bab8a65e0c287742d7874cf196c05d1e09678f3196f",
+    "notebook_code_cells_executed": 10,
+    "pdf_pages_visually_reviewed": 7,
+    "heldout_outputs": 704,
+    "old_source_replay_outputs": 160,
+    "predefined_trios_read": 12,
+    "posthoc_positive_fact_flags_read": 10,
+    "old_cases_read": 3,
+    "inference_pipeline_exit_code": 0
+  }
+}

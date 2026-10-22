@@ -1,0 +1,16 @@
+{
+  "report": "relatorio.html",
+  "pdf": "relatorio_imdb.pdf",
+  "notebook": "notebooks/experimentos_imdb.ipynb",
+  "figures": [
+    "error_marker_contrasts.png",
+    "text_editing.png",
+    "semantic_error_rates.png",
+    "confusion_matrices.png",
+    "length_performance.png",
+    "steering.png",
+    "calibration.png",
+    "model_comparison.png"
+  ],
+  "generated_from_saved_results": true
+}

@@ -1,0 +1,162 @@
+{
+  "provenance": "assistant source-only reading prepared before inspecting generated outputs",
+  "human_annotations": false,
+  "scope": "Facts stated or implied by the supplied source, not externally verified movie facts. Opinions may change under the rewriting task.",
+  "cases": [
+    {
+      "id": "imdb_test_08426",
+      "source_sha256": "983c216f619658ffa60c00d7065bc2b1c5fd27c24a7003a18cd562a635b36dd7",
+      "facts": [
+        "Filme principal: Volcano.",
+        "O trailer foi visto antes de uma sessão de Titanic; Titanic não é o filme avaliado.",
+        "A filha é descrita como tendo 13 anos; cientistas e bombeiros são mencionados."
+      ],
+      "pitfalls": [
+        "Cruise II e Twister são comparações.",
+        "A nota 1/10 e avaliações de roteiro, personagens e efeitos são opiniões que a tarefa permite reformular."
+      ]
+    },
+    {
+      "id": "imdb_test_01056",
+      "source_sha256": "52ff6d2358c3f7711b4f0df08f0de80de8664679913613aa255ca3f0c51eda36",
+      "facts": [
+        "Sung Hi Lee, da Coreia, interpreta Muka Laka Miki.",
+        "O texto menciona National Lampoon, mas não informa o título do filme."
+      ],
+      "pitfalls": [
+        "A advertência sobre saúde e cérebro é hipérbole da crítica, não um evento do enredo.",
+        "Elogios à atriz e críticas ao humor podem mudar de polaridade."
+      ]
+    },
+    {
+      "id": "imdb_test_10699",
+      "source_sha256": "75b6a5fc2869932d731c71fdcbf91bafbe91fc93ed76066d1bce713232a88213",
+      "facts": [
+        "Jake West é citado na crítica.",
+        "O texto usa 12 grand como custo de um carro."
+      ],
+      "pitfalls": [
+        "A fuga de aldeões parece uma hipérbole da crítica; a fonte não permite tratá-la com segurança como sinopse confirmada.",
+        "O título do filme não aparece."
+      ]
+    },
+    {
+      "id": "imdb_test_18461",
+      "source_sha256": "8d1065ef9a21bfb20fb191c54844b93410d95a85c12f3a255c4731204ba2c9ce",
+      "facts": [
+        "Filme: OSS117; comédia francesa.",
+        "A referência é ao estilo e à visão francesa do mundo nos anos 1950.",
+        "Jean Dujardin é o ator citado."
+      ],
+      "pitfalls": [
+        "Monty Python é uma comparação de humor.",
+        "Não inventar diretor, nomes de personagens ou eventos de espionagem não descritos."
+      ]
+    },
+    {
+      "id": "imdb_test_20672",
+      "source_sha256": "9d1954a070cdce04c2063b80149e10747cd88df7786384c2763498a3e2c8983e",
+      "facts": [
+        "Filme: The Vicious Circle; mistério britânico.",
+        "Dr. Latimer, interpretado por John Mills, encontra uma atriz alemã assassinada e chama Scotland Yard.",
+        "O homem é acusado de um crime que não cometeu e tenta provar sua inocência."
+      ],
+      "pitfalls": [
+        "Hitchcock é referência comparativa, não o diretor informado pelo texto.",
+        "O julgamento sobre entretenimento e atuação pode mudar."
+      ]
+    },
+    {
+      "id": "imdb_test_06749",
+      "source_sha256": "a0d226d18aa11c290d53ff2628b81f293596bea7e1793aab9cb69f904fe28c99",
+      "facts": [
+        "O alvo principal é o terceiro filme Bring It On.",
+        "Os dois primeiros filmes são usados como comparação.",
+        "Há líderes de torcida."
+      ],
+      "pitfalls": [
+        "Não transferir o alvo da crítica para o primeiro filme ou a franquia inteira sem distinção.",
+        "A nota 2/10, o humor e a inteligência do roteiro são opiniões reformuláveis."
+      ]
+    },
+    {
+      "id": "imdb_test_19701",
+      "source_sha256": "696926c4f3457f313b3bc0bfd36a2d1d893dbc9432ff869ca1196f3033777a85",
+      "facts": [
+        "O filme principal não tem título informado.",
+        "Captain Macleane é citado; há ambientação histórica e música moderna.",
+        "Braveheart, Titanic, The Patriot e Moulin Rouge são comparações."
+      ],
+      "pitfalls": [
+        "Não nomear o filme principal como um dos filmes comparados.",
+        "O autor defende o humor e a ausência de pretensão de rigor histórico; essa avaliação pode ser reformulada."
+      ]
+    },
+    {
+      "id": "imdb_test_08433",
+      "source_sha256": "388848ef08013457270b2ba7ba7bd6bbcbe5471cb7e61ca4fb3c327ff8152abe",
+      "facts": [
+        "O filme principal não tem título informado.",
+        "Personagens de histórias diferentes se encontram ocasionalmente; há referências a navios em garrafas.",
+        "O texto menciona boa recepção em Cannes."
+      ],
+      "pitfalls": [
+        "Não inventar um prêmio específico de Cannes ou nomes de personagens.",
+        "A coesão percebida, o ritmo, a atuação e a atmosfera são avaliações subjetivas."
+      ]
+    },
+    {
+      "id": "neutral_01",
+      "source_sha256": "27396fa8b459dd14a297c1005102153053305ab69d4ca4b53ef0848b0c4bb85d",
+      "facts": [
+        "Maya é radioastrônoma em uma estação na montanha.",
+        "Durante uma tempestade, ela e um técnico consertam um transmissor.",
+        "A comunicação ameaçada é com uma cidade próxima."
+      ],
+      "pitfalls": [
+        "Não trocar a profissão por astronauta/meteorologista nem transformar o transmissor em nave espacial.",
+        "Nenhuma opinião sobre o filme está dada."
+      ]
+    },
+    {
+      "id": "neutral_02",
+      "source_sha256": "5f36f70ab51b56ae3b2d04193ca1aa6e3338562d14894f3b66fa84894df838ef",
+      "facts": [
+        "Daniel é chef e volta à cidade natal em 2016.",
+        "Ele abre um café com a irmã.",
+        "Eles participam de uma competição culinária local."
+      ],
+      "pitfalls": [
+        "Não inventar nomes para a irmã, outro ano ou uma viagem a outro país.",
+        "Nenhuma opinião sobre o filme está dada."
+      ]
+    },
+    {
+      "id": "neutral_03",
+      "source_sha256": "d2201be6ac79b459cdbd4482586e2241a4fa55e4e48732f0d7db2770193baaec",
+      "facts": [
+        "Duas irmãs viajam de trem para encontrar o avô.",
+        "Encontram um envelope no apartamento dele.",
+        "A descoberta as leva a investigar a história da família."
+      ],
+      "pitfalls": [
+        "A fonte não diz que o avô morreu nem menciona assassinato, herança ou nomes próprios.",
+        "Nenhuma opinião sobre o filme está dada."
+      ]
+    },
+    {
+      "id": "neutral_04",
+      "source_sha256": "f71717a0a0dff08a016595193bb48bd1d0f87c64b942c837231d11ab0654fabf",
+      "facts": [
+        "É um documentário sobre pesquisadores marinhos acompanhados durante doze meses.",
+        "Eles registram movimentos de baleias.",
+        "Entrevistam moradores de três vilas costeiras."
+      ],
+      "pitfalls": [
+        "Não trocar baleias por outra espécie nem converter o documentário em aventura ficcional.",
+        "Doze meses é o período acompanhado, não a duração do filme.",
+        "Nenhuma opinião sobre o filme está dada."
+      ]
+    }
+  ]
+}

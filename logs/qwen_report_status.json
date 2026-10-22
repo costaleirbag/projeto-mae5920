@@ -1,0 +1,26 @@
+{
+  "pid": 15583,
+  "stage": "report",
+  "config_sha256": "79badf23f46fb5d5c0ea3004b9fff8c1dfbebdfc94111a240b03693aa2fbef63",
+  "status": "complete",
+  "environment": {
+    "python": "3.12.14",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "logical_cpus": 8,
+    "memory_gb": 8.589934592,
+    "device": "cpu",
+    "accelerator": "CPU",
+    "packages": {
+      "torch": "2.14.1",
+      "transformers": "4.57.6",
+      "datasets": "4.8.5",
+      "numpy": "2.5.4",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.18.1",
+      "sentence-transformers": "5.7.0"
+    },
+    "determinism": "Seeds fixed; warn-only deterministic torch; results may differ across devices and runtimes."
+  }
+}

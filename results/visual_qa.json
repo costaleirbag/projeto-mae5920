@@ -1,0 +1,6 @@
+{
+  "status": "passed",
+  "pdf_sha256": "b7df1e1e91b1b414f3ff260433954a71739fd1639583e291bb09515bbdfbb225",
+  "pages": 8,
+  "review": "All report pages rendered and visually inspected. The final modified chart page was rendered and inspected again. No clipping or text overlap remains."
+}

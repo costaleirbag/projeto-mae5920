@@ -1,0 +1,4 @@
+TF-IDF {'C': 0.5, 'validation_f1_macro': 0.893778819231146}
+TF-IDF {'C': 2.0, 'validation_f1_macro': 0.9071512167403453}
+TF-IDF {'C': 8.0, 'validation_f1_macro': 0.9152418144291209}
+tfidf test {'n': 25000, 'accuracy': 0.90144, 'f1_macro': 0.9014399974768639, 'log_loss': 0.2396380732709029, 'brier': 0.07206745863538994, 'roc_auc': 0.9649219072000002, 'ece_10': 0.005860011603136085, 'tn': 11266, 'fp': 1234, 'fn': 1230, 'tp': 11270, 'false_positive_rate': 0.09872, 'false_negative_rate': 0.0984}

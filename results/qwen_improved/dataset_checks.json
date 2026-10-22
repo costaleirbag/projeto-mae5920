@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "nested_training_class_counts": {
+    "128": {
+      "1": 64,
+      "0": 64
+    },
+    "512": {
+      "1": 257,
+      "0": 255
+    },
+    "2048": {
+      "1": 1025,
+      "0": 1023
+    }
+  },
+  "source_texts_disjoint_between_partitions": true,
+  "new_test_real_texts_unique_and_disjoint_from_old_subsets": true,
+  "dataset_sha256": "ceb17574841eda41655d05121f25aee83aeab363bd5ec379b8a224fc9aa6f6bb",
+  "note": "The original 512-source subset is preserved (255 negative, 257 positive); larger subsets retain this two-example imbalance."
+}

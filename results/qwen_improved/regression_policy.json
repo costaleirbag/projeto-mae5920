@@ -1,0 +1,4 @@
+{
+  "purpose": "Replay the original 32 sources after settings are frozen; not used for selection.",
+  "selection_sha256": "f2864af36243d988fa6e72478f4b1c194630f1cc322130edc83307538044c491"
+}

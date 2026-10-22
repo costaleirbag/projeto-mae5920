@@ -1,0 +1,17 @@
+{
+  "policy": "First old source matching each previously discussed case, fixed before reading new regression outputs.",
+  "cases": [
+    {
+      "pattern": "Maya",
+      "id": "neutral_01"
+    },
+    {
+      "pattern": "Volcano",
+      "id": "imdb_test_08426"
+    },
+    {
+      "pattern": "OSS.?117",
+      "id": "imdb_test_18461"
+    }
+  ]
+}

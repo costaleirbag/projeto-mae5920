@@ -1,0 +1,75 @@
+{
+  "seconds": 250.18738132715225,
+  "hidden_size": 4096,
+  "frozen_backbone": true,
+  "environment": {
+    "python": "3.12.3",
+    "platform": "Linux-6.17.0-1032-nvidia-aarch64-with-glibc2.39",
+    "machine": "aarch64",
+    "logical_cpus": 20,
+    "memory_gb": 130.663165952,
+    "device": "cuda",
+    "accelerator": "NVIDIA GB10",
+    "packages": {
+      "torch": "2.10.0a0+b4e4ee81d3.nv25.12",
+      "transformers": "4.57.6",
+      "datasets": "4.8.5",
+      "numpy": "2.5.4",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.18.1",
+      "sentence-transformers": "5.7.0"
+    },
+    "determinism": "Seeds fixed; warn-only deterministic torch; results may differ across devices and runtimes."
+  },
+  "config": {
+    "seed": 20261020,
+    "threads": 8,
+    "model_id": "Qwen/Qwen3-8B",
+    "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+    "dtype": "bfloat16",
+    "attention": "sdpa",
+    "max_review_tokens": 768,
+    "batch_size": 8,
+    "feature_train_n": 512,
+    "feature_validation_n": 256,
+    "feature_test_n": 256,
+    "layers": [
+      12,
+      24,
+      32
+    ],
+    "rfm_bandwidths": [
+      30.0,
+      60.0
+    ],
+    "rfm_regularization": 0.001,
+    "rfm_iterations": 4,
+    "intervention_alphas": [
+      -4,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      4
+    ],
+    "random_controls": 3,
+    "intervention_scope": "all_nonpadding",
+    "generation_real_n": 24,
+    "generation_synthetic_n": 8,
+    "generation_alphas": [
+      -4,
+      -2,
+      0,
+      2,
+      4
+    ],
+    "generation_control_alpha": 4,
+    "generation_batch_size": 8,
+    "max_new_tokens": 96,
+    "do_sample": false,
+    "enable_thinking": false
+  },
+  "last_token_only_storage": true
+}

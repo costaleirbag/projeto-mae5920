@@ -1,0 +1,5 @@
+Generating train split:   0%|          | 0/25000 [00:00<?, ? examples/s]Generating train split: 100%|██████████| 25000/25000 [00:00<00:00, 275642.92 examples/s]
+Generating test split:   0%|          | 0/25000 [00:00<?, ? examples/s]Generating test split: 100%|██████████| 25000/25000 [00:00<00:00, 461103.05 examples/s]
+Generating unsupervised split:   0%|          | 0/50000 [00:00<?, ? examples/s]Generating unsupervised split: 100%|██████████| 50000/50000 [00:00<00:00, 488960.60 examples/s]Generating unsupervised split: 100%|██████████| 50000/50000 [00:00<00:00, 487330.10 examples/s]
+{'train': 19823, 'validation': 2478, 'calibration': 2478, 'test': 25000}
+{'official_train_n': 25000, 'official_test_n': 25000, 'train_rows_matching_test_text': 123, 'conflicting_train_rows_excluded': 0, 'duplicate_train_rows_excluded': 98, 'retained_train_pool_n': 24779, 'duplicate_test_rows_retained': 201, 'test_policy': 'Original test retained. Training duplicates removed using test text hashes only.'}

@@ -1,0 +1,18 @@
+{
+  "seconds": 39.03733250312507,
+  "encoder": "sentence-transformers/all-MiniLM-L6-v2",
+  "revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+  "encoder_max_length": 256,
+  "cluster_fit": "Unlabeled training sample only",
+  "cluster_fit_n": 2500,
+  "cluster_terms": "Training-only contrastive TF times log-lift terms; themes require human interpretation",
+  "segment_evaluation": "All official test reviews; no oversampling of errors",
+  "caveats": [
+    "Exploratory associations, not established causes of errors.",
+    "Lexical markers are noisy and overlapping, especially irony.",
+    "Sentence embeddings see a token-limited prefix of each review.",
+    "Interpret comparisons conditional on true label (FP vs TN; FN vs TP).",
+    "Small subgroup estimates are uncertain; Wilson intervals supplied."
+  ],
+  "keyword_refresh": "Keyword descriptions recomputed from the same training sample and saved clusterer; cluster memberships and all evaluation results unchanged."
+}

@@ -1,0 +1,53 @@
+{
+  "policy": "Defined before held-out generation: first four official reviews of each original label and first four synthetic plots, in the fixed manifest order. Read all three selected/zero outputs, keep failures. Assistant reading, not independent human annotation.",
+  "cases": [
+    {
+      "id": "imdb_test_01721",
+      "source_sha256": "8f73a9f05858d5f5717a43ec381b6004583c6aea3bd0229d7229f11ee53ff8ab"
+    },
+    {
+      "id": "imdb_test_05223",
+      "source_sha256": "175a3a8465b0b59dde8d4ba147be6ddf4e65667bf8add0b26f9149003e3d8a78"
+    },
+    {
+      "id": "imdb_test_00181",
+      "source_sha256": "e3916d6c63bafc8209e3f1dfd372040253043103bb4c9e3d1e1fa2aa2d0cf44c"
+    },
+    {
+      "id": "imdb_test_12109",
+      "source_sha256": "6583773112218f06dd8cd2145e33c9919313c62a1decde1ccb7ca315e68d3b43"
+    },
+    {
+      "id": "imdb_test_15518",
+      "source_sha256": "23f1cc82def5779ac3fe101235a17e2b2a9aa5417164a2b6ad1d89c8209e9b77"
+    },
+    {
+      "id": "imdb_test_13510",
+      "source_sha256": "3d3af755705a496ae3991c3e80d7c9794ab8f5ac9ae4d93f4fb9f1477405df02"
+    },
+    {
+      "id": "imdb_test_22261",
+      "source_sha256": "d8a1d12a9a2e4b0331c80d8de2d0fa17ea7ec204683a9f11223257561a6e8308"
+    },
+    {
+      "id": "imdb_test_14490",
+      "source_sha256": "ffbaf3a1303f02d08fe515d70423e9bc95425e7835b43c7f725bb239649a9a07"
+    },
+    {
+      "id": "test_plot_000",
+      "source_sha256": "6365da24ec356fcf6b30c9bca13675148923363c9abb7f8975a2a11263a5e9dd"
+    },
+    {
+      "id": "test_plot_001",
+      "source_sha256": "85c1b47a19e587188d717a9a25ada6281841ec7add8251d090a41ba5cc380781"
+    },
+    {
+      "id": "test_plot_002",
+      "source_sha256": "6d800cda0b0970f98ff54098204138ac46c81fc93f8a4c4201911ef8d06a80d4"
+    },
+    {
+      "id": "test_plot_003",
+      "source_sha256": "eaa4f19a92266868f04c5163f03dcca326874bf10172ca8700c9ee99ed23285a"
+    }
+  ]
+}

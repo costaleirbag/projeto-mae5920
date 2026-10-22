@@ -1,0 +1,31 @@
+{
+  "status": "passed",
+  "focus": "Intervenções nas ativações de um Qwen3-8B congelado, com foco didático e sem exigência de superioridade sobre prompting.",
+  "new_model_inference": false,
+  "pdf_pages_visually_reviewed": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "notebook_executed_code_cells": 10,
+  "unedited_generation_texts_verified_across_json_notebook_html_pdf": 9,
+  "classification_examples_with_complete_input": 2,
+  "original_measured_result_files_preserved_byte_for_byte": 28,
+  "selection_uses_steering_outcome": false,
+  "files": {
+    "relatorio_qwen3.pdf": "daf1fcb92a4d54ae4d2613c964755a2e00a8a6b33d070e30516d54847a8875a3",
+    "relatorio_qwen3.html": "17df821d2bf6ea9e0eee3c493736bcb8092bda1056588551823138616188320c",
+    "notebooks/qwen3_8b_steering.ipynb": "3611b567ec5b8379f208bd38f21043f682c906a3904e18884266d76e03f75f97",
+    "results/qwen/didactic_examples.json": "a23b851c651edfbfe0887c8a8c4b14deab1de9ba80a55b54a255b8f062d1f99a"
+  },
+  "full_scientific_verification": "passed",
+  "notes": [
+    "Positive/negative names describe the intervention direction, not guaranteed output sentiment.",
+    "Qualitative notes are assistant readings, not independent human annotations."
+  ]
+}

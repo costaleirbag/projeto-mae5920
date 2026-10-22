@@ -1,0 +1,52 @@
+{
+  "model_id": "Qwen/Qwen3-8B",
+  "revision": "b968826d9c46dd6066d109eabc6255188de91218",
+  "environment": {
+    "python": "3.12.3",
+    "platform": "Linux-6.17.0-1032-nvidia-aarch64-with-glibc2.39",
+    "machine": "aarch64",
+    "logical_cpus": 20,
+    "memory_gb": 130.663165952,
+    "device": "cuda",
+    "accelerator": "NVIDIA GB10",
+    "packages": {
+      "torch": "2.10.0a0+b4e4ee81d3.nv25.12",
+      "transformers": "4.57.6",
+      "datasets": "4.8.5",
+      "numpy": "2.5.4",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.18.1",
+      "sentence-transformers": "5.7.0"
+    },
+    "determinism": "Seeds fixed; warn-only deterministic torch; results may differ across devices and runtimes."
+  },
+  "trainable_parameters": 0,
+  "total_parameters": 8190735360,
+  "load_seconds": 91.28497799998149,
+  "total_seconds": 93.33189029525965,
+  "label_token_ids": [
+    42224,
+    30487
+  ],
+  "p_positive_raw": [
+    1.0,
+    6.825602838489431e-08,
+    0.9525741338729858,
+    1.0
+  ],
+  "allowed_label_mass": [
+    1.0,
+    1.0,
+    0.00012950021482538432,
+    1.0
+  ],
+  "zero_hook_exact": true,
+  "hook_restoration_exact": true,
+  "nonzero_hook_changes_logits": true,
+  "zero_generation_exact": true,
+  "nonzero_generation_cached_vs_full_exact": true,
+  "cached_generation_prefill_calls": 1,
+  "cached_generation_decode_calls": 1,
+  "thinking_enabled": false
+}

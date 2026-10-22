@@ -1,0 +1,42 @@
+[
+  {
+    "a": "original_L24",
+    "b": "class_512_L24",
+    "cosine": 0.6109524324846415
+  },
+  {
+    "a": "original_L24",
+    "b": "writer_2048_L24",
+    "cosine": 0.07055167652511801
+  },
+  {
+    "a": "class_512_L16",
+    "b": "class_2048_L16",
+    "cosine": 0.7481223206144088
+  },
+  {
+    "a": "writer_512_L16",
+    "b": "writer_2048_L16",
+    "cosine": 0.7590012029296505
+  },
+  {
+    "a": "paired_256_L12",
+    "b": "paired_256_L12_means",
+    "cosine": 0.4425791783720476
+  },
+  {
+    "a": "paired_256_L16",
+    "b": "paired_256_L16_means",
+    "cosine": 0.4401340954932439
+  },
+  {
+    "a": "paired_256_L20",
+    "b": "paired_256_L20_means",
+    "cosine": 0.43600277934928783
+  },
+  {
+    "a": "paired_256_L24",
+    "b": "paired_256_L24_means",
+    "cosine": 0.48874372518797554
+  }
+]

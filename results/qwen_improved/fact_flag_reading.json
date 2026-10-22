@@ -1,0 +1,86 @@
+{
+  "provenance": "Leitura pós-hoc pelo assistente de todos os 10 alertas factuais positivos do juiz Qwen. Não é anotação humana independente nem uma nova seleção de configuração; os rótulos automáticos são mantidos.",
+  "caveat": "Não revisar os 54 casos sem alerta impede estimar uma taxa factual corrigida a partir desta releitura.",
+  "cases": [
+    {
+      "id": "imdb_test_05223",
+      "condition": "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1",
+      "classification": "clear_unsupported_plot_setting",
+      "reading": "A cidade pequena e a época mágica do ano não constam da fonte. Falha factual clara acrescentada em REVIEW.",
+      "generated_sha256": "fd48151fd41a89cdbf0a27f087553f80854f507a56d84199e3ceec57a6f1048b",
+      "source_sha256": "175a3a8465b0b59dde8d4ba147be6ddf4e65667bf8add0b26f9149003e3d8a78"
+    },
+    {
+      "id": "imdb_test_00181",
+      "condition": "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1",
+      "classification": "likely_opinion_disagreement_flag",
+      "reading": "Não observo novo acontecimento, personagem, relação ou cenário em REVIEW. O elogio discorda da avaliação original, o que é permitido pela tarefa; o alerta parece confundir opinião diferente com erro factual. O uso de but entre duas afirmações elogiosas deixa a construção retórica pouco natural.",
+      "generated_sha256": "7ce0b95c0d4607c855c7bc0f693ae859427c2bdfb090cd08b7682a91bebd5c5f",
+      "source_sha256": "e3916d6c63bafc8209e3f1dfd372040253043103bb4c9e3d1e1fa2aa2d0cf44c"
+    },
+    {
+      "id": "imdb_test_12109",
+      "condition": "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1",
+      "classification": "likely_opinion_disagreement_flag",
+      "reading": "Não observo novo acontecimento, personagem, relação ou cenário em REVIEW. O elogio discorda da avaliação original, o que é permitido pela tarefa; o alerta parece confundir opinião diferente com erro factual. O uso de but entre duas afirmações elogiosas deixa a construção retórica pouco natural.",
+      "generated_sha256": "bffef01e7c249a291595332dc4333b9891bec00c587077e88692084c0ed0ec5f",
+      "source_sha256": "6583773112218f06dd8cd2145e33c9919313c62a1decde1ccb7ca315e68d3b43"
+    },
+    {
+      "id": "imdb_test_06538",
+      "condition": "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1",
+      "classification": "likely_opinion_disagreement_flag",
+      "reading": "Não observo novo acontecimento, personagem, relação ou cenário em REVIEW. O elogio discorda da avaliação original, o que é permitido pela tarefa; o alerta parece confundir opinião diferente com erro factual. A expressão is praised for ainda sugere recepção externa sem suporte e soa pouco natural.",
+      "generated_sha256": "0a1f8de2a2893639d58630f51ddbd89aee705e8265e5ff2317664878c263cd59",
+      "source_sha256": "ed77f4a69bbbbdcc8234e5b0ba2f908064d90877c221c9b28ce0a8f9547e84c3"
+    },
+    {
+      "id": "imdb_test_09328",
+      "condition": "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1",
+      "classification": "likely_opinion_disagreement_flag",
+      "reading": "Não observo novo acontecimento, personagem, relação ou cenário em REVIEW. O elogio discorda da avaliação original, o que é permitido pela tarefa; o alerta parece confundir opinião diferente com erro factual. O uso de but entre duas afirmações elogiosas deixa a construção retórica pouco natural.",
+      "generated_sha256": "4f0abec2c484854ebea6e6d9f10e457f4012a058880ead27db15cb8dc5ab7fa1",
+      "source_sha256": "7f67cf5fa9a9b7a82c6151c9ff608841a3dde6c431d81d2763ec53a1fd49ed36"
+    },
+    {
+      "id": "imdb_test_08328",
+      "condition": "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1",
+      "classification": "likely_opinion_disagreement_flag",
+      "reading": "Não observo novo acontecimento, personagem, relação ou cenário em REVIEW. O elogio discorda da avaliação original, o que é permitido pela tarefa; o alerta parece confundir opinião diferente com erro factual.",
+      "generated_sha256": "27f514d691b9f9b9f8ae4108decdaf6c4cf44a01a0d495baa5dc2830c6eb16e8",
+      "source_sha256": "00f726784bfe202a031265b8d4fa3cb756db16957e0534ad04b2031160a0486c"
+    },
+    {
+      "id": "imdb_test_10497",
+      "condition": "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1",
+      "classification": "likely_opinion_disagreement_flag",
+      "reading": "Não observo novo acontecimento, personagem, relação ou cenário em REVIEW. O elogio discorda da avaliação original, o que é permitido pela tarefa; o alerta parece confundir opinião diferente com erro factual.",
+      "generated_sha256": "d17f68d6dfb0aeaa34127d93da0ee66b99323d99dfa36afa6f0d258a00cb7a30",
+      "source_sha256": "23cb7cb65e23dacfc84edde89fce2c4f94e0e5a9ffe4d2ad5399317d0a93b24f"
+    },
+    {
+      "id": "imdb_test_03045",
+      "condition": "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1",
+      "classification": "likely_opinion_disagreement_flag",
+      "reading": "Não observo novo acontecimento, personagem, relação ou cenário em REVIEW. O elogio discorda da avaliação original, o que é permitido pela tarefa; o alerta parece confundir opinião diferente com erro factual. O uso de but entre duas afirmações elogiosas deixa a construção retórica pouco natural.",
+      "generated_sha256": "4488c5fd989ce62d85e3671bec6b93d75357ea8f388576137a46c9d2070fada1",
+      "source_sha256": "cdaf11f041859593c324fe5fdef82b2e1522771bba2f83c5f02afed75a79da95"
+    },
+    {
+      "id": "imdb_test_01871",
+      "condition": "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1",
+      "classification": "likely_opinion_disagreement_flag",
+      "reading": "Não observo novo acontecimento, personagem, relação ou cenário em REVIEW. O elogio discorda da avaliação original, o que é permitido pela tarefa; o alerta parece confundir opinião diferente com erro factual. O uso de but entre duas afirmações elogiosas deixa a construção retórica pouco natural.",
+      "generated_sha256": "1ab6f02227b5302936acc38ec50dad2e392234086fb5d1f3a4546e77fd257f2d",
+      "source_sha256": "18ace8a1a1c01a1f6ef380b60785b79c57cb2f7f2ec6c991b176a628b631f790"
+    },
+    {
+      "id": "imdb_test_10170",
+      "condition": "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1",
+      "classification": "likely_opinion_disagreement_flag",
+      "reading": "Não observo novo acontecimento, personagem, relação ou cenário em REVIEW. O elogio discorda da avaliação original, o que é permitido pela tarefa; o alerta parece confundir opinião diferente com erro factual.",
+      "generated_sha256": "182b803262516490210ebae436d0ed5d668fba4ad68555936d3899cc9239e1e8",
+      "source_sha256": "0aea028a64928313aa3cbfa7d57ee042da30ca843e5ab5a0f7c633c94d20e981"
+    }
+  ]
+}

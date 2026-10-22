@@ -1,0 +1,77 @@
+{
+  "provenance": "Assistant reading of complete baseline and selected plus/minus validation outputs, not independent human annotation.",
+  "cases": [
+    {
+      "id": "imdb_train_10299",
+      "reading": "Both directions evaluate film quality; negative grammar is awkward (overly reliant construction). Fact prefix unchanged.",
+      "output_sha256": {
+        "baseline": "a59182ac5ad897df4dfa123c83b76e1ad344f8283bd91600df40b9ac05ffad08",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1": "730b97d2805e4b58514fb9c9a65692be05b8ff59f89adbe597c44d26752994a1",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1": "cb906f732039ed498d15c2c03bdfa23a6bb2fb68de0188d25b342ba9bde8b381"
+      }
+    },
+    {
+      "id": "imdb_train_17572",
+      "reading": "Clear criticism of pacing/symbolism versus praise of suspense and ambiguity; fact prefix unchanged.",
+      "output_sha256": {
+        "baseline": "f4776fdce51eb9351424f668c9b651ae783f69f169bc36b4f8a533547b78f049",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1": "d556d190975bd87c4d96cf41250a23a8ccd5c6ad855d330eaed8faf94113d0a1",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1": "081148725397ff8a1254fe7dc4e9adc4fbd69e8a6351ebb0193d2681e60db356"
+      }
+    },
+    {
+      "id": "imdb_train_16403",
+      "reading": "Negative opinion introduces reliance on memorized material, confusing the spectator memorizing jokes with performer behavior. This is a remaining failure.",
+      "output_sha256": {
+        "baseline": "1acf9c57af7ffd5dce11740cedad36adb89d0e6bdd6a23cc6168fe1b38c8f8e5",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1": "0134372a0c399320df946d5a9e34a0cf10ee086f79cddc5504b4f96d9a631f3e",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1": "5f46ad53ce797153f5c66ba660c630e22d018cfdf0a6feeaa3e2211f344c49b3"
+      }
+    },
+    {
+      "id": "imdb_train_24120",
+      "reading": "Clear film-opinion change. The common FACT still includes an original evaluative phrase, well chronicled, so the factual field is not perfectly neutral.",
+      "output_sha256": {
+        "baseline": "7c7f34387a7a9530e08ba16dec97680e96115708e8faf7b7bdbce67af580a852",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1": "33df3687b66f7bb39483bfb18a44cd78cbcc2c6d77d141244a1d20d5521e8037",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1": "0d01f8dc17eabe1177009b16fcfd5c780c74339a0fea865785da31b66799e287"
+      }
+    },
+    {
+      "id": "imdb_train_02625",
+      "reading": "Negative is explicit; positive remains mixed, praising Glenn Close while noting repetition. The common FACT also compresses the cure reversal into Cruella agency.",
+      "output_sha256": {
+        "baseline": "e21838983f76a8ede077d9cf0b1106fc3257eb3f0334647cbad3f1f93dd90236",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1": "9eba4ef3313ac188a6cb56848db53beed8b0fb466e47305670c1e97a85cf7154",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1": "a6fba9c830c189692a2f2ebfe0a360c9116d92e413e6998b49a1bde570123d53"
+      }
+    },
+    {
+      "id": "imdb_train_07474",
+      "reading": "Clear unfavorable pacing/focus versus appreciative direction/performance, with identical common prefix.",
+      "output_sha256": {
+        "baseline": "25f4b2fe77105b66a0bb6e8a5bf0914852883f1c5bac20bb1414da6843cd69f4",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1": "0255c49e07a8551a74a16263a76b6a495eafd15629a40e884bc507267f935c48",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1": "d804caf8345391f8560be30dfd21394757c619d3a2fc3341a5aa04503768a24b"
+      }
+    },
+    {
+      "id": "imdb_train_07110",
+      "reading": "Clear new film opinion in REVIEW, while FACT reports the original criticism. Positive visual praise can legitimately disagree with the source opinion; the automatic fact flag may be overstrict.",
+      "output_sha256": {
+        "baseline": "89cd1cef1b21c065d5d0497a41dae037674c41aae91893b138415e0e1ebc35e6",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1": "140959a2629cdb876fac9a106e87255b51bf7771dc51e8ea89b09888696cb8d5",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1": "aa06c93d4a63927264826486e2624e6b692ff7d86d6a1238c88106052cffe3be"
+      }
+    },
+    {
+      "id": "imdb_train_22089",
+      "reading": "Clear negative versus positive film assessment. The shared FACT overstates hardly any violence as no violence, a baseline summarization limitation.",
+      "output_sha256": {
+        "baseline": "e62f00bf4b67c2dcb61be8aa5bba87824ab0082a6c6c03b2a3c43890c31e9334",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1": "a943c8dacd140af41872f3a7ce86ff231c38d6abc696ff0c7d4b348bbb278f19",
+        "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1": "cb414d4f721d19e82e40c5294e4618ffc48d7ec857e0d8495739ecf9d4ddc605"
+      }
+    }
+  ]
+}

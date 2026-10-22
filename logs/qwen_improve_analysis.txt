@@ -1,0 +1,156 @@
+{
+  "tfidf": {
+    "new_separation": {
+      "mean": 0.43842080701802644,
+      "n": 64,
+      "ci_low": 0.38913229957819373,
+      "ci_high": 0.4866656857253357
+    },
+    "old_separation": {
+      "mean": 0.05420210982409983,
+      "n": 64,
+      "ci_low": 0.00662118562940096,
+      "ci_high": 0.10000625671004125
+    },
+    "paired_improvement": {
+      "mean": 0.3842186971939266,
+      "n": 64,
+      "ci_low": 0.32419503021990476,
+      "ci_high": 0.44718286517938627
+    },
+    "positive_vs_zero": {
+      "mean": 0.21995037267434658,
+      "n": 64,
+      "ci_low": 0.1720788105692292,
+      "ci_high": 0.2716913639414951
+    },
+    "negative_vs_zero": {
+      "mean": -0.21847043434367985,
+      "n": 64,
+      "ci_low": -0.27567020327925357,
+      "ci_high": -0.16131400272000268
+    },
+    "positive_target_rate": 0.90625,
+    "negative_target_rate": 0.671875
+  },
+  "cnn": {
+    "new_separation": {
+      "mean": 0.44241071841315716,
+      "n": 64,
+      "ci_low": 0.3877600220220302,
+      "ci_high": 0.49578634120625786
+    },
+    "old_separation": {
+      "mean": -0.005058859132986981,
+      "n": 64,
+      "ci_low": -0.059341702343226645,
+      "ci_high": 0.05059701339032469
+    },
+    "paired_improvement": {
+      "mean": 0.44746957754614414,
+      "n": 64,
+      "ci_low": 0.3612867651618217,
+      "ci_high": 0.5248127613309406
+    },
+    "positive_vs_zero": {
+      "mean": 0.20795269664813532,
+      "n": 64,
+      "ci_low": 0.1574290974136602,
+      "ci_high": 0.26068402017990594
+    },
+    "negative_vs_zero": {
+      "mean": -0.23445802176502184,
+      "n": 64,
+      "ci_low": -0.2926132133907231,
+      "ci_high": -0.17656876964119886
+    },
+    "positive_target_rate": 0.90625,
+    "negative_target_rate": 0.71875
+  },
+  "bert": {
+    "new_separation": {
+      "mean": 0.802745392277948,
+      "n": 64,
+      "ci_low": 0.7398125144693476,
+      "ci_high": 0.8575843172295395
+    },
+    "old_separation": {
+      "mean": 0.07244405894154622,
+      "n": 64,
+      "ci_low": 0.028628920743809103,
+      "ci_high": 0.12140970407165284
+    },
+    "paired_improvement": {
+      "mean": 0.7303013333364018,
+      "n": 64,
+      "ci_low": 0.6540757785617877,
+      "ci_high": 0.797088455803721
+    },
+    "positive_vs_zero": {
+      "mean": 0.2613031263216128,
+      "n": 64,
+      "ci_low": 0.1728904702891895,
+      "ci_high": 0.35494616321643246
+    },
+    "negative_vs_zero": {
+      "mean": -0.5414422659563352,
+      "n": 64,
+      "ci_low": -0.6468270964724684,
+      "ci_high": -0.4310385513706008
+    },
+    "positive_target_rate": 0.96875,
+    "negative_target_rate": 0.921875
+  }
+}
+Semantic joint-target success: {
+  "joint_target_success": {
+    "selected": {
+      "mean": 0.859375,
+      "n": 64,
+      "ci_low": 0.7538371825842297,
+      "ci_high": 0.9242142744396914,
+      "interval_method": "Wilson 95%"
+    },
+    "original": {
+      "mean": 0.0,
+      "n": 64,
+      "ci_low": 0.0,
+      "ci_high": 0.05662405979280534,
+      "interval_method": "Wilson 95%"
+    },
+    "random_1": {
+      "mean": 0.0,
+      "n": 64,
+      "ci_low": 0.0,
+      "ci_high": 0.05662405979280534,
+      "interval_method": "Wilson 95%"
+    },
+    "random_2": {
+      "mean": 0.0,
+      "n": 64,
+      "ci_low": 0.0,
+      "ci_high": 0.05662405979280534,
+      "interval_method": "Wilson 95%"
+    },
+    "random_3": {
+      "mean": 0.03125,
+      "n": 64,
+      "ci_low": 0.008612138346171874,
+      "ci_high": 0.10697291770958313,
+      "interval_method": "Wilson 95%"
+    }
+  },
+  "paired_improvement_over_original": {
+    "mean": 0.859375,
+    "n": 64,
+    "ci_low": 0.765625,
+    "ci_high": 0.9375
+  },
+  "paired_improvement_over_random_mean": {
+    "mean": 0.8489583333333334,
+    "n": 64,
+    "ci_low": 0.75,
+    "ci_high": 0.9322916666666667
+  }
+}
+Same source and prompt verified for every condition; complete held-out paired analysis saved.

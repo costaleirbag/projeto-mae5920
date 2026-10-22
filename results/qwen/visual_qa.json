@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "pdf_sha256": "b62ddd05da12ad3c6105f2d72ed428c1c3103bdd68cda149c85fc82e5767a72a",
+  "pages": 8,
+  "inspection": "All eight pages visually inspected; the final revised quality figure rerendered and reinspected. No clipping, overlap, missing glyphs or orphan section pages observed.",
+  "render_dpi": 110,
+  "page_png_sha256": {
+    "tmp/pdfs/qwen/page-1.png": "00f1bce8dbf28398072b025752202ca63c9017bc766b21413e9fa4e5373a5318",
+    "tmp/pdfs/qwen/page-2.png": "3dba1e08747698d7517539f6d2e41fdef98f05e0e2a84d3e2fec95a9e8018296",
+    "tmp/pdfs/qwen/page-3.png": "8dc9d5a95e39acc328ac55ddc45433dfadd20887c019fa6c50532f14c440bb16",
+    "tmp/pdfs/qwen/page-4.png": "a08e8fcb15b709ff40d5ba0c052455ab4998d879f38100e151857eaf60146afc",
+    "tmp/pdfs/qwen/page-5.png": "05121070816ab3a74a070886a63565d991adfcd633946979f888ea717b264ab0",
+    "tmp/pdfs/qwen/page-6.png": "91d36b3ad99568aa4c507030d9ecda330ce41ee552db3d408dabaff691d4886e",
+    "tmp/pdfs/qwen/page-7.png": "a9988e7e012be0d81b71d4e8806a1013ea3ef33a8e9ce0d248e6b24e4d5566f5",
+    "tmp/pdfs/qwen/page-8.png": "f6504a3a70a484b5efea83307744af3cddf118e531ee4e3d40159e4805e4cf90"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "seed": 20261021,
+  "layers": [12, 16, 20, 24, 28, 32],
+  "train_sizes": [128, 512, 2048],
+  "feature_validation_n": 256,
+  "source_tokens": 256,
+  "response_tokens": 96,
+  "response_pool_tokens": 16,
+  "paired_train_n": 128,
+  "paired_validation_n": 32,
+  "generation_validation_real_n": 8,
+  "generation_validation_synthetic_n": 8,
+  "generation_test_real_n": 32,
+  "generation_test_synthetic_n": 32,
+  "batch_size": 8,
+  "max_new_tokens": 112,
+  "bandwidths": [10, 30, 60],
+  "rfm_iterations": 3,
+  "rfm_regularization": 0.001,
+  "direction_selection": "validation projection AUC; train-only sign; centered AGOP gradients",
+  "generation_selection": "free generation validation only; balance sentiment, repetition, content retention; never choose settings on the new test"
+}

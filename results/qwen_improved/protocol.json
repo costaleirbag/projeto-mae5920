@@ -1,0 +1,48 @@
+{
+  "config": {
+    "seed": 20261021,
+    "layers": [
+      12,
+      16,
+      20,
+      24,
+      28,
+      32
+    ],
+    "train_sizes": [
+      128,
+      512,
+      2048
+    ],
+    "feature_validation_n": 256,
+    "source_tokens": 256,
+    "response_tokens": 96,
+    "response_pool_tokens": 16,
+    "paired_train_n": 128,
+    "paired_validation_n": 32,
+    "generation_validation_real_n": 8,
+    "generation_validation_synthetic_n": 8,
+    "generation_test_real_n": 32,
+    "generation_test_synthetic_n": 32,
+    "batch_size": 8,
+    "max_new_tokens": 112,
+    "bandwidths": [
+      10,
+      30,
+      60
+    ],
+    "rfm_iterations": 3,
+    "rfm_regularization": 0.001,
+    "direction_selection": "validation projection AUC; train-only sign; centered AGOP gradients",
+    "generation_selection": "free generation validation only; balance sentiment, repetition, content retention; never choose settings on the new test"
+  },
+  "config_sha256": "2e1856f4c3674d22da3b922837bf807fa61789c74c0213e3f872835cde2dba5f",
+  "test_policy": "New test held out from all coefficient/layer/context selection. Original 32 sources are later exploratory regressions only.",
+  "hypotheses": [
+    "Classification-prompt representation versus generation-context representation.",
+    "Single layer versus multiple layers; last prompt position and decoding versus all source tokens.",
+    "128/512/2048 auxiliary-training examples, with nested subsets.",
+    "Nonlinear probe AUC versus actual linear-direction AUC and free-generation control."
+  ],
+  "original_results_preserved": true
+}

@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "condition": "intent_256_L28_means_contrast_g+2_last_all_fielded_0.5_-1",
+      "n": 16,
+      "first_fact_line_identical_to_zero_n": 16,
+      "gate_fired_n": 16
+    },
+    {
+      "condition": "intent_256_L28_means_contrast_g+2_last_all_fielded_0.5_+1",
+      "n": 16,
+      "first_fact_line_identical_to_zero_n": 16,
+      "gate_fired_n": 16
+    }
+  ],
+  "meaning": "All text is generated in one autoregressive pass. The vector is added only after the generated REVIEW: marker. No words are replaced or edited."
+}

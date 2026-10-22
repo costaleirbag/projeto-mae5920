@@ -1,0 +1,62 @@
+{
+  "status": "passed",
+  "checks": [
+    {
+      "condition": "intent_256_L28_means_contrast_g+2_last_all_fielded_1_-1",
+      "n": 64,
+      "first_fact_line_identical_to_zero_n": 64,
+      "token_prefix_identical_to_zero_n": 64,
+      "gate_fired_n": 64
+    },
+    {
+      "condition": "intent_256_L28_means_contrast_g+2_last_all_fielded_1_+1",
+      "n": 64,
+      "first_fact_line_identical_to_zero_n": 64,
+      "token_prefix_identical_to_zero_n": 64,
+      "gate_fired_n": 64
+    },
+    {
+      "condition": "random_matched_1_-1",
+      "n": 64,
+      "first_fact_line_identical_to_zero_n": 64,
+      "token_prefix_identical_to_zero_n": 64,
+      "gate_fired_n": 64
+    },
+    {
+      "condition": "random_matched_1_+1",
+      "n": 64,
+      "first_fact_line_identical_to_zero_n": 64,
+      "token_prefix_identical_to_zero_n": 64,
+      "gate_fired_n": 64
+    },
+    {
+      "condition": "random_matched_2_-1",
+      "n": 64,
+      "first_fact_line_identical_to_zero_n": 64,
+      "token_prefix_identical_to_zero_n": 64,
+      "gate_fired_n": 64
+    },
+    {
+      "condition": "random_matched_2_+1",
+      "n": 64,
+      "first_fact_line_identical_to_zero_n": 64,
+      "token_prefix_identical_to_zero_n": 64,
+      "gate_fired_n": 64
+    },
+    {
+      "condition": "random_matched_3_-1",
+      "n": 64,
+      "first_fact_line_identical_to_zero_n": 64,
+      "token_prefix_identical_to_zero_n": 64,
+      "gate_fired_n": 64
+    },
+    {
+      "condition": "random_matched_3_+1",
+      "n": 64,
+      "first_fact_line_identical_to_zero_n": 64,
+      "token_prefix_identical_to_zero_n": 64,
+      "gate_fired_n": 64
+    }
+  ],
+  "meaning": "All text is generated in one autoregressive pass. The vector is added only after the generated REVIEW: marker. No words are replaced or edited."
+}

@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "evidence": {
+    "data": "Hashes match; no shared normalized text across splits; official test size retained.",
+    "tfidf": "All rows and recomputed train/validation/calibration/test metrics match.",
+    "cnn": "All rows and recomputed train/validation/calibration/test metrics match.",
+    "bert": "All rows and recomputed train/validation/calibration/test metrics match.",
+    "segments": "Every review assigned once per length/topic partition; class-conditional denominators match.",
+    "steering": "Saved AGOP recomputed from gradients; PSD; unit vectors; norm-matched controls; zero identity; hook restoration; source checkpoint verified.",
+    "rewrite": "All 70 synthetic editing conditions retained and evaluated without hooks; masked-LM encoder matches classifier.",
+    "reports": "Eight-page PDF and standalone HTML built from actual saved metrics and figures.",
+    "notebook": "12 code cells executed without exceptions; saved report and figures exist."
+  }
+}

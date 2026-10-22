@@ -1,0 +1,54 @@
+{
+  "environment": {
+    "python": "3.12.14",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "logical_cpus": 8,
+    "memory_gb": 8.589934592,
+    "device": "mps",
+    "packages": {
+      "torch": "2.14.1",
+      "transformers": "4.57.6",
+      "datasets": "4.8.5",
+      "numpy": "2.5.4",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.18.1",
+      "sentence-transformers": "5.7.0"
+    },
+    "determinism": "Seeds fixed; warn-only deterministic torch; MPS may differ across runs."
+  },
+  "config": {
+    "c_grid": [
+      0.5,
+      2.0,
+      8.0
+    ],
+    "max_features": 80000
+  },
+  "search": [
+    {
+      "C": 0.5,
+      "validation_f1_macro": 0.893778819231146
+    },
+    {
+      "C": 2.0,
+      "validation_f1_macro": 0.9071512167403453
+    },
+    {
+      "C": 8.0,
+      "validation_f1_macro": 0.9152418144291209
+    }
+  ],
+  "selected_C": 8.0,
+  "feature_count": 80000,
+  "trainable_parameters": 80001,
+  "training_seconds": 13.111797749996185,
+  "featurization_seconds": 11.6345429590001,
+  "all_splits_inference_seconds": 0.1466378339973744,
+  "selection_split": "validation",
+  "input_scope": "Full cleaned review",
+  "temperature": 0.7139158771717246,
+  "calibration_fit_split": "calibration",
+  "threshold": 0.5
+}

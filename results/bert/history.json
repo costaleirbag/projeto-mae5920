@@ -1,0 +1,14 @@
+[
+  {
+    "epoch": 1,
+    "training_loss": 0.34432129823947444,
+    "validation_f1_macro": 0.9018851323112118,
+    "seconds": 222.1425004932098
+  },
+  {
+    "epoch": 2,
+    "training_loss": 0.18023710741075108,
+    "validation_f1_macro": 0.9128028818083243,
+    "seconds": 223.74347543297336
+  }
+]

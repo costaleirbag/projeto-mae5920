@@ -1,0 +1,121 @@
+[
+  {
+    "condition": "rfm_-4",
+    "method": "rfm_agop",
+    "alpha": -4,
+    "target": "negative",
+    "uses_hook": true
+  },
+  {
+    "condition": "rfm_-2",
+    "method": "rfm_agop",
+    "alpha": -2,
+    "target": "negative",
+    "uses_hook": true
+  },
+  {
+    "condition": "rfm_+0",
+    "method": "rfm_agop",
+    "alpha": 0,
+    "target": "none",
+    "uses_hook": true
+  },
+  {
+    "condition": "rfm_+2",
+    "method": "rfm_agop",
+    "alpha": 2,
+    "target": "positive",
+    "uses_hook": true
+  },
+  {
+    "condition": "rfm_+4",
+    "method": "rfm_agop",
+    "alpha": 4,
+    "target": "positive",
+    "uses_hook": true
+  },
+  {
+    "condition": "difference_in_means_-4",
+    "method": "difference_in_means",
+    "alpha": -4,
+    "target": "negative",
+    "uses_hook": true
+  },
+  {
+    "condition": "difference_in_means_+4",
+    "method": "difference_in_means",
+    "alpha": 4,
+    "target": "positive",
+    "uses_hook": true
+  },
+  {
+    "condition": "logistic_probe_-4",
+    "method": "logistic_probe",
+    "alpha": -4,
+    "target": "negative",
+    "uses_hook": true
+  },
+  {
+    "condition": "logistic_probe_+4",
+    "method": "logistic_probe",
+    "alpha": 4,
+    "target": "positive",
+    "uses_hook": true
+  },
+  {
+    "condition": "random_1_-4",
+    "method": "random_1",
+    "alpha": -4,
+    "target": "negative",
+    "uses_hook": true
+  },
+  {
+    "condition": "random_1_+4",
+    "method": "random_1",
+    "alpha": 4,
+    "target": "positive",
+    "uses_hook": true
+  },
+  {
+    "condition": "random_2_-4",
+    "method": "random_2",
+    "alpha": -4,
+    "target": "negative",
+    "uses_hook": true
+  },
+  {
+    "condition": "random_2_+4",
+    "method": "random_2",
+    "alpha": 4,
+    "target": "positive",
+    "uses_hook": true
+  },
+  {
+    "condition": "random_3_-4",
+    "method": "random_3",
+    "alpha": -4,
+    "target": "negative",
+    "uses_hook": true
+  },
+  {
+    "condition": "random_3_+4",
+    "method": "random_3",
+    "alpha": 4,
+    "target": "positive",
+    "uses_hook": true
+  },
+  {
+    "condition": "prompt_positive",
+    "method": "prompt_only",
+    "alpha": 0,
+    "target": "positive",
+    "uses_hook": false
+  },
+  {
+    "condition": "prompt_negative",
+    "method": "prompt_only",
+    "alpha": 0,
+    "target": "negative",
+    "uses_hook": false
+  }
+]

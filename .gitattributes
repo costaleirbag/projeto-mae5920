@@ -1,0 +1,13 @@
+# Preserve binary artifacts and keep generated evidence out of source diffs.
+*.pdf binary
+*.npz binary
+*.parquet binary
+*.png binary
+*.safetensors binary
+*.pt binary
+*.joblib binary
+results/** linguist-generated=true
+artifacts/** linguist-vendored=true
+logs/** linguist-generated=true
+logs_*.txt linguist-generated=true
+relatorio*.html linguist-generated=true

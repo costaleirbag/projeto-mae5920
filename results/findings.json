@@ -1,0 +1,6 @@
+{
+  "comparison": "Maior F1 macro observado no teste: BERT-base ajustado (90.94%). Diferença de acurácia BERT menos TF-IDF: +0.80 pontos percentuais. Uma execução por modelo, com limites de entrada diferentes.",
+  "length": "BERT: acurácia de 93.10% até 100 palavras e 82.60% acima de 500. Associação descritiva; não identifica isoladamente o efeito do truncamento.",
+  "steering": "RFM, 256 exemplos de teste: P(positivo) média bruta em alfa -4 / 0 / +4 = 0.480 / 0.511 / 0.540. Nos cinco controles aleatórios, médias em -4 / +4 = 0.509 / 0.513. Texto idêntico; probabilidades sob intervenção não têm calibração validada.",
+  "editing": "Edição RFM em cinco sondas sintéticas: média de P(positivo) do juiz TF-IDF sem hooks em alfa -4 / 0 / +4 = 0.416 / 0.453 / 0.674. Diagnóstico de escores, não avaliação humana nem benchmark de reescrita."
+}

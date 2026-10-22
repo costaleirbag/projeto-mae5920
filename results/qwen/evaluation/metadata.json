@@ -1,0 +1,48 @@
+{
+  "seconds": 8.34097866807133,
+  "scored_outputs_n": 544,
+  "unique_texts_n": 573,
+  "judges": [
+    "tfidf",
+    "cnn",
+    "bert"
+  ],
+  "judging_hooks_used": false,
+  "judge_checkpoint_sha256": {
+    "tfidf": "e7419eec4a319a54d0b11efc48b28d4dd149143240421cc70d4008eee8a0ace3",
+    "cnn": "f6a0d306db8b417ea405f776ae427403d2ed7f9b956a1e6aaa636cd8cc39cc00",
+    "bert": "62be04b22f7e00fc72e62082e76bfbc1ed251356ea9be88aad9b9022e743b0aa"
+  },
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "embedding_revision": "1110a243fdf4706b3f48f1d95db1a4f5529b4d41",
+  "embedding_max_tokens": 256,
+  "bootstrap": "Percentile interval of paired mean score changes, resampling source IDs within each condition; 2,000 replicates. Descriptive, unadjusted for multiple conditions.",
+  "human_annotations_completed": false,
+  "blinded_review_rows": 60,
+  "caveats": [
+    "Judge sentiment agreement is a diagnostic, not a human success rate.",
+    "Embedding cosine, repetition and entity retention are proxies; they do not prove fluency or factual preservation.",
+    "IMDb test analysis continues an exploratory investigation; no new configuration was selected using these generation test outputs.",
+    "Qwen backbone is not fine-tuned on IMDb. Temperature uses labeled calibration data; RFM uses 512 labeled training examples. BERT/CNN use supervised backbone training and different input budgets."
+  ],
+  "environment": {
+    "python": "3.12.3",
+    "platform": "Linux-6.17.0-1032-nvidia-aarch64-with-glibc2.39",
+    "machine": "aarch64",
+    "logical_cpus": 20,
+    "memory_gb": 130.663165952,
+    "device": "cuda",
+    "accelerator": "NVIDIA GB10",
+    "packages": {
+      "torch": "2.10.0a0+b4e4ee81d3.nv25.12",
+      "transformers": "4.57.6",
+      "datasets": "4.8.5",
+      "numpy": "2.5.4",
+      "pandas": "2.3.3",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.18.1",
+      "sentence-transformers": "5.7.0"
+    },
+    "determinism": "Seeds fixed; warn-only deterministic torch; results may differ across devices and runtimes."
+  }
+}

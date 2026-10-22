@@ -1,0 +1,12 @@
+{
+  "generation_validation": {
+    "n": 16,
+    "max_tokens": 217,
+    "truncated_n": 0
+  },
+  "generation_test": {
+    "n": 64,
+    "max_tokens": 188,
+    "truncated_n": 0
+  }
+}
