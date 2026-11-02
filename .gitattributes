@@ -11,3 +11,4 @@ artifacts/** linguist-vendored=true
 logs/** linguist-generated=true
 logs_*.txt linguist-generated=true
 relatorio*.html linguist-generated=true
+results/didactic/figures/*.svg -whitespace

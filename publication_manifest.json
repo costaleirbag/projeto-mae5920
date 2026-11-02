@@ -4,8 +4,8 @@
   "purpose": "Integrity of the published distribution; scientific frozen hashes remain in their original result files.",
   "files": {
     ".gitattributes": {
-      "bytes": 360,
-      "sha256": "eee31bd1bd21b2fba7c5755083fde148abd6a1eae9b597a3c29ab2066e3826d0"
+      "bytes": 403,
+      "sha256": "bba93f15199b56c44be07cf27f39b0ab653eb549fd037ab4c581c0904037994a"
     },
     ".gitignore": {
       "bytes": 570,
@@ -353,7 +353,7 @@
     },
     "results/delivery_manifest.json": {
       "bytes": 88768,
-      "sha256": "4ec0a624f635fe00782aa01084b00dc6abd310f70ed2639af1a0bfb4f14f31ae"
+      "sha256": "f86d8d514d40caae3d21fe81ba6c27d64d67ee454452aeaea5a589d5fdff2a11"
     },
     "results/didactic/audit_features.npz": {
       "bytes": 979827,

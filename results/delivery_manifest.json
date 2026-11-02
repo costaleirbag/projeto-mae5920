@@ -9,8 +9,8 @@
   "inventory_note": "publication_manifest.json and this file are excluded from this inventory to avoid circular hashes; the publication manifest covers this inventory and every other distributed file.",
   "files": {
     ".gitattributes": {
-      "bytes": 360,
-      "sha256": "eee31bd1bd21b2fba7c5755083fde148abd6a1eae9b597a3c29ab2066e3826d0"
+      "bytes": 403,
+      "sha256": "bba93f15199b56c44be07cf27f39b0ab653eb549fd037ab4c581c0904037994a"
     },
     ".gitignore": {
       "bytes": 570,
