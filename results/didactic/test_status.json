@@ -1,0 +1,6 @@
+{
+  "command": "python -m pytest -q",
+  "passed": 20,
+  "observed_result": "20 passed in 6.85s",
+  "scope": "13 existing tests and 7 new scientific invariant tests"
+}

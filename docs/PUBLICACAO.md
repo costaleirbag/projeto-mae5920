@@ -1,5 +1,18 @@
 # Escopo da publicação
 
+## Extensão ligada à disciplina
+
+Esta branch acrescenta o [suplemento didático](../output/pdf/relatorio_disciplina.pdf),
+um terceiro notebook executado, uma galeria HTML e os experimentos controlados
+descritos em [Conexões com a disciplina](CONEXOES_DISCIPLINA.md). Os relatórios
+e notebooks originais permanecem preservados. A release v1.0.0 continua
+representando a entrega original; os novos arquivos estão nesta branch.
+
+Os novos gráficos são originais. Slides e livro são referências e não são
+redistribuídos. A extensão registra a correção de uma divergência numérica:
+treino e auditoria passaram a usar a mesma política de precisão, com os
+parâmetros treinados preservados bit a bit na repetição.
+
 [Voltar ao início](../README.md)
 
 Esta distribuição reúne o experimento principal de sentimento no IMDb e

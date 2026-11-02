@@ -1,5 +1,9 @@
 # Reprodução dos experimentos
 
+A extensão sobre otimização, profundidade, inicialização, regularização e
+double descent tem um [guia próprio](CONEXOES_DISCIPLINA.md) e pode ser
+lida no [novo notebook](../notebooks/conexoes_disciplina.ipynb).
+
 [Voltar ao início](../README.md) · [Guia completo](GUIA_COMPLETO.md)
 
 O repositório separa leitura dos resultados, verificação dos artefatos salvos

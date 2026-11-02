@@ -1,0 +1,17 @@
+{
+  "status": "passed",
+  "evidence": {
+    "data": "6144/1536/2048 balanced, text-disjoint internal roles use only the original cleaned training pool; representation fitted on the 6144 training rows.",
+    "training": "All 51 trajectories, paired starts and minibatches, equal-size residual ablations, validation-only rate selection and causal early-stop decisions verified.",
+    "audit": "42 frozen checkpoints replayed on CPU; per-review probabilities, cross-entropy and accuracy match the single post-freeze internal audit.",
+    "initialization": "All gain/seed/layer measurements obey the independently checked positive-homogeneity scaling of a bias-free ReLU chain.",
+    "quadratic": "The GD trajectories match the exact eigenvalue recurrence, including the prescribed unstable rate above 2/lambda_max.",
+    "double_descent": "All 880 conditions across 20 fixed seeds replayed from stored coefficients; exact interpolation, minimum norm and ridge normal equations checked."
+  },
+  "limitations": [
+    "Three initialization seeds do not quantify all data-sampling uncertainty.",
+    "Dense networks share a training-only TF-IDF/SVD representation; architecture results are not a CNN/transformer leaderboard.",
+    "Synthetic random-feature regression is separate from IMDb; no end-to-end IMDb double-descent claim.",
+    "Internal audit comes from the old training pool; it is not a new external benchmark."
+  ]
+}

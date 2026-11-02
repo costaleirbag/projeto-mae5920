@@ -1,0 +1,15 @@
+{
+  "selection_frozen_sha256": "cf2f688638093d92e87e8483485717dae8e5a99e81ff05f31ece6a132e789f95",
+  "audit_features_sha256": "d80051bc2692d44ca25fad97a8b37ab386792e19807065ffdee553369a083b66",
+  "code": {
+    "didactic_config.json": "105874f346aeb450a8f9dddf1fa78324487cba493c788534501c6d3cd8d1061c",
+    "run_didactic.py": "c5c11d2413b1a813dbbd67f4e77a69a830e0a39d04460b720bf1ab6f9e4c14e1",
+    "src/imdb_lab/didactic.py": "7acd2c17a9268580ce1b53bb8f9b0077f4e19d182cd5656b817b5fbe8b770d85",
+    "src/imdb_lab/didactic_toys.py": "eaefdeb02c72d499728032ecdbecb1941200d40a6ca90288ceab8f18709d1403"
+  },
+  "rows": 42,
+  "predictions_sha256": "ec528fff29994235ccff51b9fee92f628d7f95a8d57b01a44a3fdb951e106033",
+  "float32_policy": "TF32 disabled; no mixed precision; same policy as training validation",
+  "official_test_opened": false,
+  "role": "single internal audit after freezing; no refit or selection afterwards"
+}

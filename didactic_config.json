@@ -1,0 +1,75 @@
+{
+  "protocol_version": 1,
+  "split_seed": 20261102,
+  "seeds": [17, 29, 43],
+  "threads": 4,
+  "representation": {
+    "source_split": "original_clean_train_only",
+    "train_n": 6144,
+    "validation_n": 1536,
+    "audit_n": 2048,
+    "max_features": 12000,
+    "svd_components": 128,
+    "min_df": 2,
+    "ngram_range": [1, 2]
+  },
+  "optimizers": {
+    "width": 64,
+    "depth": 2,
+    "epochs": 32,
+    "batch_size": 128,
+    "common_lr": 0.003,
+    "learning_rates": {
+      "sgd": [0.003, 0.03, 0.3],
+      "momentum": [0.003, 0.03, 0.3],
+      "adam": [0.0003, 0.003, 0.03]
+    },
+    "selection": "lowest mean final validation cross-entropy across the three fixed seeds; three rates per optimizer"
+  },
+  "architectures": {
+    "width": 64,
+    "epochs": 32,
+    "batch_size": 128,
+    "variants": [
+      {"name": "plain_1", "depth": 1, "residual": false, "residual_scale": 1.0},
+      {"name": "plain_4", "depth": 4, "residual": false, "residual_scale": 1.0},
+      {"name": "plain_12", "depth": 12, "residual": false, "residual_scale": 1.0},
+      {"name": "residual_12_raw", "depth": 12, "residual": true, "residual_scale": 1.0},
+      {"name": "residual_12_scaled", "depth": 12, "residual": true, "residual_scale": "inverse_sqrt_blocks"}
+    ],
+    "optimizer": "adam; reuse the validation-selected rate from the optimizer experiment, no architecture-specific retuning"
+  },
+  "regularization": {
+    "train_n": 512,
+    "width": 128,
+    "depth": 3,
+    "epochs": 120,
+    "batch_size": 128,
+    "patience": 15,
+    "min_delta": 0.0001,
+    "variants": [
+      {"name": "none", "dropout": 0.0, "l2": 0.0},
+      {"name": "dropout", "dropout": 0.5, "l2": 0.0},
+      {"name": "l2", "dropout": 0.0, "l2": 0.001}
+    ],
+    "objective": "mean cross-entropy + lambda/2 * sum of squared Linear weights; biases excluded; Adam weight_decay=0",
+    "early_stopping": "causal patience rule on validation; continue training only to show the counterfactual long trajectory; retain the checkpoint selected before the virtual stop"
+  },
+  "initialization": {"depth": 32, "width": 64, "n": 256, "gains": [0.1, 1.0, 3.0]},
+  "double_descent": {
+    "seeds": [101, 102, 103, 104, 105, 106, 107, 108, 109, 110, 111, 112, 113, 114, 115, 116, 117, 118, 119, 120],
+    "train_n": 64,
+    "test_n": 2048,
+    "input_dim": 12,
+    "widths": [2, 4, 8, 12, 16, 24, 32, 48, 56, 60, 62, 64, 66, 68, 72, 80, 96, 128, 192, 256, 384, 512],
+    "noise_sd": 0.3,
+    "lambdas": [0.0, 0.001],
+    "rcond": 1e-12,
+    "model": "one frozen random ReLU hidden layer; fit only p output coefficients by minimum-norm least squares or ridge",
+    "target": "x_0 + 0.5 * sin(x_1)",
+    "ridge_objective": "mean squared error + lambda * squared norm of output weights",
+    "display": "median and interquartile range over all twenty prescribed seeds; no seed selection, no clipping of stored metrics"
+  },
+  "audit_policy": "freeze optimizer rates, all model checkpoints and code before opening the new internal audit; never use the official IMDb test in this extension",
+  "interpretation": "didactic controlled experiments, not an architecture benchmark or a claim of universal optimizer superiority; synthetic double descent is not evidence of double descent in the IMDb CNN"
+}

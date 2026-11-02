@@ -1,0 +1,19 @@
+{
+  "reason": "Independent CPU checkpoint replay detected a training/audit precision-policy mismatch. Initial audit used the NVIDIA default TF32 policy; training had explicitly disabled TF32.",
+  "maximum_probability_difference_in_first_failing_checkpoint": 0.01529524,
+  "action": "Disable TF32 explicitly in audit, repeat all 51 training runs with the unchanged configuration/seeds, then repeat the frozen audit. Check equality of trained parameter arrays against the first execution.",
+  "configuration_changed": false,
+  "architecture_or_rate_selection_changed": false,
+  "initial_frozen_sha256": "7e9923d7dac1bd65770d96ece4a35cd964a864fea034ffa74c4bb37bd8df5fb4",
+  "initial_audit_sha256": "1d8d84606d48c0bd9e536e4765c1c66595b85327d99bf4e5a1227a04a0cc8299",
+  "status": "passed",
+  "repeated_checkpoint_archives": 60,
+  "trained_parameter_arrays_bit_identical": true,
+  "optimizer_choices_identical": true,
+  "default_nvidia_matmul_tf32_confirmed": true,
+  "corrected_frozen_sha256": "cf2f688638093d92e87e8483485717dae8e5a99e81ff05f31ece6a132e789f95",
+  "maximum_cpu_gpu_probability_difference_after_correction": 8.58306884765625e-06,
+  "maximum_cpu_gpu_ce_difference_after_correction": 1.1920928977282585e-07,
+  "superseded_evidence": "results/didactic/provenance/precision_v0/",
+  "repeated_parameter_fingerprints": "results/didactic/provenance/repeated_parameter_fingerprints.json"
+}

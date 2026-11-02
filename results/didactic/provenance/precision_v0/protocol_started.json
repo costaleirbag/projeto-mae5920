@@ -1,0 +1,16 @@
+{
+  "code": {
+    "didactic_config.json": "105874f346aeb450a8f9dddf1fa78324487cba493c788534501c6d3cd8d1061c",
+    "run_didactic.py": "c5c11d2413b1a813dbbd67f4e77a69a830e0a39d04460b720bf1ab6f9e4c14e1",
+    "src/imdb_lab/didactic.py": "b516b5a610082712ff1ab78fd6626b109b1d7cac6a3fce2f48310a2146b2af2d",
+    "src/imdb_lab/didactic_toys.py": "eaefdeb02c72d499728032ecdbecb1941200d40a6ca90288ceab8f18709d1403"
+  },
+  "data_manifest_sha256": "fba037b1d4f2077c16f718c08b5512e9344ce1287c0f035aac53bbf5fa50b3eb",
+  "audit_opened": false,
+  "device": "cuda",
+  "torch": "2.10.0a0+b4e4ee81d3.nv25.12",
+  "numpy": "2.1.0",
+  "python": "3.12.3",
+  "threads": 4,
+  "accelerator": "NVIDIA GB10"
+}

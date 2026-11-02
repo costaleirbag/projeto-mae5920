@@ -10,13 +10,20 @@
 <p align="center">
   <a href="relatorio_imdb.pdf">Relatório principal</a> ·
   <a href="relatorio_qwen3.pdf">Relatório Qwen3</a> ·
+  <a href="output/pdf/relatorio_disciplina.pdf">Conexões com a disciplina</a> ·
   <a href="notebooks/">Notebooks</a> ·
   <a href="https://github.com/costaleirbag/projeto-mae5920/releases/latest">Downloads</a>
 </p>
 
-Este trabalho tem duas partes: comparar modelos de classificação de sentimento
-em resenhas de filmes e mostrar, de forma didática, o que acontece quando
-intervimos nas ativações internas de um modelo de linguagem congelado.
+Este trabalho compara modelos de classificação de sentimento em resenhas de
+filmes, estuda intervenções nas ativações de um modelo de linguagem congelado
+e acrescenta experimentos ligados ao material da disciplina: otimização,
+profundidade, inicialização, regularização e double descent.
+
+**Extensão desta branch:** [suplemento didático](output/pdf/relatorio_disciplina.pdf),
+[notebook executado](notebooks/conexoes_disciplina.ipynb) e
+[guia das conexões com o curso](docs/CONEXOES_DISCIPLINA.md).
+A release v1.0.0 contém a entrega original; os arquivos novos estão nesta branch.
 
 Na extensão com **Qwen3-8B**, a mesma entrada e o mesmo prompt produzem três
 saídas: sem steering, com intervenção negativa e com intervenção positiva.
@@ -28,17 +35,51 @@ O objetivo é compreender o mecanismo, seus efeitos e suas falhas.
 |---|---|
 | **[01 · Relatório principal — IMDb](relatorio_imdb.pdf)** | TF-IDF + regressão logística, CNN, BERT, análise de erros e primeira intervenção nas ativações. |
 | **[02 · Relatório — Qwen3-8B e steering](relatorio_qwen3.pdf)** | Modelo congelado, construção das direções e exemplos completos da intervenção nos dois sentidos. |
+| **[03 · Do modelo aos mecanismos](output/pdf/relatorio_disciplina.pdf)** | Suplemento com experimentos e referências ao livro e aos slides. |
+| [Notebook das conexões com a disciplina](notebooks/conexoes_disciplina.ipynb) | Curvas, controles e reconstruções dos novos experimentos, sem repetir os treinos. |
+| [Galeria HTML da extensão](relatorio_disciplina.html) | Gráficos autocontidos e tabelas da auditoria interna; baixe e abra no navegador. |
 | [Notebook dos modelos](notebooks/experimentos_imdb.ipynb) | Resultados, figuras e verificações do experimento principal; já executado. |
 | [Notebook Qwen3 e steering](notebooks/qwen3_8b_steering.ipynb) | Reconstrução das direções, exemplos e diagnósticos; já executado e pode ser reexecutado sem GPU. |
 | [Galeria Qwen em HTML](relatorio_qwen3.html) | Todas as 64 fontes, cada uma com as três saídas da demonstração. Baixe o arquivo e abra no navegador. |
 | [Relatório principal em HTML](relatorio.html) | Versão ampliada, com figuras e exemplos. Baixe e abra no navegador. |
 
-Para compartilhar com o grupo, os **dois PDFs** são a leitura principal.
-Os notebooks e os arquivos de resultados permitem conferir como chegamos até eles.
+Para uma apresentação ligada às aulas, comece pelo **suplemento didático**.
+Os dois relatórios originais apresentam a base do projeto e o steering.
+Os notebooks e resultados permitem conferir como chegamos até eles.
 O GitHub exibe os notebooks executados; o seletor interativo do Qwen funciona
 em um ambiente Jupyter. A galeria HTML também permite percorrer os casos.
 
-## Duas perguntas, dois experimentos
+## Conexões com o material da disciplina
+
+| Tema | O que varia | Controle principal |
+|---|---|---|
+| Adam, SGD e momentum | Algoritmo e três taxas candidatas por método | Mesma MLP, pesos iniciais, minibatches e orçamento |
+| Profundidade e atalhos | 1/4/12 camadas, soma identidade e escala residual | As três redes de 12 camadas têm parâmetros e partida iguais |
+| Inicialização | Escala He multiplicada por 0,1, 1 ou 3 | Cadeia ReLU sintética, entradas e matrizes gaussianas iguais |
+| Overfitting | Dropout, L2 explícita e parada por validação | 512 resenhas supervisionadas e mesma MLP |
+| Double descent | Coeficientes de saída e ridge | Regressão sintética, ReLU oculta congelada e vinte sementes |
+
+São **51 treinos no IMDb**, três sementes, 42 checkpoints na auditoria interna
+e **880 condições sintéticas**. Os 6.144/1.536/2.048 exemplos da extensão vêm
+somente do antigo treino limpo; o teste oficial não foi consultado novamente.
+Vocabulário, IDF, SVD e padronização usam somente os 6.144 exemplos de ajuste.
+As redes densas compartilham essas entradas; isto não é um novo ranking CNN/BERT/Qwen.
+
+![Double descent: interpolação e generalização](results/didactic/figures/double_descent.png)
+
+O double descent aparece no exemplo sintético, identificado separadamente;
+não foi estabelecido na CNN do IMDb. Todas as sementes e valores extremos são
+preservados. Os gráficos são descritivos e não estabelecem superioridade universal.
+O [guia das conexões](docs/CONEXOES_DISCIPLINA.md) explica os controles e referências.
+Uma divergência de precisão entre treino e avaliação foi detectada e corrigida;
+a repetição preservou exatamente os parâmetros aprendidos e está documentada.
+
+```bash
+python verify_didactic.py
+python execute_notebook.py --notebook notebooks/conexoes_disciplina.ipynb
+```
+
+## Experimentos originais
 
 ### 1. Como os modelos classificam resenhas?
 
@@ -151,12 +192,14 @@ requer GPU CUDA; a leitura dos resultados não requer.
 .
 ├── relatorio_imdb.pdf / relatorio.html       # Experimento principal
 ├── relatorio_qwen3.pdf / relatorio_qwen3.html # Extensão didática atual
-├── notebooks/                              # Dois notebooks executados
+├── notebooks/                              # Três notebooks executados
 ├── src/imdb_lab/                            # Implementação dos modelos e análises
 ├── tests/                                  # Invariantes científicos e hooks
 ├── results/                                # Previsões, figuras e saídas consolidadas
 │   ├── qwen/                               # Primeira rodada Qwen
-│   └── qwen_improved/                       # Rodada atual e histórico identificado
+│   ├── qwen_improved/                       # Rodada atual e histórico identificado
+│   └── didactic/                            # Experimentos ligados à disciplina
+├── output/pdf/relatorio_disciplina.pdf      # Suplemento didático
 ├── data/manifest.json                      # Origem e auditoria das divisões
 ├── docs/                                   # Guia completo, reprodução e publicação
 └── tools/verify_publication.py              # Integridade da distribuição
@@ -170,6 +213,7 @@ separadamente; veja o guia de reprodução e os downloads da release.
 ## Documentação e referências
 
 - [Guia completo do experimento](docs/GUIA_COMPLETO.md)
+- [Conexões com a disciplina](docs/CONEXOES_DISCIPLINA.md)
 - [Reprodução e ambientes](docs/REPRODUCAO.md)
 - [Protocolo Qwen3-8B](QWEN_EXPERIMENTO.md)
 - [Dicionário dos dados e resultados](DATA_DICTIONARY.md)

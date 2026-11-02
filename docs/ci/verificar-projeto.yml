@@ -36,3 +36,5 @@ jobs:
         run: python -m pytest -q
       - name: Conferir direção e saídas do Qwen, sem GPU
         run: python verify_qwen_improved.py
+      - name: Conferir experimentos ligados à disciplina
+        run: python verify_didactic.py

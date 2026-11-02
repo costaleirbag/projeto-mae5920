@@ -1,0 +1,13 @@
+{
+  "hessian_eigenvalues": [
+    0.5,
+    20.0
+  ],
+  "gd_stability_upper_bound": 0.1,
+  "formula": "L(x,y)=(0.5*x^2+20*y^2)/2",
+  "initial": [
+    4.0,
+    3.0
+  ],
+  "caveat": "Deterministic full-batch toy; chosen rates illustrate geometry, not a fair optimizer ranking. Real minibatch comparisons are separate."
+}

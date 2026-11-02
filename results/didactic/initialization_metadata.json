@@ -1,0 +1,8 @@
+{
+  "data": "synthetic independent standard Gaussian inputs",
+  "dtype": "float64",
+  "variance": "weight variance = gain^2 * 2 / width; gain=1 is He for ReLU",
+  "paired_controls": "same input, base Gaussian weights and linear readout for all gains of a seed",
+  "no_training": true,
+  "caveat": "Finite-width diagnostic. He is a scale-preservation approximation, not a guarantee."
+}

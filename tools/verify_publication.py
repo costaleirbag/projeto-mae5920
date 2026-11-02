@@ -95,12 +95,15 @@ def verify() -> None:
             for link in links:
                 check_local_link(path, link)
                 checked_links += 1
-    for name in ("experimentos_imdb.ipynb", "qwen3_8b_steering.ipynb"):
-        nb = json.loads((ROOT / "notebooks" / name).read_text())
+    notebooks = sorted((ROOT / "notebooks").glob("*.ipynb"))
+    assert len(notebooks) >= 2
+    for path in notebooks:
+        name = path.name
+        nb = json.loads(path.read_text())
         cells = [c for c in nb["cells"] if c["cell_type"] == "code"]
         assert cells and all(c.get("execution_count") is not None for c in cells), name
         assert not any(o.get("output_type") == "error" for c in cells for o in c.get("outputs", [])), name
-    print(f"Publication verified: {len(expected)} files, {checked_links} documentation links, two executed notebooks; no credential or local infrastructure patterns.")
+    print(f"Publication verified: {len(expected)} files, {checked_links} documentation links, {len(notebooks)} executed notebooks; no credential or local infrastructure patterns.")
 
 
 if __name__ == "__main__":

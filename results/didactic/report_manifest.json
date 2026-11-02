@@ -1,0 +1,40 @@
+{
+  "pdf": "output/pdf/relatorio_disciplina.pdf",
+  "pdf_sha256": "67411fc666ffcb89209297b7afb98bd9e51d641a4c863297e84367c1350f1e3c",
+  "html": "relatorio_disciplina.html",
+  "html_sha256": "2aaf614f5667a01095bfd36bc1d929e53247710f318a394124d2e38f16410b69",
+  "notebook": "notebooks/conexoes_disciplina.ipynb",
+  "notebook_execution": "passed",
+  "verification_sha256": "7bd358c99b56db45b3b63881d6ab975a68d0e81fe4ac340876aeb4c0e6d32522",
+  "selection_sha256": "cf2f688638093d92e87e8483485717dae8e5a99e81ff05f31ece6a132e789f95",
+  "figures": {
+    "results/didactic/figures/architectures.png": "3a13d107c9a9616006ec5daa7e3e4ac103c546ffbe198137be73a7efd7bf0757",
+    "results/didactic/figures/architectures.svg": "c55c12be7595b56a98dc3b02ee98824c59ac03844614c98f27db8174b1a7a378",
+    "results/didactic/figures/double_descent.png": "22b729770d7e2a0cd2e5e61475cc4b6ff9b156d2b72f91788126c323b1787321",
+    "results/didactic/figures/double_descent.svg": "f45fc6ab0f4873ebbeb80347839f6fc6d25d920d51dadb5254d7c4708b4828f7",
+    "results/didactic/figures/double_descent_mechanism.png": "2919eb29d7410aa33a00ca9eefbb818ed4e2148bcd58fc0f84ec3f76f2f22458",
+    "results/didactic/figures/double_descent_mechanism.svg": "bbd8dae9a313018a9ec65b9ae3c94b7d3cee649dd29f48b19d4e41b047373227",
+    "results/didactic/figures/initialization.png": "32ae009ed33ead71924a349d450701f1ac191138c4396a94784c01404676aee5",
+    "results/didactic/figures/initialization.svg": "a9a0d01a265e28e84e056df242cf36db6fac49db9fa0a4ad4d384e7b14ea3d9f",
+    "results/didactic/figures/learning_rates.png": "fdae9358e0791e6f9017d0c02eac5053c2280479d1ed6d9e2eaa8946ac5e4bfe",
+    "results/didactic/figures/learning_rates.svg": "0aa00d93f7597470939bf84ae092502541ddce5cf0bd40d827e48c08007dd5bd",
+    "results/didactic/figures/optimizers.png": "dc1a6dce18f0f182ebf9cdc435a0e54747d10388905fec601f9f3f20d5809cf3",
+    "results/didactic/figures/optimizers.svg": "29a6355a3c58db05ae63fb33adf8a9da0514e91b0121d4c53ed98c6240cad396",
+    "results/didactic/figures/quadratic.png": "015567f9da884e0417169c4142e450aff0e3810ceba838ab5eab876eeec4f321",
+    "results/didactic/figures/quadratic.svg": "4badb881b2e99400c7a2f286b7131417b202f5fccafe3cd968c999ea0c52dd18",
+    "results/didactic/figures/regularization.png": "140bb734e52bf744c7f9e95436c2da3e6fd507dc6dbe4647d27834d768269943",
+    "results/didactic/figures/regularization.svg": "704ebffe40a2fa14a73af863e60e80b576026952b723ca6e7b8f67463fdbe956"
+  },
+  "executed_code_cells": 13,
+  "notebook_sha256": "2177848b1ea2975c9e9245ccde50718d101f8754f54dec0c11e43cff48d7ec0b",
+  "pdf_pages": 8,
+  "builder_sha256": "0fa3a8622aadf62c1e396ee9a7aeb960989fe3bea80e09d7f57b05f40098be12",
+  "summary_sha256": "48f789003200ceb03776ef4fb2e5ecc690540a3b5f0521d215c5acc7ca147be2",
+  "visual_review": {
+    "status": "passed",
+    "pages_reviewed": 8,
+    "render_dpi": 110,
+    "pdf_sha256": "67411fc666ffcb89209297b7afb98bd9e51d641a4c863297e84367c1350f1e3c",
+    "notes": "All eight rendered pages inspected. No clipping, overlap, missing glyphs or unreadable tables; additional notebook figures reviewed."
+  }
+}
