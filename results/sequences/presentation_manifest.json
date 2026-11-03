@@ -1,0 +1,45 @@
+{
+  "pptx": "output/slides/seminario_mae5920.pptx",
+  "sha256": "8d83fdf9b6d05e6dd5dbafc2b0d2932db9b6a6b289a6305a2020d20b8c297a54",
+  "slides": 21,
+  "main_slides": "1-14",
+  "appendix_slides": "15-21",
+  "native_charts": [
+    5,
+    6,
+    11,
+    16,
+    19
+  ],
+  "native_tables": [
+    7,
+    9,
+    12,
+    13,
+    14,
+    15,
+    17,
+    18,
+    20
+  ],
+  "architecture_diagrams": "native editable shapes and attached connectors",
+  "font_family": "Arial",
+  "chart_precision": "12 significant digits for editable workbook compatibility; unrounded scientific source retained in JSON/NPZ",
+  "double_descent_display": "Categorical tested widths p, vertical log10(median MSE); all twenty seeds and widths retained",
+  "package_validation": "passed",
+  "visual_review": {
+    "status": "passed",
+    "slides": 21,
+    "renderer": "First-party import and rendering of the exact validated PPTX",
+    "coverage": "Every final slide reviewed; final repairs changed only slides 8, 18 and 19, reviewed again",
+    "checks": [
+      "legibility",
+      "no clipping or overlap",
+      "attached diagram connectors",
+      "native tables and charts",
+      "correct data and source notes"
+    ]
+  },
+  "builder_sha256": "78ec8482d647366f8248a735272685339cc388d327757896d56330f52ce7fd34",
+  "data_sha256": "69d5c064e94df97717f52015e69ce9e0b4ce8f9db4c91b817bf188f2790aac01"
+}

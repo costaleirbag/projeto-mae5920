@@ -1,0 +1,15 @@
+{
+  "source_hierarchy": "Livro e slides fornecidos pelo grupo; artigos e documentação primários como complemento. A presença de um slide no acervo não comprova que foi ministrado.",
+  "references": [
+    {"id":"prince","title":"Simon J. D. Prince, Understanding Deep Learning","local_reference_filename":"Understanding_Deep_Learning_Prince.pdf","sha256":"f8237d393163900fa8e43210e680a3f987b45ccac7750b372e156fae3df0bf32","locators":"Capítulos 6, 7, 8, 9, 10, 11 e 12","url":"https://udlbook.github.io/udlbook/"},
+    {"id":"cnn_slides","title":"MAE5920: Redes Convolucionais","local_reference_filename":"10_Redes_Convolucionais.pdf","sha256":"c78a30a743c0167857bc45646899d23e2417f852fddb812e1e4dc9c83fffe622","locators":"Páginas do arquivo 11-22, 36 e 51-52"},
+    {"id":"transformer_slides","title":"MAE5920: Transformers","local_reference_filename":"12_Transformers.pdf","sha256":"8f120f0baf77f4aacec6ccb9477c67a19fd0c8ba6dd870a5a0eec3b22d0f9cec","locators":"Páginas do arquivo 7-18, 21-31 e 35-38"},
+    {"id":"kim","title":"Kim (2014), Convolutional Neural Networks for Sentence Classification","url":"https://aclanthology.org/D14-1181/"},
+    {"id":"bert","title":"Devlin et al. (2019), BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding","url":"https://aclanthology.org/N19-1423/"},
+    {"id":"distilbert","title":"Sanh et al. (2019), DistilBERT, a distilled version of BERT: smaller, faster, cheaper and lighter","url":"https://arxiv.org/abs/1910.01108"},
+    {"id":"modernbert","title":"Warner et al. (2024), Smarter, Better, Faster, Longer","url":"https://arxiv.org/abs/2412.13663"},
+    {"id":"modernbert_card","title":"Answer.AI e LightOn: ModernBERT-base","url":"https://huggingface.co/answerdotai/ModernBERT-base"},
+    {"id":"modernbert_implementation","title":"Transformers: implementação de ModernBERT","url":"https://huggingface.co/docs/transformers/model_doc/modernbert"}
+  ],
+  "figures": "Figuras e diagramas próprios. Nenhuma página ou figura do livro ou dos slides foi redistribuída."
+}

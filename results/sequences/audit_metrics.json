@@ -1,0 +1,335 @@
+{
+  "selection_frozen_sha256": "681d887b016b6d7b4db3875230a6b48306f7cc18e784e94d1048200e0d271226",
+  "predictions_sha256": "63a78578ea3398c8c436af067920df37f5d277088d3322abf17fcd25e1678a1e",
+  "metrics": [
+    {
+      "run_id": "cnn_optimizer__sgd__lr0.3__s17",
+      "ce": 0.4716520607471466,
+      "accuracy": 0.78076171875,
+      "inference_seconds": 0.35201143752783537,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_optimizer__sgd__lr0.3__s29",
+      "ce": 0.46469324827194214,
+      "accuracy": 0.76953125,
+      "inference_seconds": 0.03873435594141483,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_optimizer__sgd__lr0.3__s43",
+      "ce": 0.5031552314758301,
+      "accuracy": 0.74560546875,
+      "inference_seconds": 0.03867817483842373,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_optimizer__momentum__lr0.1__s17",
+      "ce": 0.4681399464607239,
+      "accuracy": 0.79541015625,
+      "inference_seconds": 0.03973434306681156,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_optimizer__momentum__lr0.1__s29",
+      "ce": 0.46916359663009644,
+      "accuracy": 0.7861328125,
+      "inference_seconds": 0.0389415118843317,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_optimizer__momentum__lr0.1__s43",
+      "ce": 0.472239226102829,
+      "accuracy": 0.798828125,
+      "inference_seconds": 0.03798960521817207,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_optimizer__adam__lr0.001__s17",
+      "ce": 0.41479870676994324,
+      "accuracy": 0.8173828125,
+      "inference_seconds": 0.03944532386958599,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_optimizer__adam__lr0.001__s29",
+      "ce": 0.4083578288555145,
+      "accuracy": 0.818359375,
+      "inference_seconds": 0.039047772996127605,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_optimizer__adam__lr0.001__s43",
+      "ce": 0.40495070815086365,
+      "accuracy": 0.82275390625,
+      "inference_seconds": 0.03924094792455435,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_variant__kernel_3__s17",
+      "ce": 0.41547897458076477,
+      "accuracy": 0.810546875,
+      "inference_seconds": 0.014410313218832016,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_variant__kernel_3__s29",
+      "ce": 0.4107173681259155,
+      "accuracy": 0.8173828125,
+      "inference_seconds": 0.01400580070912838,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_variant__kernel_3__s43",
+      "ce": 0.41928720474243164,
+      "accuracy": 0.81005859375,
+      "inference_seconds": 0.014609439298510551,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_variant__kernel_5__s17",
+      "ce": 0.42395853996276855,
+      "accuracy": 0.80224609375,
+      "inference_seconds": 0.01747610606253147,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_variant__kernel_5__s29",
+      "ce": 0.4175639748573303,
+      "accuracy": 0.80908203125,
+      "inference_seconds": 0.018691894598305225,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_variant__kernel_5__s43",
+      "ce": 0.40435317158699036,
+      "accuracy": 0.81689453125,
+      "inference_seconds": 0.018254262395203114,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_variant__multiscale_32__s17",
+      "ce": 0.4065238833427429,
+      "accuracy": 0.81787109375,
+      "inference_seconds": 0.031161158345639706,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_variant__multiscale_32__s29",
+      "ce": 0.41186419129371643,
+      "accuracy": 0.81298828125,
+      "inference_seconds": 0.029858805239200592,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_variant__multiscale_32__s43",
+      "ce": 0.4083128273487091,
+      "accuracy": 0.818359375,
+      "inference_seconds": 0.029813011176884174,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_variant__dropout_0__s17",
+      "ce": 0.41183850169181824,
+      "accuracy": 0.81396484375,
+      "inference_seconds": 0.039049369283020496,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_variant__dropout_0__s29",
+      "ce": 0.40337657928466797,
+      "accuracy": 0.82861328125,
+      "inference_seconds": 0.038806735537946224,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_variant__dropout_0__s43",
+      "ce": 0.418318510055542,
+      "accuracy": 0.8115234375,
+      "inference_seconds": 0.03940037451684475,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_variant__dropout_0.8__s17",
+      "ce": 0.4238542318344116,
+      "accuracy": 0.8017578125,
+      "inference_seconds": 0.03941074199974537,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_variant__dropout_0.8__s29",
+      "ce": 0.42103874683380127,
+      "accuracy": 0.80322265625,
+      "inference_seconds": 0.03838804829865694,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "cnn_variant__dropout_0.8__s43",
+      "ce": 0.4200824797153473,
+      "accuracy": 0.80810546875,
+      "inference_seconds": 0.03854053374379873,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "bert_probe__lr0.01__s17",
+      "ce": 0.36422890424728394,
+      "accuracy": 0.84423828125,
+      "inference_seconds": 0.004248827695846558,
+      "inference_scope": "linear head only; frozen encoder extraction separate"
+    },
+    {
+      "run_id": "bert_probe__lr0.01__s29",
+      "ce": 0.3622104525566101,
+      "accuracy": 0.84619140625,
+      "inference_seconds": 0.005083754658699036,
+      "inference_scope": "linear head only; frozen encoder extraction separate"
+    },
+    {
+      "run_id": "bert_probe__lr0.01__s43",
+      "ce": 0.370103120803833,
+      "accuracy": 0.84521484375,
+      "inference_seconds": 0.004640745930373669,
+      "inference_scope": "linear head only; frozen encoder extraction separate"
+    },
+    {
+      "run_id": "bert_full__lr3e-05__s17",
+      "ce": 0.3192844092845917,
+      "accuracy": 0.8857421875,
+      "inference_seconds": 4.020148825831711,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "bert_full__lr3e-05__s29",
+      "ce": 0.29328885674476624,
+      "accuracy": 0.876953125,
+      "inference_seconds": 4.0143273351714015,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "bert_full__lr3e-05__s43",
+      "ce": 0.2956344485282898,
+      "accuracy": 0.88671875,
+      "inference_seconds": 4.017447066493332,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "distilbert_probe__lr0.01__s17",
+      "ce": 0.38539156317710876,
+      "accuracy": 0.83349609375,
+      "inference_seconds": 0.003993806429207325,
+      "inference_scope": "linear head only; frozen encoder extraction separate"
+    },
+    {
+      "run_id": "distilbert_probe__lr0.01__s29",
+      "ce": 0.3850826919078827,
+      "accuracy": 0.8330078125,
+      "inference_seconds": 0.0038071265444159508,
+      "inference_scope": "linear head only; frozen encoder extraction separate"
+    },
+    {
+      "run_id": "distilbert_probe__lr0.01__s43",
+      "ce": 0.38113537430763245,
+      "accuracy": 0.833984375,
+      "inference_seconds": 0.00397324375808239,
+      "inference_scope": "linear head only; frozen encoder extraction separate"
+    },
+    {
+      "run_id": "distilbert_full__lr3e-05__s17",
+      "ce": 0.3468743562698364,
+      "accuracy": 0.85107421875,
+      "inference_seconds": 2.0251387702301145,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "distilbert_full__lr3e-05__s29",
+      "ce": 0.33070823550224304,
+      "accuracy": 0.87548828125,
+      "inference_seconds": 2.0367045048624277,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "distilbert_full__lr3e-05__s43",
+      "ce": 0.3370055854320526,
+      "accuracy": 0.87744140625,
+      "inference_seconds": 2.046365569345653,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "modernbert_probe__lr0.01__s17",
+      "ce": 0.4108002483844757,
+      "accuracy": 0.81103515625,
+      "inference_seconds": 0.003773248754441738,
+      "inference_scope": "linear head only; frozen encoder extraction separate"
+    },
+    {
+      "run_id": "modernbert_probe__lr0.01__s29",
+      "ce": 0.41004082560539246,
+      "accuracy": 0.8154296875,
+      "inference_seconds": 0.005223779007792473,
+      "inference_scope": "linear head only; frozen encoder extraction separate"
+    },
+    {
+      "run_id": "modernbert_probe__lr0.01__s43",
+      "ce": 0.41015931963920593,
+      "accuracy": 0.8125,
+      "inference_seconds": 0.004074715077877045,
+      "inference_scope": "linear head only; frozen encoder extraction separate"
+    },
+    {
+      "run_id": "modernbert_full__lr3e-05__s17",
+      "ce": 0.2533241808414459,
+      "accuracy": 0.908203125,
+      "inference_seconds": 7.721378983929753,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "modernbert_full__lr3e-05__s29",
+      "ce": 0.24304287135601044,
+      "accuracy": 0.9072265625,
+      "inference_seconds": 7.718367069028318,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "modernbert_full__lr3e-05__s43",
+      "ce": 0.2410232573747635,
+      "accuracy": 0.921875,
+      "inference_seconds": 7.7201134050264955,
+      "inference_scope": "end-to-end, batching64, tokenization excluded"
+    },
+    {
+      "run_id": "tfidf",
+      "ce": 0.3849398925344867,
+      "accuracy": 0.8330078125
+    }
+  ],
+  "tokenization": {
+    "cnn": {
+      "token_cap": 256,
+      "truncated_n": 0,
+      "mean_tokens": 120.31689453125
+    },
+    "bert": {
+      "token_cap": 256,
+      "truncated_n": 0,
+      "mean_tokens": 153.0556640625
+    },
+    "distilbert": {
+      "token_cap": 256,
+      "truncated_n": 0,
+      "mean_tokens": 153.0556640625
+    },
+    "modernbert": {
+      "token_cap": 256,
+      "truncated_n": 0,
+      "mean_tokens": 152.595703125
+    }
+  },
+  "frozen_encoder_extraction_seconds": {
+    "bert": 4.2967938259243965,
+    "distilbert": 2.056615076959133,
+    "modernbert": 7.747177719138563
+  },
+  "tf32": false,
+  "encoder_precision": "BF16 autocast; FP32 head-only probe",
+  "official_test_opened": false
+}

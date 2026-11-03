@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="628.2pt" height="213.984pt" viewBox="0 0 628.2 213.984" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 213.984 
+L 628.2 213.984 
+L 628.2 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 145.584 83.7072 
+L 284.526 83.7072 
+Q 287.874 83.7072 287.874 80.3808 
+L 287.874 25.4952 
+Q 287.874 22.1688 284.526 22.1688 
+L 145.584 22.1688 
+Q 142.236 22.1688 142.236 25.4952 
+L 142.236 80.3808 
+Q 142.236 83.7072 145.584 83.7072 
+z
+" clip-path="url(#pbc99c98cea)" style="fill: #167d92; fill-opacity: 0.082353; stroke: #167d92; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 324.144 83.7072 
+L 432.396 83.7072 
+Q 435.744 83.7072 435.744 80.3808 
+L 435.744 25.4952 
+Q 435.744 22.1688 432.396 22.1688 
+L 324.144 22.1688 
+Q 320.796 22.1688 320.796 25.4952 
+L 320.796 80.3808 
+Q 320.796 83.7072 324.144 83.7072 
+z
+" clip-path="url(#pbc99c98cea)" style="fill: #df8b2f; fill-opacity: 0.082353; stroke: #df8b2f; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 469.224 83.7072 
+L 594.216 83.7072 
+Q 597.564 83.7072 597.564 80.3808 
+L 597.564 25.4952 
+Q 597.564 22.1688 594.216 22.1688 
+L 469.224 22.1688 
+Q 465.876 22.1688 465.876 25.4952 
+L 465.876 80.3808 
+Q 465.876 83.7072 469.224 83.7072 
+z
+" clip-path="url(#pbc99c98cea)" style="fill: #ce5351; fill-opacity: 0.082353; stroke: #ce5351; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 145.584 166.8672 
+L 284.526 166.8672 
+Q 287.874 166.8672 287.874 163.5408 
+L 287.874 108.6552 
+Q 287.874 105.3288 284.526 105.3288 
+L 145.584 105.3288 
+Q 142.236 105.3288 142.236 108.6552 
+L 142.236 163.5408 
+Q 142.236 166.8672 145.584 166.8672 
+z
+" clip-path="url(#pbc99c98cea)" style="fill: #ce5351; fill-opacity: 0.082353; stroke: #ce5351; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 324.144 166.8672 
+L 432.396 166.8672 
+Q 435.744 166.8672 435.744 163.5408 
+L 435.744 108.6552 
+Q 435.744 105.3288 432.396 105.3288 
+L 324.144 105.3288 
+Q 320.796 105.3288 320.796 108.6552 
+L 320.796 163.5408 
+Q 320.796 166.8672 324.144 166.8672 
+z
+" clip-path="url(#pbc99c98cea)" style="fill: #df8b2f; fill-opacity: 0.082353; stroke: #df8b2f; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 469.224 166.8672 
+L 594.216 166.8672 
+Q 597.564 166.8672 597.564 163.5408 
+L 597.564 108.6552 
+Q 597.564 105.3288 594.216 105.3288 
+L 469.224 105.3288 
+Q 465.876 105.3288 465.876 108.6552 
+L 465.876 163.5408 
+Q 465.876 166.8672 469.224 166.8672 
+z
+" clip-path="url(#pbc99c98cea)" style="fill: #ce5351; fill-opacity: 0.082353; stroke: #ce5351; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #173d4c" x="18.36" y="57.096" transform="rotate(-0 18.36 57.096)">Encoder congelado</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #173d4c" transform="translate(162.185469 49.73468)">Encoder pré-treinado</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #173d4c" transform="translate(158.245625 61.737414)">Pesos fixos, modo eval</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #173d4c" transform="translate(337.455938 49.53468)">Média e dropout</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #173d4c" transform="translate(345.243438 61.937414)">768 números</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #173d4c" transform="translate(497.368438 49.33468)">Cabeça linear</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #173d4c" transform="translate(486.942656 61.737414)">1.538 parâmetros</text>
+   </g>
+   <g id="patch_8">
+    <path d="M 290.986798 52.6608 
+Q 304.33341 52.6608 316.226578 52.6608 
+" style="fill: none; stroke: #617984; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 312.026578 50.5608 
+L 316.226578 52.6608 
+L 312.026578 54.7608 
+" style="fill: none; stroke: #617984; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 438.859182 52.6608 
+Q 450.808906 52.6608 461.305186 52.6608 
+" style="fill: none; stroke: #617984; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 457.105186 50.5608 
+L 461.305186 52.6608 
+L 457.105186 54.7608 
+" style="fill: none; stroke: #617984; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #173d4c" x="18.36" y="140.256" transform="rotate(-0 18.36 140.256)">Ajuste completo</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #173d4c" transform="translate(162.185469 132.89468)">Encoder pré-treinado</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #173d4c" transform="translate(148.982344 144.897414)">Pesos recebem gradientes</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #173d4c" transform="translate(337.455938 132.69468)">Média e dropout</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #173d4c" transform="translate(345.243438 145.097414)">768 números</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #173d4c" transform="translate(497.368438 132.49468)">Cabeça linear</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #173d4c" transform="translate(486.942656 144.897414)">1.538 parâmetros</text>
+   </g>
+   <g id="patch_10">
+    <path d="M 290.986798 135.8208 
+Q 304.33341 135.8208 316.226578 135.8208 
+" style="fill: none; stroke: #617984; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 312.026578 133.7208 
+L 316.226578 135.8208 
+L 312.026578 137.9208 
+" style="fill: none; stroke: #617984; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 438.859182 135.8208 
+Q 450.808906 135.8208 461.305186 135.8208 
+" style="fill: none; stroke: #617984; stroke-width: 1.3; stroke-linecap: round"/>
+    <path d="M 457.105186 133.7208 
+L 461.305186 135.8208 
+L 457.105186 137.9208 
+" style="fill: none; stroke: #617984; stroke-width: 1.3; stroke-linecap: round"/>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #526a77" x="18.36" y="201.24" transform="rotate(-0 18.36 201.24)">Congelado: vetor pré-computado, treina a cabeça. Completo: backward atravessa também todos os blocos do encoder.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pbc99c98cea">
+   <rect x="7.2" y="7.2" width="613.8" height="199.584"/>
+  </clipPath>
+ </defs>
+</svg>

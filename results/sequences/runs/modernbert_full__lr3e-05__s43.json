@@ -1,0 +1,82 @@
+{
+  "history": [
+    {
+      "epoch": 0,
+      "updates": 0,
+      "train_ce": 0.7570702433586121,
+      "train_accuracy": 0.4993489682674408,
+      "validation_ce": 0.7589855790138245,
+      "validation_accuracy": 0.4993489682674408,
+      "training_seconds": 0.0,
+      "learning_rate": 0.0
+    },
+    {
+      "epoch": 1,
+      "updates": 192,
+      "train_ce": 0.18137884140014648,
+      "train_accuracy": 0.9332682490348816,
+      "validation_ce": 0.2079709768295288,
+      "validation_accuracy": 0.921875,
+      "training_seconds": 80.47085852455348,
+      "learning_rate": 2.2239382239382238e-05,
+      "online_training_ce": 0.4107654284647045
+    },
+    {
+      "epoch": 2,
+      "updates": 384,
+      "train_ce": 0.08522706478834152,
+      "train_accuracy": 0.974609375,
+      "validation_ce": 0.2038602977991104,
+      "validation_accuracy": 0.9231770634651184,
+      "training_seconds": 160.76622714940459,
+      "learning_rate": 1.1119691119691119e-05,
+      "online_training_ce": 0.18147516146079093
+    },
+    {
+      "epoch": 3,
+      "updates": 576,
+      "train_ce": 0.0391017310321331,
+      "train_accuracy": 0.9889323115348816,
+      "validation_ce": 0.25790494680404663,
+      "validation_accuracy": 0.9270833134651184,
+      "training_seconds": 241.1080022994429,
+      "learning_rate": 0.0,
+      "online_training_ce": 0.0740400907646593
+    }
+  ],
+  "seed": 43,
+  "spec": {
+    "family": "modernbert",
+    "group": "full",
+    "variant": "full",
+    "optimizer": "adamw",
+    "lr": 3e-05,
+    "run_id": "modernbert_full__lr3e-05",
+    "epochs": 3,
+    "batch_size": 32,
+    "mixed": true,
+    "eval_batch_size": 64,
+    "gradient_clip_norm": 1.0,
+    "warmup_fraction": 0.1
+  },
+  "initial_state_sha256": "7e689eaffc523cdc538667fc7fd4a639e0a16138c6b90415e749a758e8d5f544",
+  "initial_head_sha256": "a6566342b787cfc526700e75ed114cb7ebf1e0400700e78c84e26789da3a1bbd",
+  "batch_order_sha256": "d9991c5d0c10fa796136f7fa5fd3a9c675c3cb4f1d57b77bf7acc96d443af2d9",
+  "best_epoch": 2,
+  "best_validation_ce": 0.2038602977991104,
+  "training_seconds": 241.1080022994429,
+  "total_seconds": 355.53649648465216,
+  "parameters": 149015810,
+  "trainable_parameters": 149015810,
+  "peak_cuda_allocated_bytes": 7345202176,
+  "run_id": "modernbert_full__lr3e-05__s43",
+  "checkpoint": {
+    "path": "artifacts/sequences/modernbert_full__lr3e-05__s43.pt",
+    "sha256": "af29ce9d1da5b158030e51f7e8e2a40a1ddaa861adfc684b94c77468db371f6e",
+    "bytes": 596109283
+  },
+  "predictions": {
+    "path": "results/sequences/runs/modernbert_full__lr3e-05__s43__validation.npz",
+    "sha256": "8035d78986f7f794ec1a9b534abef264ffbfec08a5fb12bdbdd16f86784d3112"
+  }
+}

@@ -38,3 +38,5 @@ jobs:
         run: python verify_qwen_improved.py
       - name: Conferir experimentos ligados à disciplina
         run: python verify_didactic.py
+      - name: Conferir CNN e encoders, sem GPU
+        run: python verify_sequences.py

@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "fresh_workspace_inputs_identical": true,
+  "audit_restore_refused_before_freeze": true,
+  "audit_restore_passed_after_freeze": true,
+  "selection_frozen_sha256": "681d887b016b6d7b4db3875230a6b48306f7cc18e784e94d1048200e0d271226",
+  "audit_input_sha256": "02d2ae67c44ec2fee55f7dab0149358300d603ce15e11db95f1cd69f003e2be8",
+  "tool_sha256": {
+    "tools/create_sequence_workspace.py": "4089920395d3b097aae650ad8c98c0fb79af3f97acb5bd82e137d340f6b33ed0",
+    "tools/sequence_audit_input.py": "88fdaf854b158f4cac3a98af0bef860ba34ac81fc5682fbd6b4a668902001d16"
+  }
+}

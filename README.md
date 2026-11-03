@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/capa.svg" alt="IMDb e Qwen3-8B: classificação de sentimento e intervenção nas ativações" width="100%">
+  <img src="docs/assets/capa.svg" alt="IMDb: CNN, BERT, DistilBERT, ModernBERT e intervenção nas ativações do Qwen3-8B" width="100%">
 </p>
 
 <p align="center">
@@ -8,9 +8,10 @@
 </p>
 
 <p align="center">
-  <a href="relatorio_imdb.pdf">Relatório principal</a> ·
-  <a href="relatorio_qwen3.pdf">Relatório Qwen3</a> ·
-  <a href="output/pdf/relatorio_disciplina.pdf">Conexões com a disciplina</a> ·
+  <a href="output/slides/seminario_mae5920.pptx">Slides editáveis</a> ·
+  <a href="output/pdf/relatorio_cnn_encoders.pdf">CNN e encoders</a> ·
+  <a href="output/pdf/relatorio_disciplina.pdf">Mecanismos e double descent</a> ·
+  <a href="relatorio_qwen3.pdf">Qwen3 e steering</a> ·
   <a href="notebooks/">Notebooks</a> ·
   <a href="https://github.com/costaleirbag/projeto-mae5920/releases/latest">Downloads</a>
 </p>
@@ -20,9 +21,10 @@ filmes, estuda intervenções nas ativações de um modelo de linguagem congelad
 e acrescenta experimentos ligados ao material da disciplina: otimização,
 profundidade, inicialização, regularização e double descent.
 
-**Extensão desta branch:** [suplemento didático](output/pdf/relatorio_disciplina.pdf),
-[notebook executado](notebooks/conexoes_disciplina.ipynb) e
-[guia das conexões com o curso](docs/CONEXOES_DISCIPLINA.md).
+**Extensão desta branch:** [slides editáveis](output/slides/seminario_mae5920.pptx),
+[CNN, BERT e encoders modernos](output/pdf/relatorio_cnn_encoders.pdf),
+[notebook dos novos modelos](notebooks/cnn_encoders.ipynb) e
+[suplemento de mecanismos](output/pdf/relatorio_disciplina.pdf).
 A release v1.0.0 contém a entrega original; os arquivos novos estão nesta branch.
 
 Na extensão com **Qwen3-8B**, a mesma entrada e o mesmo prompt produzem três
@@ -33,6 +35,10 @@ O objetivo é compreender o mecanismo, seus efeitos e suas falhas.
 
 | Material | O que você encontra |
 |---|---|
+| **[Slides do seminário](output/slides/seminario_mae5920.pptx)** | Diagramas editáveis, gráficos nativos, notas de fala e material de apoio. |
+| **[CNN e encoders modernos](output/pdf/relatorio_cnn_encoders.pdf)** | Arquiteturas, otimização da CNN, encoders congelados e ajuste completo de BERT, DistilBERT e ModernBERT. |
+| [Notebook CNN e encoders](notebooks/cnn_encoders.ipynb) | Resultados de 87 treinos, hiperparâmetros, exemplos comuns e leitura dos filtros da CNN. Executado, sem exigir GPU para leitura. |
+| [Galeria CNN e encoders em HTML](relatorio_cnn_encoders.html) | Diagramas, curvas e todos os exemplos sintéticos, em arquivo autocontido. |
 | **[01 · Relatório principal — IMDb](relatorio_imdb.pdf)** | TF-IDF + regressão logística, CNN, BERT, análise de erros e primeira intervenção nas ativações. |
 | **[02 · Relatório — Qwen3-8B e steering](relatorio_qwen3.pdf)** | Modelo congelado, construção das direções e exemplos completos da intervenção nos dois sentidos. |
 | **[03 · Do modelo aos mecanismos](output/pdf/relatorio_disciplina.pdf)** | Suplemento com experimentos e referências ao livro e aos slides. |
@@ -43,11 +49,65 @@ O objetivo é compreender o mecanismo, seus efeitos e suas falhas.
 | [Galeria Qwen em HTML](relatorio_qwen3.html) | Todas as 64 fontes, cada uma com as três saídas da demonstração. Baixe o arquivo e abra no navegador. |
 | [Relatório principal em HTML](relatorio.html) | Versão ampliada, com figuras e exemplos. Baixe e abra no navegador. |
 
-Para uma apresentação ligada às aulas, comece pelo **suplemento didático**.
+Para apresentar, comece pelos **slides** e pelo relatório **CNN e encoders**.
+O suplemento de mecanismos acrescenta MLPs, inicialização e double descent.
 Os dois relatórios originais apresentam a base do projeto e o steering.
 Os notebooks e resultados permitem conferir como chegamos até eles.
 O GitHub exibe os notebooks executados; o seletor interativo do Qwen funciona
 em um ambiente Jupyter. A galeria HTML também permite percorrer os casos.
+
+## CNN, BERT e encoders modernos
+
+A nova bateria usa texto sequencial: **42 treinos de CNN**, **27 cabeças
+lineares sobre encoders congelados** e **18 ajustes completos** de BERT-base,
+DistilBERT e ModernBERT-base. Todas as condições neurais usam três sementes.
+Os encoders partem de pesos públicos de pré-treinamento, sem ajuste prévio
+no IMDb. No ajuste completo, todas as camadas recebem gradientes.
+
+| Bloco | O que testamos | Controle |
+|---|---|---|
+| Otimização da CNN | SGD, momentum e Adam, três taxas por método | Mesmos pesos, minibatches e doze épocas por semente |
+| Arquitetura da CNN | Janelas 3, 5 e 3/4/5; 32 ou cem filtros | Embedding 128 e taxa de Adam reutilizada |
+| Dropout da CNN | 0; 0,5; 0,8 | Mesma arquitetura e partida |
+| Encoder congelado | BERT, DistilBERT, ModernBERT; três taxas | Só a cabeça linear de 1.538 parâmetros aprende |
+| Ajuste completo | Os três encoders, duas taxas | Três épocas, AdamW e seleção por validação |
+
+Os modelos recebem o mesmo prefixo de até **128 palavras**. As redes
+sequenciais limitam a entrada a 256 tokens; o TF-IDF usa o prefixo completo.
+Usamos 6.144 resenhas de treino e 1.536 de
+validação. A **nova auditoria interna com 2.048 resenhas** exclui todos os
+papéis do estudo MLP. Taxas, épocas e pesos ficam congelados antes de abrir
+essa auditoria. O teste oficial não foi consultado novamente.
+
+![Arquitetura da CNN com dimensões dos tensores](results/sequences/figures/cnn_diagram.png)
+
+Acurácia na nova auditoria interna, média das três sementes:
+
+| Encoder | Congelado | Ajuste completo |
+|---|---:|---:|
+| BERT-base | 84,52% | 88,31% |
+| DistilBERT | 83,35% | 86,80% |
+| ModernBERT-base | 81,30% | 91,24% |
+
+Controles no mesmo recorte: CNN + Adam **81,95%**;
+TF-IDF + logística **83,30%** (uma execução determinística).
+A ordenação entre encoders muda conforme o regime de ajuste.
+
+As receitas congelada e completa têm orçamentos e otimizadores diferentes.
+Entre famílias, pré-treinamento, tokenização e escala também mudam. As
+comparações descrevem este protocolo; não isolam arquitetura como única
+causa nem provam superioridade universal. Os tempos incluem o encoder
+congelado na inferência e registram a extração dos vetores separadamente.
+
+[Protocolo e grades](docs/PROTOCOLO_SEQUENCIAS.md) ·
+[Reproduzir](docs/REPRODUCAO_SEQUENCIAS.md) ·
+[Notas dos slides](docs/NOTAS_APRESENTACAO.md) ·
+[Resultados em CSV](results/sequences/comparison.csv)
+
+```bash
+python verify_sequences.py
+python execute_notebook.py --notebook notebooks/cnn_encoders.ipynb
+```
 
 ## Conexões com o material da disciplina
 
@@ -59,7 +119,7 @@ em um ambiente Jupyter. A galeria HTML também permite percorrer os casos.
 | Overfitting | Dropout, L2 explícita e parada por validação | 512 resenhas supervisionadas e mesma MLP |
 | Double descent | Coeficientes de saída e ridge | Regressão sintética, ReLU oculta congelada e vinte sementes |
 
-São **51 treinos no IMDb**, três sementes, 42 checkpoints na auditoria interna
+No suplemento com MLPs, são **51 treinos no IMDb**, três sementes, 42 checkpoints na auditoria interna
 e **880 condições sintéticas**. Os 6.144/1.536/2.048 exemplos da extensão vêm
 somente do antigo treino limpo; o teste oficial não foi consultado novamente.
 Vocabulário, IDF, SVD e padronização usam somente os 6.144 exemplos de ajuste.
@@ -192,14 +252,17 @@ requer GPU CUDA; a leitura dos resultados não requer.
 .
 ├── relatorio_imdb.pdf / relatorio.html       # Experimento principal
 ├── relatorio_qwen3.pdf / relatorio_qwen3.html # Extensão didática atual
-├── notebooks/                              # Três notebooks executados
+├── notebooks/                              # Quatro notebooks executados
 ├── src/imdb_lab/                            # Implementação dos modelos e análises
 ├── tests/                                  # Invariantes científicos e hooks
 ├── results/                                # Previsões, figuras e saídas consolidadas
 │   ├── qwen/                               # Primeira rodada Qwen
 │   ├── qwen_improved/                       # Rodada atual e histórico identificado
-│   └── didactic/                            # Experimentos ligados à disciplina
+│   ├── didactic/                           # MLPs e demonstrações sintéticas
+│   └── sequences/                          # CNNs e transferência com encoders
 ├── output/pdf/relatorio_disciplina.pdf      # Suplemento didático
+├── output/pdf/relatorio_cnn_encoders.pdf     # CNN, BERT e encoders modernos
+├── output/slides/seminario_mae5920.pptx      # Apresentação editável
 ├── data/manifest.json                      # Origem e auditoria das divisões
 ├── docs/                                   # Guia completo, reprodução e publicação
 └── tools/verify_publication.py              # Integridade da distribuição
@@ -214,6 +277,9 @@ separadamente; veja o guia de reprodução e os downloads da release.
 
 - [Guia completo do experimento](docs/GUIA_COMPLETO.md)
 - [Conexões com a disciplina](docs/CONEXOES_DISCIPLINA.md)
+- [Protocolo CNN e encoders](docs/PROTOCOLO_SEQUENCIAS.md)
+- [Reprodução CNN e encoders](docs/REPRODUCAO_SEQUENCIAS.md)
+- [Notas da apresentação](docs/NOTAS_APRESENTACAO.md)
 - [Reprodução e ambientes](docs/REPRODUCAO.md)
 - [Protocolo Qwen3-8B](QWEN_EXPERIMENTO.md)
 - [Dicionário dos dados e resultados](DATA_DICTIONARY.md)
@@ -223,6 +289,8 @@ separadamente; veja o guia de reprodução e os downloads da release.
 Dados: [Large Movie Review Dataset — Maas et al.](https://ai.stanford.edu/~amaas/data/sentiment/),
 obtidos pela distribuição [`stanfordnlp/imdb`](https://huggingface.co/datasets/stanfordnlp/imdb).
 Modelos: [BERT-base](https://huggingface.co/google-bert/bert-base-uncased),
+[DistilBERT](https://huggingface.co/distilbert/distilbert-base-uncased),
+[ModernBERT-base](https://huggingface.co/answerdotai/ModernBERT-base),
 [Qwen3-8B](https://huggingface.co/Qwen/Qwen3-8B) e
 [MiniLM](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2).
 Steering: [Beaglehole et al., *Toward universal steering and monitoring of AI models*](https://arxiv.org/abs/2502.03708)

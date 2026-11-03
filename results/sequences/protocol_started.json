@@ -1,0 +1,19 @@
+{
+  "code": {
+    "sequence_config.json": "81426103042256b04d825373246ffcdb250a9a02b3846e4545402927ace1daa3",
+    "run_sequences.py": "b04e67e2baf77ad14027a9d959d3233efb1b5c1ad77a023c73bdb5d55b0080c8",
+    "src/imdb_lab/sequences.py": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+    "src/imdb_lab/models.py": "d3ea24b13bb09b9e3ae5385711852ccdbf3fe9923d54fd655c4cf52b966c8559"
+  },
+  "data_manifest_sha256": "b9684d5d2e03b5889eb6f116814f293c07e3264acb1c98f195d57159a92c0f21",
+  "audit_opened": false,
+  "torch": "2.10.0a0+b4e4ee81d3.nv25.12",
+  "transformers": "4.57.1",
+  "numpy": "2.1.0",
+  "python": "3.12.3",
+  "accelerator": "NVIDIA GB10",
+  "tf32": false,
+  "deterministic_algorithms": true,
+  "encoder_attention": "sdpa",
+  "encoder_training": "BF16 autocast, FP32 parameters and optimizer states"
+}

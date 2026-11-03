@@ -1,5 +1,10 @@
 # Da classificação aos mecanismos
 
+Este guia descreve o **suplemento com MLPs e exemplos sintéticos**.
+A bateria com texto sequencial está no [protocolo CNN e encoders](PROTOCOLO_SEQUENCIAS.md),
+com [relatório próprio](../output/pdf/relatorio_cnn_encoders.pdf) e
+[slides editáveis](../output/slides/seminario_mae5920.pptx).
+
 [Início](../README.md) · [Suplemento em PDF](../output/pdf/relatorio_disciplina.pdf) ·
 [Notebook executado](../notebooks/conexoes_disciplina.ipynb) · [Galeria HTML](../relatorio_disciplina.html)
 

@@ -1,0 +1,12 @@
+{
+  "train": {
+    "token_cap": 256,
+    "truncated_n": 0,
+    "mean_tokens": 120.654296875
+  },
+  "validation": {
+    "token_cap": 256,
+    "truncated_n": 0,
+    "mean_tokens": 119.96549987792969
+  }
+}

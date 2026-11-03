@@ -1,84 +1,82 @@
 # Escopo da publicação
 
-## Extensão ligada à disciplina
-
-Esta branch acrescenta o [suplemento didático](../output/pdf/relatorio_disciplina.pdf),
-um terceiro notebook executado, uma galeria HTML e os experimentos controlados
-descritos em [Conexões com a disciplina](CONEXOES_DISCIPLINA.md). Os relatórios
-e notebooks originais permanecem preservados. A release v1.0.0 continua
-representando a entrega original; os novos arquivos estão nesta branch.
-
-Os novos gráficos são originais. Slides e livro são referências e não são
-redistribuídos. A extensão registra a correção de uma divergência numérica:
-treino e auditoria passaram a usar a mesma política de precisão, com os
-parâmetros treinados preservados bit a bit na repetição.
+Esta branch reúne o experimento original de sentimento no IMDb, o steering
+no Qwen3-8B e duas extensões ligadas à disciplina. Os relatórios originais
+permanecem preservados. A release v1.0.0 representa a entrega original;
+os novos materiais estão na branch `feat/experimentos-didaticos`.
 
 [Voltar ao início](../README.md)
 
-Esta distribuição reúne o experimento principal de sentimento no IMDb e
-a extensão didática com Qwen3-8B. As versões atuais dos relatórios ficam
-na raiz; as versões anteriores estão identificadas em
-`results/qwen_improved/previous_didactic/`.
+## Materiais da branch
 
-## Conteúdo
+- Quatro relatórios em PDF e suas versões HTML: IMDb, Qwen3, mecanismos com
+  MLPs e demonstrações sintéticas, CNN e encoders modernos.
+- Quatro notebooks executados, com leitura dos resultados sem carregar os
+  grandes modelos nem usar GPU.
+- Uma apresentação editável com diagramas, gráficos nativos e notas de fala.
+- Código, configurações, revisões de modelos, predições e trajetórias.
+- Evidências de seleção por validação, controles, falhas e verificações.
 
-- Dois relatórios em PDF e suas versões HTML.
-- Dois notebooks executados.
-- Código de treinamento, inferência, intervenção, análise e geração de relatórios.
-- Configurações científicas, revisões de origem e auditoria das divisões.
-- Previsões, métricas, figuras, fontes selecionadas e todas as gerações consolidadas.
-- Evidências da seleção em validação, controles aleatórios, falhas e leituras qualitativas.
-- Testes e verificadores de integridade e do protocolo científico.
+O [protocolo CNN e encoders](PROTOCOLO_SEQUENCIAS.md) identifica os 87 novos
+treinos neurais e a nova auditoria interna. O [guia MLP](CONEXOES_DISCIPLINA.md)
+identifica os 51 treinos e 880 condições sintéticas anteriores. O teste
+oficial não foi reaberto nessas duas extensões.
 
-O ZIP da entrega reproduz esse material, incluindo a documentação.
-O pacote opcional de reprodução contém os checkpoints e os caches numéricos
-maiores. O corpus completo pode ser obtido da fonte pelo comando de preparação.
+## Resultados e preservação
 
-## Preservação dos resultados
+Os PDFs, HTMLs e notebooks originais do IMDb e do Qwen são preservados
+byte a byte. O suplemento MLP também mantém seus resultados congelados.
+A extensão sequencial usa uma nova pasta de resultados e um novo
+congelamento de seleção. Todos os checkpoints planejados são mantidos;
+nenhuma semente é escolhida pela auditoria.
 
-Os dois PDFs atuais, os dois HTMLs atuais e os dois notebooks atuais foram
-copiados da entrega verificada, sem modificar seu conteúdo. Os hashes
-constam de `publication_manifest.json`.
+Na extensão MLP, uma divergência de precisão foi corrigida e a repetição
+preservou os parâmetros bit a bit. A evidência histórica continua no
+respectivo diretório. A nova extensão desativa TF32 em treino e avaliação
+e registra a reavaliação independente de todos os checkpoints auditados.
 
-A página inicial foi reescrita para orientar a leitura no GitHub.
-O README detalhado anterior foi preservado em `docs/GUIA_COMPLETO.md`.
-Foram acrescentados guias de reprodução, uma capa vetorial, verificação da
-distribuição e um modelo de automação de testes. O empacotador foi adaptado para incluir
-os novos arquivos. Nenhum treinamento ou nova inferência foi realizado
-durante a publicação.
+As figuras e diagramas novos são próprios. O livro e os slides do acervo
+são referências, sem redistribuição de suas páginas ou figuras. A presença
+de um slide no acervo não comprova que ele foi ministrado.
 
-No notebook **histórico**, em `previous_didactic/`, foi removida apenas uma
-saída de aviso que exibia um caminho absoluto da máquina de execução.
-O notebook atual não recebeu essa alteração. Textos gerados, rótulos,
-previsões, parâmetros congelados e evidências científicas foram preservados.
+## Arquivos maiores e reprodução
 
-Arquivos temporários de retomada foram omitidos quando as mesmas saídas
-já estavam preservadas nos JSONs consolidados. Caches de ambiente,
-arquivos temporários e configuração de acesso à infraestrutura são locais.
+O Git contém as predições, métricas, tokenizadores, figuras, relatórios,
+notebooks, código e manifestos. Os checkpoints grandes treinados ficam
+fora do Git, com hashes no congelamento científico. O corpus preparado,
+as dependências e os caches locais também ficam fora da distribuição.
 
-## Verificar a cópia publicada
+A release original oferece um pacote opcional dos checkpoints originais.
+Os novos treinos e a separação dos papéis dos dados são descritos no
+[guia de reprodução sequencial](REPRODUCAO_SEQUENCIAS.md). A reprodução
+cria uma pasta nova, preservando os resultados publicados.
+
+## Verificar a distribuição
 
 ```bash
 python tools/verify_publication.py
+python verify_sequences.py
+python verify_didactic.py
+python verify_qwen_improved.py
+python -m pytest -q
 ```
 
-`publication_manifest.json` identifica os arquivos distribuídos, seus
-tamanhos e hashes SHA-256. Ele descreve a distribuição, sem substituir
-`selection_frozen.json`, `report_build.json` ou os metadados científicos
-históricos. As verificações científicas mantêm seus próprios requisitos,
-descritos no [guia de reprodução](REPRODUCAO.md).
+`publication_manifest.json` registra cada arquivo distribuído, tamanho e
+hash SHA-256. Ele não substitui os congelamentos científicos de cada estudo.
+Reexecutar notebooks pode mudar os seus hashes; use uma cópia de trabalho.
 
 ## Dados e autoria
 
-Projeto de **Nestor, Letícia e Gabriel**, para MAE5920 — Introdução a Deep Learning.
-Dados e modelos de terceiros mantêm seus termos de uso e atribuição;
-as fontes estão listadas no README e nos relatórios.
-O repositório não atribui uma nova licença aos dados ou aos modelos de terceiros.
+Projeto de Nestor, Letícia e Gabriel, para MAE5920, Introdução a Deep Learning.
+Dados e modelos de terceiros mantêm seus termos de uso e atribuição.
+As fontes estão no README, nos relatórios e nos catálogos de referências.
+O repositório não atribui nova licença aos dados ou modelos de terceiros.
+As análises qualitativas assistidas por IA estão identificadas;
+não houve anotação humana independente.
 
 ## Automação de testes
 
-O GitHub bloqueou o envio de um workflow com a credencial disponível, que
-não tinha o escopo `workflow`. A configuração foi preservada como
-`docs/ci/verificar-projeto.yml`, pronta para ativação futura com uma
-credencial adequada. Os testes e verificadores já passaram localmente;
-não há workflow ativo nesta versão.
+A credencial de publicação disponível não tinha o escopo `workflow`.
+A configuração de CI está preservada em `docs/ci/verificar-projeto.yml`
+como modelo, sem workflow ativo. Os testes e verificadores foram
+executados localmente; a avaliação dos checkpoints usa a GPU.

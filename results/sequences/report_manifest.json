@@ -1,0 +1,51 @@
+{
+  "pdf": "output/pdf/relatorio_cnn_encoders.pdf",
+  "pdf_sha256": "739a34bcbe24cbb10319275758c73407677c6ed6d19e280e18698da477b51422",
+  "html": "relatorio_cnn_encoders.html",
+  "html_sha256": "cadc9dcb35fe8b206494e8e23e33c29b225d3c26bdc2185ee41cddfb510073f8",
+  "notebook": "notebooks/cnn_encoders.ipynb",
+  "notebook_execution": "passed",
+  "visual_review": {
+    "status": "passed",
+    "pages": 11,
+    "renderer": "Poppler 110 dpi",
+    "coverage": "Every final page reviewed; the final provenance edit changed only page 10, reviewed again",
+    "checks": [
+      "legibility",
+      "alignment",
+      "no clipping or overlap",
+      "exact reported metrics"
+    ]
+  },
+  "selection_sha256": "681d887b016b6d7b4db3875230a6b48306f7cc18e784e94d1048200e0d271226",
+  "summary_sha256": "e6e2be90c21fcebdd6336a26818df17b77ea843a26bfd18fa69e5da289232e36",
+  "verification_sha256": "1746a4adc2b7a56dadce8a94397814e4e048fe729deb297c6aa6e5075ebbb66c",
+  "figures": {
+    "results/sequences/figures/cnn_architectures.png": "f91cbb350f5bba9a2ba68d1b48078a19c2149e4ea88f6009f465d52de4118c43",
+    "results/sequences/figures/cnn_architectures.svg": "75308048bac27108188c9b0b6794a984b155549ea125ae9c4a5d95936f7f76af",
+    "results/sequences/figures/cnn_diagram.png": "3ae07a74088d92329957d0968e5f07f05d5433a9b40bd7e832ce0c084c6eaef3",
+    "results/sequences/figures/cnn_diagram.svg": "feb2db6d63cb82ee0acda0766a86bea66212f0346f563a50d5009961310ad3f3",
+    "results/sequences/figures/cnn_dropout.png": "73fa8b15bf4f5294884a2882052c6c5b374fc5bb03bd4f6e022df7a342690a64",
+    "results/sequences/figures/cnn_dropout.svg": "b1ed850d9b7a41b4bd32ca481974cf2df36165bea39896bf6230a59b4d64add0",
+    "results/sequences/figures/cnn_learning_rates.png": "2ef488aa52c492292d91463eb320f5b8c76cd9f23bc69ca59ed97e32c4190da5",
+    "results/sequences/figures/cnn_learning_rates.svg": "b61300ae3bb42c4ba949d7085324f9adeff7582f51de8b4e8453d9fa09e95803",
+    "results/sequences/figures/cnn_optimizers.png": "1ed48f6a0af5179cf966c4529409284cafa8ebecfebfdb8d187304650d4a9fce",
+    "results/sequences/figures/cnn_optimizers.svg": "1242da3a98e9b7c1ff84d789dbb388610f88344b8472a8b7147cfe22cf16c8bd",
+    "results/sequences/figures/cost_accuracy.png": "9518f96af5db12217bc082a038ed1d75f310e4f4957d62f41b89960cbd3de189",
+    "results/sequences/figures/cost_accuracy.svg": "98c76f3d238f469385f041775b48beb1e1ef00e7a83739f9c8cdd5e67ca7c77f",
+    "results/sequences/figures/encoder_comparison.png": "9f8f1345313afaa162208ef03ab68034da5e6b5d84ff93163cb06dddcc09587d",
+    "results/sequences/figures/encoder_comparison.svg": "a4d9b2076e7ebba983fab4f47248eea151e8e7b88e2785c426077f1e4e9fc001",
+    "results/sequences/figures/encoder_diagram.png": "448a7ca534d9714e0b42ab5e2817bce71901353aabfaa8da2f09b604abfc3eaf",
+    "results/sequences/figures/encoder_diagram.svg": "b1665db29f9f72fe24fe2e82fa6bb11a15426c8c0de5dc6e1d9a868c83958cc7",
+    "results/sequences/figures/encoder_learning_curves.png": "829ee1ce30cf824394098eb6061fbeff15957ab0710a2240059b233b78bcdb69",
+    "results/sequences/figures/encoder_learning_curves.svg": "77e709d36caac0d57fb8b124018586b3989b99629fae5c4456cde3f7f7e4d7b6",
+    "results/sequences/figures/encoder_learning_rates.png": "89495c0a88a73c03fe55bdfe4fb956420578c5ecca711f9f058f69eb96ee45bb",
+    "results/sequences/figures/encoder_learning_rates.svg": "a043e5a1e6f026b3d1541981f3b2f77c7e73cb31e6aebf0ee5a4cf31562b730d",
+    "results/sequences/figures/transfer_diagram.png": "51a0115c4e06d2d09c6a46bf321c9e2355f79d128ca1aa3cc4814cf2d1313364",
+    "results/sequences/figures/transfer_diagram.svg": "92fb97abce23ef4c7d9b40d21a92be71c4dc87e0a9dda3b1243da7374cb7d1a2"
+  },
+  "executed_code_cells": 13,
+  "notebook_sha256": "970abf1afc3e5aef3bcceb88ef49b7066f69ca37a8cac6b13f754dd2ac831eb4",
+  "pdf_pages": 11,
+  "builder_sha256": "451fad11104263fef7064e13b57436b013d5ad299b53e851dd609e367e69ffde"
+}

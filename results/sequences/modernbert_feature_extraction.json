@@ -1,0 +1,10 @@
+{
+  "train_validation_seconds": 29.11834000982344,
+  "cache_sha256": "a77f4819cc58ab39498ee32228c1d70e0c2986268bde4d9cdf0b859c7618fe6a",
+  "roles": [
+    "train",
+    "validation"
+  ],
+  "precision": "BF16 encoder, FP32 stored features",
+  "encoder_in_eval_mode": true
+}

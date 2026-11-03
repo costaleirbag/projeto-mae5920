@@ -1,0 +1,25 @@
+{
+  "python": "3.12.3",
+  "architecture": "aarch64",
+  "packages": {
+    "torch": "2.10.0a0+b4e4ee81d3.nv25.12",
+    "transformers": "4.57.1",
+    "huggingface_hub": "0.36.0",
+    "tokenizers": "0.22.1",
+    "safetensors": "0.7.0",
+    "numpy": "2.1.0",
+    "scipy": "1.16.3",
+    "pandas": "2.3.3",
+    "scikit-learn": "1.8.0",
+    "pyarrow": "22.0.0"
+  },
+  "cuda": "13.1",
+  "cudnn": 91700,
+  "accelerator": "NVIDIA GB10",
+  "capability": [
+    12,
+    1
+  ],
+  "stack": "NVIDIA PyTorch 25.12",
+  "precision": "CNN FP32; encoders BF16 autocast, FP32 parameters and optimizer states; TF32 explicitly disabled in scientific stages"
+}

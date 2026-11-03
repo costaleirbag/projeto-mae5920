@@ -18,6 +18,8 @@ OMIT = {".git", ".venv", "venv", "__pycache__", ".pytest_cache", ".cache",
 
 def included(path: Path) -> bool:
     rel = path.relative_to(ROOT)
+    if any(part.startswith(".chart-data-") for part in rel.parts):
+        return False
     if any(part in OMIT or part.endswith(".egg-info") for part in rel.parts):
         return False
     if rel.parts[0] == "data":

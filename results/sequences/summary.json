@@ -1,0 +1,996 @@
+{
+  "protocol": "CNN/encoder extension; common 128-word excerpts; fresh internal audit 2048; official test unused",
+  "training_runs": 87,
+  "training_seconds_sum": 3173.3117616837844,
+  "total_run_seconds_sum": 4485.5650413464755,
+  "groups": [
+    {
+      "key": "cnn_sgd",
+      "label": "SGD",
+      "group": "cnn_optimizer",
+      "run_ids": [
+        "cnn_optimizer__sgd__lr0.3__s17",
+        "cnn_optimizer__sgd__lr0.3__s29",
+        "cnn_optimizer__sgd__lr0.3__s43"
+      ],
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "parameters": 2714502,
+      "trainable_parameters": 2714502,
+      "lr": 0.3,
+      "best_epochs": [
+        12,
+        12,
+        10
+      ],
+      "training_seconds_mean": 6.373777185566723,
+      "total_seconds_mean": 8.181746062201759,
+      "accuracy_mean": 0.7652994791666666,
+      "accuracy_min": 0.74560546875,
+      "accuracy_max": 0.78076171875,
+      "ce_mean": 0.4798335329630721,
+      "ce_min": 0.46469328654233094,
+      "ce_max": 0.5031552467985891,
+      "f1_macro_mean": 0.7631115901069728,
+      "f1_macro_min": 0.7417260365555371,
+      "f1_macro_max": 0.7792225471739562,
+      "brier_mean": 0.15764072838280732,
+      "brier_min": 0.15215950981968365,
+      "brier_max": 0.1668269246264093,
+      "validation_ce_mean": 0.45050808787345886,
+      "audit_inference_seconds_mean": 0.14314132276922464,
+      "fit_plus_features_seconds": 6.373777185566723,
+      "audit_end_to_end_seconds": 0.14314132276922464
+    },
+    {
+      "key": "cnn_momentum",
+      "label": "SGD + momentum",
+      "group": "cnn_optimizer",
+      "run_ids": [
+        "cnn_optimizer__momentum__lr0.1__s17",
+        "cnn_optimizer__momentum__lr0.1__s29",
+        "cnn_optimizer__momentum__lr0.1__s43"
+      ],
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "parameters": 2714502,
+      "trainable_parameters": 2714502,
+      "lr": 0.1,
+      "best_epochs": [
+        5,
+        5,
+        6
+      ],
+      "training_seconds_mean": 8.451206794939935,
+      "total_seconds_mean": 10.25279977141569,
+      "accuracy_mean": 0.79345703125,
+      "accuracy_min": 0.7861328125,
+      "accuracy_max": 0.798828125,
+      "ce_mean": 0.46984758036873414,
+      "ce_min": 0.46813994621328403,
+      "ce_max": 0.47223920803561564,
+      "f1_macro_mean": 0.7933674056652861,
+      "f1_macro_min": 0.7859840224765638,
+      "f1_macro_max": 0.7988158456937069,
+      "brier_mean": 0.14817510138375536,
+      "brier_min": 0.147526380999093,
+      "brier_max": 0.14898625296468204,
+      "validation_ce_mean": 0.4257481296857198,
+      "audit_inference_seconds_mean": 0.03888848672310511,
+      "fit_plus_features_seconds": 8.451206794939935,
+      "audit_end_to_end_seconds": 0.03888848672310511
+    },
+    {
+      "key": "cnn_adam",
+      "label": "Adam",
+      "group": "cnn_optimizer",
+      "run_ids": [
+        "cnn_optimizer__adam__lr0.001__s17",
+        "cnn_optimizer__adam__lr0.001__s29",
+        "cnn_optimizer__adam__lr0.001__s43"
+      ],
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "parameters": 2714502,
+      "trainable_parameters": 2714502,
+      "lr": 0.001,
+      "best_epochs": [
+        5,
+        6,
+        6
+      ],
+      "training_seconds_mean": 8.526995922749242,
+      "total_seconds_mean": 10.30777916467438,
+      "accuracy_mean": 0.8194986979166666,
+      "accuracy_min": 0.8173828125,
+      "accuracy_max": 0.82275390625,
+      "ce_mean": 0.40936908809397304,
+      "ce_min": 0.4049507300892573,
+      "ce_max": 0.4147987233796201,
+      "f1_macro_mean": 0.8193678455826602,
+      "f1_macro_min": 0.8171309825313332,
+      "f1_macro_max": 0.8226757353388409,
+      "brier_mean": 0.12845548310114538,
+      "brier_min": 0.12674447539636605,
+      "brier_max": 0.13108732401663867,
+      "validation_ce_mean": 0.3763619661331177,
+      "audit_inference_seconds_mean": 0.03924468159675598,
+      "fit_plus_features_seconds": 8.526995922749242,
+      "audit_end_to_end_seconds": 0.03924468159675598
+    },
+    {
+      "key": "cnn_base",
+      "label": "3/4/5, 100 filtros",
+      "group": "cnn_architecture",
+      "run_ids": [
+        "cnn_optimizer__adam__lr0.001__s17",
+        "cnn_optimizer__adam__lr0.001__s29",
+        "cnn_optimizer__adam__lr0.001__s43"
+      ],
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "parameters": 2714502,
+      "trainable_parameters": 2714502,
+      "lr": 0.001,
+      "best_epochs": [
+        5,
+        6,
+        6
+      ],
+      "training_seconds_mean": 8.526995922749242,
+      "total_seconds_mean": 10.30777916467438,
+      "accuracy_mean": 0.8194986979166666,
+      "accuracy_min": 0.8173828125,
+      "accuracy_max": 0.82275390625,
+      "ce_mean": 0.40936908809397304,
+      "ce_min": 0.4049507300892573,
+      "ce_max": 0.4147987233796201,
+      "f1_macro_mean": 0.8193678455826602,
+      "f1_macro_min": 0.8171309825313332,
+      "f1_macro_max": 0.8226757353388409,
+      "brier_mean": 0.12845548310114538,
+      "brier_min": 0.12674447539636605,
+      "brier_max": 0.13108732401663867,
+      "validation_ce_mean": 0.3763619661331177,
+      "audit_inference_seconds_mean": 0.03924468159675598,
+      "fit_plus_features_seconds": 8.526995922749242,
+      "audit_end_to_end_seconds": 0.03924468159675598
+    },
+    {
+      "key": "cnn_kernel_3",
+      "label": "Janela 3, 100 filtros",
+      "group": "cnn_architecture",
+      "run_ids": [
+        "cnn_variant__kernel_3__s17",
+        "cnn_variant__kernel_3__s29",
+        "cnn_variant__kernel_3__s43"
+      ],
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "parameters": 2598702,
+      "trainable_parameters": 2598702,
+      "lr": 0.001,
+      "best_epochs": [
+        7,
+        7,
+        8
+      ],
+      "training_seconds_mean": 4.759763631348808,
+      "total_seconds_mean": 5.3650882846365375,
+      "accuracy_mean": 0.8126627604166666,
+      "accuracy_min": 0.81005859375,
+      "accuracy_max": 0.8173828125,
+      "ce_mean": 0.41516120507923954,
+      "ce_min": 0.41071738535537206,
+      "ce_max": 0.4192872262816789,
+      "f1_macro_mean": 0.812576028861545,
+      "f1_macro_min": 0.8100549255487846,
+      "f1_macro_max": 0.8171568252998243,
+      "brier_mean": 0.13190673405604705,
+      "brier_min": 0.1314809385597905,
+      "brier_max": 0.13271575575549993,
+      "validation_ce_mean": 0.37055011590321857,
+      "audit_inference_seconds_mean": 0.014341851075490316,
+      "fit_plus_features_seconds": 4.759763631348808,
+      "audit_end_to_end_seconds": 0.014341851075490316
+    },
+    {
+      "key": "cnn_kernel_5",
+      "label": "Janela 5, 100 filtros",
+      "group": "cnn_architecture",
+      "run_ids": [
+        "cnn_variant__kernel_5__s17",
+        "cnn_variant__kernel_5__s29",
+        "cnn_variant__kernel_5__s43"
+      ],
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "parameters": 2624302,
+      "trainable_parameters": 2624302,
+      "lr": 0.001,
+      "best_epochs": [
+        7,
+        6,
+        6
+      ],
+      "training_seconds_mean": 4.800090922353168,
+      "total_seconds_mean": 5.60970891204973,
+      "accuracy_mean": 0.8094075520833334,
+      "accuracy_min": 0.80224609375,
+      "accuracy_max": 0.81689453125,
+      "ce_mean": 0.41529189309964964,
+      "ce_min": 0.4043531661929137,
+      "ce_max": 0.42395852431567604,
+      "f1_macro_mean": 0.8093940667319007,
+      "f1_macro_min": 0.8022460466017834,
+      "f1_macro_max": 0.8168578094047807,
+      "brier_mean": 0.13274495712176512,
+      "brier_min": 0.127893221143532,
+      "brier_max": 0.136043210134135,
+      "validation_ce_mean": 0.3873857458432515,
+      "audit_inference_seconds_mean": 0.01814075435201327,
+      "fit_plus_features_seconds": 4.800090922353168,
+      "audit_end_to_end_seconds": 0.01814075435201327
+    },
+    {
+      "key": "cnn_multiscale_32",
+      "label": "3/4/5, 32 filtros",
+      "group": "cnn_architecture",
+      "run_ids": [
+        "cnn_variant__multiscale_32__s17",
+        "cnn_variant__multiscale_32__s29",
+        "cnn_variant__multiscale_32__s43"
+      ],
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "parameters": 2609442,
+      "trainable_parameters": 2609442,
+      "lr": 0.001,
+      "best_epochs": [
+        8,
+        7,
+        7
+      ],
+      "training_seconds_mean": 6.361175091316302,
+      "total_seconds_mean": 7.769712032439808,
+      "accuracy_mean": 0.81640625,
+      "accuracy_min": 0.81298828125,
+      "accuracy_max": 0.818359375,
+      "ce_mean": 0.40890029817864093,
+      "ce_min": 0.40652386802329754,
+      "ce_max": 0.4118642236739071,
+      "f1_macro_mean": 0.8163809497049854,
+      "f1_macro_min": 0.8129860964581315,
+      "f1_macro_max": 0.8183586820933613,
+      "brier_mean": 0.12984749664082293,
+      "brier_min": 0.12928686427807976,
+      "brier_max": 0.13044461202872992,
+      "validation_ce_mean": 0.37447213133176166,
+      "audit_inference_seconds_mean": 0.030277658253908157,
+      "fit_plus_features_seconds": 6.361175091316302,
+      "audit_end_to_end_seconds": 0.030277658253908157
+    },
+    {
+      "key": "dropout_0.5",
+      "label": "Dropout 0,5",
+      "group": "cnn_dropout",
+      "run_ids": [
+        "cnn_optimizer__adam__lr0.001__s17",
+        "cnn_optimizer__adam__lr0.001__s29",
+        "cnn_optimizer__adam__lr0.001__s43"
+      ],
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "parameters": 2714502,
+      "trainable_parameters": 2714502,
+      "lr": 0.001,
+      "best_epochs": [
+        5,
+        6,
+        6
+      ],
+      "training_seconds_mean": 8.526995922749242,
+      "total_seconds_mean": 10.30777916467438,
+      "accuracy_mean": 0.8194986979166666,
+      "accuracy_min": 0.8173828125,
+      "accuracy_max": 0.82275390625,
+      "ce_mean": 0.40936908809397304,
+      "ce_min": 0.4049507300892573,
+      "ce_max": 0.4147987233796201,
+      "f1_macro_mean": 0.8193678455826602,
+      "f1_macro_min": 0.8171309825313332,
+      "f1_macro_max": 0.8226757353388409,
+      "brier_mean": 0.12845548310114538,
+      "brier_min": 0.12674447539636605,
+      "brier_max": 0.13108732401663867,
+      "validation_ce_mean": 0.3763619661331177,
+      "audit_inference_seconds_mean": 0.03924468159675598,
+      "fit_plus_features_seconds": 8.526995922749242,
+      "audit_end_to_end_seconds": 0.03924468159675598
+    },
+    {
+      "key": "dropout_0",
+      "label": "Dropout 0",
+      "group": "cnn_dropout",
+      "run_ids": [
+        "cnn_variant__dropout_0__s17",
+        "cnn_variant__dropout_0__s29",
+        "cnn_variant__dropout_0__s43"
+      ],
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "parameters": 2714502,
+      "trainable_parameters": 2714502,
+      "lr": 0.001,
+      "best_epochs": [
+        5,
+        6,
+        5
+      ],
+      "training_seconds_mean": 8.905181259227296,
+      "total_seconds_mean": 10.705547761482498,
+      "accuracy_mean": 0.8180338541666666,
+      "accuracy_min": 0.8115234375,
+      "accuracy_max": 0.82861328125,
+      "ce_mean": 0.4111778496360315,
+      "ce_min": 0.40337655884697843,
+      "ce_max": 0.41831848118541637,
+      "f1_macro_mean": 0.8179945033627402,
+      "f1_macro_min": 0.8114283042649805,
+      "f1_macro_max": 0.8286063753312662,
+      "brier_mean": 0.12899538663340526,
+      "brier_min": 0.12501726167086838,
+      "brier_max": 0.13231562168500743,
+      "validation_ce_mean": 0.36832160751024884,
+      "audit_inference_seconds_mean": 0.03908549311260382,
+      "fit_plus_features_seconds": 8.905181259227296,
+      "audit_end_to_end_seconds": 0.03908549311260382
+    },
+    {
+      "key": "dropout_0.8",
+      "label": "Dropout 0,8",
+      "group": "cnn_dropout",
+      "run_ids": [
+        "cnn_variant__dropout_0.8__s17",
+        "cnn_variant__dropout_0.8__s29",
+        "cnn_variant__dropout_0.8__s43"
+      ],
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "parameters": 2714502,
+      "trainable_parameters": 2714502,
+      "lr": 0.001,
+      "best_epochs": [
+        7,
+        7,
+        7
+      ],
+      "training_seconds_mean": 8.199765531346202,
+      "total_seconds_mean": 10.01233306992799,
+      "accuracy_mean": 0.8043619791666666,
+      "accuracy_min": 0.8017578125,
+      "accuracy_max": 0.80810546875,
+      "ce_mean": 0.4216584627736621,
+      "ce_min": 0.42008243121869815,
+      "ce_max": 0.4238542052988865,
+      "f1_macro_mean": 0.8042847565865232,
+      "f1_macro_min": 0.8016821602478973,
+      "f1_macro_max": 0.8080208374329598,
+      "brier_mean": 0.13450515221274068,
+      "brier_min": 0.13316134450349554,
+      "brier_max": 0.1358081489910964,
+      "validation_ce_mean": 0.3922399083773295,
+      "audit_inference_seconds_mean": 0.03877977468073368,
+      "fit_plus_features_seconds": 8.199765531346202,
+      "audit_end_to_end_seconds": 0.03877977468073368
+    },
+    {
+      "key": "bert_probe",
+      "label": "BERT-base congelado",
+      "group": "encoder",
+      "run_ids": [
+        "bert_probe__lr0.01__s17",
+        "bert_probe__lr0.01__s29",
+        "bert_probe__lr0.01__s43"
+      ],
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "parameters": 108893186,
+      "trainable_parameters": 1538,
+      "lr": 0.01,
+      "best_epochs": [
+        23,
+        25,
+        34
+      ],
+      "training_seconds_mean": 2.347449455410242,
+      "total_seconds_mean": 2.904776483463744,
+      "accuracy_mean": 0.84521484375,
+      "accuracy_min": 0.84423828125,
+      "accuracy_max": 0.84619140625,
+      "ce_mean": 0.36551418114839845,
+      "ce_min": 0.36221049436921154,
+      "ce_max": 0.3701031342381682,
+      "f1_macro_mean": 0.8450950044653945,
+      "f1_macro_min": 0.8441927757621548,
+      "f1_macro_max": 0.846063649073225,
+      "brier_mean": 0.11152020394439847,
+      "brier_min": 0.11090936144309282,
+      "brier_max": 0.11260604521007242,
+      "validation_ce_mean": 0.3464210232098897,
+      "audit_inference_seconds_mean": 0.004657776094973087,
+      "feature_extraction_seconds": 15.222020857036114,
+      "fit_plus_features_seconds": 17.569470312446356,
+      "audit_end_to_end_seconds": 4.30145160201937
+    },
+    {
+      "key": "bert_full",
+      "label": "BERT-base ajuste completo",
+      "group": "encoder",
+      "run_ids": [
+        "bert_full__lr3e-05__s17",
+        "bert_full__lr3e-05__s29",
+        "bert_full__lr3e-05__s43"
+      ],
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "parameters": 108893186,
+      "trainable_parameters": 108893186,
+      "lr": 3e-05,
+      "best_epochs": [
+        2,
+        1,
+        1
+      ],
+      "training_seconds_mean": 148.9344717087224,
+      "total_seconds_mean": 208.75314479817948,
+      "accuracy_mean": 0.8831380208333334,
+      "accuracy_min": 0.876953125,
+      "accuracy_max": 0.88671875,
+      "ce_mean": 0.302735907109364,
+      "ce_min": 0.29328886055359904,
+      "ce_max": 0.3192844078349245,
+      "f1_macro_mean": 0.883090261659485,
+      "f1_macro_min": 0.8769473747457147,
+      "f1_macro_max": 0.8867148606633986,
+      "brier_mean": 0.08758723317377715,
+      "brier_min": 0.08654741975124391,
+      "brier_max": 0.0885653595822394,
+      "validation_ce_mean": 0.2595531940460205,
+      "audit_inference_seconds_mean": 4.017307742498815,
+      "fit_plus_features_seconds": 148.9344717087224,
+      "audit_end_to_end_seconds": 4.017307742498815
+    },
+    {
+      "key": "distilbert_probe",
+      "label": "DistilBERT congelado",
+      "group": "encoder",
+      "run_ids": [
+        "distilbert_probe__lr0.01__s17",
+        "distilbert_probe__lr0.01__s29",
+        "distilbert_probe__lr0.01__s43"
+      ],
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "parameters": 66364418,
+      "trainable_parameters": 1538,
+      "lr": 0.01,
+      "best_epochs": [
+        33,
+        25,
+        25
+      ],
+      "training_seconds_mean": 3.549019443181654,
+      "total_seconds_mean": 4.0746798409769935,
+      "accuracy_mean": 0.83349609375,
+      "accuracy_min": 0.8330078125,
+      "accuracy_max": 0.833984375,
+      "ce_mean": 0.383869879459975,
+      "ce_min": 0.38113538836039496,
+      "ce_max": 0.3853915586687756,
+      "f1_macro_mean": 0.8334287217657105,
+      "f1_macro_min": 0.8328828622474689,
+      "f1_macro_max": 0.8339615730920078,
+      "brier_mean": 0.11857690911613068,
+      "brier_min": 0.11741844267730911,
+      "brier_max": 0.11930119311386381,
+      "validation_ce_mean": 0.36674373348553974,
+      "audit_inference_seconds_mean": 0.003924725577235222,
+      "feature_extraction_seconds": 7.72808747459203,
+      "fit_plus_features_seconds": 11.277106917773684,
+      "audit_end_to_end_seconds": 2.0605398025363684
+    },
+    {
+      "key": "distilbert_full",
+      "label": "DistilBERT ajuste completo",
+      "group": "encoder",
+      "run_ids": [
+        "distilbert_full__lr3e-05__s17",
+        "distilbert_full__lr3e-05__s29",
+        "distilbert_full__lr3e-05__s43"
+      ],
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "parameters": 66364418,
+      "trainable_parameters": 66364418,
+      "lr": 3e-05,
+      "best_epochs": [
+        1,
+        2,
+        2
+      ],
+      "training_seconds_mean": 78.67065014969558,
+      "total_seconds_mean": 109.25546922845145,
+      "accuracy_mean": 0.8680013020833334,
+      "accuracy_min": 0.85107421875,
+      "accuracy_max": 0.87744140625,
+      "ce_mean": 0.33819605230609756,
+      "ce_min": 0.33070823015013084,
+      "ce_max": 0.34687433976104753,
+      "f1_macro_mean": 0.8678152969890386,
+      "f1_macro_min": 0.8505865763769206,
+      "f1_macro_max": 0.877425946790183,
+      "brier_mean": 0.09974069804026209,
+      "brier_min": 0.09488802940709294,
+      "brier_max": 0.10851721294364405,
+      "validation_ce_mean": 0.28734613458315533,
+      "audit_inference_seconds_mean": 2.0360696148127317,
+      "fit_plus_features_seconds": 78.67065014969558,
+      "audit_end_to_end_seconds": 2.0360696148127317
+    },
+    {
+      "key": "modernbert_probe",
+      "label": "ModernBERT-base congelado",
+      "group": "encoder",
+      "run_ids": [
+        "modernbert_probe__lr0.01__s17",
+        "modernbert_probe__lr0.01__s29",
+        "modernbert_probe__lr0.01__s43"
+      ],
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "parameters": 149015810,
+      "trainable_parameters": 1538,
+      "lr": 0.01,
+      "best_epochs": [
+        21,
+        21,
+        36
+      ],
+      "training_seconds_mean": 2.752833644238611,
+      "total_seconds_mean": 3.302351095713675,
+      "accuracy_mean": 0.81298828125,
+      "accuracy_min": 0.81103515625,
+      "accuracy_max": 0.8154296875,
+      "ce_mean": 0.4103334702997987,
+      "ce_min": 0.41004083247244016,
+      "ce_max": 0.410800276231374,
+      "f1_macro_mean": 0.8129487479277392,
+      "f1_macro_min": 0.8110275420319089,
+      "f1_macro_max": 0.8153444544944528,
+      "brier_mean": 0.12909517062617024,
+      "brier_min": 0.1286772863478111,
+      "brier_max": 0.1294149954361002,
+      "validation_ce_mean": 0.403813103834788,
+      "audit_inference_seconds_mean": 0.0043572476133704185,
+      "feature_extraction_seconds": 29.11834000982344,
+      "fit_plus_features_seconds": 31.87117365406205,
+      "audit_end_to_end_seconds": 7.751534966751933
+    },
+    {
+      "key": "modernbert_full",
+      "label": "ModernBERT-base ajuste completo",
+      "group": "encoder",
+      "run_ids": [
+        "modernbert_full__lr3e-05__s17",
+        "modernbert_full__lr3e-05__s29",
+        "modernbert_full__lr3e-05__s43"
+      ],
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "parameters": 149015810,
+      "trainable_parameters": 149015810,
+      "lr": 3e-05,
+      "best_epochs": [
+        2,
+        1,
+        2
+      ],
+      "training_seconds_mean": 240.98927563553056,
+      "total_seconds_mean": 355.33013640033704,
+      "accuracy_mean": 0.9124348958333334,
+      "accuracy_min": 0.9072265625,
+      "accuracy_max": 0.921875,
+      "ce_mean": 0.24579676500650038,
+      "ce_min": 0.24102324830695188,
+      "ce_max": 0.25332416710310374,
+      "f1_macro_mean": 0.9124080120005615,
+      "f1_macro_min": 0.9071620188825278,
+      "f1_macro_max": 0.921865983757052,
+      "brier_mean": 0.06886456753526243,
+      "brier_min": 0.06521804277870277,
+      "brier_max": 0.07109791333417914,
+      "validation_ce_mean": 0.20465501149495444,
+      "audit_inference_seconds_mean": 7.719953152661522,
+      "fit_plus_features_seconds": 240.98927563553056,
+      "audit_end_to_end_seconds": 7.719953152661522
+    }
+  ],
+  "baseline": {
+    "run_id": "tfidf",
+    "ce": 0.3849398925344867,
+    "accuracy": 0.8330078125,
+    "f1_macro": 0.8330000085834699,
+    "brier": 0.12069978279155542,
+    "confusion_matrix": [
+      [
+        846,
+        178
+      ],
+      [
+        164,
+        860
+      ]
+    ]
+  },
+  "choices": {
+    "cnn_sgd": 0.3,
+    "cnn_momentum": 0.1,
+    "cnn_adam": 0.001,
+    "bert_probe": 0.01,
+    "bert_full": 3e-05,
+    "distilbert_probe": 0.01,
+    "distilbert_full": 3e-05,
+    "modernbert_probe": 0.01,
+    "modernbert_full": 3e-05
+  },
+  "candidate_validation_means": {
+    "cnn_sgd": {
+      "0.001": 0.6939204931259155,
+      "0.03": 0.6834715207417806,
+      "0.3": 0.45050808787345886
+    },
+    "cnn_momentum": {
+      "0.001": 0.6883108417193095,
+      "0.01": 0.5899692376454672,
+      "0.1": 0.4257481296857198
+    },
+    "cnn_adam": {
+      "0.0003": 0.4127083122730255,
+      "0.001": 0.3763619661331177,
+      "0.003": 0.38441920280456543
+    },
+    "bert_probe": {
+      "0.001": 0.35166751344998676,
+      "0.01": 0.3464210232098897,
+      "0.1": 0.38291557629903156
+    },
+    "bert_full": {
+      "1e-05": 0.2643438478310903,
+      "3e-05": 0.2595531940460205
+    },
+    "distilbert_probe": {
+      "0.001": 0.37332748373349506,
+      "0.01": 0.36674373348553974,
+      "0.1": 0.3890409270922343
+    },
+    "distilbert_full": {
+      "1e-05": 0.2891238530476888,
+      "3e-05": 0.28734613458315533
+    },
+    "modernbert_probe": {
+      "0.001": 0.406866451104482,
+      "0.01": 0.403813103834788,
+      "0.1": 0.5211186905701956
+    },
+    "modernbert_full": {
+      "1e-05": 0.24354346096515656,
+      "3e-05": 0.20465501149495444
+    }
+  },
+  "encoder_architectures": {
+    "bert": {
+      "model_type": "bert",
+      "hidden_size": 768,
+      "num_hidden_layers": 12,
+      "num_attention_heads": 12,
+      "intermediate_size": 3072,
+      "vocab_size": 30522,
+      "max_position_embeddings": 512,
+      "position_embedding_type": "absolute",
+      "hidden_act": "gelu",
+      "parameters": 108893186,
+      "backbone_parameters": 108891648
+    },
+    "distilbert": {
+      "model_type": "distilbert",
+      "hidden_size": 768,
+      "num_hidden_layers": 6,
+      "num_attention_heads": 12,
+      "vocab_size": 30522,
+      "max_position_embeddings": 512,
+      "parameters": 66364418,
+      "backbone_parameters": 66362880
+    },
+    "modernbert": {
+      "model_type": "modernbert",
+      "hidden_size": 768,
+      "num_hidden_layers": 22,
+      "num_attention_heads": 12,
+      "intermediate_size": 1152,
+      "vocab_size": 50368,
+      "max_position_embeddings": 8192,
+      "local_attention": 128,
+      "global_attn_every_n_layers": 3,
+      "position_embedding_type": "absolute",
+      "hidden_activation": "gelu",
+      "reference_compile": false,
+      "parameters": 149015810,
+      "backbone_parameters": 149014272
+    }
+  },
+  "tokenization": {
+    "cnn": {
+      "train": {
+        "token_cap": 256,
+        "truncated_n": 0,
+        "mean_tokens": 120.654296875
+      },
+      "validation": {
+        "token_cap": 256,
+        "truncated_n": 0,
+        "mean_tokens": 119.96549987792969
+      },
+      "audit": {
+        "token_cap": 256,
+        "truncated_n": 0,
+        "mean_tokens": 120.31689453125
+      }
+    },
+    "bert": {
+      "train": {
+        "token_cap": 256,
+        "truncated_n": 0,
+        "mean_tokens": 153.6446990966797
+      },
+      "validation": {
+        "token_cap": 256,
+        "truncated_n": 0,
+        "mean_tokens": 152.5579376220703
+      },
+      "audit": {
+        "token_cap": 256,
+        "truncated_n": 0,
+        "mean_tokens": 153.0556640625
+      }
+    },
+    "distilbert": {
+      "train": {
+        "token_cap": 256,
+        "truncated_n": 0,
+        "mean_tokens": 153.6446990966797
+      },
+      "validation": {
+        "token_cap": 256,
+        "truncated_n": 0,
+        "mean_tokens": 152.5579376220703
+      },
+      "audit": {
+        "token_cap": 256,
+        "truncated_n": 0,
+        "mean_tokens": 153.0556640625
+      }
+    },
+    "modernbert": {
+      "train": {
+        "token_cap": 256,
+        "truncated_n": 0,
+        "mean_tokens": 153.2255859375
+      },
+      "validation": {
+        "token_cap": 256,
+        "truncated_n": 0,
+        "mean_tokens": 152.2942657470703
+      },
+      "audit": {
+        "token_cap": 256,
+        "truncated_n": 0,
+        "mean_tokens": 152.595703125
+      }
+    }
+  },
+  "config": {
+    "protocol_version": 1,
+    "split_seed": 20261103,
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "threads": 4,
+    "common_input": {
+      "whitespace_words": 128,
+      "token_cap": 256,
+      "description": "Same cleaned prefix of at most 128 whitespace-separated words for every model. Architecture-specific tokenizers may additionally truncate at 256 tokens; rates are measured."
+    },
+    "data": {
+      "train_n": 6144,
+      "validation_n": 1536,
+      "audit_n": 2048,
+      "reuse_didactic_train_validation": true,
+      "audit_excludes_all_previous_didactic_roles": true
+    },
+    "cnn": {
+      "max_vocabulary": 20000,
+      "embedding_dim": 128,
+      "filters": 100,
+      "kernels": [
+        3,
+        4,
+        5
+      ],
+      "dropout": 0.5,
+      "epochs": 12,
+      "batch_size": 64,
+      "gradient_clip_norm": 1.0,
+      "common_lr": 0.001,
+      "learning_rates": {
+        "sgd": [
+          0.001,
+          0.03,
+          0.3
+        ],
+        "momentum": [
+          0.001,
+          0.01,
+          0.1
+        ],
+        "adam": [
+          0.0003,
+          0.001,
+          0.003
+        ]
+      },
+      "momentum": 0.9,
+      "variants": [
+        {
+          "name": "kernel_3",
+          "filters": 100,
+          "kernels": [
+            3
+          ]
+        },
+        {
+          "name": "kernel_5",
+          "filters": 100,
+          "kernels": [
+            5
+          ]
+        },
+        {
+          "name": "multiscale_32",
+          "filters": 32,
+          "kernels": [
+            3,
+            4,
+            5
+          ]
+        }
+      ],
+      "dropout_alternatives": [
+        0.0,
+        0.8
+      ],
+      "initialization": "Embedding N(0,0.1), padding row zero; Conv1D He-normal with zero biases; output Xavier-uniform and zero bias",
+      "selection": "Lowest mean best-epoch validation CE over three seeds; each run selects its epoch by validation CE; architecture/dropout runs reuse Adam's chosen rate without retuning."
+    },
+    "encoders": {
+      "models": [
+        {
+          "name": "bert",
+          "model_id": "google-bert/bert-base-uncased"
+        },
+        {
+          "name": "distilbert",
+          "model_id": "distilbert/distilbert-base-uncased"
+        },
+        {
+          "name": "modernbert",
+          "model_id": "answerdotai/ModernBERT-base"
+        }
+      ],
+      "pooling": "Masked mean of last hidden states, excluding padding and special tokens; common Linear(hidden_size,2) head",
+      "full": {
+        "epochs": 3,
+        "batch_size": 32,
+        "learning_rates": [
+          1e-05,
+          3e-05
+        ],
+        "optimizer": "AdamW",
+        "weight_decay": 0.01,
+        "warmup_fraction": 0.1,
+        "gradient_clip_norm": 1.0,
+        "head_dropout": 0.1,
+        "precision": "BF16 autocast with FP32 weights and optimizer state; CUDA SDPA; TF32 disabled"
+      },
+      "probe": {
+        "epochs": 40,
+        "batch_size": 128,
+        "learning_rates": [
+          0.001,
+          0.01,
+          0.1
+        ],
+        "optimizer": "Adam",
+        "dropout": 0.1,
+        "precision": "Encoder evaluated once in BF16 autocast; cached features cast to FP32; train only Linear head"
+      },
+      "selection": "For each encoder and training policy separately, choose lowest mean best-epoch validation CE over the three fixed seeds; no IMDb-finetuned pretrained checkpoint."
+    },
+    "baseline": {
+      "c_grid": [
+        0.5,
+        2.0,
+        8.0
+      ],
+      "max_features": 20000,
+      "min_df": 2,
+      "ngram_range": [
+        1,
+        2
+      ]
+    },
+    "audit_policy": "New internal holdout from unused original clean training only, disjoint from all earlier didactic roles. Freeze every choice and checkpoint before transferring audit input to the training job. Never open official IMDb test. Existing original results and the MLP study are separate experiments.",
+    "scope": "Controlled teaching study with three seeds, not a state-of-the-art benchmark. Pretraining data and parameter count differ across model families; timing reflects this runtime and implementation."
+  },
+  "verification_sha256": "1746a4adc2b7a56dadce8a94397814e4e048fe729deb297c6aa6e5075ebbb66c"
+}

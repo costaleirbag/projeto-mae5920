@@ -1,0 +1,82 @@
+{
+  "history": [
+    {
+      "epoch": 0,
+      "updates": 0,
+      "train_ce": 0.6854127049446106,
+      "train_accuracy": 0.5751953125,
+      "validation_ce": 0.6829575896263123,
+      "validation_accuracy": 0.5846354365348816,
+      "training_seconds": 0.0,
+      "learning_rate": 0.0
+    },
+    {
+      "epoch": 1,
+      "updates": 192,
+      "train_ce": 0.25502821803092957,
+      "train_accuracy": 0.89599609375,
+      "validation_ce": 0.276812344789505,
+      "validation_accuracy": 0.8802083134651184,
+      "training_seconds": 49.60038557089865,
+      "learning_rate": 7.413127413127414e-06,
+      "online_training_ce": 0.45933590612063807
+    },
+    {
+      "epoch": 2,
+      "updates": 384,
+      "train_ce": 0.18177330493927002,
+      "train_accuracy": 0.9329426884651184,
+      "validation_ce": 0.25745925307273865,
+      "validation_accuracy": 0.8958333134651184,
+      "training_seconds": 99.13408659119159,
+      "learning_rate": 3.706563706563707e-06,
+      "online_training_ce": 0.2622341134119779
+    },
+    {
+      "epoch": 3,
+      "updates": 576,
+      "train_ce": 0.1539475917816162,
+      "train_accuracy": 0.9461262822151184,
+      "validation_ce": 0.2612875699996948,
+      "validation_accuracy": 0.8951823115348816,
+      "training_seconds": 148.65163659118116,
+      "learning_rate": 0.0,
+      "online_training_ce": 0.19679699434588352
+    }
+  ],
+  "seed": 43,
+  "spec": {
+    "family": "bert",
+    "group": "full",
+    "variant": "full",
+    "optimizer": "adamw",
+    "lr": 1e-05,
+    "run_id": "bert_full__lr1e-05",
+    "epochs": 3,
+    "batch_size": 32,
+    "mixed": true,
+    "eval_batch_size": 64,
+    "gradient_clip_norm": 1.0,
+    "warmup_fraction": 0.1
+  },
+  "initial_state_sha256": "38d3c7f7a8142086f7371e145eb78eb3e344af96b15ad39d458db3a957476966",
+  "initial_head_sha256": "a6566342b787cfc526700e75ed114cb7ebf1e0400700e78c84e26789da3a1bbd",
+  "batch_order_sha256": "d9991c5d0c10fa796136f7fa5fd3a9c675c3cb4f1d57b77bf7acc96d443af2d9",
+  "best_epoch": 2,
+  "best_validation_ce": 0.25745925307273865,
+  "training_seconds": 148.65163659118116,
+  "total_seconds": 208.53830338735133,
+  "parameters": 108893186,
+  "trainable_parameters": 108893186,
+  "peak_cuda_allocated_bytes": 5047188480,
+  "run_id": "bert_full__lr1e-05__s43",
+  "checkpoint": {
+    "path": "artifacts/sequences/bert_full__lr1e-05__s43.pt",
+    "sha256": "6a0d10cc0548918b48d36be85047a0517c58f363a0138fa085a7f3a36000cc4a",
+    "bytes": 435641473
+  },
+  "predictions": {
+    "path": "results/sequences/runs/bert_full__lr1e-05__s43__validation.npz",
+    "sha256": "75b51065446efcc8bc82f3da7d7c5543161dd7e2e42cefe12df42ec128db6c55"
+  }
+}
