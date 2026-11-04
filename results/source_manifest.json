@@ -84,7 +84,7 @@
     "tools/__init__.py": "bc89bda6dc2623b3b1e38bccd13e11a6ddb0a916c212dd634856b6f85cfac035",
     "tools/bpe_audit_input.py": "becfcf634b19e5d8e2f7e8423aa2d76a92eab59ac8a17273ec33d27fc8376057",
     "tools/build_presentation.mjs": "feda30adfcc23b0dd22ca1b3051dba04e2dc924026901244b15697d78755afc7",
-    "tools/build_seminar_notebook.py": "36786ab54ae50e50fb99d2309b37a29484fafb62d4881c5e5453431d527c2fb9",
+    "tools/build_seminar_notebook.py": "f1f52f0b2fa21716456bf6dabaa8cd3c9745545472e2019548d8c1309108a451",
     "tools/check_seminar_portability.py": "a58f17b9319068248f68aec752035a00792537cd120993718025028b64196c7d",
     "tools/create_bpe_workspace.py": "b76ab8bbfa9e7fd73a41044cee5e2fc4477cbf28a9bbbb9a0f9c3e164bebab93",
     "tools/create_reproduction_bundle.py": "89e8d16cb0403f64d723f7f744aebad85511cb662814a6f5d59431513c0271b7",
@@ -100,7 +100,7 @@
     "verify_qwen.py": "c9662a22111b229af4e8390dd8868da06974a18f008bb5f09175757b195c55cb",
     "verify_qwen_improved.py": "0a1f646874bbb711b4086ac25b1e6f48ed7d951ba1e03539d38a3ecba5124b00",
     "verify_results.py": "68ff37bc9bd9c1c778022589f12a3e019b2e27c55169e6d0c64b0658d7860862",
-    "verify_seminar_notebook.py": "2ec79c5b1238b1fa12306d5a991f2487aea4c4d4dc3a375724cdf72f08ab72b3",
+    "verify_seminar_notebook.py": "ab73719f0c82a3edb302d4414526d157dd3c7f097c4d853753981b010e8af53a",
     "verify_sequences.py": "6ab79b171f2dbaacf54f2d3b4a4bf930f91d5d46e1cf66fdd47f680692102210"
   }
 }

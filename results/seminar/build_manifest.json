@@ -1,6 +1,6 @@
 {
   "notebook": "notebooks/seminario_completo.ipynb",
-  "builder_sha256": "36786ab54ae50e50fb99d2309b37a29484fafb62d4881c5e5453431d527c2fb9",
+  "builder_sha256": "f1f52f0b2fa21716456bf6dabaa8cd3c9745545472e2019548d8c1309108a451",
   "payload_sha256": "28b6129ce9f41957d1bf84bb2997df813761acf035fd4166e689d5abf2642e65",
   "payload_bytes": 4928414,
   "embedded_assets": 206,
@@ -172,7 +172,7 @@
   ],
   "execution": "passed",
   "review": "passed",
-  "notebook_sha256": "3021d60ecdecaf8176ea14f59498a5b9100501a82dcc5219170623e26dd7eadc",
+  "notebook_sha256": "0db34b85ae80033e3418a89062485259b0647b305fa9779806a497b462e6bd9a",
   "code_sha256": "662e46a8a09e2963c4ad91a5aeb3f050243979e04d5199aa3cbcdf20383859de",
   "checks_executed": 476,
   "portability": "passed",

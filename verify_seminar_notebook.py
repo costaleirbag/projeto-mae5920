@@ -43,7 +43,8 @@ def verify(path=NOTEBOOK, require_execution=True):
             role.pop("text_sha256",None);role.pop("excerpt_sha256",None)
         assert json.loads(archive.read(compact)) == original
     markdown = "\n".join("".join(c["source"]) for c in nb["cells"] if c["cell_type"] == "markdown")
-    for anchor in ANCHORS: assert f'id="{anchor}"' in markdown and f'](#{anchor})' in markdown
+    for anchor in ANCHORS:
+        assert f'id="{anchor}"' in markdown and f'href="#{anchor}"' in markdown
     code_cells = [c for c in nb["cells"] if c["cell_type"] == "code"]
     trees = []
     definitions = {}; assignments = set()
