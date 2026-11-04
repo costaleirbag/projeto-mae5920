@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Execute the results notebook with this exact interpreter, without retraining."""
+"""Execute a notebook with this interpreter and portable kernel metadata."""
 import argparse
 import json
 import os
@@ -28,4 +28,8 @@ client.execute()
 # Portable notebook metadata: users may choose their own ordinary Python kernel.
 notebook.metadata.kernelspec = {"name": "python3", "display_name": "Python 3", "language": "python"}
 nbformat.write(notebook, path)
-print("Notebook executed without retraining", len([c for c in notebook.cells if c.cell_type == 'code']), "code cells")
+cells_executed = len([c for c in notebook.cells if c.cell_type == 'code'])
+if notebook.metadata.get("mae5920_seminar"):
+    print("Teaching notebook executed with small CPU exercises:", cells_executed, "code cells")
+else:
+    print("Notebook executed without retraining", cells_executed, "code cells")

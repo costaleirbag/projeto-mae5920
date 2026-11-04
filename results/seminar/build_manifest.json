@@ -1,0 +1,181 @@
+{
+  "notebook": "notebooks/seminario_completo.ipynb",
+  "builder_sha256": "36786ab54ae50e50fb99d2309b37a29484fafb62d4881c5e5453431d527c2fb9",
+  "payload_sha256": "28b6129ce9f41957d1bf84bb2997df813761acf035fd4166e689d5abf2642e65",
+  "payload_bytes": 4928414,
+  "embedded_assets": 206,
+  "cells": 84,
+  "code_cells": 45,
+  "source_definitions": [
+    {
+      "source": "src/imdb_lab/data.py",
+      "symbol": "clean_text",
+      "source_sha256": "73a4b1ddb977943def00e55e728e154bf64a7051dd428b16e50d041bd37f4e33",
+      "definition_sha256": "232af1d84691a1dbfc25e6eba86fd1fd3ddc25c8a18b2021ee137dea1d528880"
+    },
+    {
+      "source": "src/imdb_lab/models.py",
+      "symbol": "tokenize",
+      "source_sha256": "d3ea24b13bb09b9e3ae5385711852ccdbf3fe9923d54fd655c4cf52b966c8559",
+      "definition_sha256": "735b4386c9d0cbdb7c1e8df2e4c622c9fd608068bc27681738561d40c46b85ab"
+    },
+    {
+      "source": "src/imdb_lab/models.py",
+      "symbol": "Vocabulary",
+      "source_sha256": "d3ea24b13bb09b9e3ae5385711852ccdbf3fe9923d54fd655c4cf52b966c8559",
+      "definition_sha256": "205a13a40a17dac3dc0fc57cff3d06453b76a5b1753c964ab3c2a57bfd7ae870"
+    },
+    {
+      "source": "src/imdb_lab/models.py",
+      "symbol": "TextCNN",
+      "source_sha256": "d3ea24b13bb09b9e3ae5385711852ccdbf3fe9923d54fd655c4cf52b966c8559",
+      "definition_sha256": "d369de1630d7861ff9b6a4fa2afb5ceae354c248f3ef5d1e603567a396462ec3"
+    },
+    {
+      "source": "src/imdb_lab/sequences.py",
+      "symbol": "initialize_cnn",
+      "source_sha256": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+      "definition_sha256": "f1284bf874aeccde1592037ac4a858c8964f47d3604e1a253a49574228abf48d"
+    },
+    {
+      "source": "src/imdb_lab/sequences.py",
+      "symbol": "array_hash",
+      "source_sha256": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+      "definition_sha256": "5361965be596c1d4454557367b53f0f529406295bb96b0b046a283789d44dfc3"
+    },
+    {
+      "source": "src/imdb_lab/sequences.py",
+      "symbol": "state_hash",
+      "source_sha256": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+      "definition_sha256": "85116016792268c78f49826e9bd9b19ca8f56bcb27368c2f7a60ea77764482f3"
+    },
+    {
+      "source": "src/imdb_lab/sequences.py",
+      "symbol": "snapshot",
+      "source_sha256": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+      "definition_sha256": "4ed0006ee057ee304184cf3d76770546f038af435891f99e95b87cc577f82046"
+    },
+    {
+      "source": "src/imdb_lab/sequences.py",
+      "symbol": "sync",
+      "source_sha256": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+      "definition_sha256": "88e4edf0ca6b014e2bbeaa45a26d0e9d9c603c79c4214804fee99570d92c70ad"
+    },
+    {
+      "source": "src/imdb_lab/sequences.py",
+      "symbol": "autocast",
+      "source_sha256": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+      "definition_sha256": "9597b4237f170fcffbb823756fda5139325eabb4894fbbac6fda49b5b5f5b54c"
+    },
+    {
+      "source": "src/imdb_lab/sequences.py",
+      "symbol": "orders",
+      "source_sha256": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+      "definition_sha256": "b00e7c279551a4c4f853ecc47208723265c3a9cba07c28efc39f56c82c3a9c38"
+    },
+    {
+      "source": "src/imdb_lab/sequences.py",
+      "symbol": "batches",
+      "source_sha256": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+      "definition_sha256": "8a6f2e4cfef829f9e0ab654f986357e5c41bb2f54925276da240c7e060b8e19a"
+    },
+    {
+      "source": "src/imdb_lab/sequences.py",
+      "symbol": "indexed",
+      "source_sha256": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+      "definition_sha256": "99430f17be2fff31cb0ebf17b5ef023ae49ba993864f27818ba38342e0e465a4"
+    },
+    {
+      "source": "src/imdb_lab/sequences.py",
+      "symbol": "optimizer_for",
+      "source_sha256": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+      "definition_sha256": "9aa841050aa5bbb7bb922893c078225d6cbb3eeecaec316484102140cd052845"
+    },
+    {
+      "source": "src/imdb_lab/sequences.py",
+      "symbol": "predict",
+      "source_sha256": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+      "definition_sha256": "7a3b8992482eeb756b2c68d85d6a98e2331e457da5af372f6b9f314fee4e1004"
+    },
+    {
+      "source": "src/imdb_lab/sequences.py",
+      "symbol": "train_one",
+      "source_sha256": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+      "definition_sha256": "e14ba43c777c3a6890da2d8fdda3ea61fdc6ab83f82013bb68ef698cc1ae87fe"
+    },
+    {
+      "source": "src/imdb_lab/sequences.py",
+      "symbol": "select_rate",
+      "source_sha256": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+      "definition_sha256": "45539a6ddb19216b21cdbbd5400708953eed0377794dc52c6b32421198cf51fd"
+    },
+    {
+      "source": "src/imdb_lab/bpe_study.py",
+      "symbol": "canonicalize",
+      "source_sha256": "3eb5a0aa75f76d1ae3ddef68d36eeb22aa36ec9707750622f6f13799ad6134dd",
+      "definition_sha256": "773b0d09b10c6eb964696525e42a27078d4b3ce3314d319778787fbe2b192d82"
+    },
+    {
+      "source": "src/imdb_lab/bpe_study.py",
+      "symbol": "fit_bpe",
+      "source_sha256": "3eb5a0aa75f76d1ae3ddef68d36eeb22aa36ec9707750622f6f13799ad6134dd",
+      "definition_sha256": "4e34b6e139a33104812040444fa4c42577aa23fb2b8737ac24792777aca843e1"
+    },
+    {
+      "source": "src/imdb_lab/bpe_report.py",
+      "symbol": "merge_trace",
+      "source_sha256": "920800396e90e2c08df7fe7a1a98153ac5758230ea35ae04742da2a24e3e3115",
+      "definition_sha256": "87a3e594b2c21f478826af4326525c84a92723e9376b7b87975ccd9e32a217ea"
+    },
+    {
+      "source": "src/imdb_lab/sequences.py",
+      "symbol": "masked_mean",
+      "source_sha256": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+      "definition_sha256": "b564e63218889290b4abacc375c51da3da9253d95d6b752ae6b0394f1487d1b6"
+    },
+    {
+      "source": "src/imdb_lab/sequences.py",
+      "symbol": "MeanEncoder",
+      "source_sha256": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+      "definition_sha256": "da20ae58db956d6a853879b967ec2fc7e7c2524416915e216ea40b77f0da590c"
+    },
+    {
+      "source": "src/imdb_lab/didactic.py",
+      "symbol": "TeachingMLP",
+      "source_sha256": "7acd2c17a9268580ce1b53bb8f9b0077f4e19d182cd5656b817b5fbe8b770d85",
+      "definition_sha256": "337f5cc6575d1b2d0e342e7e4de582a4c9907f88dbe222447ea83bdc8028b9c1"
+    },
+    {
+      "source": "src/imdb_lab/didactic_toys.py",
+      "symbol": "ridge_weights",
+      "source_sha256": "eaefdeb02c72d499728032ecdbecb1941200d40a6ca90288ceab8f18709d1403",
+      "definition_sha256": "93f9b138ea54efbc965ead11714b44965df76b8285e301a1c332c3899921d4e9"
+    },
+    {
+      "source": "src/imdb_lab/didactic_toys.py",
+      "symbol": "synthetic_case",
+      "source_sha256": "eaefdeb02c72d499728032ecdbecb1941200d40a6ca90288ceab8f18709d1403",
+      "definition_sha256": "2d428744da2cec0149359503da3dd4dda731068e6611f824ce20d8bc88478fa1"
+    },
+    {
+      "source": "src/imdb_lab/qwen_core.py",
+      "symbol": "label_ids",
+      "source_sha256": "324316003993c57c7704513a503186cb2c1e41ff78116b10b6a36fc18a7594fb",
+      "definition_sha256": "3122a0d17b174a2d346a28343628da87cfd4dbae69c9bc3038c6fe5362157444"
+    },
+    {
+      "source": "src/imdb_lab/bpe_study.py",
+      "symbol": "metrics",
+      "source_sha256": "3eb5a0aa75f76d1ae3ddef68d36eeb22aa36ec9707750622f6f13799ad6134dd",
+      "definition_sha256": "a1a1e5bc9ce14f766aafb57b6c766e525bba3f4d29ab4207a75b310de6e56403"
+    }
+  ],
+  "execution": "passed",
+  "review": "passed",
+  "notebook_sha256": "3021d60ecdecaf8176ea14f59498a5b9100501a82dcc5219170623e26dd7eadc",
+  "code_sha256": "662e46a8a09e2963c4ad91a5aeb3f050243979e04d5199aa3cbcdf20383859de",
+  "checks_executed": 476,
+  "portability": "passed",
+  "figure_count": 16,
+  "html_outputs": 43
+}

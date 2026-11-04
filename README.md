@@ -8,6 +8,7 @@
 </p>
 
 <p align="center">
+  <a href="notebooks/seminario_completo.ipynb"><strong>Notebook único do seminário</strong></a> ·
   <a href="output/slides/seminario_mae5920.pptx">Slides editáveis</a> ·
   <a href="output/pdf/relatorio_cnn_encoders.pdf">CNN e encoders</a> ·
   <a href="output/pdf/relatorio_disciplina.pdf">Mecanismos e double descent</a> ·
@@ -20,6 +21,13 @@ Este trabalho compara modelos de classificação de sentimento em resenhas de
 filmes, estuda intervenções nas ativações de um modelo de linguagem congelado
 e acrescenta experimentos ligados ao material da disciplina: otimização,
 profundidade, inicialização, regularização e double descent.
+
+**Para estudar e mostrar ao grupo do começo ao fim, abra o
+[notebook único](notebooks/seminario_completo.ipynb).** Ele reúne os temas em uma
+sequência didática, com arquitetura e treinador visíveis, tokenização, conta dos
+parâmetros, exercícios em CPU e resultados reais identificados. Os dados de leitura,
+tokenizers e estados selecionados estão dentro do próprio `.ipynb`: você pode
+compartilhar só esse arquivo. [Como usar e o que ele executa](docs/NOTEBOOK_UNICO.md).
 
 **Extensão desta branch:** [slides editáveis](output/slides/seminario_mae5920.pptx),
 [CNN, BERT e encoders modernos](output/pdf/relatorio_cnn_encoders.pdf),
@@ -37,6 +45,7 @@ O objetivo é compreender o mecanismo, seus efeitos e suas falhas.
 
 | Material | O que você encontra |
 |---|---|
+| **[Notebook único, do começo ao fim](notebooks/seminario_completo.ipynb)** | 15 capítulos, 45 células de código executadas, CNN, BPE, encoders, mecanismos da disciplina e Qwen. Autocontido, com código real e exercícios em CPU. |
 | **[Slides do seminário](output/slides/seminario_mae5920.pptx)** | Diagramas editáveis, gráficos nativos, notas de fala e material de apoio. |
 | **[CNN e encoders modernos](output/pdf/relatorio_cnn_encoders.pdf)** | Arquiteturas, otimização da CNN, encoders congelados e ajuste completo de BERT, DistilBERT e ModernBERT. |
 | [Notebook CNN e encoders](notebooks/cnn_encoders.ipynb) | Resultados de 87 treinos, hiperparâmetros, exemplos comuns e leitura dos filtros da CNN. Executado, sem exigir GPU para leitura. |
@@ -52,7 +61,8 @@ O objetivo é compreender o mecanismo, seus efeitos e suas falhas.
 | [Galeria Qwen em HTML](relatorio_qwen3.html) | Todas as 64 fontes, cada uma com as três saídas da demonstração. Baixe o arquivo e abra no navegador. |
 | [Relatório principal em HTML](relatorio.html) | Versão ampliada, com figuras e exemplos. Baixe e abra no navegador. |
 
-Para apresentar, comece pelos **slides** e pelo relatório **CNN e encoders**.
+Para estudar em grupo, comece pelo **notebook único**. Para a fala do seminário,
+use os **slides** e o relatório **CNN e encoders**.
 O suplemento de mecanismos acrescenta MLPs, inicialização e double descent.
 Os dois relatórios originais apresentam a base do projeto e o steering.
 Os notebooks e resultados permitem conferir como chegamos até eles.
@@ -269,6 +279,7 @@ reexecutar notebooks ou regenerar relatórios:
 ```bash
 python tools/verify_publication.py
 python verify_qwen_improved.py
+python verify_seminar_notebook.py
 python -m pytest -q
 ```
 
@@ -294,7 +305,8 @@ requer GPU CUDA; a leitura dos resultados não requer.
 .
 ├── relatorio_imdb.pdf / relatorio.html       # Experimento principal
 ├── relatorio_qwen3.pdf / relatorio_qwen3.html # Extensão didática atual
-├── notebooks/                              # Quatro notebooks executados
+├── notebooks/seminario_completo.ipynb       # Roteiro único, autocontido e executado
+├── notebooks/                              # Quatro notebooks específicos também preservados
 ├── src/imdb_lab/                            # Implementação dos modelos e análises
 ├── tests/                                  # Invariantes científicos e hooks
 ├── results/                                # Previsões, figuras e saídas consolidadas
@@ -319,6 +331,7 @@ separadamente; veja o guia de reprodução e os downloads da release.
 ## Documentação e referências
 
 - [Guia completo do experimento](docs/GUIA_COMPLETO.md)
+- [Como usar o notebook único](docs/NOTEBOOK_UNICO.md)
 - [Conexões com a disciplina](docs/CONEXOES_DISCIPLINA.md)
 - [Protocolo CNN e encoders](docs/PROTOCOLO_SEQUENCIAS.md)
 - [Reprodução CNN e encoders](docs/REPRODUCAO_SEQUENCIAS.md)

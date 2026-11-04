@@ -29,8 +29,8 @@
       "sha256": "ff9317956cf2df02f12597d46be88db48d5502e360bf9e2c6ae1e532c38c364e"
     },
     "README.md": {
-      "bytes": 19009,
-      "sha256": "4a1d44b63dbe82a616eb43ee5ca474eba3c18c2a5a031b706822e6a57355b9c8"
+      "bytes": 20097,
+      "sha256": "4742b48bc5bc489be67859b131e1e1dd7b4cf8544adf3cafc219177ac0de0542"
     },
     "analyze_qwen_improve.py": {
       "bytes": 8833,
@@ -112,6 +112,10 @@
       "bytes": 11213,
       "sha256": "a039d080f52e75840a5f7d2c620bfed9b88e0d1d66b3ad76f8a0e48ead0aebcb"
     },
+    "docs/NOTEBOOK_UNICO.md": {
+      "bytes": 4644,
+      "sha256": "a4d5fbd16a35eb5c19c631b931f9e69a80b3aab804633c327ac63e49008631f6"
+    },
     "docs/PROTOCOLO_BPE.md": {
       "bytes": 7943,
       "sha256": "18d9b8b5cbc749a83659b95accd76ea989749173dac720e5469ff2a1bacb84f7"
@@ -149,12 +153,12 @@
       "sha256": "770e0f3af222b0f6f6ba7dd7286ecb2a494ec7dd6661c13d120402436160b411"
     },
     "docs/ci/verificar-projeto.yml": {
-      "bytes": 1336,
-      "sha256": "9cdccfc7bd1f0ea5547880d9f05979b7997337abca36804c76ae70c09e0531ba"
+      "bytes": 1422,
+      "sha256": "9bda0a5714e8e06bd88bfa506883c0b72e603205c715c4b1eab8bf5efd0716d1"
     },
     "execute_notebook.py": {
-      "bytes": 1486,
-      "sha256": "9d2a4b890f53a0d823b5c3cba85816c66f8204f73b332aee88c1cc004f78393f"
+      "bytes": 1662,
+      "sha256": "abb698ba152abc5e3fbc3c4947358710971462de1b4a23e888a4e73f230ef628"
     },
     "logs/analyze_status.json": {
       "bytes": 702,
@@ -271,6 +275,10 @@
     "notebooks/qwen3_8b_steering.ipynb": {
       "bytes": 343542,
       "sha256": "d54f4555c3edadd621dd6af7771f493cfbcc2029bace1ffe854dbfdb15409374"
+    },
+    "notebooks/seminario_completo.ipynb": {
+      "bytes": 8215430,
+      "sha256": "3021d60ecdecaf8176ea14f59498a5b9100501a82dcc5219170623e26dd7eadc"
     },
     "output/pdf/relatorio_cnn_encoders.pdf": {
       "bytes": 1737916,
@@ -2112,6 +2120,22 @@
       "bytes": 1296,
       "sha256": "0078dd0765d6ed6a18285441a3d5b8a8a489926fb2027100d4a33e6f86b0fd0e"
     },
+    "results/seminar/build_manifest.json": {
+      "bytes": 8018,
+      "sha256": "855b4d735370537e8ed90af94a9d602af68714cded97762f63bdfd234ec61e06"
+    },
+    "results/seminar/portability.json": {
+      "bytes": 571,
+      "sha256": "e879465da78b78d120c5ba7e166ab4792c21d137d2374334cee6f665bded39db"
+    },
+    "results/seminar/review.json": {
+      "bytes": 2261,
+      "sha256": "7a8505c7ab9275c8d38947e8eb5ea6ba68109b19fb8f3178bd1228420d4af6ee"
+    },
+    "results/seminar/verification.json": {
+      "bytes": 600,
+      "sha256": "22e70086396e0f8079e498a43827eacae725dcba88e149220e96da604540fb8a"
+    },
     "results/sequences/audit_metrics.json": {
       "bytes": 11467,
       "sha256": "68b8466a15a666c8b27bbed4cd3521908d9ce177c9751bc06dd11a06ec09b23d"
@@ -3069,8 +3093,8 @@
       "sha256": "97859d718dc3c6ffdea63e1f265d07f1d5e886877321dcab26b12466d869615e"
     },
     "results/source_manifest.json": {
-      "bytes": 10042,
-      "sha256": "490a3bbe507ed43cad7389a6624e91c349226ed19b62c4e5bd93831e8fcd2c5c"
+      "bytes": 10675,
+      "sha256": "fd371cf83ec6d7f7d9e8832c657a83d227100c5549a368957b625589bf9a2126"
     },
     "results/steering/directions.npz": {
       "bytes": 46260,
@@ -3272,6 +3296,10 @@
       "bytes": 5571,
       "sha256": "03ba39d46f0e1eb97b83dcc143161095bef2bdbe60e8dc892290381120dc3e1e"
     },
+    "tests/test_seminar_notebook.py": {
+      "bytes": 1485,
+      "sha256": "b6d696b302b82ce00b098677a393b7680feaf692e52e0ea72b561a2c60f59df3"
+    },
     "tests/test_sequences.py": {
       "bytes": 2584,
       "sha256": "a622a506ad963dd543ace4087e113449d3983870e38c016cf5848f80cdc5efcb"
@@ -3287,6 +3315,14 @@
     "tools/build_presentation.mjs": {
       "bytes": 34774,
       "sha256": "feda30adfcc23b0dd22ca1b3051dba04e2dc924026901244b15697d78755afc7"
+    },
+    "tools/build_seminar_notebook.py": {
+      "bytes": 97580,
+      "sha256": "36786ab54ae50e50fb99d2309b37a29484fafb62d4881c5e5453431d527c2fb9"
+    },
+    "tools/check_seminar_portability.py": {
+      "bytes": 4501,
+      "sha256": "a58f17b9319068248f68aec752035a00792537cd120993718025028b64196c7d"
     },
     "tools/create_bpe_workspace.py": {
       "bytes": 2500,
@@ -3307,6 +3343,10 @@
     "tools/finalize_didactic_report.py": {
       "bytes": 2231,
       "sha256": "86f84c5e2373886b16fae37f0bfc684c1da1f2f9b5e3317e872e96c86ea21651"
+    },
+    "tools/finalize_seminar_notebook.py": {
+      "bytes": 3110,
+      "sha256": "099f89c06255c8986239821127b6ac9feeb875df8c25f4d4e32c5ac5e8bec45c"
     },
     "tools/finalize_sequence_report.py": {
       "bytes": 2596,
@@ -3339,6 +3379,10 @@
     "verify_results.py": {
       "bytes": 6129,
       "sha256": "68ff37bc9bd9c1c778022589f12a3e019b2e27c55169e6d0c64b0658d7860862"
+    },
+    "verify_seminar_notebook.py": {
+      "bytes": 5691,
+      "sha256": "2ec79c5b1238b1fa12306d5a991f2487aea4c4d4dc3a375724cdf72f08ab72b3"
     },
     "verify_sequences.py": {
       "bytes": 11379,

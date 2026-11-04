@@ -42,3 +42,5 @@ jobs:
         run: python verify_sequences.py
       - name: Conferir comparação de tokenização
         run: python run_bpe.py verify --device cpu
+      - name: Conferir notebook único
+        run: python verify_seminar_notebook.py

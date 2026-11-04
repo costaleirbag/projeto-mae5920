@@ -1,0 +1,16 @@
+{
+  "status": "passed",
+  "notebook": "seminario_completo.ipynb",
+  "cells": 84,
+  "executed_code_cells": 45,
+  "embedded_files": 206,
+  "inline_production_definitions": 27,
+  "chapters": 15,
+  "payload_sha256": "28b6129ce9f41957d1bf84bb2997df813761acf035fd4166e689d5abf2642e65",
+  "notebook_sha256": "3021d60ecdecaf8176ea14f59498a5b9100501a82dcc5219170623e26dd7eadc",
+  "code_sha256": "662e46a8a09e2963c4ad91a5aeb3f050243979e04d5199aa3cbcdf20383859de",
+  "self_contained_data": true,
+  "architecture_matches_production": true,
+  "full_training_disabled_by_default": true,
+  "checks_executed": 476
+}

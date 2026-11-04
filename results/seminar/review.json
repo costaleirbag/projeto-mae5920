@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "notebook_sha256": "3021d60ecdecaf8176ea14f59498a5b9100501a82dcc5219170623e26dd7eadc",
+  "figure_sha256": {
+    "parametros-cnn:0": "3ae07a74088d92329957d0968e5f07f05d5433a9b40bd7e832ce0c084c6eaef3",
+    "treino-cpu-completo:0": "daa3887de36e768c583ea7b9dbf3afb8261d7715b4bc9604d27df432f995520d",
+    "otimizadores-cnn-reais:1": "a076a2797c082354260d91e9271aee8811e48bf7b5e1f9bdd22c5a22e363d018",
+    "arquiteturas-e-dropout:0": "29f531a61aa47151d89b20d4f500c519596936880baffe281c06d0c64f65b4fb",
+    "bpe-resultado-real:2": "15de9b8b420d7f272c8683a7ffb915172d00744e6c552d99184c2dae4f39d67c",
+    "bpe-resultado-real:3": "8e60d580e2a43e5dee1a93000a0a7cc8423e545cc4c1fa796c885c65c38cb8b0",
+    "tokenizers-encoders:5": "448a7ca534d9714e0b42ab5e2817bce71901353aabfaa8da2f09b604abfc3eaf",
+    "gradientes-encoder:0": "51a0115c4e06d2d09c6a46bf321c9e2355f79d128ca1aa3cc4814cf2d1313364",
+    "encoders-resultados:1": "d5ed007ab1ff4d73478a49678839fe868bc370955dafae15aceaa563c7c38071",
+    "leitura-filtros:2": "d3753edea5af67fe7d8323716f53f9ae2ab724247daa67c8100d71ccdfdf9279",
+    "quadratica:0": "b3998c44eac30a35c68e876b8117b3ff57443e2f0b80ff1ec4efa25e3b259335",
+    "inicializacao:0": "aaab46d89bc40418dc5f3c4b790ae7adfec02673e4de6bcdc51b52c4faca2bb2",
+    "regularizacao:0": "da441caf97a045fa7e1db346769035e6b800b9f97d33ab31083ac44e53654d96",
+    "double-descent-reconstrucao:0": "07273312219cc8c96db3d6bacad998c56a2050578053e8c9b9fe8b786ebe018d",
+    "qwen-geometria:1": "6618b4f32a954005943c1248e158865df8a8efb4eaebbdfa565e8ca25dd79b23",
+    "calibracao-e-analise:0": "05d68a3be08640a362ebeb2669346b6e2e120d07b7c321f690a45e8bdaee495e"
+  },
+  "all_figures_inspected": true,
+  "narrative_and_code_reviewed": true,
+  "improvements": [
+    "Show full tokenization instead of truncated dataframe cells",
+    "Explicitly label synthetic CPU exercises and separate evaluation cohorts",
+    "Use a readable fixed vertical scale for the orthogonal steering projection",
+    "Separate BPE learning curves and paired differences with complete axis labels",
+    "Keep editable scientific source definitions visible and matched to production"
+  ],
+  "scope": "Notebook figures, tables, code and reading sequence; not a new GPU model evaluation"
+}

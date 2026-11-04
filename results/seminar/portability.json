@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "only_notebook_copied": true,
+  "working_directory_outside_repository": true,
+  "python_socket_connections_blocked": true,
+  "gpu_hidden": true,
+  "reader_code_cells_executed": 45,
+  "payload_sha256": "28b6129ce9f41957d1bf84bb2997df813761acf035fd4166e689d5abf2642e65",
+  "reader_code_sha256": "662e46a8a09e2963c4ad91a5aeb3f050243979e04d5199aa3cbcdf20383859de",
+  "optional_full_runner_smoke": "passed: full input dimensions, one seed, one epoch, two models, CPU",
+  "scientific_benchmark_rerun": false,
+  "elapsed_seconds": 164.27976441697683
+}
