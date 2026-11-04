@@ -1,0 +1,82 @@
+{
+  "history": [
+    {
+      "epoch": 0,
+      "updates": 0,
+      "train_ce": 0.6942858099937439,
+      "train_accuracy": 0.50048828125,
+      "validation_ce": 0.6948482394218445,
+      "validation_accuracy": 0.505859375,
+      "training_seconds": 0.0,
+      "learning_rate": 0.0
+    },
+    {
+      "epoch": 1,
+      "updates": 192,
+      "train_ce": 0.19615066051483154,
+      "train_accuracy": 0.9373372197151184,
+      "validation_ce": 0.2596763074398041,
+      "validation_accuracy": 0.888671875,
+      "training_seconds": 49.744770986028016,
+      "learning_rate": 2.2239382239382238e-05,
+      "online_training_ce": 0.4123343879667421
+    },
+    {
+      "epoch": 2,
+      "updates": 384,
+      "train_ce": 0.084391750395298,
+      "train_accuracy": 0.97265625,
+      "validation_ce": 0.26936888694763184,
+      "validation_accuracy": 0.89453125,
+      "training_seconds": 99.26934890821576,
+      "learning_rate": 1.1119691119691119e-05,
+      "online_training_ce": 0.19911100661071637
+    },
+    {
+      "epoch": 3,
+      "updates": 576,
+      "train_ce": 0.04902036115527153,
+      "train_accuracy": 0.9856770634651184,
+      "validation_ce": 0.34341344237327576,
+      "validation_accuracy": 0.8958333134651184,
+      "training_seconds": 148.88981298357248,
+      "learning_rate": 0.0,
+      "online_training_ce": 0.09475758979776099
+    }
+  ],
+  "seed": 29,
+  "spec": {
+    "family": "bert",
+    "group": "full",
+    "variant": "full",
+    "optimizer": "adamw",
+    "lr": 3e-05,
+    "run_id": "bert_full__lr3e-05",
+    "epochs": 3,
+    "batch_size": 32,
+    "mixed": true,
+    "eval_batch_size": 64,
+    "gradient_clip_norm": 1.0,
+    "warmup_fraction": 0.1
+  },
+  "initial_state_sha256": "80ccfade33f55aa449781bce161e4f5838e901d7d15e21ccf165903ede0bf091",
+  "initial_head_sha256": "715d3bda21943284fdd8db2172e79f8ebe1ff5b6a15a0668344f80980820545a",
+  "batch_order_sha256": "49819c4d9a1b687d3677422bec1d175fd004092a98d05037eb3940bb04998be4",
+  "best_epoch": 1,
+  "best_validation_ce": 0.2596763074398041,
+  "training_seconds": 148.88981298357248,
+  "total_seconds": 208.7954970691353,
+  "parameters": 108893186,
+  "trainable_parameters": 108893186,
+  "peak_cuda_allocated_bytes": 5047188480,
+  "run_id": "bert_full__lr3e-05__s29",
+  "checkpoint": {
+    "path": "artifacts/sequences/bert_full__lr3e-05__s29.pt",
+    "sha256": "eb2e46c0e146d37ff3ba2404349ccc11261ab13bb3d4ef0ea113472bee0f91cc",
+    "bytes": 435641473
+  },
+  "predictions": {
+    "path": "results/sequences/runs/bert_full__lr3e-05__s29__validation.npz",
+    "sha256": "89512fa02f84dc7b3801e488b05d4e8ec6048f67c8ee0061ffb710726d7aa6e4"
+  }
+}

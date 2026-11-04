@@ -1,313 +1,244 @@
-# IMDb: modelos, análise de erros e RFM steering
+# Entenda o projeto, do texto à intervenção
 
-Projeto de Nestor, Letícia e Gabriel para Introdução a Deep Learning.
+[Início](../README.md) · [Notebook único](../notebooks/seminario_completo.ipynb) ·
+[Resultados](RESULTADOS.md) · [Reprodução](REPRODUCAO.md)
 
-**Foco didático do Qwen3-8B:** o relatório e o notebook explicam como
-intervir nas ativações de um modelo congelado, mantendo texto e prompt fixos.
-O material mostra a mesma entrada sem steering e com intervenções nos dois
-sentidos. A pergunta é o que muda na decisão e na geração; demonstrar
-superioridade sobre prompting não é requisito do trabalho. O sinal da
-intervenção não garante o sentimento da saída. Os exemplos são escolhidos
-por ordem e rótulo, sem selecionar apenas respostas bem-sucedidas.
+Este guia é para quem chega sem acompanhar as conversas do grupo. O trabalho é de
+Nestor, Letícia e Gabriel, para MAE5920 — Introdução a Deep Learning. A aplicação é
+**classificar resenhas de filmes em negativas ou positivas**. As extensões usam o
+mesmo contexto para observar conceitos da disciplina e intervenções nas ativações.
 
-**Extensão Qwen3-8B:** consulte `QWEN_EXPERIMENTO.md` para o protocolo de
-classificação sem ajuste dos pesos, RFM/AGOP, geração de texto e controles por
-instrução. A primeira rodada fica em `results/qwen/`; a melhoria da geração,
-em `results/qwen_improved/`. O relatório atual e o notebook de leitura são
-`relatorio_qwen3.pdf`, `relatorio_qwen3.html` e
-`notebooks/qwen3_8b_steering.ipynb`. O material didático anterior é preservado
-em `results/qwen_improved/previous_didactic/`.
+## Um percurso para estudar e apresentar
 
-Na rodada atual, a direção de geração é uma **diferença de médias no bloco 28**:
-128 enredos de treino aparecem com pedidos positivo/negativo, totalizando
-256 estados internos. Não se ajustam pesos do Qwen nem se treina um scorer
-para essa alternativa. Isso difere da direção original, extraída dos gradientes
-de uma RFM sobre 512 resenhas rotuladas. As variantes RFM da busca nova usam
-gradientes centrados, uma covariância, distinta da AGOP bruta original.
+Comece pelas seções 1–8 do notebook único: dados, tokenização, CNN, treinamento,
+hiperparâmetros, BPE, Transformers e métricas. A seção 12 reúne a comparação original
+no teste oficial e a calibração. Isso cobre a linha principal de classificação.
 
-O prompt da demonstração tem dois campos comuns, FACT e REVIEW, sem indicar
-o sentimento-alvo. O deslocamento começa somente após o marcador REVIEW:
-gerado pelo modelo. Configuração e intensidade são escolhidas na validação e
-congeladas antes de 64 novas fontes de geração (32 reais e 32 sintéticas).
-São 704 saídas, incluindo três direções aleatórias, e mais 160 saídas na
-reavaliação das 32 fontes antigas. A avaliação considera opinião sobre o filme,
-fatos e limites de geração separadamente. Nenhum texto é editado ou descartado.
+Para ampliar a apresentação, escolha um mecanismo das seções 9–10 ou a demonstração
+de steering da seção 11. A seção 15 tem referências ao livro/slides e roteiro de
+fala. Os [slides editáveis](../output/slides/seminario_mae5920.pptx) e suas
+[notas](NOTAS_APRESENTACAO.md) ajudam a selecionar o que cabe no tempo disponível.
+Não é necessário apresentar todos os experimentos para contar uma história completa.
 
-No teste reservado, o juiz semântico reconheceu os dois sentidos-alvo em
-**55/64 fontes**: **24/32 reais** e **31/32 sintéticas**. TF-IDF, CNN e BERT
-também registram maior separação nos textos completos. São diagnósticos
-automáticos, não acurácia contra anotação humana. O prefixo factual ficou
-idêntico nos três sentidos, mas a frase de opinião ainda pode inventar um
-cenário; há um caso claro preservado no relatório. Alertas do juiz que parecem
-confundir opinião diferente com erro factual recebem notas separadas.
+## 1. De onde vêm os dados
 
-Para ler e conferir a rodada atual, sem carregar o Qwen:
+Usamos o [IMDb de Maas et al.](https://ai.stanford.edu/~amaas/data/sentiment/),
+pela distribuição pública `stanfordnlp/imdb`, com revisão fixada na configuração.
+São resenhas em inglês com rótulos 0 (negativo) e 1 (positivo). **Não há classe
+neutra**: uma probabilidade próxima de 0,5 indica incerteza do classificador.
 
-```bash
-python execute_notebook.py --notebook notebooks/qwen3_8b_steering.ipynb
-python verify_qwen_improved.py
+O preparo original remove duplicações conforme o protocolo e separa o treino
+limpo em 19.823 exemplos de ajuste, 2.478 de validação e 2.478 de calibração.
+O teste oficial mantém 25.000 resenhas. O [manifesto original](../data/manifest.json)
+registra contagens, IDs e hashes; o [protocolo técnico](EXPERIMENTO_ORIGINAL.md)
+explica a limpeza e suas limitações.
+
+| Papel | Para que serve |
+|---|---|
+| Treino | Aprender vocabulário, transformações e pesos, conforme o modelo |
+| Validação | Escolher taxa, época, configuração e intensidade da intervenção |
+| Calibração | Ajustar a temperatura das probabilidades no estudo original |
+| Teste ou auditoria reservada | Medir a configuração congelada; não escolher o modelo por esse resultado |
+
+As extensões usam subconjuntos do antigo treino limpo: 6.144 exemplos de ajuste,
+1.536 de validação e **uma auditoria interna diferente por estudo**, com 2.048
+exemplos. MLPs e modelos sequenciais compartilham treino/validação, mas a auditoria
+sequencial exclui todos os papéis do estudo MLP. A auditoria BPE exclui os papéis dos
+dois estudos anteriores. IDs e exclusões estão nos respectivos manifestos.
+
+Uma auditoria interna é uma avaliação reservada para aquele estudo; não equivale
+a um novo benchmark externo. O teste oficial não foi reaberto nessas extensões.
+Por isso, dois resultados chamados “CNN” podem diferir sem contradição: podem ter
+outra receita, outro comprimento de entrada e outra amostra de avaliação.
+
+## 2. Como o texto vira entrada
+
+**CNN por palavras.** Após limpar o texto, usamos minúsculas e a regex
+`[a-z]+(?:'[a-z]+)?|\d+`. Ela extrai palavras, contrações com apóstrofo e números.
+O vocabulário é aprendido por contagem apenas no treino: 19.998 entradas mais
+`<pad>` (0) e `<unk>` (1). Não há stemming nem remoção de stopwords. Cada token vira
+um índice; o padding completa o minibatch. A tabela de embeddings de dimensão 128
+é aprendida junto com a CNN.
+
+**BPE.** Primeiro aplicamos a mesma normalização. O tokenizer aprende uniões de
+caracteres frequentes exclusivamente nos 6.144 textos de treino, sem rótulos.
+Usamos `WhitespaceSplit`, marcador de fim de palavra `</w>` e vocabulário final de
+20 mil tokens. É BPE de caracteres, sem fallback por bytes. Depois congelamos suas
+regras e treinamos outra CNN do zero. Isso é diferente de atualizar os pesos por
+backpropagation. O [protocolo BPE](PROTOCOLO_BPE.md) e a seção 6 mostram regras reais,
+como `pallbearer` virando `p + all + bearer</w>`.
+
+**BERT e DistilBERT** usam os tokenizers WordPiece do pré-treinamento.
+**ModernBERT** usa seu tokenizer BPE por bytes. **Qwen** também mantém o tokenizer
+original. Esses tokenizers não foram treinados novamente pelo grupo. Trocar seu
+vocabulário sem adaptar os embeddings destruiria a correspondência com os pesos.
+Os exemplos completos de tokens estão na seção 7 do notebook.
+
+O baseline TF-IDF transforma contagens de palavras/ngramas em um vetor esparso;
+seu vocabulário e seus pesos IDF também são ajustados no treino.
+
+## 3. Qual arquitetura usamos
+
+A CNN didática recebe sequências de IDs e aplica:
+
+```text
+IDs [batch, comprimento]
+  → Embedding(20.000, 128)
+  → três Conv1d em paralelo: janelas 3, 4 e 5, cem filtros em cada
+  → ReLU e máximo global, excluindo janelas de padding
+  → concatenação: 300 valores por resenha
+  → Dropout(0,5)
+  → Linear(300, 2): logits negativo e positivo
 ```
 
-`build_qwen_improved_report.py` reconstrói o relatório e o notebook a partir
-dos resultados salvos; execute o notebook depois de reconstruí-lo. A inferência
-está em `run_qwen_improve.py`, e a seleção congelada em
-`results/qwen_improved/selection_frozen.json`. Não reexecute `prepare`, `fit`
-ou `freeze` sobre um teste já aberto. Use uma cópia separada para novos estudos.
+![Dimensões da TextCNN](../results/sequences/figures/cnn_diagram.png)
 
-Na classificação completa, o Qwen congelado obteve **95,260% de acurácia**
-e **95,260% de F1 macro**, com **569 FP** e **616 FN** em 25.000 avaliações.
-O ganho observado sobre o BERT foi de **4,316 pontos percentuais**.
-O Qwen recebe até 768 tokens da fonte; o BERT, 192 WordPieces. O audit com
-256 exemplos de validação reduziu a acurácia do Qwen de 93,75% para 89,84%
-ao limitar seu prefixo a 192 tokens. Essa comparação não isola a arquitetura.
-A inferência completa do Qwen, incluindo carregamento, validação e calibração,
-levou cerca de 63,3 minutos, antes do audit final de prompt.
+A receita base da extensão tem **2.714.502 parâmetros**. O notebook escreve a
+classe real, acompanha as dimensões, calcula os parâmetros e reproduz manualmente
+uma convolução. A implementação está em [models.py](../src/imdb_lab/models.py).
+A CNN original usa até 400 tokens e cinco épocas; a extensão controla prefixos de
+128 palavras, limite de 256 tokens e doze épocas. Não são o mesmo ajuste.
 
-Os pesos do Qwen não são ajustados; a temperatura usa dados rotulados de
-calibração e a RFM usa 512 exemplos rotulados de treino. O teste já havia sido
-consultado na etapa original: a extensão é exploratória. Possível exposição
-ao IMDb no pré-treinamento do Qwen não foi auditada.
+Nos encoders, representações contextuais passam por **média mascarada dos estados
+finais**, excluindo padding e tokens especiais, e uma cabeça `Linear(768, 2)`:
 
-No teste de intervenção com texto idêntico, RFM mudou 127/129 das 256 decisões
-nos extremos -4/+4; diferença de médias produziu o mesmo efeito. Esse controle
-da decisão não se transferiu de modo confiável ao tom da geração. Nas 544
-reescritas, a concordância dos três juízes com o alvo foi de 34,4%/50,0% para
-RFM negativa/positiva e 78,1%/75,0% para instruções diretas negativa/positiva.
-Esses são resultados da primeira rodada: diagnósticos automáticos em 32
-fontes, não taxas de sucesso humano.
-Instruções diretas também falharam em alguns alvos e omitiram fatos centrais.
+| Regime | O que aprende |
+|---|---|
+| Encoder congelado | Somente os 1.538 parâmetros da cabeça linear |
+| Ajuste completo | Pesos do encoder e cabeça recebem gradientes |
 
-O relatório próprio está em `relatorio_qwen3.pdf` e `relatorio_qwen3.html`.
-O notebook `notebooks/qwen3_8b_steering.ipynb` lê os resultados salvos sem GPU
-ou pesos Qwen e reconstrói a nova direção a partir do pequeno arquivo de
-ativações selecionadas. A leitura atual inclui os 12 trios definidos antes
-do novo teste; a leitura histórica inclui 60 saídas e 12 erros de
-classificação, com origem no assistente declarada. Não houve anotação humana
-independente. A planilha e a rubrica em `AVALIACAO_HUMANA.md` estão preparadas
-para uma revisão posterior pelo grupo.
+BERT, DistilBERT e ModernBERT partem de pesos públicos de pré-treinamento, sem
+checkpoints já ajustados no IMDb. O wrapper `MeanEncoder`, o pooling e o treinador
+estão em [sequences.py](../src/imdb_lab/sequences.py) e visíveis na seção 7.
 
-O experimento compara **TF-IDF + regressão logística**, **CNN em PyTorch** e
-**BERT pré-treinado ajustado**. Inclui probabilidades calibradas, exemplos por
-tipo de erro, segmentação semântica e um experimento de activation steering
-baseado em **Recursive Feature Machines / AGOP**.
+## 4. O que acontece em cada passo de treino
 
-## Execução verificada
+Para cada minibatch: zeramos gradientes, calculamos logits, comparamos com os
+rótulos pela entropia cruzada, executamos `backward`, limitamos a norma dos
+gradientes e atualizamos os pesos. Não aplicamos softmax antes da função de CE
+usada no treino. Em avaliação, softmax ajuda a interpretar probabilidades.
 
-No teste oficial com 25.000 avaliações:
+A seção 4 acompanha essas operações e roda um treino pequeno em CPU. Os exemplos
+de demonstração são frases próprias e não entram no benchmark de resultados.
 
-| Modelo | Acurácia | F1 macro | FP | FN |
-|---|---:|---:|---:|---:|
-| TF-IDF + regressão logística | 90,144% | 90,144% | 1.234 | 1.230 |
-| CNN | 86,784% | 86,782% | 1.818 | 1.486 |
-| BERT-base com ajuste integral | 90,944% | 90,941% | 1.342 | 922 |
+Na extensão sequencial, a taxa é escolhida pela menor CE de validação média das
+três sementes 17, 29 e 43; cada execução também escolhe sua época pela validação.
+A auditoria é liberada após o congelamento das escolhas. As grades incluem:
 
-O ganho de acurácia do BERT sobre o baseline foi de 0,8 ponto percentual.
-Ele reduziu falsos negativos, mas aumentou falsos positivos. Sua acurácia cai
-de 93,10% em textos de até 100 palavras para 82,60% acima de 500 palavras.
-Há exemplos com evidência favorável fora do prefixo recebido pela rede e
-textos cujo rótulo oficial é discutível. Essas leituras não provam causas.
+| Bloco | Variação | Orçamento |
+|---|---|---|
+| CNN: otimização | SGD, momentum e Adam; três taxas por método | 27 treinos, doze épocas |
+| CNN: arquitetura e dropout | Janelas 3/5/3–4–5, 32/cem filtros, dropout 0/0,5/0,8 | 15 treinos adicionais, taxa Adam herdada |
+| Encoders congelados | Três modelos, três taxas de Adam | 27 treinos de cabeça, 40 épocas |
+| Encoders completos | Três modelos, duas taxas de AdamW | 18 treinos, três épocas |
+| BPE | Tokenização nova na CNN base, Adam 0,001 herdado | Três treinos, doze épocas |
 
-O steering RFM alterou 6 de 256 decisões em cada extremo (-4 e +4). A diferença
-de médias teve efeito igual ou maior; não foi demonstrada vantagem da RFM.
-A melhor iteração kernel foi a primeira: as atualizações recursivas adicionais
-pioraram a AUC de validação. A edição mascarada gerou alguns elogios claros,
-mas também mudanças de fatos e frases pouco naturais. Não é reescrita
-bidirecional confiável; o controle sem steering já muda palavras e polaridade.
+As tabelas de arquitetura e dropout reutilizam a CNN base; contar suas linhas não
+conta novos ajustes. A comparação BPE reutiliza três checkpoints por palavras.
+Todas as condições neurais têm três sementes, sem selecionar a melhor semente
+pela auditoria. Consulte as [grades completas](PROTOCOLO_SEQUENCIAS.md).
 
-O notebook foi executado, oito testes científicos passaram e as métricas de
-todas as divisões foram recalculadas a partir das previsões. Consulte
-`results/verification.json`. As interpretações dos exemplos estão em
-`results/analysis/qualitative_review.json`, com indicação de sua origem no
-assistente; não são avaliações independentes por revisores humanos.
+## 5. Como avaliamos
 
-## Resultados e leitura
+As [tabelas de resultados](RESULTADOS.md) reúnem **acurácia, F1 macro e entropia
+cruzada**, com estudo, tamanho da avaliação, sementes e fonte dos números.
 
-- `relatorio.html`: relatório autocontido com métricas, figuras e exemplos.
-- `relatorio_imdb.pdf`: versão de oito páginas para leitura e apresentação.
-- `notebooks/experimentos_imdb.ipynb`: notebook com resultados e verificações.
-- `results/comparison.csv`: métricas de todos os modelos e divisões.
-- `results/{tfidf,cnn,bert}/`: previsões por exemplo, métricas e custo.
-- `results/analysis/`: grupos semânticos, intervalos, FP/FN e exemplos.
-- `results/steering/`: direções, RFM, controles e todas as intervenções.
-- `results/rewrite/`: textos realmente editados e avaliação sem hooks.
-- `data/manifest.json`: origem, revisão, papéis das divisões e auditoria.
-- `logs/*_status.json`: estado registrado de cada etapa. Um estado `running`
-  sozinho não prova que o processo ainda está vivo; verifique seu PID.
+- **Acurácia:** proporção de rótulos corretos.
+- **F1 macro:** calcula F1 por classe e faz a média, dando o mesmo peso às classes.
+- **Entropia cruzada / log loss:** avalia a probabilidade atribuída ao rótulo real;
+  pune erros confiantes. Menor é melhor.
 
-As pastas de resultados só aparecem conforme as etapas são concluídas. Não
-interprete a existência de código ou de um checkpoint como treino concluído.
+O estudo original também ajusta uma temperatura em uma divisão exclusiva de
+calibração. Ela muda confiança e loss, preservando a decisão pelo sinal da margem.
+Os números destacados desse estudo usam probabilidades calibradas; os das
+extensões usam probabilidades sem essa calibração.
 
-O pacote ZIP para compartilhar omite dados preparados, checkpoints e o cache
-de embeddings. Inclui o subconjunto textual e os estados selecionados da nova
-rodada. O notebook do Qwen usa apenas esses artefatos, sem restaurar o corpus.
-Para executar as análises originais que precisam das tabelas preparadas,
-rode `python run.py prepare`. A auditoria completa dos pesos exige os artefatos locais
-ou uma nova execução dos treinos.
+Os modelos originais recebem comprimentos diferentes de texto. Na extensão,
+controlamos prefixos de 128 palavras, mas tokenização, pré-treinamento e escala
+variam entre famílias. Os resultados não isolam arquitetura como única causa.
+Mínimo–máximo de três sementes é uma faixa descritiva, não intervalo de confiança.
 
-## Instalar e executar
+## 6. Como ligamos o trabalho à disciplina
 
-Python 3.11 ou posterior. Baseline e CNN foram executados em Apple M1;
-BERT e análises posteriores usam NVIDIA GB10. Os metadados de cada etapa
-registram o ambiente real. Tempos entre esses dispositivos não medem uma
-comparação de eficiência em hardware idêntico.
+O suplemento usa MLPs sobre TF-IDF, SVD de 128 componentes e padronização, todos
+ajustados sem olhar a auditoria. Ele observa taxas/otimizadores, 1/4/12 camadas,
+atalhos residuais e escala. O ensaio de regularização usa só 512 rótulos de treino.
+São 51 treinos, além das demonstrações sintéticas.
 
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements-lock.txt
-python run.py all
+No exemplo de **double descent**, a camada oculta ReLU aleatória fica congelada e
+ajustamos a saída em regressão sintética, com 64 amostras. Variar a capacidade mostra
+um pico perto da interpolação e a redução desse pico com ridge. São vinte sementes
+e 880 condições, com valores extremos preservados. Isso não estabelece double
+descent na CNN de sentimento. As referências exatas ao livro e aos slides estão
+no [guia dos mecanismos](CONEXOES_DISCIPLINA.md), sem redistribuir seus PDFs.
+
+## 7. O que fizemos com o Qwen
+
+**Classificação:** usamos o Qwen3-8B congelado para comparar escores dos tokens
+`negative` e `positive` no prompt de classificação. Não acrescentamos uma cabeça
+linear nem ajustamos seus 8,19 bilhões de parâmetros.
+
+**Steering:** modificamos temporariamente uma ativação durante o forward:
+
+```text
+v = normalizar(média dos estados positivos − média dos estados negativos)
+h_novo = h + α × escala × v        α = −2, 0 ou +2
 ```
 
-Também é possível instalar o pacote com `python -m pip install -e .`. O arquivo
-`requirements-lock.txt` fixa o ambiente local usado no baseline, CNN e relatórios;
-os metadados do BERT registram sua versão distinta de PyTorch/CUDA.
-`pyproject.toml` declara intervalos de compatibilidade. Em outra plataforma,
-a disponibilidade de wheels pode exigir uma versão equivalente do PyTorch.
+Na demonstração atual, 128 enredos de treino aparecem com instruções positiva e
+negativa, produzindo 256 estados. A direção escolhida usa o bloco 28 e 4.096
+dimensões. Camada e intensidade foram selecionadas na validação. O prompt de teste
+é comum aos três sentidos e pede `FACT` e `REVIEW`; a intervenção começa após o
+marcador `REVIEW:`. O prefixo factual permanece idêntico, mas a opinião ainda pode
+inventar conteúdo.
 
-Execução por etapas:
+O notebook reconstrói a direção dos estados reais incluídos. As saídas são das
+64 fontes reservadas, preservadas com controles e falhas. A avaliação das gerações
+é automática pelo próprio Qwen; não há referência humana independente. A pergunta
+é compreender a intervenção, não provar vantagem sobre um prompt de sentimento.
 
-```bash
-python run.py prepare
-python run.py baseline
-python run.py cnn
-python run.py bert
-python run.py analyze
-python run.py steer
-python run.py rewrite
-python run.py report
-python -m pytest -q
-```
+A primeira rodada também usou **RFM/AGOP**, uma direção calculada a partir de um
+preditor sobre ativações, além de edição mascarada com BERT. Esses procedimentos
+e seus resultados estão preservados no [histórico técnico](EXPERIMENTO_ORIGINAL.md)
+e no [protocolo Qwen](../QWEN_EXPERIMENTO.md). Não devem ser confundidos com a
+diferença de médias escolhida para a demonstração atual.
 
-A configuração fica em `config.json`. A execução não contrata GPU,
-não envia avaliações para serviços de LLM e não precisa de credenciais para
-esses datasets/modelos públicos. CUDA é usada quando disponível; caso contrário,
-MPS ou CPU. O BERT usa atenção `eager` para preservar dropout em MPS.
+## 8. Onde está cada parte do código
 
-## Protocolo de dados
+| Parte | Arquivo principal | No notebook único |
+|---|---|---|
+| Limpeza e divisão dos dados | [data.py](../src/imdb_lab/data.py) | Seções 1–2 |
+| Regex, vocabulário, CNN e padding | [models.py](../src/imdb_lab/models.py) | Seções 2–4 |
+| Baseline e treino original | [baseline.py](../src/imdb_lab/baseline.py), [training.py](../src/imdb_lab/training.py) | Seções 2 e 12 |
+| Grades CNN, encoders e pooling | [sequences.py](../src/imdb_lab/sequences.py) | Seções 4–7 |
+| Aprendizagem e aplicação de BPE | [bpe_study.py](../src/imdb_lab/bpe_study.py) | Seção 6 |
+| Métricas e calibração | [metrics.py](../src/imdb_lab/metrics.py) | Seções 8 e 12 |
+| MLPs, resíduos e regularização | [didactic.py](../src/imdb_lab/didactic.py) | Seção 9 |
+| Inicialização e regressão sintética | [didactic_toys.py](../src/imdb_lab/didactic_toys.py) | Seções 9–10 |
+| Inferência Qwen e hooks | [qwen_core.py](../src/imdb_lab/qwen_core.py), [run_qwen_improve.py](../run_qwen_improve.py) | Seção 11 |
+| RFM/AGOP | [rfm.py](../src/imdb_lab/rfm.py), [factorized_rfm.py](../src/imdb_lab/factorized_rfm.py) | Seção 11 e notebook Qwen específico |
+| Construir o notebook único | [builder](../tools/build_seminar_notebook.py) | Evidências e código incorporados |
 
-Fonte: [`stanfordnlp/imdb`](https://huggingface.co/datasets/stanfordnlp/imdb).
-Revisões de origem são fixadas em `config.json` e registradas nos metadados,
-assim como os hashes dos arquivos preparados.
+Os verificadores comparam definições incorporadas com o código real e reconstroem
+métricas das previsões salvas. A [reprodução](REPRODUCAO.md) distingue ler o notebook,
+executar exercícios em CPU, auditar previsões, restaurar checkpoints e treinar
+novamente. Um `Run All` no roteiro didático não refaz todos os experimentos grandes.
 
-1. Preserve o teste oficial com 25.000 avaliações.
-2. Remova do treino textos repetidos no teste, usando somente hashes dos textos.
-3. Remova repetições e conflitos de rótulo internos do treino.
-4. Separe o restante em treino, validação e calibração, com estratificação e
-   sementes fixas. Nenhum texto idêntico pode atravessar as divisões.
-5. Ajuste vocabulários/TF-IDF/pesos no treino; selecione C e checkpoint na
-   validação; ajuste temperatura somente na calibração.
-6. Avalie uma vez os modelos escolhidos no teste e realize a análise descritiva
-   dos erros. Não volte a escolher modelos com base nessa análise.
+## Termos usados no projeto
 
-Na preparação registrada: treino **19.823**, validação **2.478**, calibração
-**2.478**, teste **25.000**. Excluíram-se 123 linhas do treino repetidas no teste e
-98 repetições internas. O teste oficial retém 201 repetições internas; intervalos
-baseados em independência estrita devem ser interpretados com essa limitação.
+| Termo | Significado aqui |
+|---|---|
+| Token | Unidade de entrada: palavra, subpalavra ou peça do tokenizer |
+| Embedding | Vetor numérico associado a um token; pode ser aprendido no nosso treino ou vir do pré-treinamento |
+| Logit | Escore anterior ao softmax; a rede produz um por classe |
+| Checkpoint | Estado dos pesos preservado em uma época |
+| Semente | Valor que controla inicialização e outras fontes de aleatoriedade |
+| Encoder congelado | Rede com pesos fixos; só a cabeça aprende |
+| Ajuste completo | Atualização de todas as camadas do encoder |
+| Auditoria interna | Conjunto reservado para avaliar a configuração congelada daquela extensão |
+| Hook | Trecho de código que observa ou altera uma ativação durante o forward |
+| Steering | Intervenção temporária nos estados internos, sem mudar os pesos |
 
-O arquivo de notas/metadados nunca é uma variável preditora. Menções de notas
-dentro do próprio texto são tratadas como característica a investigar. As
-50.000 avaliações adicionais não rotuladas da distribuição original não são
-usadas no ajuste.
-
-**Não existe classe neutra no IMDb usado aqui.** Escore próximo de 0,5 indica
-incerteza. Exemplos neutros de demonstração são sintéticos e identificados.
-
-## Modelos e orçamento
-
-- TF-IDF: 80 mil características no máximo, unigramas/bigramas, negações
-  preservadas, busca de C = 0,5 / 2 / 8 na validação.
-- CNN: vocabulário do treino, embeddings aprendidos de 128 dimensões, filtros
-  3/4/5, pooling que exclui padding, dropout, até 400 palavras, até cinco épocas.
-- BERT-base-uncased: até 192 WordPieces, ajuste integral por duas épocas,
-  batch de 32, taxa inicial de 2e-5 e warmup de 10% dos passos.
-  `train_last_n_layers=-1` habilita o ajuste integral; valores positivos permitem
-  uma nova execução com ajuste parcial quando a memória for limitada.
-
-Os textos completos chegam ao baseline; as redes recebem prefixos limitados.
-Reporte essa diferença, as sementes e o custo antes de atribuir um resultado
-somente à arquitetura. Checkpoints são escolhidos por F1 macro de validação.
-
-## Erros e análise semântica
-
-Classe positiva = avaliação positiva. **FP / tipo I:** negativo previsto como
-positivo. **FN / tipo II:** positivo previsto como negativo.
-
-Use acurácia, F1 macro, log loss, Brier, ECE e curvas de confiabilidade. As taxas
-de FP/FN por grupo têm denominadores condicionais à classe real e intervalos de
-Wilson. Para caracterizar erros, compare FP a TN e FN a TP.
-
-Um encoder independente, `all-MiniLM-L6-v2`, representa as avaliações. O K-means
-aprende oito clusters em amostra do treino sem rótulos e atribui todos os textos
-do teste. Há também marcadores heurísticos de negação, contraste, opiniões
-mistas, nota explícita e possível ironia. Esses marcadores são sobrepostos e
-ruidosos. Padrões encontrados são **associações exploratórias**, não causas
-comprovadas nem rótulos semânticos humanos. O encoder também tem limite de tokens.
-
-## RFM / AGOP: o que está implementado
-
-Referência: [Beaglehole et al., *Toward universal steering and monitoring of AI
-models*](https://arxiv.org/html/2502.03708v2), equações 1 e 2.
-
-Para cada bloco candidato, usa-se a representação CLS. O RFM alterna:
-
-\[
-K_M(x,z)=\exp[-\sqrt{(x-z)^T M(x-z)}/L],\qquad
-\alpha=(K_M+\lambda I)^{-1}(y-\bar y),
-\]
-\[
-M_{t+1}=\frac{1}{n}\sum_i \nabla f_t(h_i)\nabla f_t(h_i)^T.
-\]
-
-O autovetor principal da AGOP é orientado pela correlação positiva com o rótulo.
-Gradientes são analíticos e testados contra autograd. O código usa a atualização
-pela AGOP bruta, sem substituí-la por PCA, pesos logísticos ou diferenças de
-médias. Centramento e escala escalar única são aprendidos no treino.
-
-**AGOP não é a Hessiana exata.** Para a perda quadrática de um preditor escalar,
-a Hessiana com respeito à entrada contém um termo `2 grad(f) grad(f)^T` e um
-termo residual `2(f-y) Hessian(f)`. A AGOP corresponde à média do primeiro termo
-(à constante perto), não automaticamente à curvatura completa do BERT.
-
-Camada, largura e iteração são escolhidas em validação. A intervenção é
-`h_CLS <- h_CLS + alpha * scale * v`. Todas as direções têm norma unitária e
-recebem uma escala comum, fixada no treino. Controles: diferença de médias,
-sonda logística e cinco vetores aleatórios. São verificados intensidade zero,
-equivalência do prefixo em cache e remoção dos hooks após a intervenção.
-
-Esse é um teste de controle da **decisão do classificador com texto idêntico**.
-Ele não reescreve a avaliação e não prova mudança de sentimento humano.
-Probabilidades sob intervenção ficam fora do regime da calibração usual.
-
-## Extensão que modifica o texto
-
-Para experimentar a transformação de avaliações neutras/negativas em textos
-com outra polaridade, há uma etapa separada de **edição mascarada**. A cabeça
-masked-LM recebe exatamente o encoder ajustado. A transformação e o bias vêm
-do pré-treinamento; a projeção de saída continua ligada aos embeddings
-ajustados. Duas palavras de opinião são mascaradas e preenchidas sob steering
-RFM ou controle aleatório.
-
-São mantidos todos os resultados, incluindo falhas. Não há reranqueamento
-guiado por sentimento. É preciso comparar com intensidade zero: retirar as
-palavras e preenchê-las já pode alterar o tom. Classificadores sem hooks e
-similaridade semântica fornecem diagnósticos, mas fluência, sentimento e fatos
-exigem leitura humana. Isso não é geração autoregressiva nem reprodução
-integral dos experimentos com Llama do artigo.
-
-## Testes científicos
-
-Os testes verificam vazamento por duplicações, invariância da CNN a padding,
-definições de FP/FN, temperatura, gradientes analíticos da RFM, AGOP positiva
-semidefinida, orientação da direção e intervenção/restauração de hooks. O
-caminho de continuação do BERT a partir de uma camada em cache é comparado a um
-forward completo. Testes não substituem as métricas do experimento real.
-
-## Fontes
-
-- [Maas et al. / Large Movie Review Dataset](https://ai.stanford.edu/~amaas/data/sentiment/)
-- [BERT-base-uncased](https://huggingface.co/google-bert/bert-base-uncased)
-- [PyTorch](https://docs.pytorch.org/docs/stable/)
-- [Beaglehole et al.](https://arxiv.org/abs/2502.03708)
-- [Implementação dos autores](https://github.com/dmbeaglehole/neural_controllers)
-
-O projeto é uma implementação educacional independente e explicita as adaptações.
+Para compartilhar com o grupo: envie o [notebook único](../notebooks/seminario_completo.ipynb)
+e este repositório. Para apresentar, selecione a linha principal e poucas extensões;
+relatórios específicos e resultados completos ficam disponíveis para perguntas.

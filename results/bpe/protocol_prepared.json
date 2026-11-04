@@ -1,0 +1,14 @@
+{
+  "code": {
+    "bpe_config.json": "e472b09c23b4a2934ba541591ac4edccfc48c18aee28a71e8dcb62523fce3090",
+    "run_bpe.py": "5b65ba25d88f7b005565b418e38dbaa0cd6d7293a5ba8b0247419a7b317fcd2e",
+    "src/imdb_lab/bpe_study.py": "3eb5a0aa75f76d1ae3ddef68d36eeb22aa36ec9707750622f6f13799ad6134dd",
+    "sequence_config.json": "81426103042256b04d825373246ffcdb250a9a02b3846e4545402927ace1daa3",
+    "src/imdb_lab/sequences.py": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+    "src/imdb_lab/models.py": "d3ea24b13bb09b9e3ae5385711852ccdbf3fe9923d54fd655c4cf52b966c8559",
+    "src/imdb_lab/common.py": "d539782f654c4f66be0b0400fdcd5cc8db053e79c7088d4926a46e5a77c11749"
+  },
+  "data_manifest_sha256": "1c3bf145a13c1e7489b947740950f05eb87ccf22c0df7c4f0ee8fd1966744b44",
+  "tokenizer_training_sha256": "51e6582cb00b09432d2eadcbf4fce89b6bafa53fb375d9046238d38ada99c445",
+  "tokenizer_sha256": "da29d8be8d7a45befcc3a0eda9b9236182325bc9f56c58d48fb3042305896611"
+}

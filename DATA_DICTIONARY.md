@@ -1,5 +1,39 @@
 # Dicionário resumido dos dados
 
+[Início](README.md) · [Guia do projeto](docs/GUIA_COMPLETO.md) ·
+[Tabelas de resultados](docs/RESULTADOS.md)
+
+## Visão geral dos estudos e das unidades
+
+| Diretório | Conteúdo e amostra de avaliação |
+|---|---|
+| `results/{tfidf,cnn,bert}/` e `results/qwen/classification/` | Classificação original no teste oficial de 25.000 resenhas |
+| `results/didactic/` | MLPs em auditoria interna de 2.048 resenhas e exemplos sintéticos |
+| `results/sequences/` | CNNs e encoders em outra auditoria interna de 2.048 resenhas |
+| `results/bpe/` | Comparação palavras/BPE em uma terceira auditoria interna de 2.048 resenhas |
+| `results/qwen_improved/` | Intervenções e gerações atuais, com 64 fontes de teste |
+| `results/seminar/` | Construção, execução, revisão e portabilidade do notebook único |
+
+[`results/resumo_metricas.csv`](results/resumo_metricas.csv) reúne as três
+comparações principais de classificação. `estudo` identifica a amostra;
+`n_avaliacao` é o número de resenhas, `resumo` informa execução individual ou média
+de sementes e `probabilidades` informa a calibração. `acuracia` e `f1_macro` estão
+entre 0 e 1; `loss_ce` é entropia cruzada; `fonte` aponta para a origem dos números.
+As linhas não formam um ranking entre estudos. A tabela original usa probabilidades
+calibradas; as extensões sequencial/BPE não usam calibração de temperatura.
+
+Nas extensões sequencial/BPE, `audit_predictions.npz` guarda logits de forma
+`[n, 2]` por execução e arrays de alinhamento; as métricas são reconstruídas a
+partir dos logits. Os arquivos JSON das execuções registram receita, semente,
+trajetória, época escolhida e hashes de pesos/previsões. `selection_frozen.json`
+registra as escolhas antes da liberação da auditoria. Os protocolos explicam os
+campos específicos de [sequências](docs/PROTOCOLO_SEQUENCIAS.md),
+[BPE](docs/PROTOCOLO_BPE.md) e [MLPs](docs/CONEXOES_DISCIPLINA.md).
+
+As seções a seguir detalham o experimento original e as rodadas Qwen. A convenção
+de recorte das probabilidades descrita abaixo pertence às métricas originais;
+as extensões calculam CE diretamente dos logits.
+
 ## Dados preparados: `data/*.parquet`
 
 | Coluna | Tipo | Significado |

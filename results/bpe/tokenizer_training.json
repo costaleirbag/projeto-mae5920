@@ -1,0 +1,79 @@
+{
+  "fit_role": "train",
+  "labels_used": false,
+  "documents": 6144,
+  "canonical_train_sha256": "53fb9e6c1fb63bb4e13377d10c3924ce11199d7ca066bcaeae8d16b612bc0298",
+  "tokenizers_version": "0.22.2",
+  "fit_seconds": 0.6605192499991972,
+  "vocabulary_size": 20000,
+  "merge_count": 19924,
+  "first_merges": [
+    [
+      "t",
+      "h"
+    ],
+    [
+      "i",
+      "n"
+    ],
+    [
+      "th",
+      "e</w>"
+    ],
+    [
+      "a",
+      "n"
+    ],
+    [
+      "e",
+      "r"
+    ],
+    [
+      "i",
+      "s</w>"
+    ],
+    [
+      "r",
+      "e"
+    ],
+    [
+      "in",
+      "g</w>"
+    ],
+    [
+      "o",
+      "u"
+    ],
+    [
+      "a",
+      "r"
+    ],
+    [
+      "an",
+      "d</w>"
+    ],
+    [
+      "e",
+      "r</w>"
+    ],
+    [
+      "e",
+      "n"
+    ],
+    [
+      "o",
+      "n"
+    ],
+    [
+      "o",
+      "r"
+    ],
+    [
+      "i",
+      "t"
+    ]
+  ],
+  "tokenizer_sha256": "da29d8be8d7a45befcc3a0eda9b9236182325bc9f56c58d48fb3042305896611",
+  "algorithm": "Character BPE with word-end markers, WhitespaceSplit; not byte-level BPE",
+  "normalization": "Join the existing lowercase regex word tokens with spaces for BOTH representations"
+}

@@ -1,0 +1,82 @@
+{
+  "history": [
+    {
+      "epoch": 0,
+      "updates": 0,
+      "train_ce": 0.69230055809021,
+      "train_accuracy": 0.5314127802848816,
+      "validation_ce": 0.6922686100006104,
+      "validation_accuracy": 0.5305989384651184,
+      "training_seconds": 0.0,
+      "learning_rate": 0.0
+    },
+    {
+      "epoch": 1,
+      "updates": 192,
+      "train_ce": 0.3012202978134155,
+      "train_accuracy": 0.873046875,
+      "validation_ce": 0.31855013966560364,
+      "validation_accuracy": 0.8587239384651184,
+      "training_seconds": 26.151012065820396,
+      "learning_rate": 7.413127413127414e-06,
+      "online_training_ce": 0.478539581100146
+    },
+    {
+      "epoch": 2,
+      "updates": 384,
+      "train_ce": 0.23142777383327484,
+      "train_accuracy": 0.90771484375,
+      "validation_ce": 0.293328195810318,
+      "validation_accuracy": 0.873046875,
+      "training_seconds": 52.25434037018567,
+      "learning_rate": 3.706563706563707e-06,
+      "online_training_ce": 0.29568799705399823
+    },
+    {
+      "epoch": 3,
+      "updates": 576,
+      "train_ce": 0.2096042037010193,
+      "train_accuracy": 0.9197590947151184,
+      "validation_ce": 0.28698116540908813,
+      "validation_accuracy": 0.884765625,
+      "training_seconds": 78.38439701031893,
+      "learning_rate": 0.0,
+      "online_training_ce": 0.23970831589152417
+    }
+  ],
+  "seed": 17,
+  "spec": {
+    "family": "distilbert",
+    "group": "full",
+    "variant": "full",
+    "optimizer": "adamw",
+    "lr": 1e-05,
+    "run_id": "distilbert_full__lr1e-05",
+    "epochs": 3,
+    "batch_size": 32,
+    "mixed": true,
+    "eval_batch_size": 64,
+    "gradient_clip_norm": 1.0,
+    "warmup_fraction": 0.1
+  },
+  "initial_state_sha256": "51e66f46cf021fadd02f978b49ec4b2230a0cce1a495fe47407ce151f5f1eaa6",
+  "initial_head_sha256": "33d71de97b8a2f518bd8084a3196586f97ccf88d9f8eae583bf86f477056a21a",
+  "batch_order_sha256": "3c5745b98c824c8f83dae22630935cd95dba64c56325a23c5254ec7edf138bf0",
+  "best_epoch": 3,
+  "best_validation_ce": 0.28698116540908813,
+  "training_seconds": 78.38439701031893,
+  "total_seconds": 108.97967590857297,
+  "parameters": 66364418,
+  "trainable_parameters": 66364418,
+  "peak_cuda_allocated_bytes": 2761713664,
+  "run_id": "distilbert_full__lr1e-05__s17",
+  "checkpoint": {
+    "path": "artifacts/sequences/distilbert_full__lr1e-05__s17.pt",
+    "sha256": "f0ae66c1536cde5f0a98736e198fd4ce154b8ca18fdc33b044844fed07b53dca",
+    "bytes": 265493627
+  },
+  "predictions": {
+    "path": "results/sequences/runs/distilbert_full__lr1e-05__s17__validation.npz",
+    "sha256": "052c07a51a20f2f9f39872361e8adf74c1cdcb301cb64371710bb08053c250bb"
+  }
+}

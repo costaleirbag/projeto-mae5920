@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "fresh_process": true,
+  "device": "cuda",
+  "selection_frozen_sha256": "53c015b989b4ffc2c9789ef7cb254aaab975472a3d78c02985b0e7f0740d9c95",
+  "predictions_sha256": "d9ef2db2d1bfae877bc249088d50c907e2d4fc61c740f914a8d0e63d2a9ceeed",
+  "checks": [
+    {
+      "run_id": "word__s17",
+      "checkpoint_sha256": "cf541d7008e475e7942d84aa446c84ac40799e4e9c114eced66562d8469b87f1",
+      "max_absolute_logit_difference": 0.0
+    },
+    {
+      "run_id": "bpe__s17",
+      "checkpoint_sha256": "0b4d2fa9e5377e2446002cd506717a305c567e59e945157b2873af5b0add36bd",
+      "max_absolute_logit_difference": 0.0
+    },
+    {
+      "run_id": "word__s29",
+      "checkpoint_sha256": "547f192fd14254c0cb5caf54477256d8d977491e723b575d82d81ed73419a57e",
+      "max_absolute_logit_difference": 0.0
+    },
+    {
+      "run_id": "bpe__s29",
+      "checkpoint_sha256": "3b132f8478c99e0282f312c244a1a0ace805143d8f8b40729c27bebd0e44b5f1",
+      "max_absolute_logit_difference": 0.0
+    },
+    {
+      "run_id": "word__s43",
+      "checkpoint_sha256": "e6aee6571b4ba452d9c54836323b67e8e3e5397ab4b07f85c190ff4a414289bf",
+      "max_absolute_logit_difference": 0.0
+    },
+    {
+      "run_id": "bpe__s43",
+      "checkpoint_sha256": "53f13898eac636bfc7d99ededdf6e99c53354c19234ba8cd181a7e889ec911fc",
+      "max_absolute_logit_difference": 0.0
+    }
+  ]
+}

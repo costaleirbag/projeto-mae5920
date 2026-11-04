@@ -1,0 +1,8 @@
+{
+  "selection_existed_before_transfer": true,
+  "audit_input_present_before_transfer": false,
+  "selection_frozen_sha256": "681d887b016b6d7b4db3875230a6b48306f7cc18e784e94d1048200e0d271226",
+  "audit_input_sha256": "02d2ae67c44ec2fee55f7dab0149358300d603ce15e11db95f1cd69f003e2be8",
+  "rows": 2048,
+  "official_test_opened": false
+}

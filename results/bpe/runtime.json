@@ -1,0 +1,11 @@
+{
+  "torch": "2.10.0a0+b4e4ee81d3.nv25.12",
+  "numpy": "2.1.0",
+  "python": "3.12.3",
+  "tokenizers": "0.22.1",
+  "accelerator": "NVIDIA GB10",
+  "precision": "FP32, deterministic algorithms, TF32 disabled",
+  "threads": 4,
+  "audit_input_absent_at_start": true,
+  "prepared_sha256": "657e43e9d8951b7f1ac38fee2f0ce652ea3b692df86c9e46eb0986ca6f7b24d2"
+}

@@ -1,0 +1,56 @@
+{
+  "purpose": "Compatibility and timing on 32 training examples only, no validation or audit selection",
+  "results": [
+    {
+      "name": "bert",
+      "seconds_per_update": 0.49443998374044895,
+      "loss_finite": true,
+      "parameters": 108893186,
+      "architecture": {
+        "model_type": "bert",
+        "hidden_size": 768,
+        "num_hidden_layers": 12,
+        "num_attention_heads": 12,
+        "intermediate_size": 3072,
+        "vocab_size": 30522,
+        "max_position_embeddings": 512,
+        "position_embedding_type": "absolute",
+        "hidden_act": "gelu"
+      }
+    },
+    {
+      "name": "distilbert",
+      "seconds_per_update": 0.15291738541175923,
+      "loss_finite": true,
+      "parameters": 66364418,
+      "architecture": {
+        "model_type": "distilbert",
+        "hidden_size": 768,
+        "num_hidden_layers": 6,
+        "num_attention_heads": 12,
+        "vocab_size": 30522,
+        "max_position_embeddings": 512
+      }
+    },
+    {
+      "name": "modernbert",
+      "seconds_per_update": 0.5529308843736848,
+      "loss_finite": true,
+      "parameters": 149015810,
+      "architecture": {
+        "model_type": "modernbert",
+        "hidden_size": 768,
+        "num_hidden_layers": 22,
+        "num_attention_heads": 12,
+        "intermediate_size": 1152,
+        "vocab_size": 50368,
+        "max_position_embeddings": 8192,
+        "local_attention": 128,
+        "global_attn_every_n_layers": 3,
+        "position_embedding_type": "absolute",
+        "hidden_activation": "gelu",
+        "reference_compile": false
+      }
+    }
+  ]
+}

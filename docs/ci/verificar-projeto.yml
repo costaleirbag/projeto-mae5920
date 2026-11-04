@@ -27,6 +27,8 @@ jobs:
           cache-dependency-path: pyproject.toml
       - name: Conferir arquivos e links
         run: python tools/verify_publication.py
+      - name: Conferir tabelas de métricas e suas fontes
+        run: python tools/build_results_overview.py --check
       - name: Instalar dependências para CPU
         run: |
           python -m pip install --upgrade pip
@@ -36,3 +38,11 @@ jobs:
         run: python -m pytest -q
       - name: Conferir direção e saídas do Qwen, sem GPU
         run: python verify_qwen_improved.py
+      - name: Conferir experimentos ligados à disciplina
+        run: python verify_didactic.py
+      - name: Conferir CNN e encoders, sem GPU
+        run: python verify_sequences.py
+      - name: Conferir comparação de tokenização
+        run: python run_bpe.py verify --device cpu
+      - name: Conferir notebook único
+        run: python verify_seminar_notebook.py

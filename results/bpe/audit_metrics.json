@@ -1,0 +1,109 @@
+{
+  "selection_frozen_sha256": "53c015b989b4ffc2c9789ef7cb254aaab975472a3d78c02985b0e7f0740d9c95",
+  "predictions_sha256": "d9ef2db2d1bfae877bc249088d50c907e2d4fc61c740f914a8d0e63d2a9ceeed",
+  "metrics": [
+    {
+      "run_id": "word__s17",
+      "kind": "word",
+      "seed": 17,
+      "accuracy": 0.81640625,
+      "ce": 0.40155711956492446,
+      "f1_macro": 0.8163556354318998,
+      "roc_auc": 0.9023017883300781,
+      "brier": 0.12813631778565565,
+      "correct": 1672,
+      "inference_seconds": 0.39253064803779125
+    },
+    {
+      "run_id": "bpe__s17",
+      "kind": "bpe",
+      "seed": 17,
+      "accuracy": 0.81201171875,
+      "ce": 0.40128321445202875,
+      "f1_macro": 0.8119503402747718,
+      "roc_auc": 0.9034337997436523,
+      "brier": 0.12769798557332498,
+      "correct": 1663,
+      "inference_seconds": 0.04462842736393213
+    },
+    {
+      "run_id": "word__s29",
+      "kind": "word",
+      "seed": 29,
+      "accuracy": 0.8232421875,
+      "ce": 0.39039366417763666,
+      "f1_macro": 0.8232421875,
+      "roc_auc": 0.9066143035888672,
+      "brier": 0.12346156332125705,
+      "correct": 1686,
+      "inference_seconds": 0.03651147894561291
+    },
+    {
+      "run_id": "bpe__s29",
+      "kind": "bpe",
+      "seed": 29,
+      "accuracy": 0.81494140625,
+      "ce": 0.4114229306740863,
+      "f1_macro": 0.8145423518957756,
+      "roc_auc": 0.8953685760498047,
+      "brier": 0.1315129198433439,
+      "correct": 1669,
+      "inference_seconds": 0.04434786643832922
+    },
+    {
+      "run_id": "word__s43",
+      "kind": "word",
+      "seed": 43,
+      "accuracy": 0.8203125,
+      "ce": 0.3973009672937854,
+      "f1_macro": 0.8203109577165789,
+      "roc_auc": 0.9031753540039062,
+      "brier": 0.12585313527552944,
+      "correct": 1680,
+      "inference_seconds": 0.036609734408557415
+    },
+    {
+      "run_id": "bpe__s43",
+      "kind": "bpe",
+      "seed": 43,
+      "accuracy": 0.8154296875,
+      "ce": 0.40293405204508215,
+      "f1_macro": 0.8153592526445941,
+      "roc_auc": 0.9012746810913086,
+      "brier": 0.12716553368627798,
+      "correct": 1670,
+      "inference_seconds": 0.043621848337352276
+    }
+  ],
+  "tokenization": {
+    "word": {
+      "documents": 2048,
+      "tokens_before_cap": 248422,
+      "unknown_tokens": 8123,
+      "unknown_rate": 0.03269839225189396,
+      "documents_with_unknown": 1840,
+      "mean_tokens": 121.2998046875,
+      "max_tokens": 152,
+      "p95_tokens": 133.0,
+      "truncated_documents": 0,
+      "empty_documents": 0,
+      "cap": 256,
+      "empty_policy": "A single <unk> when the canonicalized text is empty"
+    },
+    "bpe": {
+      "documents": 2048,
+      "tokens_before_cap": 264384,
+      "unknown_tokens": 0,
+      "unknown_rate": 0.0,
+      "documents_with_unknown": 0,
+      "mean_tokens": 129.09375,
+      "max_tokens": 187,
+      "p95_tokens": 150.0,
+      "truncated_documents": 0,
+      "empty_documents": 0,
+      "cap": 256,
+      "empty_policy": "A single <unk> when the canonicalized text is empty"
+    }
+  },
+  "official_test_opened": false
+}

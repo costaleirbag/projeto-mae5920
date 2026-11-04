@@ -1,0 +1,890 @@
+{
+  "groups": [
+    {
+      "kind": "word",
+      "label": "Palavras",
+      "parameters": 2714502,
+      "best_epochs": [
+        5,
+        6,
+        6
+      ],
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "validation_ce_mean": 0.3763619661331177,
+      "accuracy_mean": 0.8199869791666666,
+      "accuracy_min": 0.81640625,
+      "accuracy_max": 0.8232421875,
+      "ce_mean": 0.39641725034544883,
+      "ce_min": 0.39039366417763666,
+      "ce_max": 0.40155711956492446,
+      "f1_macro_mean": 0.819969593549493,
+      "f1_macro_min": 0.8163556354318998,
+      "f1_macro_max": 0.8232421875,
+      "roc_auc_mean": 0.9040304819742838,
+      "roc_auc_min": 0.9023017883300781,
+      "roc_auc_max": 0.9066143035888672,
+      "brier_mean": 0.12581700546081406,
+      "brier_min": 0.12346156332125705,
+      "brier_max": 0.12813631778565565
+    },
+    {
+      "kind": "bpe",
+      "label": "BPE 20 mil",
+      "parameters": 2714502,
+      "best_epochs": [
+        5,
+        5,
+        6
+      ],
+      "seeds": [
+        17,
+        29,
+        43
+      ],
+      "validation_ce_mean": 0.3831885755062103,
+      "accuracy_mean": 0.8141276041666666,
+      "accuracy_min": 0.81201171875,
+      "accuracy_max": 0.8154296875,
+      "ce_mean": 0.4052133990570657,
+      "ce_min": 0.40128321445202875,
+      "ce_max": 0.4114229306740863,
+      "f1_macro_mean": 0.8139506482717138,
+      "f1_macro_min": 0.8119503402747718,
+      "f1_macro_max": 0.8153592526445941,
+      "roc_auc_mean": 0.9000256856282552,
+      "roc_auc_min": 0.8953685760498047,
+      "roc_auc_max": 0.9034337997436523,
+      "brier_mean": 0.12879214636764896,
+      "brier_min": 0.12716553368627798,
+      "brier_max": 0.1315129198433439
+    }
+  ],
+  "paired_counts": [
+    {
+      "seed": 17,
+      "both_correct": 1556,
+      "word_only_correct": 116,
+      "bpe_only_correct": 107,
+      "both_wrong": 269,
+      "accuracy_difference_bpe_minus_word_pp": -0.439453125
+    },
+    {
+      "seed": 29,
+      "both_correct": 1573,
+      "word_only_correct": 113,
+      "bpe_only_correct": 96,
+      "both_wrong": 266,
+      "accuracy_difference_bpe_minus_word_pp": -0.830078125
+    },
+    {
+      "seed": 43,
+      "both_correct": 1581,
+      "word_only_correct": 99,
+      "bpe_only_correct": 89,
+      "both_wrong": 279,
+      "accuracy_difference_bpe_minus_word_pp": -0.48828125
+    }
+  ],
+  "audit_n": 2048,
+  "new_training_runs": 3,
+  "reused_word_checkpoints": 3,
+  "config": {
+    "protocol_version": 1,
+    "split_seed": 20261104,
+    "seeds": [
+      17,
+      29,
+      43
+    ],
+    "threads": 4,
+    "data": {
+      "train_n": 6144,
+      "validation_n": 1536,
+      "audit_n": 2048
+    },
+    "whitespace_words": 128,
+    "token_cap": 256,
+    "tokenizer": {
+      "vocab_size": 20000,
+      "min_frequency": 2,
+      "special_tokens": [
+        "<pad>",
+        "<unk>"
+      ],
+      "end_of_word_suffix": "</w>",
+      "canonicalization": "Join the existing lowercase regex word tokens with spaces for BOTH representations",
+      "algorithm": "Character BPE with word-end markers, WhitespaceSplit; not byte-level BPE",
+      "fit_role": "train only, no labels"
+    },
+    "cnn": {
+      "embedding_dim": 128,
+      "filters": 100,
+      "kernels": [
+        3,
+        4,
+        5
+      ],
+      "dropout": 0.5,
+      "optimizer": "adam",
+      "lr": 0.001,
+      "epochs": 12,
+      "batch_size": 64,
+      "gradient_clip_norm": 1.0
+    },
+    "word_reference": "cnn_optimizer__adam__lr0.001",
+    "selection": "Reuse the previously selected word-CNN Adam rate without retuning. Select the lowest validation-CE epoch independently for each BPE seed among epochs 1..12.",
+    "audit_policy": "New balanced internal holdout from unused original clean training, excluding every role of both the MLP and sequence teaching studies. Audit input absent during training and released only after all six checkpoints are frozen. Official test unused.",
+    "scope": "Three new BPE CNN fits plus three reused word-CNN checkpoints. Same parameter count, initial numeric arrays, batch order and training budget. Kernel widths count tokens, so their span in original words can change. Reused validation and inherited learning rate make this a bounded teaching ablation, not a tokenizer leaderboard."
+  },
+  "tokenization": {
+    "bpe": {
+      "train": {
+        "documents": 6144,
+        "tokens_before_cap": 776521,
+        "unknown_tokens": 0,
+        "unknown_rate": 0.0,
+        "documents_with_unknown": 0,
+        "mean_tokens": 126.38688151041667,
+        "max_tokens": 181,
+        "p95_tokens": 146.0,
+        "truncated_documents": 0,
+        "empty_documents": 0,
+        "cap": 256,
+        "empty_policy": "A single <unk> when the canonicalized text is empty"
+      },
+      "validation": {
+        "documents": 1536,
+        "tokens_before_cap": 196018,
+        "unknown_tokens": 0,
+        "unknown_rate": 0.0,
+        "documents_with_unknown": 0,
+        "mean_tokens": 127.61588541666667,
+        "max_tokens": 188,
+        "p95_tokens": 149.0,
+        "truncated_documents": 0,
+        "empty_documents": 0,
+        "cap": 256,
+        "empty_policy": "A single <unk> when the canonicalized text is empty"
+      },
+      "audit": {
+        "documents": 2048,
+        "tokens_before_cap": 264384,
+        "unknown_tokens": 0,
+        "unknown_rate": 0.0,
+        "documents_with_unknown": 0,
+        "mean_tokens": 129.09375,
+        "max_tokens": 187,
+        "p95_tokens": 150.0,
+        "truncated_documents": 0,
+        "empty_documents": 0,
+        "cap": 256,
+        "empty_policy": "A single <unk> when the canonicalized text is empty"
+      }
+    },
+    "word": {
+      "train": {
+        "documents": 6144,
+        "tokens_before_cap": 741300,
+        "unknown_tokens": 12501,
+        "unknown_rate": 0.016863617968433834,
+        "documents_with_unknown": 4729,
+        "mean_tokens": 120.654296875,
+        "max_tokens": 155,
+        "p95_tokens": 133.0,
+        "truncated_documents": 0,
+        "empty_documents": 0,
+        "cap": 256,
+        "empty_policy": "A single <unk> when the canonicalized text is empty"
+      },
+      "validation": {
+        "documents": 1536,
+        "tokens_before_cap": 184267,
+        "unknown_tokens": 5907,
+        "unknown_rate": 0.03205674374684561,
+        "documents_with_unknown": 1382,
+        "mean_tokens": 119.96549479166667,
+        "max_tokens": 156,
+        "p95_tokens": 133.0,
+        "truncated_documents": 0,
+        "empty_documents": 0,
+        "cap": 256,
+        "empty_policy": "A single <unk> when the canonicalized text is empty"
+      },
+      "audit": {
+        "documents": 2048,
+        "tokens_before_cap": 248422,
+        "unknown_tokens": 8123,
+        "unknown_rate": 0.03269839225189396,
+        "documents_with_unknown": 1840,
+        "mean_tokens": 121.2998046875,
+        "max_tokens": 152,
+        "p95_tokens": 133.0,
+        "truncated_documents": 0,
+        "empty_documents": 0,
+        "cap": 256,
+        "empty_policy": "A single <unk> when the canonicalized text is empty"
+      }
+    }
+  },
+  "examples": [
+    {
+      "word": "pallbearer",
+      "word_tokens": [
+        "<unk>"
+      ],
+      "word_ids": [
+        1
+      ],
+      "bpe_tokens": [
+        "p",
+        "all",
+        "bearer</w>"
+      ],
+      "bpe_ids": [
+        28,
+        503,
+        13958
+      ]
+    },
+    {
+      "word": "unwatchable",
+      "word_tokens": [
+        "unwatchable"
+      ],
+      "word_ids": [
+        3880
+      ],
+      "bpe_tokens": [
+        "unwatchable</w>"
+      ],
+      "bpe_ids": [
+        7372
+      ]
+    },
+    {
+      "word": "wasn't",
+      "word_tokens": [
+        "wasn't"
+      ],
+      "word_ids": [
+        253
+      ],
+      "bpe_tokens": [
+        "wasn't</w>"
+      ],
+      "bpe_ids": [
+        937
+      ]
+    },
+    {
+      "word": "cinematography",
+      "word_tokens": [
+        "cinematography"
+      ],
+      "word_ids": [
+        651
+      ],
+      "bpe_tokens": [
+        "cinematography</w>"
+      ],
+      "bpe_ids": [
+        1949
+      ]
+    }
+  ],
+  "merge_trace": [
+    {
+      "step": 0,
+      "rank": null,
+      "pair": null,
+      "tokens": [
+        "p",
+        "a",
+        "l",
+        "l",
+        "b",
+        "e",
+        "a",
+        "r",
+        "e",
+        "r</w>"
+      ]
+    },
+    {
+      "step": 1,
+      "rank": 6,
+      "pair": [
+        "r",
+        "e"
+      ],
+      "tokens": [
+        "p",
+        "a",
+        "l",
+        "l",
+        "b",
+        "e",
+        "a",
+        "re",
+        "r</w>"
+      ]
+    },
+    {
+      "step": 2,
+      "rank": 17,
+      "pair": [
+        "a",
+        "l"
+      ],
+      "tokens": [
+        "p",
+        "al",
+        "l",
+        "b",
+        "e",
+        "a",
+        "re",
+        "r</w>"
+      ]
+    },
+    {
+      "step": 3,
+      "rank": 40,
+      "pair": [
+        "b",
+        "e"
+      ],
+      "tokens": [
+        "p",
+        "al",
+        "l",
+        "be",
+        "a",
+        "re",
+        "r</w>"
+      ]
+    },
+    {
+      "step": 4,
+      "rank": 427,
+      "pair": [
+        "al",
+        "l"
+      ],
+      "tokens": [
+        "p",
+        "all",
+        "be",
+        "a",
+        "re",
+        "r</w>"
+      ]
+    },
+    {
+      "step": 5,
+      "rank": 1383,
+      "pair": [
+        "a",
+        "re"
+      ],
+      "tokens": [
+        "p",
+        "all",
+        "be",
+        "are",
+        "r</w>"
+      ]
+    },
+    {
+      "step": 6,
+      "rank": 8537,
+      "pair": [
+        "are",
+        "r</w>"
+      ],
+      "tokens": [
+        "p",
+        "all",
+        "be",
+        "arer</w>"
+      ]
+    },
+    {
+      "step": 7,
+      "rank": 13882,
+      "pair": [
+        "be",
+        "arer</w>"
+      ],
+      "tokens": [
+        "p",
+        "all",
+        "bearer</w>"
+      ]
+    }
+  ],
+  "curves": {
+    "word": {
+      "train_ce": {
+        "epochs": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "mean": [
+          0.7372476855913798,
+          0.5519376198450724,
+          0.4170220096906026,
+          0.29006581505139667,
+          0.1786614110072454,
+          0.10241805762052536,
+          0.05413444464405378,
+          0.02831733599305153,
+          0.015561234826842943,
+          0.008932634567221006,
+          0.005637789455552896,
+          0.0038365869161983332,
+          0.0026506620148817697
+        ],
+        "min": [
+          0.698368489742279,
+          0.5494778752326965,
+          0.41148340702056885,
+          0.28678151965141296,
+          0.17665325105190277,
+          0.09967789798974991,
+          0.052492499351501465,
+          0.027725080028176308,
+          0.014875900000333786,
+          0.00840574037283659,
+          0.005543994251638651,
+          0.0036272716242820024,
+          0.0025211507454514503
+        ],
+        "max": [
+          0.8079133033752441,
+          0.5552499294281006,
+          0.4210417568683624,
+          0.29244616627693176,
+          0.18232254683971405,
+          0.10590136051177979,
+          0.05560142174363136,
+          0.028976790606975555,
+          0.01658782549202442,
+          0.009246781468391418,
+          0.005766941700130701,
+          0.004104676656424999,
+          0.0027252023573964834
+        ]
+      },
+      "validation_ce": {
+        "epochs": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "mean": [
+          0.7376120885213217,
+          0.6217284003893534,
+          0.5283321738243103,
+          0.45798670252164203,
+          0.4024098515510559,
+          0.3796372612317403,
+          0.3773035208384196,
+          0.38754793008168537,
+          0.4136535127957662,
+          0.4377648135026296,
+          0.4636175533135732,
+          0.48417650659879047,
+          0.5103322267532349
+        ],
+        "min": [
+          0.6971282362937927,
+          0.616172730922699,
+          0.5254778265953064,
+          0.4473404884338379,
+          0.3903109133243561,
+          0.3696913719177246,
+          0.3651242256164551,
+          0.3770427703857422,
+          0.3920916020870209,
+          0.42226162552833557,
+          0.45308229327201843,
+          0.47161003947257996,
+          0.4942218065261841
+        ],
+        "max": [
+          0.8100250363349915,
+          0.6286770701408386,
+          0.5325931906700134,
+          0.46770012378692627,
+          0.41197529435157776,
+          0.39200326800346375,
+          0.38674452900886536,
+          0.4014724791049957,
+          0.4262009859085083,
+          0.44868865609169006,
+          0.47645244002342224,
+          0.49090632796287537,
+          0.5205172300338745
+        ]
+      },
+      "validation_accuracy": {
+        "epochs": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "mean": [
+          0.4986979067325592,
+          0.7319878339767456,
+          0.7690972089767456,
+          0.802734375,
+          0.8268228967984518,
+          0.835937519868215,
+          0.8396267294883728,
+          0.8352864583333334,
+          0.8335503538449606,
+          0.8324652711550394,
+          0.8274739583333334,
+          0.8259548743565878,
+          0.825086792310079
+        ],
+        "min": [
+          0.4947916567325592,
+          0.7161458134651184,
+          0.751953125,
+          0.796875,
+          0.8216145634651184,
+          0.8268229365348816,
+          0.83203125,
+          0.8274739384651184,
+          0.8268229365348816,
+          0.8255208134651184,
+          0.8216145634651184,
+          0.822265625,
+          0.822265625
+        ],
+        "max": [
+          0.5013020634651184,
+          0.751953125,
+          0.7805989384651184,
+          0.806640625,
+          0.8333333134651184,
+          0.8404948115348816,
+          0.845703125,
+          0.83984375,
+          0.8444010615348816,
+          0.84375,
+          0.8359375,
+          0.8307291865348816,
+          0.8294270634651184
+        ]
+      }
+    },
+    "bpe": {
+      "train_ce": {
+        "epochs": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "mean": [
+          0.7327882250150045,
+          0.5539130568504333,
+          0.4178125858306885,
+          0.28252558906873065,
+          0.17105707029501596,
+          0.09508269280195236,
+          0.05013159786661466,
+          0.027075670659542084,
+          0.014276251817742983,
+          0.008808972624440988,
+          0.005149157407383124,
+          0.003512389880294601,
+          0.0024096951043854156
+        ],
+        "min": [
+          0.6993058323860168,
+          0.5475274920463562,
+          0.41565752029418945,
+          0.2795947790145874,
+          0.16737931966781616,
+          0.08998116850852966,
+          0.045650407671928406,
+          0.024814939126372337,
+          0.013493265025317669,
+          0.008000715635716915,
+          0.004930179566144943,
+          0.0032269929070025682,
+          0.0022716070525348186
+        ],
+        "max": [
+          0.7993244528770447,
+          0.5574329495429993,
+          0.41975200176239014,
+          0.28414833545684814,
+          0.1733759641647339,
+          0.0986013412475586,
+          0.05364490672945976,
+          0.02965530939400196,
+          0.015002171508967876,
+          0.009570744819939137,
+          0.005494182463735342,
+          0.003965447191148996,
+          0.0025639550294727087
+        ]
+      },
+      "validation_ce": {
+        "epochs": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "mean": [
+          0.733332614103953,
+          0.6302294532457987,
+          0.541735033194224,
+          0.46396060784657794,
+          0.4100213646888733,
+          0.3835967381795247,
+          0.3838636577129364,
+          0.3958236674467723,
+          0.4104017714659373,
+          0.44159749150276184,
+          0.4614436129728953,
+          0.4871801435947418,
+          0.5105883181095123
+        ],
+        "min": [
+          0.6978864669799805,
+          0.6204163432121277,
+          0.5383314490318298,
+          0.4570324420928955,
+          0.40489041805267334,
+          0.3776538670063019,
+          0.37943410873413086,
+          0.3839002549648285,
+          0.4028594493865967,
+          0.4283401072025299,
+          0.4507260024547577,
+          0.4760802686214447,
+          0.49676287174224854
+        ],
+        "max": [
+          0.801740825176239,
+          0.6359637379646301,
+          0.5484828948974609,
+          0.4692789316177368,
+          0.4158764183521271,
+          0.39009687304496765,
+          0.3903418779373169,
+          0.4083133637905121,
+          0.4240682125091553,
+          0.4542584717273712,
+          0.48220095038414,
+          0.506619930267334,
+          0.5370122790336609
+        ]
+      },
+      "validation_accuracy": {
+        "epochs": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "mean": [
+          0.4980468650658925,
+          0.711805542310079,
+          0.7608506878217062,
+          0.8064236044883728,
+          0.8207465211550394,
+          0.8348524371782938,
+          0.8313802083333334,
+          0.8294270833333334,
+          0.8248697916666666,
+          0.8192274371782938,
+          0.8177083333333334,
+          0.8138020833333334,
+          0.8107638955116272
+        ],
+        "min": [
+          0.4889322817325592,
+          0.6868489384651184,
+          0.728515625,
+          0.8033854365348816,
+          0.8190104365348816,
+          0.83203125,
+          0.828125,
+          0.8274739384651184,
+          0.8229166865348816,
+          0.818359375,
+          0.81640625,
+          0.8118489384651184,
+          0.8079426884651184
+        ],
+        "max": [
+          0.5052083134651184,
+          0.724609375,
+          0.7805989384651184,
+          0.8079426884651184,
+          0.8216145634651184,
+          0.83984375,
+          0.833984375,
+          0.83203125,
+          0.826171875,
+          0.8203125,
+          0.8196614384651184,
+          0.8151041865348816,
+          0.8131510615348816
+        ]
+      }
+    }
+  },
+  "tokenizer_training": {
+    "fit_role": "train",
+    "labels_used": false,
+    "documents": 6144,
+    "canonical_train_sha256": "53fb9e6c1fb63bb4e13377d10c3924ce11199d7ca066bcaeae8d16b612bc0298",
+    "tokenizers_version": "0.22.2",
+    "fit_seconds": 0.6605192499991972,
+    "vocabulary_size": 20000,
+    "merge_count": 19924,
+    "first_merges": [
+      [
+        "t",
+        "h"
+      ],
+      [
+        "i",
+        "n"
+      ],
+      [
+        "th",
+        "e</w>"
+      ],
+      [
+        "a",
+        "n"
+      ],
+      [
+        "e",
+        "r"
+      ],
+      [
+        "i",
+        "s</w>"
+      ],
+      [
+        "r",
+        "e"
+      ],
+      [
+        "in",
+        "g</w>"
+      ],
+      [
+        "o",
+        "u"
+      ],
+      [
+        "a",
+        "r"
+      ],
+      [
+        "an",
+        "d</w>"
+      ],
+      [
+        "e",
+        "r</w>"
+      ],
+      [
+        "e",
+        "n"
+      ],
+      [
+        "o",
+        "n"
+      ],
+      [
+        "o",
+        "r"
+      ],
+      [
+        "i",
+        "t"
+      ]
+    ],
+    "tokenizer_sha256": "da29d8be8d7a45befcc3a0eda9b9236182325bc9f56c58d48fb3042305896611",
+    "algorithm": "Character BPE with word-end markers, WhitespaceSplit; not byte-level BPE",
+    "normalization": "Join the existing lowercase regex word tokens with spaces for BOTH representations"
+  },
+  "difference_bpe_minus_word_pp": -0.5859375,
+  "verification_sha256": "7e53dc0574c81ef0c732939c55cec6bff575f1ba289117003310cb3328cc7ef2",
+  "interpretation": "BPE removes observed unknown tokens but does not improve mean accuracy in this fixed CNN recipe. This is a three-seed, one-holdout teaching comparison with a learning rate inherited from the word model."
+}

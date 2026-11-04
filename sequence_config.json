@@ -1,0 +1,74 @@
+{
+  "protocol_version": 1,
+  "split_seed": 20261103,
+  "seeds": [17, 29, 43],
+  "threads": 4,
+  "common_input": {
+    "whitespace_words": 128,
+    "token_cap": 256,
+    "description": "Same cleaned prefix of at most 128 whitespace-separated words for every model. Architecture-specific tokenizers may additionally truncate at 256 tokens; rates are measured."
+  },
+  "data": {
+    "train_n": 6144,
+    "validation_n": 1536,
+    "audit_n": 2048,
+    "reuse_didactic_train_validation": true,
+    "audit_excludes_all_previous_didactic_roles": true
+  },
+  "cnn": {
+    "max_vocabulary": 20000,
+    "embedding_dim": 128,
+    "filters": 100,
+    "kernels": [3, 4, 5],
+    "dropout": 0.5,
+    "epochs": 12,
+    "batch_size": 64,
+    "gradient_clip_norm": 1.0,
+    "common_lr": 0.001,
+    "learning_rates": {
+      "sgd": [0.001, 0.03, 0.3],
+      "momentum": [0.001, 0.01, 0.1],
+      "adam": [0.0003, 0.001, 0.003]
+    },
+    "momentum": 0.9,
+    "variants": [
+      {"name": "kernel_3", "filters": 100, "kernels": [3]},
+      {"name": "kernel_5", "filters": 100, "kernels": [5]},
+      {"name": "multiscale_32", "filters": 32, "kernels": [3, 4, 5]}
+    ],
+    "dropout_alternatives": [0.0, 0.8],
+    "initialization": "Embedding N(0,0.1), padding row zero; Conv1D He-normal with zero biases; output Xavier-uniform and zero bias",
+    "selection": "Lowest mean best-epoch validation CE over three seeds; each run selects its epoch by validation CE; architecture/dropout runs reuse Adam's chosen rate without retuning."
+  },
+  "encoders": {
+    "models": [
+      {"name": "bert", "model_id": "google-bert/bert-base-uncased"},
+      {"name": "distilbert", "model_id": "distilbert/distilbert-base-uncased"},
+      {"name": "modernbert", "model_id": "answerdotai/ModernBERT-base"}
+    ],
+    "pooling": "Masked mean of last hidden states, excluding padding and special tokens; common Linear(hidden_size,2) head",
+    "full": {
+      "epochs": 3,
+      "batch_size": 32,
+      "learning_rates": [0.00001, 0.00003],
+      "optimizer": "AdamW",
+      "weight_decay": 0.01,
+      "warmup_fraction": 0.1,
+      "gradient_clip_norm": 1.0,
+      "head_dropout": 0.1,
+      "precision": "BF16 autocast with FP32 weights and optimizer state; CUDA SDPA; TF32 disabled"
+    },
+    "probe": {
+      "epochs": 40,
+      "batch_size": 128,
+      "learning_rates": [0.001, 0.01, 0.1],
+      "optimizer": "Adam",
+      "dropout": 0.1,
+      "precision": "Encoder evaluated once in BF16 autocast; cached features cast to FP32; train only Linear head"
+    },
+    "selection": "For each encoder and training policy separately, choose lowest mean best-epoch validation CE over the three fixed seeds; no IMDb-finetuned pretrained checkpoint."
+  },
+  "baseline": {"c_grid": [0.5, 2.0, 8.0], "max_features": 20000, "min_df": 2, "ngram_range": [1, 2]},
+  "audit_policy": "New internal holdout from unused original clean training only, disjoint from all earlier didactic roles. Freeze every choice and checkpoint before transferring audit input to the training job. Never open official IMDb test. Existing original results and the MLP study are separate experiments.",
+  "scope": "Controlled teaching study with three seeds, not a state-of-the-art benchmark. Pretraining data and parameter count differ across model families; timing reflects this runtime and implementation."
+}

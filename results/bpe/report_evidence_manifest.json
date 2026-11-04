@@ -1,0 +1,12 @@
+{
+  "summary_sha256": "b88d4898cdb5dd0d157ebeb3e4c9d2541dbb8b61b2439774291d5baa38e5d25e",
+  "builder_sha256": "920800396e90e2c08df7fe7a1a98153ac5758230ea35ae04742da2a24e3e3115",
+  "figures": {
+    "results/bpe/figures/audit_comparison.png": "06890cc797bcad6d9feddff2e6968722d49c4bdc07e576fb326e91504cbbefa1",
+    "results/bpe/figures/audit_comparison.svg": "b5a9c79221471375f1ab379aa4d17307a7c3c043ec04b865f2903fad6a28afb6",
+    "results/bpe/figures/coverage_lengths.png": "f8e3fb4b7f4f76ec4d31c81d2c95deedadfdb0ee3fb1b353e048afc4fa6bd475",
+    "results/bpe/figures/coverage_lengths.svg": "57d2b0617a413a9f302b00c87ed91b5cb85fef3153ed1a1e2e9963d1f07ed404",
+    "results/bpe/figures/learning_curves.png": "9ef88262ac7da57897e3242c7912a38ba80b05508d7fc4822abd6d839d2d13f1",
+    "results/bpe/figures/learning_curves.svg": "1198c8ede13e058d5c3de0d3afe5a252a9078edf14b8f7e9a844443999586340"
+  }
+}

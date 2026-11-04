@@ -1,0 +1,14 @@
+{
+  "selection_frozen_sha256": "7e9923d7dac1bd65770d96ece4a35cd964a864fea034ffa74c4bb37bd8df5fb4",
+  "audit_features_sha256": "d80051bc2692d44ca25fad97a8b37ab386792e19807065ffdee553369a083b66",
+  "code": {
+    "didactic_config.json": "105874f346aeb450a8f9dddf1fa78324487cba493c788534501c6d3cd8d1061c",
+    "run_didactic.py": "c5c11d2413b1a813dbbd67f4e77a69a830e0a39d04460b720bf1ab6f9e4c14e1",
+    "src/imdb_lab/didactic.py": "b516b5a610082712ff1ab78fd6626b109b1d7cac6a3fce2f48310a2146b2af2d",
+    "src/imdb_lab/didactic_toys.py": "eaefdeb02c72d499728032ecdbecb1941200d40a6ca90288ceab8f18709d1403"
+  },
+  "rows": 42,
+  "predictions_sha256": "3fd61257173cf62ded79c77fdb7e2137d50d24e4304098bd767cc08d4cb8f090",
+  "official_test_opened": false,
+  "role": "single internal audit after freezing; no refit or selection afterwards"
+}

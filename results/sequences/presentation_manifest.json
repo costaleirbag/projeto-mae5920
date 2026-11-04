@@ -1,0 +1,49 @@
+{
+  "pptx": "output/slides/seminario_mae5920.pptx",
+  "sha256": "c5eeff28fa6d0df9b53187f2465ac9c970885cf2660d54be9ff414d6e9e9006f",
+  "slides": 24,
+  "main_slides": "1-14",
+  "appendix_slides": "15-24",
+  "bpe_slides": "22-24",
+  "bpe_data_sha256": "b88d4898cdb5dd0d157ebeb3e4c9d2541dbb8b61b2439774291d5baa38e5d25e",
+  "native_charts": [
+    5,
+    6,
+    11,
+    16,
+    19,
+    24
+  ],
+  "native_tables": [
+    7,
+    9,
+    12,
+    13,
+    14,
+    15,
+    17,
+    18,
+    20,
+    22,
+    23
+  ],
+  "architecture_diagrams": "native editable shapes and attached connectors",
+  "font_family": "Arial",
+  "chart_precision": "12 significant digits for editable workbook compatibility; unrounded scientific source retained in JSON/NPZ",
+  "double_descent_display": "Categorical tested widths p, vertical log10(median MSE); all twenty seeds and widths retained",
+  "package_validation": "passed",
+  "visual_review": {
+    "status": "passed",
+    "rendered_slides": 24,
+    "inspected_new_slides": [
+      22,
+      23,
+      24
+    ],
+    "prior_slides_1_to_21_pixel_identical_to_reviewed_version": true,
+    "reference_commit": "b32083eddeec993a15ec555676675c9b7879b48e",
+    "review": "Readable native tables and charts, correct percentages and no clipping"
+  },
+  "builder_sha256": "feda30adfcc23b0dd22ca1b3051dba04e2dc924026901244b15697d78755afc7",
+  "data_sha256": "69d5c064e94df97717f52015e69ce9e0b4ce8f9db4c91b817bf188f2790aac01"
+}

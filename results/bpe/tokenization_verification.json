@@ -1,0 +1,45 @@
+{
+  "status": "passed",
+  "tokenizer_sha256": "da29d8be8d7a45befcc3a0eda9b9236182325bc9f56c58d48fb3042305896611",
+  "checks": [
+    {
+      "role": "train",
+      "kind": "word",
+      "tokens": 741300,
+      "unknown_tokens": 12501
+    },
+    {
+      "role": "train",
+      "kind": "bpe",
+      "tokens": 776521,
+      "unknown_tokens": 0
+    },
+    {
+      "role": "validation",
+      "kind": "word",
+      "tokens": 184267,
+      "unknown_tokens": 5907
+    },
+    {
+      "role": "validation",
+      "kind": "bpe",
+      "tokens": 196018,
+      "unknown_tokens": 0
+    },
+    {
+      "role": "audit",
+      "kind": "word",
+      "tokens": 248422,
+      "unknown_tokens": 8123
+    },
+    {
+      "role": "audit",
+      "kind": "bpe",
+      "tokens": 264384,
+      "unknown_tokens": 0
+    }
+  ],
+  "canonical_text_roundtrips": 9728,
+  "tokenizers_version": "0.22.2",
+  "training_text_fingerprint_recomputed": true
+}

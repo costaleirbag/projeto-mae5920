@@ -1,0 +1,88 @@
+{
+  "references": [
+    {
+      "id": "prince",
+      "title": "Simon J. D. Prince, Understanding Deep Learning",
+      "local_reference_filename": "Understanding_Deep_Learning_Prince.pdf",
+      "sha256": "f8237d393163900fa8e43210e680a3f987b45ccac7750b372e156fae3df0bf32",
+      "locators": "6.1-6.5; 7.5; 8.4-8.5; 9.1 e 9.3; 11.1-11.3",
+      "url": "https://udlbook.github.io/udlbook/"
+    },
+    {
+      "id": "slides06",
+      "title": "MAE5920: Ajuste de Modelos",
+      "local_reference_filename": "06_Ajuste_de_Modelos.pdf",
+      "sha256": "560366a69a4bf6d2bc3688cd9c56bf6f3edbfed4e229196c42d3d25eb9e3b858",
+      "locators": "páginas do arquivo 26-39 (momentum e Adam)",
+      "url": ""
+    },
+    {
+      "id": "slides07",
+      "title": "MAE5920: Gradientes e Inicialização",
+      "local_reference_filename": "07_Gradientes_e_Inicializacao.pdf",
+      "sha256": "f2d60045e972976e7ad5627d122a2c9a657bdc76a04e35a440b83546dfd02c80",
+      "locators": "páginas do arquivo 31-42",
+      "url": ""
+    },
+    {
+      "id": "slides08",
+      "title": "MAE5920: Desempenho e Generalização",
+      "local_reference_filename": "08_Desempenho_e_Generalizacao.pdf",
+      "sha256": "dac80f184db0cea36cd0468ad85bed78f884529251f7c08f52217baea0c102bf",
+      "locators": "páginas do arquivo 30-37 (duplo descenso)",
+      "url": ""
+    },
+    {
+      "id": "slides09",
+      "title": "MAE5920: Regularização",
+      "local_reference_filename": "09_Regularizacao.pdf",
+      "sha256": "0aeabccba9c355ff6dd82b6f39fa24de762dc5b8fcfbdd8f805f554999bd127e",
+      "locators": "páginas do arquivo 7-17 e 29-36",
+      "url": ""
+    },
+    {
+      "id": "slides11",
+      "title": "MAE5920: Redes Residuais",
+      "local_reference_filename": "11_Redes_Residuais.pdf",
+      "sha256": "e26f3cb30f815b2cabaa69fa92155bcf63328f6578a4d15b71e13795f226525f",
+      "locators": "páginas do arquivo 5-18",
+      "url": ""
+    },
+    {
+      "id": "adam",
+      "title": "Kingma e Ba, Adam: A Method for Stochastic Optimization",
+      "url": "https://arxiv.org/abs/1412.6980"
+    },
+    {
+      "id": "belkin",
+      "title": "Belkin et al., Reconciling modern machine learning practice and the bias-variance trade-off",
+      "url": "https://arxiv.org/abs/1812.11118"
+    }
+  ],
+  "source_hierarchy": "Slides and provided Prince textbook; external primary papers identified separately. Availability of slides is not a claim about exactly what was delivered in class.",
+  "figures": "All new figures are generated from this experiment. No slide/book pages or figures redistributed.",
+  "chapter_map": {
+    "optimizers": [
+      "prince 6.1-6.5",
+      "slides06",
+      "adam"
+    ],
+    "initialization": [
+      "prince 7.5",
+      "slides07"
+    ],
+    "architectures": [
+      "prince 11.1-11.3",
+      "slides11"
+    ],
+    "regularization": [
+      "prince 9.1 e 9.3",
+      "slides09"
+    ],
+    "double_descent": [
+      "prince 8.4-8.5",
+      "slides08",
+      "belkin"
+    ]
+  }
+}
