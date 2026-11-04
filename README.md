@@ -64,7 +64,7 @@ do otimizador. Seguem grades de hiperparâmetros, curvas, BPE, encoders e exempl
 de predição. Os capítulos finais conectam o código ao livro e mostram o steering.
 
 ```mermaid
-flowchart LR
+flowchart TD
     A[Resenha] --> B[Limpeza e tokenização]
     B --> C[IDs e padding]
     C --> D[Embeddings e CNN ou Transformer]
