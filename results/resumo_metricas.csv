@@ -1,0 +1,24 @@
+estudo,condicao,grupo,n_avaliacao,resumo,probabilidades,acuracia,f1_macro,loss_ce,fonte
+original,TF-IDF + regressão logística,classificação,25000,execução original,calibradas,0.90144,0.9014399974768639,0.2396380732709029,results/qwen/evaluation/model_comparison.csv
+original,CNN original,classificação,25000,execução original,calibradas,0.86784,0.8678166883626529,0.3037034063095721,results/qwen/evaluation/model_comparison.csv
+original,BERT-base ajustado,classificação,25000,execução original,calibradas,0.90944,0.9094144331296065,0.22783477078935652,results/qwen/evaluation/model_comparison.csv
+original,Qwen3-8B congelado,classificação,25000,execução original,calibradas,0.9526,0.9525998324688478,0.13668202064542054,results/qwen/evaluation/model_comparison.csv
+sequencias,TF-IDF + regressão logística,baseline,2048,execução determinística,sem calibração de temperatura,0.8330078125,0.8330000085834699,0.3849398925344867,results/sequences/summary.json
+sequencias,CNN — SGD,cnn_optimizer,2048,média de três sementes,sem calibração de temperatura,0.7652994791666666,0.7631115901069728,0.4798335329630721,results/sequences/summary.json
+sequencias,CNN — SGD + momentum,cnn_optimizer,2048,média de três sementes,sem calibração de temperatura,0.79345703125,0.7933674056652861,0.46984758036873414,results/sequences/summary.json
+sequencias,CNN — Adam,cnn_optimizer,2048,média de três sementes,sem calibração de temperatura,0.8194986979166666,0.8193678455826602,0.40936908809397304,results/sequences/summary.json
+sequencias,"CNN — 3/4/5, 100 filtros",cnn_architecture,2048,média de três sementes,sem calibração de temperatura,0.8194986979166666,0.8193678455826602,0.40936908809397304,results/sequences/summary.json
+sequencias,"CNN — Janela 3, 100 filtros",cnn_architecture,2048,média de três sementes,sem calibração de temperatura,0.8126627604166666,0.812576028861545,0.41516120507923954,results/sequences/summary.json
+sequencias,"CNN — Janela 5, 100 filtros",cnn_architecture,2048,média de três sementes,sem calibração de temperatura,0.8094075520833334,0.8093940667319007,0.41529189309964964,results/sequences/summary.json
+sequencias,"CNN — 3/4/5, 32 filtros",cnn_architecture,2048,média de três sementes,sem calibração de temperatura,0.81640625,0.8163809497049854,0.40890029817864093,results/sequences/summary.json
+sequencias,"CNN — Dropout 0,5",cnn_dropout,2048,média de três sementes,sem calibração de temperatura,0.8194986979166666,0.8193678455826602,0.40936908809397304,results/sequences/summary.json
+sequencias,CNN — Dropout 0,cnn_dropout,2048,média de três sementes,sem calibração de temperatura,0.8180338541666666,0.8179945033627402,0.4111778496360315,results/sequences/summary.json
+sequencias,"CNN — Dropout 0,8",cnn_dropout,2048,média de três sementes,sem calibração de temperatura,0.8043619791666666,0.8042847565865232,0.4216584627736621,results/sequences/summary.json
+sequencias,BERT-base congelado,encoder,2048,média de três sementes,sem calibração de temperatura,0.84521484375,0.8450950044653945,0.36551418114839845,results/sequences/summary.json
+sequencias,BERT-base ajuste completo,encoder,2048,média de três sementes,sem calibração de temperatura,0.8831380208333334,0.883090261659485,0.302735907109364,results/sequences/summary.json
+sequencias,DistilBERT congelado,encoder,2048,média de três sementes,sem calibração de temperatura,0.83349609375,0.8334287217657105,0.383869879459975,results/sequences/summary.json
+sequencias,DistilBERT ajuste completo,encoder,2048,média de três sementes,sem calibração de temperatura,0.8680013020833334,0.8678152969890386,0.33819605230609756,results/sequences/summary.json
+sequencias,ModernBERT-base congelado,encoder,2048,média de três sementes,sem calibração de temperatura,0.81298828125,0.8129487479277392,0.4103334702997987,results/sequences/summary.json
+sequencias,ModernBERT-base ajuste completo,encoder,2048,média de três sementes,sem calibração de temperatura,0.9124348958333334,0.9124080120005615,0.24579676500650038,results/sequences/summary.json
+bpe,CNN — Palavras,tokenização,2048,média de três sementes,sem calibração de temperatura,0.8199869791666666,0.819969593549493,0.39641725034544883,results/bpe/summary.json
+bpe,CNN — BPE 20 mil,tokenização,2048,média de três sementes,sem calibração de temperatura,0.8141276041666666,0.8139506482717138,0.4052133990570657,results/bpe/summary.json

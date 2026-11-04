@@ -27,6 +27,8 @@ jobs:
           cache-dependency-path: pyproject.toml
       - name: Conferir arquivos e links
         run: python tools/verify_publication.py
+      - name: Conferir tabelas de métricas e suas fontes
+        run: python tools/build_results_overview.py --check
       - name: Instalar dependências para CPU
         run: |
           python -m pip install --upgrade pip

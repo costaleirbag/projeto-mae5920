@@ -1,153 +1,181 @@
-# Reprodução dos experimentos
+# Ler, conferir e reproduzir
 
-A extensão sobre otimização, profundidade, inicialização, regularização e
-double descent tem um [guia próprio](CONEXOES_DISCIPLINA.md) e pode ser
-lida no [novo notebook](../notebooks/conexoes_disciplina.ipynb).
+[Início](../README.md) · [Guia do projeto](GUIA_COMPLETO.md) ·
+[Notebook único](../notebooks/seminario_completo.ipynb) · [Resultados](RESULTADOS.md)
 
-[Voltar ao início](../README.md) · [Guia completo](GUIA_COMPLETO.md)
+Escolha o percurso que corresponde ao que você quer fazer. Ler resultados,
+executar demonstrações, conferir previsões e repetir os treinos têm requisitos
+diferentes. Os modelos grandes já foram executados; não é preciso carregá-los
+para estudar o trabalho.
 
-O repositório separa leitura dos resultados, verificação dos artefatos salvos
-e novas execuções dos modelos. As previsões, os textos gerados e as direções
-selecionadas são resultados de execuções já concluídas.
+## 1. Apenas ler ou apresentar — sem instalar nada
 
-## 1. Leitura, sem instalar dependências
+Abra o [notebook único](../notebooks/seminario_completo.ipynb) no GitHub. Ele já
+mostra código, saídas e figuras. Use o sumário do Jupyter/VS Code ou a busca do
+navegador por número/título: o roteiro da capa é textual para evitar atalhos
+internos incompatíveis com o visualizador do GitHub.
 
-Abra os [dois relatórios](../README.md#comece-por-aqui), os notebooks já
-executados ou baixe os HTMLs e abra no navegador. A galeria Qwen é
-autocontida e apresenta as 64 fontes com intervenções negativa, zero e positiva.
+Para apresentar, baixe os [slides](../output/slides/seminario_mae5920.pptx) e
+consulte as [notas de fala](NOTAS_APRESENTACAO.md). Relatórios, HTMLs e notebooks
+estão no [pacote atual](https://github.com/costaleirbag/projeto-mae5920/releases/latest).
+Baixe os HTMLs e abra no navegador; o GitHub mostra seu código-fonte.
 
-Os mesmos materiais estão reunidos em `imdb_qwen3_entrega.zip`, nos
-[downloads da release](https://github.com/costaleirbag/projeto-mae5920/releases/latest).
+## 2. Executar somente o notebook único — CPU, sem modelos grandes
 
-## 2. Instalação
-
-Na raiz do repositório, com Python 3.11 ou posterior:
+Baixe `seminario_completo.ipynb`. Crie um ambiente com Python 3.11 ou posterior:
 
 ```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install numpy pandas scipy scikit-learn matplotlib torch 'tokenizers>=0.22,<0.23' jupyterlab
+python -m jupyterlab
+```
+
+Abra o notebook, selecione o kernel desse ambiente e execute as células de cima
+para baixo. O arquivo deve existir na pasta de execução ou na subpasta
+`notebooks/`: o código lê seu próprio anexo. Em um serviço que abre o notebook
+sem copiá-lo para os arquivos do runtime, copie também o `.ipynb` para essa pasta.
+Não é necessário clonar o repositório neste percurso.
+
+O caminho padrão executa 45 células: exercícios pequenos em CPU e conferência dos
+resultados salvos. Não há download de encoders ou do Qwen. O treino completo das
+seis CNNs fica desligado; ativá-lo requer o corpus restaurado e uma saída nova.
+Veja [o conteúdo de cada capítulo e o teste de portabilidade](NOTEBOOK_UNICO.md).
+
+## 3. Instalar o repositório para verificações e desenvolvimento
+
+```bash
+git clone https://github.com/costaleirbag/projeto-mae5920.git
+cd projeto-mae5920
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -e .
 ```
 
-`pyproject.toml` declara os intervalos de compatibilidade.
-`requirements-lock.txt` fixa o ambiente usado no Mac para baseline, CNN e
-relatórios. As versões usadas nas etapas NVIDIA estão registradas nos
-respectivos arquivos de metadados. A disponibilidade de wheels pode exigir
-uma versão equivalente de PyTorch em outra plataforma.
+`pyproject.toml` declara intervalos de compatibilidade. `requirements-lock.txt`
+registra o ambiente histórico usado no Mac para baseline, CNN e relatórios;
+os metadados das etapas NVIDIA registram suas versões. Para repetir o treino
+sequencial, siga o ambiente específico do [guia de encoders](REPRODUCAO_SEQUENCIAS.md).
+A disponibilidade de pacotes de PyTorch varia conforme a plataforma.
 
-## 3. Verificações sem GPU e sem corpus completo
+## 4. Conferir os arquivos e as evidências salvas — sem GPU
 
-Faça as verificações dos arquivos publicados antes de modificar ou
-reexecutar notebooks:
+Execute antes de modificar ou reexecutar notebooks:
 
 ```bash
 python tools/verify_publication.py
+python tools/build_results_overview.py --check
+python verify_seminar_notebook.py
+python verify_sequences.py
+python run_bpe.py verify --device cpu
+python verify_didactic.py
 python verify_qwen_improved.py
 python -m pytest -q
 ```
 
-O primeiro comando usa apenas a biblioteca padrão: confere os arquivos do
-manifesto de publicação, caminhos e links locais da documentação.
-O segundo reconstrói a direção escolhida dos estados de treino, confere
-seleção congelada, fontes, prompts, tokens, controles e os entregáveis.
-Não carrega os pesos do Qwen. Os testes usam modelos minúsculos aleatórios
-para verificar a matemática e o comportamento dos hooks; não repetem os treinos.
+| Verificação | Evidência que confere |
+|---|---|
+| Publicação | Inventário, hashes, caminhos locais da documentação e notebooks executados; usa apenas a biblioteca padrão |
+| Resumo de métricas | As 23 linhas de acurácia/F1 macro/CE e sua ligação às fontes congeladas |
+| Notebook único | Código incorporado, anexos, arquitetura real e execução das células |
+| Sequências | Seleção pela validação, 87 ajustes e reconstrução das métricas salvas |
+| BPE | Tokenizer aprendido só no treino, seis checkpoints pareados e métricas preservadas |
+| MLP e casos sintéticos | Seleções, trajetórias, auditoria interna e condições sintéticas |
+| Qwen atual | Direção dos estados de treino, fontes, prompts, tokens, controles e entregáveis |
+| Testes | Matemática, padding, pooling, gradientes, hooks e invariantes do protocolo, com modelos pequenos |
 
-O notebook didático pode ser reexecutado com os arquivos incluídos:
+Esses comandos não repetem o treino ou a geração grande. Os testes não substituem
+a avaliação dos modelos reais. Os certificados e suas limitações estão em cada
+pasta de resultados.
+
+Para reexecutar o notebook único no ambiente do repositório:
 
 ```bash
-python execute_notebook.py --notebook notebooks/qwen3_8b_steering.ipynb
+python execute_notebook.py --notebook notebooks/seminario_completo.ipynb
 ```
 
-Essa execução pode alterar metadados e representação numérica de saídas,
-inclusive o hash do notebook. O manifesto e `report_build.json` descrevem
-a versão publicada, não uma futura execução em outro ambiente.
+A execução pode mudar tempos, metadados e hashes. Preserve a versão publicada e
+trabalhe numa cópia; os manifestos descrevem a construção distribuída, não qualquer
+execução futura. O notebook específico do Qwen também roda sem GPU com as evidências
+incluídas, usando `--notebook notebooks/qwen3_8b_steering.ipynb`.
 
-## 4. Restaurar o IMDb
+## 5. Restaurar o IMDb — somente quando a operação precisar do corpus
+
+Em uma cópia de trabalho:
 
 ```bash
 python run.py prepare
 python execute_notebook.py --notebook notebooks/experimentos_imdb.ipynb
 ```
 
-A preparação baixa a revisão fixada de `stanfordnlp/imdb`, remove
-duplicações conforme o protocolo e recria treino, validação, calibração e
-teste. O corpus completo não faz parte da distribuição Git.
-`data/manifest.json` documenta as divisões originais.
+A preparação baixa a revisão pública fixada, aplica o protocolo de duplicações
+e recria os papéis originais. O corpus não faz parte do Git. Uma nova preparação
+pode registrar duração e serialização diferentes; verificadores históricos
+estritos exigem os arquivos correspondentes aos hashes preservados. O
+[manifesto original](../data/manifest.json) documenta a execução distribuída.
 
-Uma nova preparação pode registrar duração e serialização diferentes.
-Para auditoria dos hashes históricos, compare as chaves, os textos e as
-divisões com os registros originais; os verificadores estritos exigem os
-artefatos históricos correspondentes.
+## 6. Restaurar pesos históricos ou auditar checkpoints completos
 
-## 5. Artefatos maiores e auditoria completa
+O complemento `artefatos_reproducao.zip` da [release histórica v1.0.0](https://github.com/costaleirbag/projeto-mae5920/releases/tag/v1.0.0)
+contém checkpoints originais de TF-IDF/CNN/BERT e caches numéricos descritos em seu
+manifesto interno. Ele não inclui os novos checkpoints CNN/encoders/BPE nem os
+pesos-base do Qwen. O pacote atual de leitura também não inclui esses pesos.
 
-O arquivo opcional `artefatos_reproducao.zip`, na release, complementa o
-repositório com os checkpoints treinados de TF-IDF/CNN/BERT e os caches
-numéricos históricos necessários aos verificadores completos. Seu manifesto
-interno descreve exatamente os arquivos incluídos e seus hashes.
-
-Extraia o conteúdo na raiz de uma cópia de trabalho. Os diretórios
-`artifacts/` e `results/` serão complementados. Nenhuma credencial ou
-configuração de acesso à infraestrutura é distribuída.
-
-Após restaurar também os dados compatíveis:
+Extraia o complemento na raiz de uma cópia compatível. Com os dados históricos
+restaurados, os verificadores originais são:
 
 ```bash
 python verify_results.py
 python verify_qwen.py
 ```
 
-Esses verificadores são estritos quanto aos hashes da execução histórica.
-O pacote não inclui os pesos-base do Qwen; a leitura e a auditoria das
-saídas salvas não precisam deles.
+Para reconstruir os novos checkpoints, siga os protocolos abaixo. As verificações
+salvas documentam a reavaliação feita nos pesos reais, mas não substituem a
+presença dos pesos quando você quer repetir a inferência.
 
-## 6. Novas execuções
+## 7. Repetir treinos ou geração — nova execução separada
 
-Use uma cópia separada para não substituir a evidência publicada.
-O pipeline principal pode ser executado por etapas:
+| Estudo | Configuração e instruções |
+|---|---|
+| Original: TF-IDF, CNN, BERT, análise e RFM | [Protocolo técnico](EXPERIMENTO_ORIGINAL.md) · `config.json` · `python run.py --help` |
+| CNNs, BERT, DistilBERT e ModernBERT | [Reprodução sequencial](REPRODUCAO_SEQUENCIAS.md) · `sequence_config.json` |
+| BPE | [Protocolo e reprodução BPE](PROTOCOLO_BPE.md) · `bpe_config.json` |
+| MLPs e mecanismos sintéticos | [Guia dos mecanismos](CONEXOES_DISCIPLINA.md) · `didactic_config.json` |
+| Qwen: classificação e primeira rodada | [Protocolo Qwen](../QWEN_EXPERIMENTO.md) · `qwen_config.json` |
+| Qwen: demonstração atual de geração | [Protocolo Qwen](../QWEN_EXPERIMENTO.md) · `qwen_improve_config.json` · `python run_qwen_improve.py --help` |
 
-```bash
-python run.py prepare
-python run.py baseline
-python run.py cnn
-python run.py bert
-python run.py analyze
-python run.py steer
-python run.py rewrite
-python run.py report
-```
+Use pastas novas, sem substituir seleções congeladas ou resultados publicados.
+O treino escolhe pela validação; não volte a selecionar configuração pelo teste
+já examinado. Os guias de sequências/BPE explicam a separação física da entrada de
+auditoria e o congelamento antes de sua liberação.
 
-Baseline e CNN foram executados em Apple M1; BERT e as etapas Qwen usaram
-NVIDIA GB10. Os tempos observados não comparam hardware idêntico.
-O pipeline Qwen usa CUDA e baixa a revisão fixada de `Qwen/Qwen3-8B`.
+Baseline e CNN originais foram executados em Apple M1; BERT e etapas posteriores
+usaram NVIDIA GB10. Tempos entre esses dispositivos não comparam eficiência em
+hardware idêntico. A inferência Qwen implementada usa CUDA e baixa a revisão fixada
+do modelo; o percurso de leitura não precisa disso.
 
-```bash
-python run_qwen.py --help
-python run_qwen_improve.py --help
-```
+## 8. Reconstruir os materiais de leitura
 
-Siga o [protocolo Qwen](../QWEN_EXPERIMENTO.md) e os parâmetros dos arquivos
-`config.json`, `qwen_config.json` e `qwen_improve_config.json`.
-Não repita seleção de direção, camada ou intensidade usando os resultados
-do teste já aberto. Para um novo estudo, defina nova validação e novo teste.
-
-## 7. Reconstruir os materiais de leitura
+O resumo de resultados tem um gerador que usa somente a biblioteca padrão:
 
 ```bash
-python build_qwen_improved_report.py
-python execute_notebook.py --notebook notebooks/qwen3_8b_steering.ipynb
+python tools/build_results_overview.py
+python tools/build_results_overview.py --check
 ```
 
-O gerador usa os resultados salvos. PDFs, HTMLs e notebook reexecutado
-passam a representar uma nova construção; atualize os manifestos e faça
-nova inspeção visual antes de distribuir essa versão.
+Para reconstruir o notebook único a partir das evidências do repositório, siga o
+[guia do notebook](NOTEBOOK_UNICO.md). O builder substitui o arquivo por uma cópia
+sem saídas; é necessário executá-la, conferir e revisar as figuras antes de publicar.
+O teste de portabilidade copia somente esse arquivo para fora do repositório.
 
-## 8. GitHub Actions
+O relatório Qwen pode ser reconstruído com `python build_qwen_improved_report.py`,
+seguido da execução do notebook específico. Qualquer nova construção de relatório
+ou apresentação requer atualização dos manifestos e inspeção visual dos artefatos.
 
-O [modelo de verificação automática](ci/verificar-projeto.yml) executa os
-mesmos testes e a auditoria Qwen em CPU. Para ativá-lo, publique-o em
-`.github/workflows/verify.yml` usando uma credencial com permissão para
-criar workflows. A credencial disponível durante esta publicação permitia
-enviar código e releases, mas não workflows; por isso o modelo permanece
-em `docs/ci/`. As verificações locais da entrega foram executadas e passaram.
+## 9. GitHub Actions
+
+O [modelo de verificação automática](ci/verificar-projeto.yml) reúne verificações
+em CPU. Permanece como template; não há workflow ativo nesta publicação.
+A credencial utilizada não tinha permissão para criar workflows. Os testes e
+verificadores da entrega foram executados localmente. Ativar o template futuramente
+requer uma credencial com a permissão correspondente.
