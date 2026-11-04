@@ -10,6 +10,10 @@ repositório, carregar checkpoints ou baixar os modelos grandes. Se o ambiente
 abre o notebook sem salvá-lo no sistema de arquivos do runtime, copie também o
 próprio `.ipynb` para a pasta de execução, pois o código lê seu anexo.
 
+Para navegar, use o sumário lateral do Jupyter/VS Code ou a busca do navegador pelo
+número e título da seção. O roteiro da capa é textual: o visualizador do GitHub
+redireciona atalhos internos de notebooks para a pasta e não preserva a navegação.
+
 ## Como está organizado
 
 1. Problema, rótulos e papéis dos dados, incluindo as auditorias diferentes.

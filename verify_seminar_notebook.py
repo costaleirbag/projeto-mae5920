@@ -44,7 +44,10 @@ def verify(path=NOTEBOOK, require_execution=True):
         assert json.loads(archive.read(compact)) == original
     markdown = "\n".join("".join(c["source"]) for c in nb["cells"] if c["cell_type"] == "markdown")
     for anchor in ANCHORS:
-        assert f'id="{anchor}"' in markdown and f'href="#{anchor}"' in markdown
+        assert f'id="{anchor}"' in markdown
+    cover="".join(nb["cells"][0]["source"])
+    assert len(re.findall(r"^\d+\. ",cover,re.M))==15
+    assert not re.search(r"\]\(#[^)]+\)|href=[\"']#",cover), "GitHub rewrites fragment links to the directory"
     code_cells = [c for c in nb["cells"] if c["cell_type"] == "code"]
     trees = []
     definitions = {}; assignments = set()

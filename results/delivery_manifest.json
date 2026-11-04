@@ -113,8 +113,8 @@
       "sha256": "a039d080f52e75840a5f7d2c620bfed9b88e0d1d66b3ad76f8a0e48ead0aebcb"
     },
     "docs/NOTEBOOK_UNICO.md": {
-      "bytes": 4644,
-      "sha256": "a4d5fbd16a35eb5c19c631b931f9e69a80b3aab804633c327ac63e49008631f6"
+      "bytes": 4901,
+      "sha256": "d4a034b1d156505951cd3a16395e8a6d47f094714daed415fbedd082984acbea"
     },
     "docs/PROTOCOLO_BPE.md": {
       "bytes": 7943,
@@ -277,8 +277,8 @@
       "sha256": "d54f4555c3edadd621dd6af7771f493cfbcc2029bace1ffe854dbfdb15409374"
     },
     "notebooks/seminario_completo.ipynb": {
-      "bytes": 8215625,
-      "sha256": "0db34b85ae80033e3418a89062485259b0647b305fa9779806a497b462e6bd9a"
+      "bytes": 8215535,
+      "sha256": "71615b78d7a31bac6f4586034f93699e55fb0a7c78157cbfb7d6b74bd3edccd4"
     },
     "output/pdf/relatorio_cnn_encoders.pdf": {
       "bytes": 1737916,
@@ -2122,7 +2122,7 @@
     },
     "results/seminar/build_manifest.json": {
       "bytes": 8018,
-      "sha256": "e4c0bf2bef2d3f6c2790ba1bfd6269785bbc4f777f93b125ee9d4869367c2b18"
+      "sha256": "c6028755b52943c9143a722a144ad7bc8ddc48f08f2b827af97d75664945a7ae"
     },
     "results/seminar/portability.json": {
       "bytes": 571,
@@ -2130,11 +2130,11 @@
     },
     "results/seminar/review.json": {
       "bytes": 2261,
-      "sha256": "b68f261df9af6d1d484e1edc591f538467f9fc02ff46fe9e5eb436c8e8b6de17"
+      "sha256": "544fe813b9e2e60d82a6b83e0814b5ab90f0a468c4d69d89751e2a48c29b25b4"
     },
     "results/seminar/verification.json": {
       "bytes": 600,
-      "sha256": "e0b7695ddb8c460212c05eb741f523fe935737da12f62b4cfd8a95e2e6e85f0c"
+      "sha256": "2b032cdbc11d20c30558438f6077c13854a9ddda75940fad9439f3a66a8d2af8"
     },
     "results/sequences/audit_metrics.json": {
       "bytes": 11467,
@@ -3094,7 +3094,7 @@
     },
     "results/source_manifest.json": {
       "bytes": 10675,
-      "sha256": "c8f3f0652e882f0189ce8b16731581a33b2028140cc8efe49edf4cc8035607c3"
+      "sha256": "3a7a67b7a9724d84ac0750504364a2c628841ff8646ed770def41b64b3844d91"
     },
     "results/steering/directions.npz": {
       "bytes": 46260,
@@ -3317,8 +3317,8 @@
       "sha256": "feda30adfcc23b0dd22ca1b3051dba04e2dc924026901244b15697d78755afc7"
     },
     "tools/build_seminar_notebook.py": {
-      "bytes": 97745,
-      "sha256": "f1f52f0b2fa21716456bf6dabaa8cd3c9745545472e2019548d8c1309108a451"
+      "bytes": 97661,
+      "sha256": "70ec3075bf9ab36f2e4882e23be1e6a02d0f25240fdb312828cb45d64ede9ec9"
     },
     "tools/check_seminar_portability.py": {
       "bytes": 4501,
@@ -3381,8 +3381,8 @@
       "sha256": "68ff37bc9bd9c1c778022589f12a3e019b2e27c55169e6d0c64b0658d7860862"
     },
     "verify_seminar_notebook.py": {
-      "bytes": 5703,
-      "sha256": "ab73719f0c82a3edb302d4414526d157dd3c7f097c4d853753981b010e8af53a"
+      "bytes": 5876,
+      "sha256": "5e289c4691196497e3aa88eb20b37cba10eacd4fa4af4b33e5554ea1e50317b0"
     },
     "verify_sequences.py": {
       "bytes": 11379,

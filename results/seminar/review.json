@@ -1,6 +1,6 @@
 {
   "status": "passed",
-  "notebook_sha256": "0db34b85ae80033e3418a89062485259b0647b305fa9779806a497b462e6bd9a",
+  "notebook_sha256": "71615b78d7a31bac6f4586034f93699e55fb0a7c78157cbfb7d6b74bd3edccd4",
   "figure_sha256": {
     "parametros-cnn:0": "3ae07a74088d92329957d0968e5f07f05d5433a9b40bd7e832ce0c084c6eaef3",
     "treino-cpu-completo:0": "daa3887de36e768c583ea7b9dbf3afb8261d7715b4bc9604d27df432f995520d",

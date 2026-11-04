@@ -156,21 +156,25 @@ def introduction():
 
     ### Roteiro
 
-    1. <a href="#dados">Problema e papéis dos dados</a>
-    2. <a href="#tokens">Limpeza, palavras, vocabulário e padding</a>
-    3. <a href="#cnn">A CNN no código e nos tensores</a>
-    4. <a href="#treino">Loss, gradientes e treinamento</a>
-    5. <a href="#experimentos">Como escolhemos hiperparâmetros</a>
-    6. <a href="#bpe">BPE aprendido somente no treino</a>
-    7. <a href="#encoders">BERT, DistilBERT e ModernBERT</a>
-    8. <a href="#resultados">Métricas, exemplos e o que o modelo usa</a>
-    9. <a href="#mecanismos">MLPs, resíduos, inicialização e regularização</a>
-    10. <a href="#double-descent">Double descent em regressão sintética</a>
-    11. <a href="#qwen">Qwen: classificação e intervenção nas ativações</a>
-    12. <a href="#originais">O experimento original e os limites da comparação</a>
-    13. <a href="#testes">Testes e auditoria dos resultados</a>
-    14. <a href="#reproduzir">Repetir o treino completo das CNNs</a>
-    15. <a href="#referencias">Referências e roteiro da fala</a>
+    1. Problema e papéis dos dados
+    2. Limpeza, palavras, vocabulário e padding
+    3. A CNN no código e nos tensores
+    4. Loss, gradientes e treinamento
+    5. Como escolhemos hiperparâmetros
+    6. BPE aprendido somente no treino
+    7. BERT, DistilBERT e ModernBERT
+    8. Métricas, exemplos e o que o modelo usa
+    9. MLPs, resíduos, inicialização e regularização
+    10. Double descent em regressão sintética
+    11. Qwen: classificação e intervenção nas ativações
+    12. O experimento original e os limites da comparação
+    13. Testes e auditoria dos resultados
+    14. Repetir o treino completo das CNNs
+    15. Referências e roteiro da fala
+
+    **Navegação:** use o painel de sumário do Jupyter/VS Code ou procure o número/título
+    da seção na busca do navegador. No GitHub, os atalhos internos de notebooks podem
+    ser redirecionados para a pasta do repositório; por isso o roteiro acima é textual.
 
     **Ambiente:** Python 3.11 ou posterior, NumPy, pandas, SciPy, scikit-learn,
     Matplotlib, PyTorch, Tokenizers e IPython. Se necessário, instale em uma célula
