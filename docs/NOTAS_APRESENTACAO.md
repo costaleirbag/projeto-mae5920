@@ -1,6 +1,6 @@
 # Notas da apresentação
 
-Os slides 1–14 formam o roteiro principal. Os slides 15–21 são apoio. Para uma fala curta, priorize 1–3, 5–6 e 9–14.
+Os slides 1–14 formam o roteiro principal. Os slides 15–24 são apoio. Os slides 22–24 acrescentam BPE e podem entrar após o slide 4. Para uma fala curta, priorize 1–3, 5–6 e 9–14.
 
 ## 1. Sentimento, redes e treinamento
 
@@ -85,3 +85,15 @@ Estudo anterior, sem nova inferência do Qwen: results/qwen_improved/presentatio
 ## 21. Fontes e limites
 
 Referências completas: docs/REFERENCIAS_SEQUENCIAS.json e docs/REFERENCIAS_DISCIPLINA.json. Fontes externas primárias: Kim https://aclanthology.org/D14-1181/; Devlin https://aclanthology.org/N19-1423/; Sanh https://arxiv.org/abs/1910.01108; Warner https://arxiv.org/abs/2412.13663; modelo https://huggingface.co/answerdotai/ModernBERT-base. Diagramas e gráficos próprios. Nenhuma página dos PDFs de referência foi redistribuída.
+
+## 22. BPE aprendido no texto de treino
+
+Fontes: results/bpe/tokenizer_training.json, tokenizer.json e bpe_config.json. BPE de caracteres, WhitespaceSplit e marcador </w>, após a mesma limpeza por regex da CNN por palavras. Não é BPE de bytes. Ajustamos regras e vocabulário em 6.144 textos de treino sem rótulos, depois congelamos o tokenizer e treinamos a CNN por gradiente. Sennrich et al. (2016), https://aclanthology.org/P16-1162/; documentação oficial https://huggingface.co/docs/tokenizers/quicktour. O algoritmo aprende pares frequentes, sem garantir que sejam morfemas. Os exemplos são saídas reais do tokenizer aprendido.
+
+## 23. Controle da comparação de tokenização
+
+Fonte: results/bpe/selection_frozen.json, data_manifest.json e verification.json. Três novos treinos BPE e três checkpoints por palavras reutilizados. Mesmas matrizes numéricas iniciais, ordens de minibatches, 12 épocas, batch 64, clipping 1, dropout 0,5, Adam 0,001, arquitetura 3/4/5 com cem filtros e embedding 128. Taxa herdada da CNN por palavras, sem retuning. Seleção independente da época pela CE de validação. Nova auditoria de 2.048 resenhas exclui todos os papéis dos estudos MLP e CNN/encoders. As seis escolhas foram congeladas antes de liberar a entrada. O teste oficial não foi aberto. Não misturar esta auditoria com a tabela dos encoders.
+
+## 24. Cobertura e acurácia medem efeitos diferentes
+
+Resultados: results/bpe/summary.json e audit_predictions.npz. Mesma nova auditoria interna para palavras e BPE, média das três sementes. Palavras: 81,9987%, CE 0,3964. BPE: 81,4128%, CE 0,4052. Diferença média BPE menos palavras: -0,58594 ponto percentual; diferenças por semente -0,43945, -0,83008, -0,48828 p.p. UNK: 3,26984% para 0%. Média de tokens 121,30 para 129,09, sem truncagem. Este ensaio não retesta a taxa para BPE e não demonstra inferioridade universal do algoritmo. Aumentar cobertura não garante melhorar esta CNN. Seis checkpoints reproduziram exatamente os logits em outro processo. Três sementes e um holdout não capturam toda a incerteza.

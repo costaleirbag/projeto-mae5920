@@ -1,0 +1,4 @@
+seed,both_correct,word_only_correct,bpe_only_correct,both_wrong,accuracy_difference_bpe_minus_word_pp
+17,1556,116,107,269,-0.439453125
+29,1573,113,96,266,-0.830078125
+43,1581,99,89,279,-0.48828125

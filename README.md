@@ -25,6 +25,8 @@ profundidade, inicialização, regularização e double descent.
 [CNN, BERT e encoders modernos](output/pdf/relatorio_cnn_encoders.pdf),
 [notebook dos novos modelos](notebooks/cnn_encoders.ipynb) e
 [suplemento de mecanismos](output/pdf/relatorio_disciplina.pdf).
+A comparação [palavras versus BPE](docs/PROTOCOLO_BPE.md) está integrada
+ao relatório, notebook e aos slides 22–24.
 A release v1.0.0 contém a entrega original; os arquivos novos estão nesta branch.
 
 Na extensão com **Qwen3-8B**, a mesma entrada e o mesmo prompt produzem três
@@ -39,6 +41,7 @@ O objetivo é compreender o mecanismo, seus efeitos e suas falhas.
 | **[CNN e encoders modernos](output/pdf/relatorio_cnn_encoders.pdf)** | Arquiteturas, otimização da CNN, encoders congelados e ajuste completo de BERT, DistilBERT e ModernBERT. |
 | [Notebook CNN e encoders](notebooks/cnn_encoders.ipynb) | Resultados de 87 treinos, hiperparâmetros, exemplos comuns e leitura dos filtros da CNN. Executado, sem exigir GPU para leitura. |
 | [Galeria CNN e encoders em HTML](relatorio_cnn_encoders.html) | Diagramas, curvas e todos os exemplos sintéticos, em arquivo autocontido. |
+| [Protocolo palavras versus BPE](docs/PROTOCOLO_BPE.md) | Tokenizer aprendido só no treino, três novas CNNs, controles e resultados em uma nova auditoria. |
 | **[01 · Relatório principal — IMDb](relatorio_imdb.pdf)** | TF-IDF + regressão logística, CNN, BERT, análise de erros e primeira intervenção nas ativações. |
 | **[02 · Relatório — Qwen3-8B e steering](relatorio_qwen3.pdf)** | Modelo congelado, construção das direções e exemplos completos da intervenção nos dois sentidos. |
 | **[03 · Do modelo aos mecanismos](output/pdf/relatorio_disciplina.pdf)** | Suplemento com experimentos e referências ao livro e aos slides. |
@@ -107,6 +110,45 @@ congelado na inferência e registram a extração dos vetores separadamente.
 ```bash
 python verify_sequences.py
 python execute_notebook.py --notebook notebooks/cnn_encoders.ipynb
+```
+
+## Aprender BPE melhora esta CNN?
+
+Treinamos um **BPE de caracteres com 20 mil tokens** usando somente os textos
+de treino, sem rótulos. Depois congelamos suas regras e treinamos três CNNs do
+zero. O tokenizer por palavras e o BPE compartilham a limpeza por regex.
+Embedding 128, janelas 3/4/5, cem filtros por janela, Adam 0,001, doze épocas,
+minibatches e matrizes iniciais permanecem iguais. Ambos os modelos têm
+**2.714.502 parâmetros**. Uma janela passa a contar subpalavras no BPE.
+
+Usamos os três checkpoints por palavras e os três novos checkpoints BPE em
+**outra auditoria interna de 2.048 resenhas**, reservada antes do treino e
+liberada após o congelamento. Ela exclui os papéis dos dois estudos didáticos
+anteriores. O teste oficial não foi reaberto.
+
+| Representação | Acurácia média | Tokens UNK na nova auditoria | Tokens médios por resenha |
+|---|---:|---:|---:|
+| Palavras | 82,00% | 3,27% | 121,3 |
+| BPE 20 mil | 81,41% | 0% | 129,1 |
+
+O BPE melhorou a cobertura, mas ficou **0,59 ponto percentual abaixo** na
+acurácia média nesta receita fixa. A taxa veio da CNN por palavras, sem novo
+ajuste. O resultado permite discutir representação, comprimento e alcance
+dos filtros. Não prova que BPE seja inferior em geral. Estes números usam
+uma amostra diferente da tabela dos encoders acima.
+
+![Palavras versus BPE na nova auditoria interna](results/bpe/figures/audit_comparison.png)
+
+O [relatório CNN e encoders](output/pdf/relatorio_cnn_encoders.pdf) e o
+[notebook](notebooks/cnn_encoders.ipynb) mostram a tokenização real, as uniões
+passo a passo, curvas de treino e diferenças pareadas. Os
+[slides 22–24](output/slides/seminario_mae5920.pptx) acrescentam esse conteúdo.
+São **90 treinos neurais** na extensão sequencial: os 87 anteriores e três
+novos BPE. Os seis checkpoints da comparação reproduziram exatamente seus
+logits em um segundo processo; 18 conjuntos de métricas foram conferidos.
+
+```bash
+python run_bpe.py verify --device cpu
 ```
 
 ## Conexões com o material da disciplina
@@ -259,7 +301,8 @@ requer GPU CUDA; a leitura dos resultados não requer.
 │   ├── qwen/                               # Primeira rodada Qwen
 │   ├── qwen_improved/                       # Rodada atual e histórico identificado
 │   ├── didactic/                           # MLPs e demonstrações sintéticas
-│   └── sequences/                          # CNNs e transferência com encoders
+│   ├── sequences/                          # CNNs e transferência com encoders
+│   └── bpe/                                # Tokenizer aprendido e comparação pareada
 ├── output/pdf/relatorio_disciplina.pdf      # Suplemento didático
 ├── output/pdf/relatorio_cnn_encoders.pdf     # CNN, BERT e encoders modernos
 ├── output/slides/seminario_mae5920.pptx      # Apresentação editável
@@ -279,6 +322,7 @@ separadamente; veja o guia de reprodução e os downloads da release.
 - [Conexões com a disciplina](docs/CONEXOES_DISCIPLINA.md)
 - [Protocolo CNN e encoders](docs/PROTOCOLO_SEQUENCIAS.md)
 - [Reprodução CNN e encoders](docs/REPRODUCAO_SEQUENCIAS.md)
+- [Protocolo e reprodução palavras versus BPE](docs/PROTOCOLO_BPE.md)
 - [Notas da apresentação](docs/NOTAS_APRESENTACAO.md)
 - [Reprodução e ambientes](docs/REPRODUCAO.md)
 - [Protocolo Qwen3-8B](QWEN_EXPERIMENTO.md)

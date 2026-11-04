@@ -1,15 +1,18 @@
 {
   "pptx": "output/slides/seminario_mae5920.pptx",
-  "sha256": "8d83fdf9b6d05e6dd5dbafc2b0d2932db9b6a6b289a6305a2020d20b8c297a54",
-  "slides": 21,
+  "sha256": "c5eeff28fa6d0df9b53187f2465ac9c970885cf2660d54be9ff414d6e9e9006f",
+  "slides": 24,
   "main_slides": "1-14",
-  "appendix_slides": "15-21",
+  "appendix_slides": "15-24",
+  "bpe_slides": "22-24",
+  "bpe_data_sha256": "b88d4898cdb5dd0d157ebeb3e4c9d2541dbb8b61b2439774291d5baa38e5d25e",
   "native_charts": [
     5,
     6,
     11,
     16,
-    19
+    19,
+    24
   ],
   "native_tables": [
     7,
@@ -20,7 +23,9 @@
     15,
     17,
     18,
-    20
+    20,
+    22,
+    23
   ],
   "architecture_diagrams": "native editable shapes and attached connectors",
   "font_family": "Arial",
@@ -29,17 +34,16 @@
   "package_validation": "passed",
   "visual_review": {
     "status": "passed",
-    "slides": 21,
-    "renderer": "First-party import and rendering of the exact validated PPTX",
-    "coverage": "Every final slide reviewed; final repairs changed only slides 8, 18 and 19, reviewed again",
-    "checks": [
-      "legibility",
-      "no clipping or overlap",
-      "attached diagram connectors",
-      "native tables and charts",
-      "correct data and source notes"
-    ]
+    "rendered_slides": 24,
+    "inspected_new_slides": [
+      22,
+      23,
+      24
+    ],
+    "prior_slides_1_to_21_pixel_identical_to_reviewed_version": true,
+    "reference_commit": "b32083eddeec993a15ec555676675c9b7879b48e",
+    "review": "Readable native tables and charts, correct percentages and no clipping"
   },
-  "builder_sha256": "78ec8482d647366f8248a735272685339cc388d327757896d56330f52ce7fd34",
+  "builder_sha256": "feda30adfcc23b0dd22ca1b3051dba04e2dc924026901244b15697d78755afc7",
   "data_sha256": "69d5c064e94df97717f52015e69ce9e0b4ce8f9db4c91b817bf188f2790aac01"
 }

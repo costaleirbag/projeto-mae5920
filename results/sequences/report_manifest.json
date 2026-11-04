@@ -1,26 +1,34 @@
 {
   "pdf": "output/pdf/relatorio_cnn_encoders.pdf",
-  "pdf_sha256": "739a34bcbe24cbb10319275758c73407677c6ed6d19e280e18698da477b51422",
+  "pdf_sha256": "fc0673acb3cda836bcd8d71da74479791531bfea2c9296ad5ff6aa1286932341",
   "html": "relatorio_cnn_encoders.html",
-  "html_sha256": "cadc9dcb35fe8b206494e8e23e33c29b225d3c26bdc2185ee41cddfb510073f8",
+  "html_sha256": "e87a92ed3741772fb41621375f6baa2e8dc64f2c33dda4ee75c2db26c3d66128",
   "notebook": "notebooks/cnn_encoders.ipynb",
   "notebook_execution": "passed",
   "visual_review": {
     "status": "passed",
-    "pages": 11,
-    "renderer": "Poppler 110 dpi",
-    "coverage": "Every final page reviewed; the final provenance edit changed only page 10, reviewed again",
-    "checks": [
-      "legibility",
-      "alignment",
-      "no clipping or overlap",
-      "exact reported metrics"
-    ]
+    "rendered_pages": 14,
+    "inspected_changed_and_new_pages": [
+      1,
+      12,
+      13,
+      14
+    ],
+    "prior_pages_2_to_11_pixel_identical_to_reviewed_version": true,
+    "reference_commit": "b32083eddeec993a15ec555676675c9b7879b48e",
+    "review": "Readable tables, explicit token boundaries, complete charts, margins and no clipping"
   },
   "selection_sha256": "681d887b016b6d7b4db3875230a6b48306f7cc18e784e94d1048200e0d271226",
   "summary_sha256": "e6e2be90c21fcebdd6336a26818df17b77ea843a26bfd18fa69e5da289232e36",
   "verification_sha256": "1746a4adc2b7a56dadce8a94397814e4e048fe729deb297c6aa6e5075ebbb66c",
+  "bpe_evidence_sha256": "6d90cee9ca3e378bdaaf9e5042350d88c13bdac2af28c8e0252273c8b70a5d34",
   "figures": {
+    "results/bpe/figures/audit_comparison.png": "06890cc797bcad6d9feddff2e6968722d49c4bdc07e576fb326e91504cbbefa1",
+    "results/bpe/figures/audit_comparison.svg": "b5a9c79221471375f1ab379aa4d17307a7c3c043ec04b865f2903fad6a28afb6",
+    "results/bpe/figures/coverage_lengths.png": "f8e3fb4b7f4f76ec4d31c81d2c95deedadfdb0ee3fb1b353e048afc4fa6bd475",
+    "results/bpe/figures/coverage_lengths.svg": "57d2b0617a413a9f302b00c87ed91b5cb85fef3153ed1a1e2e9963d1f07ed404",
+    "results/bpe/figures/learning_curves.png": "9ef88262ac7da57897e3242c7912a38ba80b05508d7fc4822abd6d839d2d13f1",
+    "results/bpe/figures/learning_curves.svg": "1198c8ede13e058d5c3de0d3afe5a252a9078edf14b8f7e9a844443999586340",
     "results/sequences/figures/cnn_architectures.png": "f91cbb350f5bba9a2ba68d1b48078a19c2149e4ea88f6009f465d52de4118c43",
     "results/sequences/figures/cnn_architectures.svg": "75308048bac27108188c9b0b6794a984b155549ea125ae9c4a5d95936f7f76af",
     "results/sequences/figures/cnn_diagram.png": "3ae07a74088d92329957d0968e5f07f05d5433a9b40bd7e832ce0c084c6eaef3",
@@ -44,8 +52,8 @@
     "results/sequences/figures/transfer_diagram.png": "51a0115c4e06d2d09c6a46bf321c9e2355f79d128ca1aa3cc4814cf2d1313364",
     "results/sequences/figures/transfer_diagram.svg": "92fb97abce23ef4c7d9b40d21a92be71c4dc87e0a9dda3b1243da7374cb7d1a2"
   },
-  "executed_code_cells": 13,
-  "notebook_sha256": "970abf1afc3e5aef3bcceb88ef49b7066f69ca37a8cac6b13f754dd2ac831eb4",
-  "pdf_pages": 11,
-  "builder_sha256": "451fad11104263fef7064e13b57436b013d5ad299b53e851dd609e367e69ffde"
+  "executed_code_cells": 17,
+  "notebook_sha256": "0e5248554588d450c05764d1fcf10cf5f89fb1580ec1fca9acd95107d36e1745",
+  "pdf_pages": 14,
+  "builder_sha256": "f84e07e601b3157af57adb6bcf152dd083734527981b85a83b4af8cad7558492"
 }

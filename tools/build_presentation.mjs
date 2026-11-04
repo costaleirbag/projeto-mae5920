@@ -17,6 +17,8 @@ const check=await read('results/sequences/verification.json');
 if(check.status!=='passed') throw new Error('Scientific verification required');
 const examples=await read('results/sequences/synthetic_examples.json');
 const qwen=await read('results/qwen_improved/presentation_examples.json');
+const bpe=await read('results/bpe/presentation_data.json');
+if((await read('results/bpe/verification.json')).status!=='passed')throw new Error('BPE scientific verification required');
 const P=Presentation.create({slideSize:{width:1280,height:720}});
 const C=['#167D92','#DF8B2F','#7957A0','#CE5351','#4F9A65'];
 const LIGHT={'#167D92':'#EAF3F5','#DF8B2F':'#FCF3E9','#7957A0':'#F2EFF6','#CE5351':'#FBEFEE','#4F9A65':'#EEF5F0'};
@@ -271,6 +273,36 @@ function lineSeries(name,values,color){return {name,values,line:{fill:color,widt
  caption(sl,'Resultados internos, grades pequenas e uma partição. Arquitetura e pré-treinamento variam juntos.');
 }
 
+// 22. Actual learned subword segmentation, native editable evidence.
+{
+ const sl=add('BPE aprendido no texto de treino','Fontes: results/bpe/tokenizer_training.json, tokenizer.json e bpe_config.json. BPE de caracteres, WhitespaceSplit e marcador </w>, após a mesma limpeza por regex da CNN por palavras. Não é BPE de bytes. Ajustamos regras e vocabulário em 6.144 textos de treino sem rótulos, depois congelamos o tokenizer e treinamos a CNN por gradiente. Sennrich et al. (2016), https://aclanthology.org/P16-1162/; documentação oficial https://huggingface.co/docs/tokenizers/quicktour. O algoritmo aprende pares frequentes, sem garantir que sejam morfemas. Os exemplos são saídas reais do tokenizer aprendido.',true);
+ text(sl,'Regras de união por frequência, sem rótulos',72,154,1120,60,31,INK,true);
+ table(sl,['Palavra','Tokenização por palavras','BPE aprendido'],bpe.examples.slice(0,3).map(e=>[e.word,e.word_tokens.join(' '),e.bpe_tokens.join(' + ')]),{y:240,h:240,widths:[270,365,517],size:27});
+ text(sl,'</w> marca o final da palavra. O tokenizer fica congelado.\nEmbeddings e filtros da CNN aprendem depois, por gradiente.',75,520,1120,90,29);
+ caption(sl,'Vocabulário de 20 mil tokens nos dois modelos. Uma janela de 3 tokens passa a contar subpalavras.');
+}
+// 23. A distinct fresh holdout and fixed architecture/budget.
+{
+ const sl=add('Controle da comparação de tokenização','Fonte: results/bpe/selection_frozen.json, data_manifest.json e verification.json. Três novos treinos BPE e três checkpoints por palavras reutilizados. Mesmas matrizes numéricas iniciais, ordens de minibatches, 12 épocas, batch 64, clipping 1, dropout 0,5, Adam 0,001, arquitetura 3/4/5 com cem filtros e embedding 128. Taxa herdada da CNN por palavras, sem retuning. Seleção independente da época pela CE de validação. Nova auditoria de 2.048 resenhas exclui todos os papéis dos estudos MLP e CNN/encoders. As seis escolhas foram congeladas antes de liberar a entrada. O teste oficial não foi aberto. Não misturar esta auditoria com a tabela dos encoders.',true);
+ table(sl,['Controle','Palavras e BPE'],[
+  ['Treino e validação','6.144 e 1.536 resenhas, mesmos prefixos'],
+  ['CNN e otimizador','2.714.502 parâmetros, Adam 0,001'],
+  ['Partidas e orçamento','3 sementes pareadas, 12 épocas'],
+  ['Nova auditoria','2.048 resenhas reservadas para os 6 checkpoints']
+ ],{y:175,h:345,widths:[360,792],size:29});
+ text(sl,'O alcance da convolução em palavras pode mudar com o BPE.',72,553,1136,52,30,INK,true);
+ caption(sl,'Amostra diferente da comparação dos encoders. Taxa herdada, sem ajuste específico para BPE.');
+}
+// 24. Coverage does not imply classifier quality.
+{
+ const sl=add('Cobertura e acurácia medem efeitos diferentes','Resultados: results/bpe/summary.json e audit_predictions.npz. Mesma nova auditoria interna para palavras e BPE, média das três sementes. Palavras: 81,9987%, CE 0,3964. BPE: 81,4128%, CE 0,4052. Diferença média BPE menos palavras: -0,58594 ponto percentual; diferenças por semente -0,43945, -0,83008, -0,48828 p.p. UNK: 3,26984% para 0%. Média de tokens 121,30 para 129,09, sem truncagem. Este ensaio não retesta a taxa para BPE e não demonstra inferioridade universal do algoritmo. Aumentar cobertura não garante melhorar esta CNN. Seis checkpoints reproduziram exatamente os logits em outro processo. Três sementes e um holdout não capturam toda a incerteza.',true);
+ const stats=bpe.tokenization;
+ chart(sl,'bar',{x:55,y:165,w:560,h:355,title:'Tokens UNK na nova auditoria',categories:['Palavras','BPE 20 mil'],series:[{name:'Tokens UNK',values:[stats.word.audit.unknown_rate,stats.bpe.audit.unknown_rate],fill:C[0]}],percent:true,legend:false,ymin:0,ymax:.04});
+ chart(sl,'bar',{x:645,y:165,w:570,h:355,title:'Acurácia média dos três treinos',categories:['Palavras','BPE 20 mil'],series:[{name:'Acurácia',values:bpe.groups.map(g=>g.accuracy_mean),fill:C[1]}],percent:true,legend:false,ymin:0,ymax:1});
+ text(sl,`Diferença média BPE menos palavras: ${bpe.difference_bpe_minus_word_pp.toFixed(2).replace('.',',')} p.p.`,72,550,1120,55,32,INK,true);
+ caption(sl,'O BPE eliminou os UNKs observados. Esta receita da CNN não ganhou acurácia.');
+}
+
 // Preserve all charts as native editable evidence with literal-data workbook snapshots.
 const TMP=path.join(ROOT,'.cache/presentation_build');
 await fs.mkdir(TMP,{recursive:true});await fs.mkdir(path.join(TMP,'validated'),{recursive:true});await fs.mkdir(path.join(ROOT,'output/slides'),{recursive:true});
@@ -282,7 +314,7 @@ const result=await finalizePresentation({workspaceDir:ROOT,candidatePath:candida
  integrityValidatorPath:path.join(SKILL,'container_tools/inspect_presentation_package_integrity.py'),
  layoutValidatorPath:path.join(SKILL,'container_tools/inspect_presentation_layout_geometry.py'),
  layoutArgs:['--expected-slide-size-emu','12192000,6858000','--cover-role','cover','--validate-bullet-geometry','--validate-heading-fit',...[...new Set(tableOwners)].flatMap(n=>['--require-native-table-slide',String(n)])],
- fontPolicy:{basis:'design',families:[FONT]},explicitTotalSlideCount:21,
+ fontPolicy:{basis:'design',families:[FONT]},explicitTotalSlideCount:24,
  requiredNativeTableOwnerSlides:[...new Set(tableOwners)],requiredNativeChartOwnerSlides:[...new Set(chartOwners)],
  materializeLiteralChartWorkbooks:true,verifyArtifactToolImport:true,
  receiptPath:path.join(TMP,`validation-${rev}.json`)
@@ -290,15 +322,15 @@ const result=await finalizePresentation({workspaceDir:ROOT,candidatePath:candida
 const final=path.join(ROOT,'output/slides/seminario_mae5920.pptx');await fs.copyFile(validated,final);
 const previews=path.join(TMP,'previews');await fs.mkdir(previews,{recursive:true});
 const reviewed=await PresentationFile.importPptx(await FileBlob.load(final));
-if(reviewed.slides.items.length!==21)throw new Error('Unexpected final slide count on import');
+if(reviewed.slides.items.length!==24)throw new Error('Unexpected final slide count on import');
 for(const [i,slide] of reviewed.slides.items.entries()){
  const blob=await reviewed.export({slide,format:'png',scale:1});
  await fs.writeFile(path.join(previews,`slide-${String(i+1).padStart(2,'0')}.png`),new Uint8Array(await blob.arrayBuffer()));
 }
 const digest=createHash('sha256').update(await fs.readFile(final)).digest('hex');
 await fs.writeFile(path.join(B,'presentation_manifest.json'),JSON.stringify({pptx:'output/slides/seminario_mae5920.pptx',sha256:digest,
- slides:21,main_slides:'1-14',appendix_slides:'15-21',native_charts:[...new Set(chartOwners)],native_tables:[...new Set(tableOwners)],
+ slides:24,main_slides:'1-14',appendix_slides:'15-24',bpe_slides:'22-24',bpe_data_sha256:createHash('sha256').update(await fs.readFile(path.join(ROOT,'results/bpe/presentation_data.json'))).digest('hex'),native_charts:[...new Set(chartOwners)],native_tables:[...new Set(tableOwners)],
  architecture_diagrams:'native editable shapes and attached connectors',font_family:FONT,chart_precision:'12 significant digits for editable workbook compatibility; unrounded scientific source retained in JSON/NPZ',double_descent_display:'Categorical tested widths p, vertical log10(median MSE); all twenty seeds and widths retained',
  package_validation:'passed',visual_review:'pending',builder_sha256:createHash('sha256').update(await fs.readFile(path.join(ROOT,'tools/build_presentation.mjs'))).digest('hex'),data_sha256:createHash('sha256').update(await fs.readFile(path.join(B,'presentation_data.json'))).digest('hex')},null,2)+'\n');
-await fs.writeFile(path.join(ROOT,'docs/NOTAS_APRESENTACAO.md'),'# Notas da apresentação\n\nOs slides 1–14 formam o roteiro principal. Os slides 15–21 são apoio. Para uma fala curta, priorize 1–3, 5–6 e 9–14.\n\n'+slideNotes.map(n=>`## ${n.slide}. ${n.title}\n\n${n.notes}\n`).join('\n'));
+await fs.writeFile(path.join(ROOT,'docs/NOTAS_APRESENTACAO.md'),'# Notas da apresentação\n\nOs slides 1–14 formam o roteiro principal. Os slides 15–24 são apoio. Os slides 22–24 acrescentam BPE e podem entrar após o slide 4. Para uma fala curta, priorize 1–3, 5–6 e 9–14.\n\n'+slideNotes.map(n=>`## ${n.slide}. ${n.title}\n\n${n.notes}\n`).join('\n'));
 console.log(JSON.stringify({slides:P.slides.items.length,file:'output/slides/seminario_mae5920.pptx',sha256:digest,validated:true}));

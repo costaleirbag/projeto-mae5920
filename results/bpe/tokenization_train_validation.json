@@ -1,0 +1,62 @@
+{
+  "bpe": {
+    "train": {
+      "documents": 6144,
+      "tokens_before_cap": 776521,
+      "unknown_tokens": 0,
+      "unknown_rate": 0.0,
+      "documents_with_unknown": 0,
+      "mean_tokens": 126.38688151041667,
+      "max_tokens": 181,
+      "p95_tokens": 146.0,
+      "truncated_documents": 0,
+      "empty_documents": 0,
+      "cap": 256,
+      "empty_policy": "A single <unk> when the canonicalized text is empty"
+    },
+    "validation": {
+      "documents": 1536,
+      "tokens_before_cap": 196018,
+      "unknown_tokens": 0,
+      "unknown_rate": 0.0,
+      "documents_with_unknown": 0,
+      "mean_tokens": 127.61588541666667,
+      "max_tokens": 188,
+      "p95_tokens": 149.0,
+      "truncated_documents": 0,
+      "empty_documents": 0,
+      "cap": 256,
+      "empty_policy": "A single <unk> when the canonicalized text is empty"
+    }
+  },
+  "word": {
+    "train": {
+      "documents": 6144,
+      "tokens_before_cap": 741300,
+      "unknown_tokens": 12501,
+      "unknown_rate": 0.016863617968433834,
+      "documents_with_unknown": 4729,
+      "mean_tokens": 120.654296875,
+      "max_tokens": 155,
+      "p95_tokens": 133.0,
+      "truncated_documents": 0,
+      "empty_documents": 0,
+      "cap": 256,
+      "empty_policy": "A single <unk> when the canonicalized text is empty"
+    },
+    "validation": {
+      "documents": 1536,
+      "tokens_before_cap": 184267,
+      "unknown_tokens": 5907,
+      "unknown_rate": 0.03205674374684561,
+      "documents_with_unknown": 1382,
+      "mean_tokens": 119.96549479166667,
+      "max_tokens": 156,
+      "p95_tokens": 133.0,
+      "truncated_documents": 0,
+      "empty_documents": 0,
+      "cap": 256,
+      "empty_policy": "A single <unk> when the canonicalized text is empty"
+    }
+  }
+}

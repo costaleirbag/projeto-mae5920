@@ -81,3 +81,11 @@ As predições, métricas, curvas, tokenizadores e decisões ficam no repositór
 O [protocolo científico](PROTOCOLO_SEQUENCIAS.md) descreve as grades e os
 limites das comparações. O suplemento MLP, o teste oficial dos modelos
 originais e o steering do Qwen são estudos distintos.
+
+## Extensão BPE
+
+O relatório e o notebook atuais acrescentam três treinos BPE e outra amostra
+interna para comparar as duas tokenizações. O [protocolo BPE](PROTOCOLO_BPE.md)
+descreve os controles e sua reprodução separada. `verify_sequences.py` continua
+conferindo os 87 treinos congelados; `run_bpe.py verify --device cpu` confere
+o novo protocolo. O total da extensão sequencial passa a 90 treinos.

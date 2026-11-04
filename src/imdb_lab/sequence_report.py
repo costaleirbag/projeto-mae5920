@@ -266,6 +266,9 @@ def create_notebook(s):
     code("e = examples['examples'][2]\nr = e['cnn_readout']\nprint(e['text'])\nprint('Margem:', r['logit_margin'], '| soma reconstruída:', r['reconstructed_margin'])\nassert abs(r['logit_margin'] - r['reconstructed_margin']) < 1e-5\ndisplay(pd.DataFrame(r['positive_windows'] + r['negative_windows']))")
     md("## Reconstrução independente e ligação com as aulas\n\nO verificador refaz 217 métricas a partir dos logits, confirma as escolhas de validação e o pareamento de partidas. Uma segunda avaliação na GPU reconstrói todos os 43 checkpoints. Os capítulos 6–9 de Prince explicam treinamento e seleção, o capítulo 10 trata convoluções, o 11 os resíduos e o 12 os Transformers. O double descent e o steering permanecem demonstrações próprias nos outros notebooks.")
     code("from importlib.util import spec_from_file_location, module_from_spec\nsp = spec_from_file_location('verify_sequences', ROOT / 'verify_sequences.py')\nmod = module_from_spec(sp); sp.loader.exec_module(mod)\nmod.verify()\ndisplay(pd.DataFrame(read_json(ROOT / 'docs/REFERENCIAS_SEQUENCIAS.json')['references'])[['title','locators','url']].fillna(''))")
+    if (ROOT / 'results/bpe/summary.json').exists():
+        from .bpe_report import notebook_cells
+        cells.extend(notebook_cells())
     nb.cells=cells; nb.metadata.kernelspec={"name":"python3","display_name":"Python 3","language":"python"}
     nbf.write(nb, NB)
 
@@ -294,7 +297,11 @@ def create_html(s):
     parts.append('</section><section><h2>Fontes e limites</h2><p>O número de camadas, tokenização, pré-treinamento e quantidade de parâmetros variam entre famílias. As três sementes não representam toda a incerteza amostral. O regime de três épocas não garante convergência. O exemplo de double descent usa outro problema sintético. Os resultados oficiais e o Qwen ficam nos relatórios anteriores.</p><ul>')
     for r in refs["references"]:
         label=html.escape(r["title"]); parts.append('<li>'+ (f'<a href="{r["url"]}">{label}</a>' if r.get("url") else label)+ (' · '+html.escape(r["locators"]) if r.get("locators") else '')+'</li>')
-    parts.append('</ul></section></html>'); HTML.write_text(''.join(parts))
+    parts.append('</ul></section>')
+    if (ROOT / 'results/bpe/summary.json').exists():
+        from .bpe_report import html_section
+        parts.append(html_section())
+    parts.append('</html>'); HTML.write_text(''.join(parts))
 
 
 def create_pdf(s):
@@ -320,8 +327,9 @@ def create_pdf(s):
         if story: story.append(PageBreak())
         p(label.upper(),small);p(t,title)
     def pic(name,maxheight=230):
-        with PILImage.open(FIG/f"{name}.png") as a: iw,ih=a.size
-        scale=min(usable/iw,maxheight/ih);story.append(Image(str(FIG/f"{name}.png"),width=iw*scale,height=ih*scale));story.append(Spacer(1,7))
+        path = ROOT / 'results/bpe/figures' / f"{name[4:]}.png" if name.startswith('bpe/') else FIG/f"{name}.png"
+        with PILImage.open(path) as a: iw,ih=a.size
+        scale=min(usable/iw,maxheight/ih);story.append(Image(str(path),width=iw*scale,height=ih*scale));story.append(Spacer(1,7))
     def table(headers,rows,widths=None):
         data=[[Paragraph(str(x),small) for x in headers]]+[[Paragraph(str(x),body) for x in row] for row in rows]
         t=Table(data,colWidths=widths or [usable/len(headers)]*len(headers),repeatRows=1,hAlign="LEFT")
@@ -345,6 +353,8 @@ def create_pdf(s):
     p("Seleção antes da auditoria",sub)
     p("Cada treino escolhe a época com menor CE de validação. Para cada método, escolhemos a taxa que minimiza a média dessas perdas nas três sementes. Congelamos código, revisões, pesos, taxas e épocas antes de transferir a entrada da nova auditoria para a execução.")
     p("Os relatórios originais, o estudo MLP e o steering do Qwen permanecem separados. Não misturamos métricas de testes, prefixos ou divisões diferentes.",small)
+    if (ROOT / 'results/bpe/summary.json').exists():
+        p("O apêndice BPE acrescenta três treinos da mesma CNN com subpalavras, comparados a três checkpoints por palavras em outra auditoria interna. A comparação distingue aprender o tokenizer de aprender os pesos da rede.",small)
     page("1 / Convoluções no texto", "A CNN usada neste estudo")
     pic("cnn_diagram",235)
     base=row("cnn_adam")
@@ -419,6 +429,9 @@ def create_pdf(s):
     p("Referências",sub)
     p("Prince, <i>Understanding Deep Learning</i>, capítulos 6-12. Slides MAE5920: <i>Redes Convolucionais</i>, páginas do arquivo 11-22, 36 e 51-52; <i>Transformers</i>, páginas 7-18, 21-31 e 35-38. Os hashes do acervo ficam no catálogo de referências.",small)
     p("Kim (2014), ACL D14-1181. Devlin et al. (2019), ACL N19-1423. Sanh et al. (2019), arXiv:1910.01108. Warner et al. (2024), arXiv:2412.13663. Model card e implementação oficial de ModernBERT no Hugging Face. URLs no HTML e no catálogo docs/REFERENCIAS_SEQUENCIAS.json.",small)
+    if (ROOT / 'results/bpe/summary.json').exists():
+        from .bpe_report import pdf_pages
+        pdf_pages(page,p,table,pic,body,small,sub,usable)
     PDF.parent.mkdir(parents=True,exist_ok=True)
     def decorate(c,doc):
         c.saveState();c.setStrokeColor(colors.HexColor('#167d92'));c.setLineWidth(2);c.line(42,h-31,w-42,h-31)
@@ -434,5 +447,6 @@ def build():
     save_json(BASE/'report_manifest.json',{'pdf':PDF.relative_to(ROOT).as_posix(),'pdf_sha256':file_sha256(PDF),'html':HTML.relative_to(ROOT).as_posix(),'html_sha256':file_sha256(HTML),
         'notebook':NB.relative_to(ROOT).as_posix(),'notebook_execution':'pending','visual_review':'pending','selection_sha256':file_sha256(BASE/'selection_frozen.json'),
         'summary_sha256':file_sha256(BASE/'summary.json'),'verification_sha256':file_sha256(BASE/'verification.json'),
-        'figures':{p.relative_to(ROOT).as_posix():file_sha256(p) for p in sorted(FIG.glob('*'))}})
+        'bpe_evidence_sha256':file_sha256(ROOT/'results/bpe/report_evidence_manifest.json') if (ROOT/'results/bpe/report_evidence_manifest.json').exists() else None,
+        'figures':{p.relative_to(ROOT).as_posix():file_sha256(p) for p in sorted(list(FIG.glob('*'))+list((ROOT/'results/bpe/figures').glob('*')))}})
     print('CNN/encoder report, figures, HTML and reading notebook created')

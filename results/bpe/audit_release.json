@@ -1,0 +1,6 @@
+{
+  "selection_frozen_sha256": "53c015b989b4ffc2c9789ef7cb254aaab975472a3d78c02985b0e7f0740d9c95",
+  "audit_input_sha256": "55a28f2953182d99e9b2394627681ca674df9148eab9ae013493513f828a2959",
+  "input_absent_before_release": true,
+  "official_test_opened": false
+}

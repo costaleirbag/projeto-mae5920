@@ -1,0 +1,27 @@
+{
+  "protocol_version": 1,
+  "split_seed": 20261104,
+  "seeds": [17, 29, 43],
+  "threads": 4,
+  "data": {"train_n": 6144, "validation_n": 1536, "audit_n": 2048},
+  "whitespace_words": 128,
+  "token_cap": 256,
+  "tokenizer": {
+    "vocab_size": 20000,
+    "min_frequency": 2,
+    "special_tokens": ["<pad>", "<unk>"],
+    "end_of_word_suffix": "</w>",
+    "canonicalization": "Join the existing lowercase regex word tokens with spaces for BOTH representations",
+    "algorithm": "Character BPE with word-end markers, WhitespaceSplit; not byte-level BPE",
+    "fit_role": "train only, no labels"
+  },
+  "cnn": {
+    "embedding_dim": 128, "filters": 100, "kernels": [3, 4, 5],
+    "dropout": 0.5, "optimizer": "adam", "lr": 0.001,
+    "epochs": 12, "batch_size": 64, "gradient_clip_norm": 1.0
+  },
+  "word_reference": "cnn_optimizer__adam__lr0.001",
+  "selection": "Reuse the previously selected word-CNN Adam rate without retuning. Select the lowest validation-CE epoch independently for each BPE seed among epochs 1..12.",
+  "audit_policy": "New balanced internal holdout from unused original clean training, excluding every role of both the MLP and sequence teaching studies. Audit input absent during training and released only after all six checkpoints are frozen. Official test unused.",
+  "scope": "Three new BPE CNN fits plus three reused word-CNN checkpoints. Same parameter count, initial numeric arrays, batch order and training budget. Kernel widths count tokens, so their span in original words can change. Reused validation and inherited learning rate make this a bounded teaching ablation, not a tokenizer leaderboard."
+}

@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "metric_sets_recomputed": 18,
+  "maximum_metric_difference": 5.4176992503318644e-08,
+  "same_numeric_initialization": true,
+  "same_batch_orders": true,
+  "same_parameter_count": 2714502,
+  "six_checkpoint_replay": "passed",
+  "fresh_internal_audit_disjoint": true,
+  "replay_certificate_sha256": "d7fb1cc2ed8bc177bd4af1083b84b3322375aa98b90cd8a494a535e8bccc5d30",
+  "official_test_opened": false
+}

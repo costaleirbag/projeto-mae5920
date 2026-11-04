@@ -20,9 +20,11 @@ def main():
     import nbformat
     from pypdf import PdfReader
     nb=nbformat.read(ROOT/record['notebook'],as_version=4);cells=[c for c in nb.cells if c.cell_type=='code']
-    assert len(cells)==13 and all(c.execution_count is not None for c in cells)
+    has_bpe=(ROOT/'results/bpe/summary.json').exists()
+    expected_cells=17 if has_bpe else 13
+    assert len(cells)==expected_cells and all(c.execution_count is not None for c in cells)
     assert not any(o.output_type=='error' for c in cells for o in c.outputs)
-    pdf=PdfReader(ROOT/record['pdf']);assert len(pdf.pages)==11
+    pdf=PdfReader(ROOT/record['pdf']);assert len(pdf.pages)==(14 if has_bpe else 11)
     assert all(len(p.extract_text())>350 for p in pdf.pages)
     text=' '.join(p.extract_text() for p in pdf.pages)
     for term in ['TextCNN' if 'TextCNN' in text else 'CNN','BERT','DistilBERT','ModernBERT','1.538','2.048','87']:
@@ -32,11 +34,17 @@ def main():
         if r['group']=='encoder':
             assert f"{100*r['accuracy_mean']:.2f}%".replace('.',',') in text
             assert f"{r['ce_mean']:.3f}" in text
+    if has_bpe:
+        bs=json.loads((ROOT/'results/bpe/summary.json').read_text())
+        for r in bs['groups']:
+            assert f"{100*r['accuracy_mean']:.2f}%".replace('.',',') in text
+            assert f"{r['ce_mean']:.3f}" in text
+        assert 'BPE' in text and 'pallbearer' in text
     record.update(notebook_execution='passed',executed_code_cells=len(cells),notebook_sha256=sha(ROOT/record['notebook']),
                   pdf_pages=len(pdf.pages),builder_sha256=sha(ROOT/'src/imdb_lab/sequence_report.py'),
                   verification_sha256=sha(base/'verification.json'),summary_sha256=sha(base/'summary.json'))
     (base/'report_manifest.json').write_text(json.dumps(record,ensure_ascii=False,indent=2)+'\n')
-    print('CNN/encoder deliverables verified: 13 executed cells, 11 pages, exact metrics and figure hashes')
+    print(f'CNN/encoder deliverables verified: {len(cells)} executed cells, {len(pdf.pages)} pages, exact metrics and figure hashes')
 
 
 if __name__=='__main__':main()

@@ -1,0 +1,14 @@
+{
+  "status": "passed",
+  "fresh_workspace": true,
+  "independent_tokenizer_refit_identical": false,
+  "independent_refit_changed_token_ids": 104,
+  "independent_refit_first_different_merge_rank_zero_based": 3419,
+  "published_tokenizer_reuse_hashes_identical": true,
+  "data_manifest_identical_after_reuse": true,
+  "three_role_input_hashes_identical": true,
+  "training_with_audit_input_refused": true,
+  "audit_release_before_freeze_refused": true,
+  "no_extra_models_trained": true,
+  "interpretation": "Exact published BPE JSON is needed to reproduce the reported tokenization; independent statistical refits can differ even with the same text and package version."
+}
