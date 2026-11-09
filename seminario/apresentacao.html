@@ -50,10 +50,14 @@
         </aside>
       </div>
       <div class="transport">
-        <button type="button" id="bpe-play" class="play"></button>
+        <div class="step-buttons" aria-label="Etapas do BPE">
+          <button type="button" id="bpe-back" class="step-back" aria-label="Etapa anterior">← Anterior</button>
+          <button type="button" id="bpe-forward" class="step-next" aria-label="Próxima etapa">Próxima etapa →</button>
+        </div>
         <label class="sr-only" for="bpe-step">Etapa da fusão BPE</label>
         <input type="range" id="bpe-step" min="0" step="1" value="0">
         <output id="bpe-count" for="bpe-step"></output>
+        <button type="button" id="bpe-play" class="play"></button>
       </div>
       <footer class="lab-source">Fusões do tokenizer treinado no IMDb.
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/animacoes.json" target="_blank" rel="noopener">Etapas registradas</a>
@@ -86,6 +90,12 @@
               <button type="button" data-width="4" aria-pressed="false">4</button>
               <button type="button" data-width="5" aria-pressed="false">5</button>
             </div>
+            <div class="switches" aria-label="Passo da janela">
+              <span>Passo</span>
+              <button type="button" data-stride="1" aria-pressed="true">1</button>
+              <button type="button" data-stride="2" aria-pressed="false">2</button>
+              <button type="button" data-stride="3" aria-pressed="false">3</button>
+            </div>
           </div>
           <div class="token-grid" id="cnn-tokens">
             <div class="kernel-window" id="cnn-window" aria-hidden="true"></div>
@@ -105,12 +115,16 @@
         </aside>
       </div>
       <div class="transport">
-        <button type="button" id="cnn-play" class="play"></button>
+        <div class="step-buttons" aria-label="Etapas da CNN">
+          <button type="button" id="cnn-back" class="step-back" aria-label="Etapa anterior">← Anterior</button>
+          <button type="button" id="cnn-forward" class="step-next" aria-label="Próxima etapa">Próxima etapa →</button>
+        </div>
         <label class="sr-only" for="cnn-step">Posição da janela convolucional</label>
         <input type="range" id="cnn-step" min="0" step="1" value="0">
         <output id="cnn-count" for="cnn-step"></output>
+        <button type="button" id="cnn-play" class="play"></button>
       </div>
-      <footer class="lab-source">Ativações reais da CNN por palavras, semente 17.
+      <footer class="lab-source">Ativações reais da CNN por palavras, semente 17. Pesos fixos ao mudar o passo.
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/src/imdb_lab/models.py" target="_blank" rel="noopener">Implementação</a>
       </footer>
     </article>

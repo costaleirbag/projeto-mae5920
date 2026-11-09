@@ -53,9 +53,9 @@ tabela para outra porque o conjunto e o comprimento de entrada mudam.”
 
 ## 4 · Fusões do BPE
 
-No HTML, aperte **Reproduzir** e pare depois da primeira fusão para mostrar
-`r + e → re`. Arraste até a última etapa ao falar das três peças. No PDF,
-aponte as três linhas da sequência.
+No HTML, use **Próxima etapa** ou a seta direita para mostrar a primeira
+fusão, `r + e → re`. Avance no ritmo da fala ou arraste até a última etapa
+ao falar das três peças. No PDF, aponte as três linhas da sequência.
 
 “A CNN recebe índices. Na versão por palavras, a expressão regular preserva
 palavras, contrações e números. Contamos a frequência só no treino e reservamos
@@ -68,10 +68,11 @@ da sequência. Um filtro com a mesma largura passa a ver outro contexto.”
 
 ## 5 · Arquitetura da TextCNN
 
-Inicie a varredura em A, com largura 3. Quando a janela passar por
-*movie was terrible*, a resposta após a ReLU atinge 0,98. Na última etapa,
-o controle volta a destacar essa janela e mostra o máximo. A sequência
-leva cerca de sete segundos. Use a figura do PDF para a mesma explicação.
+Em A, com largura 3 e passo 1, avance com **Próxima etapa** até a janela
+*movie was terrible*. Ela atinge 0,98 após a ReLU. Na última etapa, o
+controle destaca o máximo. Troque para passo 2 e arraste até o final.
+A janela do pico fica de fora e o máximo cai para 0,40. Use a figura do
+PDF para a mesma explicação.
 
 “Cada índice busca um vetor de 128 dimensões. Temos convoluções em paralelo
 com janelas de três, quatro e cinco tokens, cem filtros para cada largura.
@@ -103,11 +104,10 @@ número de filtros e dropout. As grades completas estão no relatório.”
 O baseline com bigramas chegou a 90,14 por cento. A CNN chegou a 86,78
 e o BERT a 90,94. Acurácia conta os acertos, F1 macro dá o mesmo peso às
 duas classes e a entropia cruzada mede a confiança no rótulo observado.
-A tabela usa probabilidades calibradas em uma divisão separada. Cada
-receita recebe um comprimento diferente de entrada. No relatório, separamos
-as resenhas por comprimento. Na CNN, a acurácia cai para 81,52 por cento
-acima de 500 palavras. Isso é relevante quando a opinião decisiva está
-no fim do texto.”
+A tabela usa probabilidades calibradas em uma divisão separada. CNN e
+TF-IDF discordaram em 2.590 resenhas. Entre as que a CNN precisou recortar,
+foi mais comum só o TF-IDF acertar. No slide de apoio há um caso em que
+os dois modelos passam de positivo para negativo quando leem o texto inteiro.”
 
 ## 8 · Auditoria de palavras e BPE
 
@@ -183,7 +183,7 @@ O slide de apoio mostra as três opiniões que saíram do mesmo enredo.”
 
 - Aos 12 minutos, encerrem no slide 11. Os exemplos salvos dos slides 9 e 10 já sustentam a explicação.
 - Se precisarem de cerca de 10 minutos, passem do slide 7 ao 9 depois de citar o resultado BPE em uma frase. Resumam a escolha de taxa e época do slide 6 em 35 segundos.
-- Se houver uma pergunta sobre calibração, comprimento ou mecanismos da disciplina, usem os slides 14 a 17.
+- Usem o slide 14 para os dois erros pareados, o 15 para calibração e o 17 para largura e passo. Esses quadros ficam reservados para perguntas.
 - Para mostrar as gerações do Qwen durante a fala de 15 minutos, reservem os últimos 30 segundos do slide 13 e avancem direto ao slide 16.
 
 As tabelas de treino, validação e teste, os controles e os casos completos

@@ -32,6 +32,8 @@ SOURCES = (
     "seminario/dados/pares_resultados.json",
     "seminario/dados/fora_dominio_resultados.json",
     "seminario/dados/animacoes.json",
+    "seminario/dados/discordancias.json",
+    "seminario/dados/passo_resultados.json",
 )
 
 
@@ -282,6 +284,26 @@ def tables() -> str:
             command = r"\fused" if index == step.get("indice") else r"\chip"
             tokens.append(command + "{" + token + "}")
         bpe_steps[name] = "".join(tokens)
+    kernel_rows = [
+        row(width, filters, pct(by_key[key]["accuracy_mean"]))
+        for width, filters, key in (("3", 100, "cnn_kernel_3"), ("5", 100, "cnn_kernel_5"), ("3/4/5", 300, "cnn_base"))
+    ]
+    stride = read_json("seminario/dados/passo_resultados.json")["medias"]
+    stride_rows = [
+        row(step, pct(scores["fracao_de_janelas"], 1), pct(scores["accuracy"]))
+        for step, scores in stride.items()
+    ]
+    disagreements = read_json("seminario/dados/discordancias.json")
+    long, short = disagreements["casos"]
+    cut_rows = [
+        row(label, pct(long[tfidf]["p_positiva"], 1), pct(long[cnn]["p_positiva"], 1))
+        for label, tfidf, cnn in (
+            ("Primeiros 400 tokens", "tfidf_prefixo", "cnn_prefixo"),
+            ("Texto inteiro", "tfidf_inteiro", "cnn_inteiro"),
+        )
+    ]
+    total = disagreements["total"]
+    only_tfidf, only_cnn = total["so_tfidf_acerta"], total["so_cnn_acerta"]
     props = {
         "LinhasOriginal": "\n".join(split_rows),
         "LinhasTeste": "\n".join(calibrated_rows),
@@ -292,6 +314,17 @@ def tables() -> str:
         "LinhasPares": "\n".join(pair_rows),
         "LinhasForaDominio": "\n".join(external_rows),
         "LinhasYouTube": "\n".join(comment_rows),
+        "LinhasKernel": "\n".join(kernel_rows),
+        "LinhasPasso": "\n".join(stride_rows),
+        "LinhasRecorte": "\n".join(cut_rows),
+        "SoTFIDF": f"{only_tfidf:,}".replace(",", "."),
+        "SoCNN": f"{only_cnn:,}".replace(",", "."),
+        "Discordancias": f"{only_tfidf + only_cnn:,}".replace(",", "."),
+        "TfidfCurta": pct(short["tfidf_inteiro"]["p_positiva"], 1),
+        "CNNCurta": pct(short["cnn_prefixo"]["p_positiva"], 1),
+        "PassoUm": pct(stride["1"]["accuracy"]),
+        "PassoDois": pct(stride["2"]["accuracy"]),
+        "PassoTres": pct(stride["3"]["accuracy"]),
         "TextoA": main_pair["a"], "TextoB": main_pair["b"],
         "ExemploCobertura": cases["cobertura"]["texto"],
         "PalavrasA": pct(main_pair["resultados"]["Palavras"]["media_p_a"], 1),
@@ -303,6 +336,7 @@ def tables() -> str:
         **bpe_steps,
         "FiltroDemo": str(trace["filtro"]),
         "MaximoDemo": pt(max(trace["ativacoes"])),
+        "MaximoPassoDois": pt(max(trace["ativacoes"][::2])),
     }
     return "% Gerado por preparar.py a partir das evidências publicadas.\n" + "".join(
         macro(name, value) for name, value in props.items()

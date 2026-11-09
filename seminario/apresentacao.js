@@ -7,6 +7,8 @@ const number = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximu
 function makeTransport(name, draw) {
   const slider = byId(name + "-step");
   const button = byId(name + "-play");
+  const back = byId(name + "-back");
+  const forward = byId(name + "-forward");
   const count = byId(name + "-count");
   let timer = null;
 
@@ -15,6 +17,8 @@ function makeTransport(name, draw) {
     const label = draw(step);
     count.textContent = label;
     slider.setAttribute("aria-valuetext", label);
+    back.disabled = step === 0;
+    forward.disabled = step === Number(slider.max);
   }
 
   function pause() {
@@ -22,6 +26,17 @@ function makeTransport(name, draw) {
     timer = null;
     button.textContent = "▶ Reproduzir";
   }
+
+  function move(direction) {
+    pause();
+    const step = Number(slider.value) + direction;
+    if (step < 0 || step > Number(slider.max)) return false;
+    render(step);
+    return true;
+  }
+
+  back.addEventListener("click", () => move(-1));
+  forward.addEventListener("click", () => move(1));
 
   button.addEventListener("click", () => {
     if (timer !== null) {
@@ -42,6 +57,7 @@ function makeTransport(name, draw) {
   });
 
   return {
+    move,
     pause,
     reset(max) {
       pause();
@@ -98,18 +114,22 @@ const bpeTransport = makeTransport("bpe", (step) => {
 bpeTransport.reset(bpeLast);
 
 const cnn = evidence.cnn.casos;
-const scan = { name: "A", width: 3, tokens: [], bars: [], trace: null, scale: 1, edges: [] };
+const scan = { name: "A", width: 3, stride: 1, tokens: [], bars: [], trace: null,
+  scale: 1, edges: [], visited: [], winner: 0 };
 const scanWindow = byId("cnn-window");
 const cnnTransport = makeTransport("cnn", (step) => {
-  const { width, trace, tokens, bars, scale, edges } = scan;
-  const atMax = step === bars.length;
-  const position = atMax ? trace.max_indice : step;
+  const { width, stride, trace, tokens, bars, scale, edges, visited, winner } = scan;
+  const atMax = step === visited.length;
+  const position = atMax ? winner : visited[step];
   scanWindow.style.left = edges[position] + "%";
   scanWindow.style.width = (edges[position + width] - edges[position]) + "%";
   tokens.forEach((piece, i) => piece.classList.toggle("active", i >= position && i < position + width));
   bars.forEach((bar, i) => {
-    bar.style.height = (i <= step ? 100 * trace.ativacoes[i] / scale : 0) + "%";
-    bar.classList.toggle("future", i > step);
+    const sampled = i % stride === 0;
+    const seen = sampled && (atMax || i <= position);
+    bar.style.height = (seen ? 100 * trace.ativacoes[i] / scale : 0) + "%";
+    bar.classList.toggle("future", sampled && !seen);
+    bar.classList.toggle("skipped", !sampled);
     bar.classList.toggle("current", i === position);
   });
   const current = number.format(trace.ativacoes[position]);
@@ -117,13 +137,16 @@ const cnnTransport = makeTransport("cnn", (step) => {
   byId("cnn-relu").textContent = current;
   byId("cnn-reading").textContent = atMax
     ? "O máximo global guarda " + current + " para este filtro."
-    : "O mesmo filtro avança um token por vez.";
-  return atMax ? "Máximo global" : (step + 1) + " / " + bars.length + " janelas";
+    : "A janela avança " + stride + (stride === 1 ? " token." : " tokens.");
+  return atMax ? "Máximo global" : (step + 1) + " / " + visited.length + " janelas";
 });
 
 function setupScan() {
   const current = cnn[scan.name];
   scan.trace = current.janelas[scan.width];
+  scan.visited = scan.trace.ativacoes.map((_, i) => i).filter((i) => i % scan.stride === 0);
+  scan.winner = scan.visited.reduce((best, i) =>
+    scan.trace.ativacoes[i] > scan.trace.ativacoes[best] ? i : best, 0);
   scan.scale = 1.12 * Math.max(...Object.values(cnn).flatMap((sample) => sample.janelas[scan.width].ativacoes), 0.01);
   scan.tokens = current.tokens.map((text) => token(text));
   const weights = current.tokens.map((text) => Math.max(4, text.length));
@@ -140,11 +163,12 @@ function setupScan() {
   byId("cnn-tokens").replaceChildren(scanWindow, ...scan.tokens);
   byId("cnn-bars").replaceChildren(...scan.bars);
   byId("cnn-filter").textContent = "Filtro " + scan.trace.filtro + " · k = " + scan.width;
-  cnnTransport.reset(scan.bars.length);
+  cnnTransport.reset(scan.visited.length);
 }
 
 const caseButtons = [...document.querySelectorAll("[data-case]")];
 const widthButtons = [...document.querySelectorAll("[data-width]")];
+const strideButtons = [...document.querySelectorAll("[data-stride]")];
 caseButtons.forEach((button) => button.addEventListener("click", () => {
   scan.name = button.dataset.case;
   caseButtons.forEach((option) => option.setAttribute("aria-pressed", option === button));
@@ -155,12 +179,18 @@ widthButtons.forEach((button) => button.addEventListener("click", () => {
   widthButtons.forEach((option) => option.setAttribute("aria-pressed", option === button));
   setupScan();
 }));
+strideButtons.forEach((button) => button.addEventListener("click", () => {
+  scan.stride = Number(button.dataset.stride);
+  strideButtons.forEach((option) => option.setAttribute("aria-pressed", option === button));
+  setupScan();
+}));
 setupScan();
 
 const picker = byId("slide-picker");
 const previous = byId("previous");
 const next = byId("next");
 let slideIndex = -1;
+const labs = { bpe: bpeTransport, cnn: cnnTransport };
 slides.forEach((slide, index) => picker.add(new Option((index + 1) + " · " + slide.title, index)));
 
 function showSlide(index) {
@@ -213,14 +243,17 @@ picker.addEventListener("change", () => showSlide(Number(picker.value)));
 previous.addEventListener("click", () => showSlide(slideIndex - 1));
 next.addEventListener("click", () => showSlide(slideIndex + 1));
 window.addEventListener("keydown", (event) => {
-  if (event.altKey || event.ctrlKey || event.metaKey || event.target.closest?.("input, select, button, a")) return;
-  const moves = {
-    ArrowRight: slideIndex + 1, PageDown: slideIndex + 1, " ": slideIndex + 1,
-    ArrowLeft: slideIndex - 1, PageUp: slideIndex - 1, Home: 0, End: slides.length - 1,
-  };
-  if (Object.hasOwn(moves, event.key)) {
+  if (event.altKey || event.ctrlKey || event.metaKey || event.target.closest?.("input, select, textarea")) return;
+  if (event.key === " " && event.target.closest?.("button, a")) return;
+  const moves = { ArrowRight: 1, PageDown: 1, " ": 1, ArrowLeft: -1, PageUp: -1 };
+  const move = moves[event.key];
+  if (move) {
     event.preventDefault();
-    showSlide(moves[event.key]);
+    const lab = labs[slides[slideIndex].interactive];
+    if (!lab?.move(move)) showSlide(slideIndex + move);
+  } else if (event.key === "Home" || event.key === "End") {
+    event.preventDefault();
+    showSlide(event.key === "Home" ? 0 : slides.length - 1);
   } else if (event.key.toLowerCase() === "f" && !fullscreen.hidden) {
     fullscreen.click();
   }

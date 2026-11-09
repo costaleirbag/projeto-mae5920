@@ -1,12 +1,13 @@
 {
   "purpose": "Reader overview derived from frozen result files, without model selection or inference",
-  "rows": 27,
+  "rows": 30,
   "studies": {
     "original": 4,
     "sequencias": 17,
     "bpe": 2,
     "fora_imdb_amazon": 2,
-    "fora_imdb_yelp": 2
+    "fora_imdb_yelp": 2,
+    "passo_inferencia": 3
   },
   "sources_sha256": {
     "results/qwen/evaluation/model_comparison.csv": "d524929fec8fbdf368b6f6e6fd620bfdf7a96b49e9a613073bb8b41c30de5dec",
@@ -14,6 +15,7 @@
     "results/qwen/classification/metrics.json": "754de8477096a43df27abaf2e1a23a129312a387e17f0bbd5c3f2fece95ea892",
     "results/sequences/summary.json": "e6e2be90c21fcebdd6336a26818df17b77ea843a26bfd18fa69e5da289232e36",
     "results/bpe/summary.json": "b88d4898cdb5dd0d157ebeb3e4c9d2541dbb8b61b2439774291d5baa38e5d25e",
-    "seminario/dados/fora_dominio_resultados.json": "8b1a8397de367408989b855d6fe768a527a87ddec914326aedd64375ff0a8190"
+    "seminario/dados/fora_dominio_resultados.json": "8b1a8397de367408989b855d6fe768a527a87ddec914326aedd64375ff0a8190",
+    "seminario/dados/passo_resultados.json": "e16ff11c4632d7442f07187ef2eaea41278b4faa3d136b9153734f226769d7fe"
   }
 }

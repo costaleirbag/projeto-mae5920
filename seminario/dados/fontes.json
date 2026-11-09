@@ -12,5 +12,7 @@
   "seminario/casos.json": "9168ef07b2580802b4ec71d0d3b9a02e0ef85716df5cd1dfbed783676bf1402c",
   "seminario/dados/pares_resultados.json": "37d1a33a0da97e7f1a4d713d50c24ae5dc3ce98f5a8013d2bde81e6aba43af1e",
   "seminario/dados/fora_dominio_resultados.json": "8b1a8397de367408989b855d6fe768a527a87ddec914326aedd64375ff0a8190",
-  "seminario/dados/animacoes.json": "e0c1bf65135f336c21ad15d28c79d297f28cdd26a73729ef1c66412336fd175f"
+  "seminario/dados/animacoes.json": "e0c1bf65135f336c21ad15d28c79d297f28cdd26a73729ef1c66412336fd175f",
+  "seminario/dados/discordancias.json": "5ba1a62d68de92e672a98c7a76b7797290ae5ffcc5574600095afdbb0a95554b",
+  "seminario/dados/passo_resultados.json": "e16ff11c4632d7442f07187ef2eaea41278b4faa3d136b9153734f226769d7fe"
 }

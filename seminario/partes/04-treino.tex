@@ -38,12 +38,15 @@ Além dos 27 ajustes de otimizador e taxa, fizemos nove treinos para
 janelas 3 e 5 isoladas e janelas 3/4/5 com 32 filtros por largura.
 Seis treinos adicionais variaram dropout entre 0 e 0,8.
 As variantes reutilizam a taxa de Adam da CNN base. São \textbf{42 treinos de
-CNN} no estudo sequencial. Na auditoria desse estudo, a CNN base obteve
-81,95\%, a variante de 32 filtros 81,64\% e dropout 0,8 obteve 80,44\%.
-Os números descrevem cada variante sob a receita fixada.
+CNN} no estudo sequencial. Na auditoria, a acurácia foi 81,27\% com \(k=3\),
+80,94\% com \(k=5\) e 81,95\% com \(k=3,4,5\). A última variante combina
+três larguras e 300 filtros no total. As duas primeiras usam 100 filtros.
+Com 32 filtros por largura, a CNN chegou a 81,64\%. O dropout de 0,8 resultou em 80,44\%.
 
-Na curva de Adam, o erro de treino segue caindo depois das épocas escolhidas
-enquanto a CE de validação aumenta. O checkpoint selecionado corresponde ao
-critério de generalização estabelecido antes da auditoria.
-\fonte{docs/PROTOCOLO_SEQUENCIAS.md}{Grades e controles}.
-\fonte{results/sequences/runs}{Históricos de treino}.
+\subsection{Passo da janela na inferência}
+A largura \(k\) define quantos tokens o filtro lê. O passo \(s\) define
+quanto a janela avança. Mantivemos os pesos das três CNNs por palavras e
+aplicamos passos 1, 2 e 3 na auditoria da Seção~\ref{sec:bpe}. A acurácia
+média foi \PassoUm{}, \PassoDois{} e \PassoTres{}, respectivamente. O ensaio
+mede a perda de janelas em redes treinadas com passo 1.
+\fonteatual{seminario/diagnosticos.md}{Grade e resultados por passo}.

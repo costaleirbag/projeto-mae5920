@@ -1,0 +1,255 @@
+{
+  "protocolo": "Pareamento pelo ID do teste oficial. Casos escolhidos para ilustrar recorte e resenha mista.",
+  "teste_sha256": "491f3801523a42232e584bb2e732d08b2269e34e474161c153a73c2068fd887a",
+  "fontes_sha256": {
+    "results/cnn/predictions.parquet": "4f6fe61ae61a8e7a4defc3ed6f5642d75d7a7b7ee3fc79b2131d30b760cde363",
+    "results/tfidf/predictions.parquet": "0588ab5ceb3920614ab75d0b81e25026d07bb3e04771fc31ea2695c85b25cb6c"
+  },
+  "artefatos_sha256": {
+    "cnn/model.pt": "f6a0d306db8b417ea405f776ae427403d2ed7f9b956a1e6aaa636cd8cc39cc00",
+    "cnn/vocabulary.json": "993a16d268be680a19b8102270406f95c0e7b6bd05f9f55a6943698ddb0cd5c1",
+    "tfidf/model.joblib": "e7419eec4a319a54d0b11efc48b28d4dd149143240421cc70d4008eee8a0ace3"
+  },
+  "limite_cnn_tokens": 400,
+  "temperatura": {
+    "cnn": 1.0601125187358598,
+    "tfidf": 0.7139158771717246
+  },
+  "total": {
+    "n": 25000,
+    "ambos_acertam": 20821,
+    "so_tfidf_acerta": 1715,
+    "so_cnn_acerta": 875,
+    "ambos_erram": 1589
+  },
+  "sem_recorte": {
+    "n": 21882,
+    "ambos_acertam": 18364,
+    "so_tfidf_acerta": 1376,
+    "so_cnn_acerta": 765,
+    "ambos_erram": 1377
+  },
+  "com_recorte": {
+    "n": 3118,
+    "ambos_acertam": 2457,
+    "so_tfidf_acerta": 339,
+    "so_cnn_acerta": 110,
+    "ambos_erram": 212
+  },
+  "casos": [
+    {
+      "id": "imdb_test_03531",
+      "rotulo": 0,
+      "tokens_cnn": 780,
+      "cnn_prefixo": {
+        "logit": 3.0542593002319336,
+        "p_positiva": 0.9469027306936392,
+        "janelas": {
+          "a_favor_da_classe_negativa": [
+            {
+              "termo": "which at least",
+              "contribuicao": -0.1698436439037323
+            },
+            {
+              "termo": "as obvious as",
+              "contribuicao": -0.14634720981121063
+            },
+            {
+              "termo": "film primarily so we",
+              "contribuicao": -0.14547483623027802
+            }
+          ],
+          "a_favor_da_classe_positiva": [
+            {
+              "termo": "i reject both",
+              "contribuicao": 0.2501676380634308
+            },
+            {
+              "termo": "presented for simple",
+              "contribuicao": 0.2171713262796402
+            },
+            {
+              "termo": "is a natural situation",
+              "contribuicao": 0.20132626593112946
+            }
+          ]
+        }
+      },
+      "tfidf_inteiro": {
+        "logit": -1.9082253043965443,
+        "p_positiva": 0.0645915683092855,
+        "termos": {
+          "a_favor_da_classe_negativa": [
+            {
+              "termo": "bad",
+              "contribuicao": -0.40015081481561615
+            },
+            {
+              "termo": "awful",
+              "contribuicao": -0.2466895165511507
+            },
+            {
+              "termo": "waste",
+              "contribuicao": -0.18871047167752653
+            }
+          ],
+          "a_favor_da_classe_positiva": [
+            {
+              "termo": "rules",
+              "contribuicao": 0.12451029554827961
+            },
+            {
+              "termo": "simple",
+              "contribuicao": 0.11158822581451226
+            },
+            {
+              "termo": "this is",
+              "contribuicao": 0.10811159984055528
+            }
+          ]
+        }
+      },
+      "cnn_inteiro": {
+        "logit": -2.099548101425171,
+        "p_positiva": 0.12126602434357456,
+        "janelas": {
+          "a_favor_da_classe_negativa": [
+            {
+              "termo": "hate to waste",
+              "contribuicao": -0.30850908160209656
+            },
+            {
+              "termo": "so bad i left",
+              "contribuicao": -0.3034663200378418
+            },
+            {
+              "termo": "be awful they have secret",
+              "contribuicao": -0.2844703197479248
+            }
+          ],
+          "a_favor_da_classe_positiva": [
+            {
+              "termo": "i reject both",
+              "contribuicao": 0.2501676380634308
+            },
+            {
+              "termo": "presented for simple",
+              "contribuicao": 0.2171713262796402
+            },
+            {
+              "termo": "moving there is very",
+              "contribuicao": 0.20354211330413818
+            }
+          ]
+        }
+      },
+      "tfidf_prefixo": {
+        "logit": 0.6653987940106175,
+        "p_positiva": 0.7174891555978269,
+        "termos": {
+          "a_favor_da_classe_negativa": [
+            {
+              "termo": "idea",
+              "contribuicao": -0.2012312780563401
+            },
+            {
+              "termo": "no",
+              "contribuicao": -0.19100845136567743
+            },
+            {
+              "termo": "half",
+              "contribuicao": -0.17184891931765064
+            }
+          ],
+          "a_favor_da_classe_positiva": [
+            {
+              "termo": "rules",
+              "contribuicao": 0.1732542183917791
+            },
+            {
+              "termo": "simple",
+              "contribuicao": 0.1552733511721698
+            },
+            {
+              "termo": "the best",
+              "contribuicao": 0.1459051574388361
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "imdb_test_22831",
+      "rotulo": 1,
+      "tokens_cnn": 61,
+      "cnn_prefixo": {
+        "logit": 3.536592721939087,
+        "p_positiva": 0.9656451792615325,
+        "janelas": {
+          "a_favor_da_classe_negativa": [
+            {
+              "termo": "the ending doesn't make much",
+              "contribuicao": -0.16662541031837463
+            },
+            {
+              "termo": "halfway through it's",
+              "contribuicao": -0.16245216131210327
+            },
+            {
+              "termo": "watching 2 plots",
+              "contribuicao": -0.1522025316953659
+            }
+          ],
+          "a_favor_da_classe_positiva": [
+            {
+              "termo": "part is brilliant",
+              "contribuicao": 0.2573082149028778
+            },
+            {
+              "termo": "is brilliant as you realise",
+              "contribuicao": 0.24004770815372467
+            },
+            {
+              "termo": "is brilliant as you",
+              "contribuicao": 0.23443655669689178
+            }
+          ]
+        }
+      },
+      "tfidf_inteiro": {
+        "logit": -0.1274283602726688,
+        "p_positiva": 0.45549506517404936,
+        "termos": {
+          "a_favor_da_classe_negativa": [
+            {
+              "termo": "oh",
+              "contribuicao": -0.4492288562774572
+            },
+            {
+              "termo": "sadly",
+              "contribuicao": -0.3588563401804076
+            },
+            {
+              "termo": "not one",
+              "contribuicao": -0.3371670278932216
+            }
+          ],
+          "a_favor_da_classe_positiva": [
+            {
+              "termo": "great",
+              "contribuicao": 0.5840178878172784
+            },
+            {
+              "termo": "brilliant",
+              "contribuicao": 0.5027894678766316
+            },
+            {
+              "termo": "loved",
+              "contribuicao": 0.47653616865753035
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

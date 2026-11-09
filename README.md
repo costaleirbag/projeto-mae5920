@@ -9,7 +9,7 @@
 
 <p align="center">
   <a href="output/pdf/relatorio_seminario.pdf"><strong>Relatório do seminário</strong></a> ·
-  <a href="output/slides/slides_15_min_interativos.html">Slides interativos</a> ·
+  <a href="https://costaleirbag.github.io/projeto-mae5920/">Abrir slides interativos</a> ·
   <a href="output/pdf/slides_15_min.pdf">Slides em PDF</a> ·
   <a href="notebooks/seminario_completo.ipynb">Notebook único</a> ·
   <a href="docs/RESULTADOS.md">Tabelas de resultados</a>
@@ -39,7 +39,7 @@ de leitura estão em um anexo interno. Veja [como abrir e executar](docs/NOTEBOO
 |---|---|
 | Entender o trabalho pela primeira vez | [Guia do projeto](docs/GUIA_COMPLETO.md), depois o [notebook único](notebooks/seminario_completo.ipynb) |
 | Encontrar acurácia, F1 macro e loss juntos | [Resultados por estudo](docs/RESULTADOS.md) · [CSV consolidado](results/resumo_metricas.csv) |
-| Preparar a apresentação | [Slides interativos](output/slides/slides_15_min_interativos.html) · [PDF](output/pdf/slides_15_min.pdf) · [roteiro](seminario/roteiro.md) |
+| Preparar a apresentação | [Abrir slides interativos](https://costaleirbag.github.io/projeto-mae5920/) · [PDF](output/pdf/slides_15_min.pdf) · [roteiro](seminario/roteiro.md) |
 | Ler arquiteturas, hiperparâmetros e BPE | [Relatório CNN e encoders](output/pdf/relatorio_cnn_encoders.pdf) |
 | Estudar intervenções nas ativações | [Relatório Qwen3-8B](relatorio_qwen3.pdf) · seção 11 do notebook único |
 | Conferir ou repetir as execuções | [Guia de reprodução](docs/REPRODUCAO.md) |
@@ -55,6 +55,7 @@ de leitura estão em um anexo interno. Veja [como abrir e executar](docs/NOTEBOO
 | CNNs e Transformers | 42 treinos de CNN, 27 cabeças sobre encoders congelados e 18 ajustes completos de BERT, DistilBERT e ModernBERT | [Relatório](output/pdf/relatorio_cnn_encoders.pdf) · [protocolo e grades](docs/PROTOCOLO_SEQUENCIAS.md) |
 | Palavras versus BPE | BPE aprendido só nos textos de treino, sem rótulos; três novas CNNs comparadas a três checkpoints por palavras | [Protocolo BPE](docs/PROTOCOLO_BPE.md) |
 | Testes com as CNNs congeladas | Permutação de palavras, 2.000 frases rotuladas fora do IMDb e cinco comentários do YouTube | [Material e evidências do seminário](seminario/README.md) |
+| Discordâncias e janelas da CNN | Acertos exclusivos da CNN e do TF-IDF, efeitos do recorte e do passo | [Diagnósticos com exemplos](seminario/diagnosticos.md) |
 
 São **90 treinos neurais na extensão sequencial**, além dos 51 treinos do
 suplemento MLP. Esses totais descrevem estudos diferentes; checkpoints
