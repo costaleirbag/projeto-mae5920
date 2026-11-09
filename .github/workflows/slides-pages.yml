@@ -1,0 +1,43 @@
+name: Publicar slides no GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - output/slides/slides_15_min_interativos.html
+      - .github/workflows/slides-pages.yml
+  workflow_dispatch:
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Obter a apresentação
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+          sparse-checkout: output/slides/slides_15_min_interativos.html
+          sparse-checkout-cone-mode: false
+      - name: Configurar o GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Preparar a página
+        run: install -D -m 0644 output/slides/slides_15_min_interativos.html _site/index.html
+      - name: Empacotar a página
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+      - name: Publicar
+        id: deployment
+        uses: actions/deploy-pages@v4
