@@ -189,6 +189,7 @@
   "comentarios_youtube": [
     {
       "id": "A",
+      "origem": "Baby",
       "texto": "Let's be honest, Justin Bieber owned the world for few days when this song was released",
       "rotulo_referencia": null,
       "predicoes": [
@@ -496,6 +497,7 @@
     },
     {
       "id": "B",
+      "origem": "Baby",
       "texto": "why 7million dislike for this song?",
       "rotulo_referencia": null,
       "predicoes": [
@@ -678,6 +680,582 @@
             1959
           ],
           "palavras_no_prefixo": 6
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "origem": "Friday",
+      "texto": "AI could never do this",
+      "rotulo_referencia": null,
+      "predicoes": [
+        {
+          "modelo": "Palavras",
+          "semente": 17,
+          "epoca": 5,
+          "classe": "negativa",
+          "p_positiva": 0.42029812932014465,
+          "logits": [
+            0.09445760399103165,
+            -0.22709211707115173
+          ],
+          "tokens": [
+            "ai",
+            "could",
+            "never",
+            "do",
+            "this"
+          ],
+          "ids": [
+            13494,
+            101,
+            119,
+            87,
+            10
+          ],
+          "palavras_no_prefixo": 5
+        },
+        {
+          "modelo": "BPE",
+          "semente": 17,
+          "epoca": 5,
+          "classe": "negativa",
+          "p_positiva": 0.3949485421180725,
+          "logits": [
+            0.2515949606895447,
+            -0.1749630868434906
+          ],
+          "tokens": [
+            "ai</w>",
+            "could</w>",
+            "never</w>",
+            "do</w>",
+            "this</w>"
+          ],
+          "ids": [
+            15383,
+            457,
+            514,
+            400,
+            110
+          ],
+          "palavras_no_prefixo": 5
+        },
+        {
+          "modelo": "Palavras",
+          "semente": 29,
+          "epoca": 6,
+          "classe": "negativa",
+          "p_positiva": 0.30543234944343567,
+          "logits": [
+            0.40683767199516296,
+            -0.41472354531288147
+          ],
+          "tokens": [
+            "ai",
+            "could",
+            "never",
+            "do",
+            "this"
+          ],
+          "ids": [
+            13494,
+            101,
+            119,
+            87,
+            10
+          ],
+          "palavras_no_prefixo": 5
+        },
+        {
+          "modelo": "BPE",
+          "semente": 29,
+          "epoca": 5,
+          "classe": "negativa",
+          "p_positiva": 0.14077560603618622,
+          "logits": [
+            0.7549600601196289,
+            -1.0539028644561768
+          ],
+          "tokens": [
+            "ai</w>",
+            "could</w>",
+            "never</w>",
+            "do</w>",
+            "this</w>"
+          ],
+          "ids": [
+            15383,
+            457,
+            514,
+            400,
+            110
+          ],
+          "palavras_no_prefixo": 5
+        },
+        {
+          "modelo": "Palavras",
+          "semente": 43,
+          "epoca": 6,
+          "classe": "negativa",
+          "p_positiva": 0.23453852534294128,
+          "logits": [
+            0.7027111649513245,
+            -0.48014774918556213
+          ],
+          "tokens": [
+            "ai",
+            "could",
+            "never",
+            "do",
+            "this"
+          ],
+          "ids": [
+            13494,
+            101,
+            119,
+            87,
+            10
+          ],
+          "palavras_no_prefixo": 5
+        },
+        {
+          "modelo": "BPE",
+          "semente": 43,
+          "epoca": 6,
+          "classe": "negativa",
+          "p_positiva": 0.3391529321670532,
+          "logits": [
+            0.2921943962574005,
+            -0.37487688660621643
+          ],
+          "tokens": [
+            "ai</w>",
+            "could</w>",
+            "never</w>",
+            "do</w>",
+            "this</w>"
+          ],
+          "ids": [
+            15383,
+            457,
+            514,
+            400,
+            110
+          ],
+          "palavras_no_prefixo": 5
+        }
+      ]
+    },
+    {
+      "id": "D",
+      "origem": "The Room",
+      "texto": "The trailer makes more sense than the actual film",
+      "rotulo_referencia": null,
+      "predicoes": [
+        {
+          "modelo": "Palavras",
+          "semente": 17,
+          "epoca": 5,
+          "classe": "positiva",
+          "p_positiva": 0.6738829612731934,
+          "logits": [
+            -0.4016267657279968,
+            0.32417333126068115
+          ],
+          "tokens": [
+            "the",
+            "trailer",
+            "makes",
+            "more",
+            "sense",
+            "than",
+            "the",
+            "actual",
+            "film"
+          ],
+          "ids": [
+            2,
+            1191,
+            176,
+            56,
+            323,
+            77,
+            2,
+            921,
+            19
+          ],
+          "palavras_no_prefixo": 9
+        },
+        {
+          "modelo": "BPE",
+          "semente": 17,
+          "epoca": 5,
+          "classe": "negativa",
+          "p_positiva": 0.4551796615123749,
+          "logits": [
+            -0.032244760543107986,
+            -0.21200856566429138
+          ],
+          "tokens": [
+            "the</w>",
+            "trailer</w>",
+            "makes</w>",
+            "more</w>",
+            "sense</w>",
+            "than</w>",
+            "the</w>",
+            "actual</w>",
+            "film</w>"
+          ],
+          "ids": [
+            78,
+            3007,
+            684,
+            300,
+            991,
+            381,
+            78,
+            2298,
+            158
+          ],
+          "palavras_no_prefixo": 9
+        },
+        {
+          "modelo": "Palavras",
+          "semente": 29,
+          "epoca": 6,
+          "classe": "negativa",
+          "p_positiva": 0.4895755350589752,
+          "logits": [
+            0.028037549927830696,
+            -0.013666405342519283
+          ],
+          "tokens": [
+            "the",
+            "trailer",
+            "makes",
+            "more",
+            "sense",
+            "than",
+            "the",
+            "actual",
+            "film"
+          ],
+          "ids": [
+            2,
+            1191,
+            176,
+            56,
+            323,
+            77,
+            2,
+            921,
+            19
+          ],
+          "palavras_no_prefixo": 9
+        },
+        {
+          "modelo": "BPE",
+          "semente": 29,
+          "epoca": 5,
+          "classe": "negativa",
+          "p_positiva": 0.4994787871837616,
+          "logits": [
+            0.06543577462434769,
+            0.06335082650184631
+          ],
+          "tokens": [
+            "the</w>",
+            "trailer</w>",
+            "makes</w>",
+            "more</w>",
+            "sense</w>",
+            "than</w>",
+            "the</w>",
+            "actual</w>",
+            "film</w>"
+          ],
+          "ids": [
+            78,
+            3007,
+            684,
+            300,
+            991,
+            381,
+            78,
+            2298,
+            158
+          ],
+          "palavras_no_prefixo": 9
+        },
+        {
+          "modelo": "Palavras",
+          "semente": 43,
+          "epoca": 6,
+          "classe": "positiva",
+          "p_positiva": 0.7422502040863037,
+          "logits": [
+            -0.5270369648933411,
+            0.5306599736213684
+          ],
+          "tokens": [
+            "the",
+            "trailer",
+            "makes",
+            "more",
+            "sense",
+            "than",
+            "the",
+            "actual",
+            "film"
+          ],
+          "ids": [
+            2,
+            1191,
+            176,
+            56,
+            323,
+            77,
+            2,
+            921,
+            19
+          ],
+          "palavras_no_prefixo": 9
+        },
+        {
+          "modelo": "BPE",
+          "semente": 43,
+          "epoca": 6,
+          "classe": "negativa",
+          "p_positiva": 0.35681453347206116,
+          "logits": [
+            0.19622501730918884,
+            -0.3929918706417084
+          ],
+          "tokens": [
+            "the</w>",
+            "trailer</w>",
+            "makes</w>",
+            "more</w>",
+            "sense</w>",
+            "than</w>",
+            "the</w>",
+            "actual</w>",
+            "film</w>"
+          ],
+          "ids": [
+            78,
+            3007,
+            684,
+            300,
+            991,
+            381,
+            78,
+            2298,
+            158
+          ],
+          "palavras_no_prefixo": 9
+        }
+      ]
+    },
+    {
+      "id": "E",
+      "origem": "The Room",
+      "texto": "\"The best movie of the year\" - No one",
+      "rotulo_referencia": null,
+      "predicoes": [
+        {
+          "modelo": "Palavras",
+          "semente": 17,
+          "epoca": 5,
+          "classe": "positiva",
+          "p_positiva": 0.8059775829315186,
+          "logits": [
+            -0.8913324475288391,
+            0.5327492952346802
+          ],
+          "tokens": [
+            "the",
+            "best",
+            "movie",
+            "of",
+            "the",
+            "year",
+            "no",
+            "one"
+          ],
+          "ids": [
+            2,
+            107,
+            14,
+            5,
+            2,
+            261,
+            57,
+            25
+          ],
+          "palavras_no_prefixo": 9
+        },
+        {
+          "modelo": "BPE",
+          "semente": 17,
+          "epoca": 5,
+          "classe": "positiva",
+          "p_positiva": 0.7602800130844116,
+          "logits": [
+            -0.6799368262290955,
+            0.4742784798145294
+          ],
+          "tokens": [
+            "the</w>",
+            "best</w>",
+            "movie</w>",
+            "of</w>",
+            "the</w>",
+            "year</w>",
+            "no</w>",
+            "one</w>"
+          ],
+          "ids": [
+            78,
+            479,
+            137,
+            92,
+            78,
+            960,
+            308,
+            152
+          ],
+          "palavras_no_prefixo": 9
+        },
+        {
+          "modelo": "Palavras",
+          "semente": 29,
+          "epoca": 6,
+          "classe": "positiva",
+          "p_positiva": 0.8673001527786255,
+          "logits": [
+            -0.8719128966331482,
+            1.005382776260376
+          ],
+          "tokens": [
+            "the",
+            "best",
+            "movie",
+            "of",
+            "the",
+            "year",
+            "no",
+            "one"
+          ],
+          "ids": [
+            2,
+            107,
+            14,
+            5,
+            2,
+            261,
+            57,
+            25
+          ],
+          "palavras_no_prefixo": 9
+        },
+        {
+          "modelo": "BPE",
+          "semente": 29,
+          "epoca": 5,
+          "classe": "positiva",
+          "p_positiva": 0.6718893647193909,
+          "logits": [
+            -0.32766687870025635,
+            0.38907599449157715
+          ],
+          "tokens": [
+            "the</w>",
+            "best</w>",
+            "movie</w>",
+            "of</w>",
+            "the</w>",
+            "year</w>",
+            "no</w>",
+            "one</w>"
+          ],
+          "ids": [
+            78,
+            479,
+            137,
+            92,
+            78,
+            960,
+            308,
+            152
+          ],
+          "palavras_no_prefixo": 9
+        },
+        {
+          "modelo": "Palavras",
+          "semente": 43,
+          "epoca": 6,
+          "classe": "positiva",
+          "p_positiva": 0.5838156342506409,
+          "logits": [
+            -0.23264014720916748,
+            0.10581676661968231
+          ],
+          "tokens": [
+            "the",
+            "best",
+            "movie",
+            "of",
+            "the",
+            "year",
+            "no",
+            "one"
+          ],
+          "ids": [
+            2,
+            107,
+            14,
+            5,
+            2,
+            261,
+            57,
+            25
+          ],
+          "palavras_no_prefixo": 9
+        },
+        {
+          "modelo": "BPE",
+          "semente": 43,
+          "epoca": 6,
+          "classe": "positiva",
+          "p_positiva": 0.908332347869873,
+          "logits": [
+            -1.1033247709274292,
+            1.190116286277771
+          ],
+          "tokens": [
+            "the</w>",
+            "best</w>",
+            "movie</w>",
+            "of</w>",
+            "the</w>",
+            "year</w>",
+            "no</w>",
+            "one</w>"
+          ],
+          "ids": [
+            78,
+            479,
+            137,
+            92,
+            78,
+            960,
+            308,
+            152
+          ],
+          "palavras_no_prefixo": 9
         }
       ]
     }

@@ -31,6 +31,7 @@ SOURCES = (
     "seminario/casos.json",
     "seminario/dados/pares_resultados.json",
     "seminario/dados/fora_dominio_resultados.json",
+    "seminario/dados/animacoes.json",
 )
 
 
@@ -165,6 +166,27 @@ def paired_bpe() -> None:
     save(fig, "bpe_pareado.pdf")
 
 
+def cnn_scan() -> None:
+    example = read_json("seminario/dados/animacoes.json")["cnn"]["casos"]["A"]
+    trace = example["janelas"]["3"]
+    values, winner = trace["ativacoes"], trace["max_indice"]
+    fig, axis = plt.subplots(figsize=(8.2, 2.0), layout="constrained")
+    axis.axvspan(winner - .46, winner + 2.46, color="#D9EBE3", linewidth=0)
+    centers = list(range(1, len(values) + 1))
+    colors = [TEAL if i == winner else "#9BB6AB" for i in range(len(values))]
+    axis.bar(centers, values, width=.63, color=colors, zorder=3)
+    axis.scatter(centers, [0] * len(values), color=colors, s=19, zorder=4)
+    axis.text(centers[winner], values[winner] + .05, pt(values[winner]),
+              ha="center", color=TEAL, fontweight="bold", fontsize=13)
+    axis.set(xlim=(-.5, len(example["tokens"]) - .5), ylim=(0, 1.18),
+             xticks=range(len(example["tokens"])), xticklabels=example["tokens"], yticks=[0, .5, 1])
+    axis.set_ylabel("Após ReLU", fontsize=11)
+    axis.tick_params(labelsize=10)
+    axis.yaxis.set_major_formatter(FuncFormatter(lambda x, _: pt(x, 1)))
+    axis.grid(axis="y", alpha=.65)
+    save(fig, "cnn_varredura.pdf")
+
+
 def tables() -> str:
     comparisons = read_csv("results/comparison.csv")
     baseline_names = {"tfidf": "TF-IDF + logística", "cnn": "CNN", "bert": "BERT"}
@@ -239,8 +261,27 @@ def tables() -> str:
         external_rows.append(row(*cells))
     comment_rows = []
     for comment in external["comentarios_youtube"]:
-        scores = {p["modelo"]: p["p_positiva"] for p in comment["predicoes"] if p["semente"] == 17}
-        comment_rows.append(row(comment["id"], pct(scores["Palavras"], 1), pct(scores["BPE"], 1)))
+        if comment["origem"] == "Baby":
+            continue
+        quote = (r"\textcolor{Teal}{\scriptsize\bfseries " + comment["origem"] + r"}\par "
+                 + r"\textit{" + comment["texto"] + "}")
+        seed = {p["modelo"]: p for p in comment["predicoes"] if p["semente"] == 17}
+        cells = [quote]
+        for name in ("Palavras", "BPE"):
+            prediction = seed[name]
+            label = {"positiva": "Pos.", "negativa": "Neg."}[prediction["classe"]]
+            cells.append(f"{label} ({pct(prediction['p_positiva'], 1)})")
+        comment_rows.append(row(*cells))
+    demo = read_json("seminario/dados/animacoes.json")
+    steps = demo["bpe"]["etapas"]
+    trace = demo["cnn"]["casos"]["A"]["janelas"]["3"]
+    bpe_steps = {}
+    for name, step in zip(("BPEInicio", "BPEFusao", "BPEFim"), (steps[0], steps[1], steps[-1])):
+        tokens = []
+        for index, token in enumerate(step["pecas"]):
+            command = r"\fused" if index == step.get("indice") else r"\chip"
+            tokens.append(command + "{" + token + "}")
+        bpe_steps[name] = "".join(tokens)
     props = {
         "LinhasOriginal": "\n".join(split_rows),
         "LinhasTeste": "\n".join(calibrated_rows),
@@ -251,7 +292,6 @@ def tables() -> str:
         "LinhasPares": "\n".join(pair_rows),
         "LinhasForaDominio": "\n".join(external_rows),
         "LinhasYouTube": "\n".join(comment_rows),
-        **{f"Comentario{comment['id']}": comment["texto"] for comment in external["comentarios_youtube"]},
         "TextoA": main_pair["a"], "TextoB": main_pair["b"],
         "ExemploCobertura": cases["cobertura"]["texto"],
         "PalavrasA": pct(main_pair["resultados"]["Palavras"]["media_p_a"], 1),
@@ -260,6 +300,9 @@ def tables() -> str:
         "BPEB": pct(main_pair["resultados"]["BPE"]["media_p_b"], 1),
         "NegacaoPalavrasA": pct(negation_scores["Palavras"], 1),
         "NegacaoBPEA": pct(negation_scores["BPE"], 1),
+        **bpe_steps,
+        "FiltroDemo": str(trace["filtro"]),
+        "MaximoDemo": pt(max(trace["ativacoes"])),
     }
     return "% Gerado por preparar.py a partir das evidências publicadas.\n" + "".join(
         macro(name, value) for name, value in props.items()
@@ -272,10 +315,11 @@ def main() -> None:
     learning_curves()
     original_diagnostics()
     paired_bpe()
+    cnn_scan()
     (DATA / "tabelas.tex").write_text(tables(), encoding="utf-8")
     provenance = {name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest() for name in SOURCES}
     (DATA / "fontes.json").write_text(json.dumps(provenance, indent=2) + "\n", encoding="utf-8")
-    print("Três figuras vetoriais e tabelas LaTeX atualizadas.")
+    print("Figuras vetoriais e tabelas LaTeX atualizadas.")
 
 
 if __name__ == "__main__":

@@ -11,5 +11,6 @@
   "results/bpe/audit_metrics.json": "2cfacd93a7c5226f378cd433214f675cfc710b59c4cbf043c45f4b4f08f63ccb",
   "seminario/casos.json": "9168ef07b2580802b4ec71d0d3b9a02e0ef85716df5cd1dfbed783676bf1402c",
   "seminario/dados/pares_resultados.json": "37d1a33a0da97e7f1a4d713d50c24ae5dc3ce98f5a8013d2bde81e6aba43af1e",
-  "seminario/dados/fora_dominio_resultados.json": "84edeead17d9b01d604fea3f51255e5a7b8e290b302c488721d7fe7431444886"
+  "seminario/dados/fora_dominio_resultados.json": "8b1a8397de367408989b855d6fe768a527a87ddec914326aedd64375ff0a8190",
+  "seminario/dados/animacoes.json": "e0c1bf65135f336c21ad15d28c79d297f28cdd26a73729ef1c66412336fd175f"
 }

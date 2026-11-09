@@ -1,50 +1,89 @@
-\documentclass[aspectratio=169,11pt]{beamer}
+\documentclass[t,aspectratio=169,11pt]{beamer}
 \usepackage{lmodern,microtype}
 \input{comum.tex}
+\definecolor{Paper}{HTML}{FAF9F4}
+\definecolor{Forest}{HTML}{102D2B}
+\definecolor{Mint}{HTML}{D9EBE3}
+\definecolor{Lime}{HTML}{BFE6C8}
+\definecolor{Quiet}{HTML}{53645E}
 \hypersetup{colorlinks=true,linkcolor=Teal,urlcolor=Teal,
   pdftitle={O que a CNN lê em uma resenha?},pdfauthor={Nestor, Letícia e Gabriel}}
 \setbeamertemplate{navigation symbols}{}
-\setbeamercolor{normal text}{fg=Ink,bg=white}
+\setbeamercolor{normal text}{fg=Ink,bg=Paper}
 \setbeamercolor{structure}{fg=Teal}
 \setbeamercolor{frametitle}{fg=Ink}
 \setbeamerfont{frametitle}{size=\Large,series=\bfseries}
 \setbeamersize{text margin left=8mm,text margin right=8mm}
-\setbeamertemplate{frametitle}{\vspace{3mm}\insertframetitle\par\vspace{.4mm}}
+\newcommand{\actlabel}{%
+  \ifnum\insertframenumber<6 01\enspace REPRESENTAÇÃO\else
+  \ifnum\insertframenumber<9 02\enspace TREINO E AVALIAÇÃO\else
+  \ifnum\insertframenumber<12 03\enspace LIMITES\else
+  \ifnum\insertframenumber<14 EXTENSÃO\else APOIO\fi\fi\fi\fi}
+\setbeamertemplate{frametitle}{%
+  \vspace{2.5mm}{\scriptsize\color{Teal}\bfseries\actlabel\par}%
+  \vspace{.8mm}\insertframetitle\par\vspace{2mm}%
+  {\color{Rule}\hrule width\linewidth height.5pt}\vspace{.8mm}}
 \setbeamertemplate{footline}{%
   \leavevmode\hbox{\begin{beamercolorbox}[wd=\paperwidth,ht=3.3ex,dp=1.7ex,
   leftskip=8mm,rightskip=8mm]{normal text}%
-  \color{Ink!65}\scriptsize MAE5920\hfill\insertframenumber
+  \color{Quiet}\scriptsize MAE5920\enspace$\cdot$\enspace IMDb\hfill
+  \textcolor{Teal}{\rule{7mm}{.7pt}}\enspace\insertframenumber/\inserttotalframenumber
   \end{beamercolorbox}}}
 \setlength{\parskip}{3pt}
-\renewcommand{\arraystretch}{1.23}
-\newcommand{\smallsource}[1]{\vfill{\scriptsize\color{Ink!73}#1\par}}
+\renewcommand{\arraystretch}{1.22}
+\newcommand{\smallsource}[1]{\vfill{\scriptsize\color{Quiet}#1\par}}
 \newcommand{\strong}[1]{\textcolor{Teal}{\bfseries #1}}
+\newcommand{\plate}[1]{\begingroup\setlength{\fboxsep}{5pt}%
+  \fcolorbox{Rule}{white}{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{#1}}\endgroup}
+\newcommand{\chip}[1]{\begingroup\setlength{\fboxsep}{2.6pt}\colorbox{white}{\strut\texttt{#1}}\endgroup\,}
+\newcommand{\fused}[1]{\begingroup\setlength{\fboxsep}{2.6pt}\colorbox{Mint}{\strut\texttt{#1}}\endgroup\,}
+\newcommand{\liveversion}{\fonteatual{output/slides/slides_15_min_interativos.html}{Versão animada}}
 
 \begin{document}
 
 % 00:00–00:25
 {
-\setbeamercolor{background canvas}{bg=Ink}
+\setbeamercolor{background canvas}{bg=Forest}
 \begin{frame}[plain]
+\vfill
+\begin{columns}[c,onlytextwidth]
+\begin{column}{.59\textwidth}
 \color{white}
-\vfill
-{\small\bfseries\color{white!75} MAE5920\enspace$\cdot$\enspace INTRODUÇÃO A DEEP LEARNING\par}
+{\scriptsize\bfseries\color{Lime} MAE5920\enspace$\cdot$\enspace INTRODUÇÃO A DEEP LEARNING\par}
+\vspace{5mm}
+{\fontsize{26}{29}\selectfont\bfseries O que a CNN lê\\ em uma resenha?\par}
 \vspace{4mm}
-{\fontsize{28}{31}\selectfont\bfseries O que a CNN lê\\ em uma resenha?\par}
-\vspace{3mm}
-{\large Classificação de sentimento e tokenização no IMDb\par}
+{\normalsize Sentimento e tokenização no IMDb\par}
 \vspace{6mm}
-{\small Nestor, Letícia e Gabriel\par}
+{\small\color{Lime} Nestor, Letícia e Gabriel\par}
+\end{column}
+\begin{column}{.36\textwidth}
+\begin{tikzpicture}[x=1mm,y=1mm,font=\sffamily\scriptsize]
+  \draw[Lime!45!Forest,rounded corners=2mm] (0,0) rectangle (48,46);
+  \node[Lime,anchor=west,font=\sffamily\bfseries\scriptsize] at (4,40) {JANELA DE 3 TOKENS};
+  \foreach \x/\word in {4/was,16/it,28/good} {
+    \fill[Lime,rounded corners=.8mm] (\x,27) rectangle ++(10,7);
+    \node[Forest,font=\ttfamily\scriptsize] at (\x+5,30.5) {\word};
+  }
+  \draw[Lime!65!Forest,-{Latex[length=1.7mm]}] (21,25) -- (21,19);
+  \node[white,anchor=west] at (4,15) {Convolução e máximo};
+  \draw[Lime!40!Forest] (4,9) -- (44,9);
+  \node[Lime,anchor=west] at (4,5) {300 máximos $\to$ 2 logits};
+\end{tikzpicture}
+\end{column}
+\end{columns}
 \vfill
+{\color{Lime!72!Forest}\rule{\linewidth}{.5pt}\par}
+{\color{white!75!Forest}\scriptsize SEMINÁRIO\hfill 15 MINUTOS\par}
+\vspace{2mm}
 \end{frame}
 }
 
 % 00:25–01:35
 \begin{frame}{O contraste na resenha}
-\large
-\caso{A}{I thought this movie was \textbf{terrible}, but it was \textbf{wonderful}.}
-\vspace{2mm}
-\caso{B}{I thought this movie was \textbf{wonderful}, but it was \textbf{terrible}.}
+\plate{\caso{A}{I thought this movie was \textcolor{Rust}{\textbf{terrible}}, but it was \strong{wonderful}.}}
+\par\vspace{2mm}
+\plate{\caso{B}{I thought this movie was \strong{wonderful}, but it was \textcolor{Rust}{\textbf{terrible}}.}}
 \vspace{4mm}
 \normalsize
 Trocamos de lugar só os dois adjetivos. A contagem de cada palavra permanece.
@@ -74,55 +113,49 @@ O teste oficial e as auditorias internas têm amostras próprias.
 \end{frame}
 
 % 02:35–03:45
-\begin{frame}{Tokenização por palavras e BPE}
-\caso{Entrada}{\ExemploCobertura}
-\vspace{4mm}
-\begin{columns}[T,onlytextwidth]
-\begin{column}{.47\textwidth}
-\strong{Palavras}
-
-Contagem no treino e um ID por item frequente.
-
-\Large\texttt{<unk>}
-\end{column}
-\begin{column}{.48\textwidth}
-\strong{BPE}
-
-Uniões frequentes de caracteres aprendidas no treino.
-
-\Large\texttt{p + all + bearer</w>}
-\end{column}
-\end{columns}
-\vspace{5mm}
-Os dois vocabulários têm 20 mil itens. A CNN aprende os embeddings por gradiente.
-\smallsource{Peças observadas para \texttt{pallbearer}. \texttt{</w>} marca o fim de palavra.
-BPE de caracteres, Sennrich et al. (2016).}
+% lab:bpe
+\begin{frame}{Como o BPE divide uma palavra rara}
+\caso{Entrada}{The \textbf{pallbearer} scene was unexpectedly moving.}
+\vspace{2mm}
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+\strong{Caracteres} & \BPEInicio\\[1.4mm]
+\strong{Fusão 1 de 7} & \BPEFusao\\[1.4mm]
+\strong{Saída BPE} & \BPEFim\\
+\end{tabularx}
+\par\vspace{3mm}
+\plate{\textbf{Vocabulário por palavras} \enspace\texttt{pallbearer} recebe \texttt{<unk>}.}
+\par
+O BPE aplica pares aprendidos no treino, em ordem de prioridade.
+\smallsource{\texttt{</w>} marca o fim da palavra. Sennrich et al. (2016). \liveversion.}
 \end{frame}
 
 % 03:45–05:15
+% lab:cnn
 \begin{frame}{Arquitetura da TextCNN}
 \Arquitetura
-\vspace{4mm}
-
-\strong{2.714.502 parâmetros}
-
-Cada filtro usa os mesmos pesos ao deslizar pelo texto. O máximo global
-guarda a maior resposta em cada um dos 300 filtros.
-
-No treino, a entropia cruzada fornece o gradiente que atualiza
-embeddings, filtros e camada linear.
-\smallsource{Kim (2014) e Prince (2023), cap. 10.
-\fonte{src/imdb_lab/models.py}{Classe TextCNN}.}
+\par\vspace{2mm}
+\begin{columns}[c,onlytextwidth]
+\begin{column}{.68\textwidth}
+\includegraphics[width=\linewidth]{figuras/cnn_varredura.pdf}
+\end{column}
+\begin{column}{.29\textwidth}
+{\large\strong{\MaximoDemo}}\par
+\small Maior resposta do filtro \FiltroDemo{} na frase A, com \(k=3\).
+O máximo de cada filtro segue para a camada linear.
+\end{column}
+\end{columns}
+\smallsource{Ativações reais, semente 17, tokenizer por palavras. 2.714.502 parâmetros.
+\fonte{src/imdb_lab/models.py}{TextCNN}. \liveversion.}
 \end{frame}
 
 % 05:15–06:40
 \begin{frame}{Escolha da taxa e da época}
 \centering
-\includegraphics[width=\linewidth,height=.52\textheight,keepaspectratio]{figuras/otimizacao.pdf}
+\includegraphics[width=\linewidth,height=.50\textheight,keepaspectratio]{figuras/otimizacao.pdf}
 \par\raggedright\vspace{1mm}
 
-Três taxas por método, 12 épocas e as mesmas partidas e minibatches por semente.
-Escolhemos a menor CE de validação. Para Adam, os pesos guardados vieram das épocas 5 e 6.
+Três taxas por método e 12 épocas. Selecionamos pela menor CE de validação.
+No Adam, guardamos os pesos das épocas 5 e 6.
 \smallsource{Média e mínimo--máximo das sementes 17, 29 e 43.
 \fonte{results/sequences/presentation_data.json}{Curvas salvas}.}
 \end{frame}
@@ -154,11 +187,11 @@ acima de 500.
 \includegraphics[width=\linewidth]{figuras/bpe_pareado.pdf}
 \end{column}
 \begin{column}{.45\textwidth}
-{\large\strong{3,27\% \(\to\) 0\%}}\par
+{\Large\strong{3,27\% \(\to\) 0\%}}\par
 Tokens desconhecidos
 \vspace{2mm}
 
-{\large\strong{82,00\% \(\to\) 81,41\%}}\par
+{\Large\textcolor{Rust}{\bfseries 82,00\% \(\to\) 81,41\%}}\par
 Acurácia média
 \vspace{2mm}
 
@@ -195,13 +228,13 @@ e em uma semente com BPE.
 % 10:10–11:30
 \begin{frame}{Limite do máximo global}
 \nota{\(S=\) \textit{I have a few thoughts about this movie.}}
-\vspace{4mm}
+\par\vspace{2mm}
 
-\textbf{A}\quad \(S\) \enspace \textit{I loved the acting.}\enspace \(S\)
-\enspace \textit{I hated the ending.}\enspace \(S\)
+\plate{\textbf{A}\quad \(S\) \enspace \textcolor{Teal}{\textit{I loved the acting.}}\enspace \(S\)
+\enspace \textcolor{Rust}{\textit{I hated the ending.}}\enspace \(S\)}
 
-\textbf{B}\quad \(S\) \enspace \textit{I hated the ending.}\enspace \(S\)
-\enspace \textit{I loved the acting.}\enspace \(S\)
+\plate{\textbf{B}\quad \(S\) \enspace \textcolor{Rust}{\textit{I hated the ending.}}\enspace \(S\)
+\enspace \textcolor{Teal}{\textit{I loved the acting.}}\enspace \(S\)}
 
 \vspace{3mm}
 O separador preserva as janelas de 3, 4 e 5 tokens quando os dois blocos trocam de lugar.
@@ -213,38 +246,39 @@ Cada filtro continua vendo as mesmas janelas e retorna o mesmo máximo.
 
 % 11:30–12:00
 \begin{frame}{Resultados e limites da CNN}
-\Large
-O que chega à camada final são os máximos de respostas locais.
-\vspace{4mm}
-
-\normalsize
-Isso explica a sensibilidade à ordem dentro de uma janela
-e a invariância quando as janelas se preservam.
-
-No relatório, os pares mostram \emph{como} a rede erra.
-A auditoria mede \emph{quanto} ela acerta no conjunto reservado.
+\vspace{2mm}
+\plate{\Large\bfseries A camada final recebe 300 máximos de respostas locais.}
+\par\vspace{5mm}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.30\textwidth}
+\strong{Tokenização}\par
+Palavras ou subpalavras definem o que cabe em cada janela.
+\end{column}
+\begin{column}{.30\textwidth}
+\strong{Convolução}\par
+A ordem dentro da janela pode mudar a resposta de um filtro.
+\end{column}
+\begin{column}{.30\textwidth}
+\strong{Pooling}\par
+O máximo guarda a resposta mais forte e descarta sua posição.
+\end{column}
+\end{columns}
 \smallsource{\href{\projetourl}{Código, notebook, relatórios e evidências}.}
 \end{frame}
 
 % Bloco adicional, 12:00–13:30
-\begin{frame}{Do IMDb aos comentários do YouTube}
-\begin{tabularx}{.88\linewidth}{@{}>{\color{Teal}\bfseries}l@{\quad}>{\raggedright\arraybackslash\itshape}X@{}}
-A & \ComentarioA\\
-B & \ComentarioB\\
-\end{tabularx}
-\par\vspace{2mm}
-\begin{tabular}{@{}lrr@{}}
+\begin{frame}{Ironia e sentimento em comentários do YouTube}
+\begin{tabularx}{\linewidth}{@{}Xrr@{}}
 \toprule
 Comentário & CNN palavras & CNN BPE\\
 \midrule
 \LinhasYouTube
 \bottomrule
-\end{tabular}
-\par\vspace{2mm}
-As duas CNNs deram classe positiva. A comenta a repercussão do artista
-e B pergunta pela reação do público. A opinião sobre a música fica em aberto.
-\smallsource{Comentários de \textit{Baby}, sem rótulos de referência. Escore positivo da semente 17.
-\fonteatual{seminario/dados/fora_dominio_resultados.json}{Resultados completos}.}
+\end{tabularx}
+\par\vspace{3mm}
+\plate{\textbf{“No one”} contesta o elogio entre aspas. Os seis checkpoints deram classe positiva.}
+\smallsource{Escore positivo entre parênteses, semente 17. Casos sem rótulo de referência.
+\fonteatual{seminario/dados/fora_dominio_resultados.json}{Cinco comentários e todas as sementes}.}
 \end{frame}
 
 % Bloco adicional, 13:30–15:00
@@ -272,6 +306,7 @@ token a token. Comparamos o texto após alterar suas ativações.
 
 \begin{frame}{Métricas por divisão}
 \small
+\renewcommand{\arraystretch}{1.09}
 \begin{tabularx}{\linewidth}{@{}lXrrr@{}}
 \toprule
 Divisão & Modelo & Acurácia & F1 macro & CE bruta\\
@@ -283,10 +318,12 @@ Divisão & Modelo & Acurácia & F1 macro & CE bruta\\
 \end{frame}
 
 \begin{frame}{Comprimento e calibração}
-\includegraphics[width=\linewidth]{figuras/diagnostico_oficial.pdf}
+\centering
+\includegraphics[width=.91\linewidth]{figuras/diagnostico_oficial.pdf}
+\par\raggedright
 
-Temperatura reescala a margem. Na CNN, a CE do teste foi de
-0,3040 para 0,3037. A classificação usa o mesmo limiar.
+Na CNN, a CE do teste foi de 0,3040 para 0,3037 com temperatura.
+O limiar de classificação permaneceu em 0,5.
 \smallsource{Apoio. Teste oficial. \fonte{results/analysis/subgroup_metrics.csv}{Comprimento}
 e \fonte{results/cnn/metrics.json}{calibração}.}
 \end{frame}

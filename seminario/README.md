@@ -8,11 +8,27 @@ de apoio. O relatório tem oito páginas, dentro da faixa do enunciado.
 | Material | Para ler ou editar |
 |---|---|
 | Relatório | [PDF](../output/pdf/relatorio_seminario.pdf) · [LaTeX](relatorio.tex) · [seções](partes/) |
-| Apresentação | [PDF 16:9](../output/pdf/slides_15_min.pdf) · [Beamer](slides.tex) |
+| Apresentação | [HTML interativo](../output/slides/slides_15_min_interativos.html) · [PDF 16:9](../output/pdf/slides_15_min.pdf) · [Beamer](slides.tex) |
 | Fala, tempos e cortes | [Roteiro](roteiro.md) |
 | Experimentos e código explicado | [Notebook único](../notebooks/seminario_completo.ipynb) |
 | Predições dos quatro pares e teste de cobertura | [Entradas](casos.json) · [Resultados por semente](dados/pares_resultados.json) |
 | Avaliação fora do IMDb e exemplos do YouTube | [Protocolo](#avaliação-fora-do-imdb) · [Resultados por semente](dados/fora_dominio_resultados.json) |
+
+## Apresentação interativa
+
+No GitHub, abra o arquivo HTML e use **Download raw file**. Abra o arquivo
+baixado no navegador. Funciona offline, inclusive os controles de reprodução.
+Use as setas para trocar de slide e `F` para entrar em tela cheia. No slide 4,
+arraste a barra ou aperte **Reproduzir** para percorrer as sete fusões de
+*pallbearer*. No slide 5, faça a varredura das janelas com largura 3, 4 ou 5
+nas frases A e B. A última etapa destaca o máximo de um filtro real da CNN.
+[Baixar o HTML interativo](../output/slides/slides_15_min_interativos.html).
+
+A sequência BPE foi conferida com o tokenizer treinado. Para cada largura
+da CNN por palavras, mostramos o filtro com maior amplitude na frase A e
+mantemos o mesmo filtro ao mudar para B. Os valores antes e depois da ReLU
+foram extraídos do checkpoint da semente 17. O PDF resume os mesmos passos
+em quadros fixos. [Valores usados nas animações](dados/animacoes.json).
 
 ## Revisão em grupo
 
@@ -25,6 +41,11 @@ repositório. O comando grava os dois PDFs em `output/pdf/` e coloca arquivos
 intermediários em `tmp/seminario/`. Para usar Overleaf, importe a pasta `seminario`
 e selecione `relatorio.tex` ou `slides.tex` como documento principal, com pdfLaTeX.
 As figuras e tabelas do LaTeX estão nessa própria pasta.
+
+Para reconstruir também o HTML, rode `make -C seminario interativo` com
+`pypdf` e `pdftoppm` instalados. O HTML usa as páginas renderizadas do PDF
+nos slides fixos. Os slides 4 e 5 usam as etapas salvas e os controles da
+apresentação. [Fontes do HTML](apresentacao.html) · [estilo](apresentacao.css) · [controles](apresentacao.js).
 
 As tabelas e os gráficos vêm das métricas salvas. Para atualizá-los, rode
 `python seminario/preparar.py` antes de compilar. O arquivo
@@ -56,16 +77,17 @@ O endpoint local `POST /predict` recebe JSON no formato
 `--text 'The movie was wonderful.'`.
 
 No dia, carreguem a página antes da fala e façam um teste rápido. O slide 12
-traz resultados salvos de dois textos para usar se o teste ao vivo sair do
-roteiro ou se os pesos estiverem em outro computador.
+traz os escores salvos de *Friday* e *The Room*, que podem ocupar o tempo da
+demonstração. As animações dos slides 4 e 5 já funcionam no HTML baixado.
 
 Para reproduzir os quatro pares com as três sementes, a pasta de artefatos
 precisa ter também as versões `s29` e `s43` das duas CNNs. Rode:
 
 ~~~bash
 python seminario/medir_pares.py --artifacts /caminho/para/artifacts
+python seminario/medir_animacoes.py --artifacts /caminho/para/artifacts
 python seminario/preparar.py
-make -C seminario
+make -C seminario interativo
 ~~~
 
 ## Avaliação fora do IMDb
@@ -82,11 +104,12 @@ tokenizadores, pesos e limiar originais e usamos escores sem calibração.
 Acurácia, F1 macro e entropia cruzada são calculadas por execução e depois
 agregadas pela média das três sementes de cada representação.
 
-Os dois comentários de *Baby* são casos qualitativos sem rótulos de
-referência. O primeiro descreve a repercussão do artista. O segundo menciona
-a reação de outras pessoas. No primeiro, a CNN por palavras lê `Bieber`
-como `<unk>` e o BPE usa `bi`, `e` e `ber</w>`. Os tokens e os escores
-de cada execução estão salvos. [Resultados](dados/fora_dominio_resultados.json).
+Os cinco comentários são casos qualitativos sem rótulos de referência.
+Em *Baby*, os autores comentam a repercussão do artista e a reação do
+público. Em *Friday*, “AI could never do this” admite admiração e ironia.
+Os dois de *The Room* criticam o filme por comparação com o trailer ou
+com um elogio citado. O comentário com “No one” recebeu classe positiva
+nos seis checkpoints. [Tokens e escores por execução](dados/fora_dominio_resultados.json).
 
 Para repetir a inferência com os seis checkpoints, baixe o ZIP original e
 passe seu caminho ao script. O arquivo de predições guarda os números de

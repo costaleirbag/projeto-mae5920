@@ -1,4 +1,4 @@
-"""Consulta as CNNs congeladas em frases da UCI e em dois comentários do YouTube."""
+"""Consulta as CNNs congeladas em frases da UCI e em comentários do YouTube."""
 
 from __future__ import annotations
 
@@ -22,8 +22,11 @@ from imdb_lab.data import clean_text, fingerprint
 DATASET_URL = "https://archive.ics.uci.edu/static/public/331/sentiment+labelled+sentences.zip"
 FILES = {"Amazon": "amazon_cells_labelled.txt", "Yelp": "yelp_labelled.txt"}
 COMMENTS = {
-    "A": "Let's be honest, Justin Bieber owned the world for few days when this song was released",
-    "B": "why 7million dislike for this song?",
+    "A": ("Baby", "Let's be honest, Justin Bieber owned the world for few days when this song was released"),
+    "B": ("Baby", "why 7million dislike for this song?"),
+    "C": ("Friday", "AI could never do this"),
+    "D": ("The Room", "The trailer makes more sense than the actual film"),
+    "E": ("The Room", '"The best movie of the year" - No one'),
 }
 SEEDS = (17, 29, 43)
 
@@ -84,9 +87,9 @@ def evaluate(dataset: Path, artifacts: Path, output: Path) -> dict:
         "predicoes_sha256": file_sha256(predictions),
         "dominios_rotulados": domains,
         "comentarios_youtube": [
-            {"id": name, "texto": review, "rotulo_referencia": None,
+            {"id": name, "origem": source, "texto": review, "rotulo_referencia": None,
              "predicoes": [model.predict(review) for model in models]}
-            for name, review in COMMENTS.items()
+            for name, (source, review) in COMMENTS.items()
         ],
     }
 
