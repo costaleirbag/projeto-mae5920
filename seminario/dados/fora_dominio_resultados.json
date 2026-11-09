@@ -1,0 +1,685 @@
+{
+  "protocolo": "Inferência em CPU com as CNNs congeladas, sem ajuste de pesos, limiar ou temperatura.",
+  "dataset": {
+    "nome": "Sentiment Labelled Sentences",
+    "doi": "10.24432/C57604",
+    "download": "https://archive.ics.uci.edu/static/public/331/sentiment+labelled+sentences.zip",
+    "licenca": "CC BY 4.0",
+    "zip_sha256": "afc26626d710899948693e1a61405dce197f57ffa719fa1130d346b4cc095343"
+  },
+  "manifestos_treino_validacao": {
+    "results/sequences/data_manifest.json": "b9684d5d2e03b5889eb6f116814f293c07e3264acb1c98f195d57159a92c0f21",
+    "results/bpe/data_manifest.json": "1c3bf145a13c1e7489b947740950f05eb87ccf22c0df7c4f0ee8fd1966744b44"
+  },
+  "checkpoint_sha256": {
+    "Palavras_s17": "cf541d7008e475e7942d84aa446c84ac40799e4e9c114eced66562d8469b87f1",
+    "BPE_s17": "0b4d2fa9e5377e2446002cd506717a305c567e59e945157b2873af5b0add36bd",
+    "Palavras_s29": "547f192fd14254c0cb5caf54477256d8d977491e723b575d82d81ed73419a57e",
+    "BPE_s29": "3b132f8478c99e0282f312c244a1a0ace805143d8f8b40729c27bebd0e44b5f1",
+    "Palavras_s43": "e6aee6571b4ba452d9c54836323b67e8e3e5397ab4b07f85c190ff4a414289bf",
+    "BPE_s43": "53f13898eac636bfc7d99ededdf6e99c53354c19234ba8cd181a7e889ec911fc"
+  },
+  "predicoes_sha256": "453dfb8e553ab9fc235638a0c6a8d32bfad9145a3184cbf264a057e6145ff95e",
+  "dominios_rotulados": {
+    "Amazon": {
+      "arquivo": "sentiment labelled sentences/amazon_cells_labelled.txt",
+      "sha256": "47003fc0a0d4840b00e96e715b6189bad09e7443a3da41c4cbe12ffc79f86ae3",
+      "n": 1000,
+      "positivos": 500,
+      "excluidos_por_igualdade_com_treino_ou_validacao": 0,
+      "mediana_palavras": 9.0,
+      "medias": {
+        "Palavras": {
+          "accuracy": 0.681,
+          "f1_macro": 0.6663982761277755,
+          "ce": 0.6372398732821164
+        },
+        "BPE": {
+          "accuracy": 0.6996666666666667,
+          "f1_macro": 0.6919973924122987,
+          "ce": 0.5900293978556945
+        }
+      },
+      "execucoes": [
+        {
+          "modelo": "Palavras",
+          "semente": 17,
+          "accuracy": 0.68,
+          "ce": 0.6232480424855333,
+          "f1_macro": 0.6658186815711535,
+          "roc_auc": 0.766696,
+          "brier": 0.21309267493683012,
+          "correct": 680
+        },
+        {
+          "modelo": "BPE",
+          "semente": 17,
+          "accuracy": 0.713,
+          "ce": 0.5537219961994563,
+          "f1_macro": 0.7076723281811006,
+          "roc_auc": 0.807936,
+          "brier": 0.18578310557232902,
+          "correct": 713
+        },
+        {
+          "modelo": "Palavras",
+          "semente": 29,
+          "accuracy": 0.694,
+          "ce": 0.6302103928334203,
+          "f1_macro": 0.6830342530173896,
+          "roc_auc": 0.780576,
+          "brier": 0.20783718030696594,
+          "correct": 694
+        },
+        {
+          "modelo": "BPE",
+          "semente": 29,
+          "accuracy": 0.694,
+          "ce": 0.5981124439435134,
+          "f1_macro": 0.6861654338916716,
+          "roc_auc": 0.772144,
+          "brier": 0.2030438160463499,
+          "correct": 694
+        },
+        {
+          "modelo": "Palavras",
+          "semente": 43,
+          "accuracy": 0.669,
+          "ce": 0.6582611845273957,
+          "f1_macro": 0.6503418937947834,
+          "roc_auc": 0.764112,
+          "brier": 0.2210910017869175,
+          "correct": 669
+        },
+        {
+          "modelo": "BPE",
+          "semente": 43,
+          "accuracy": 0.692,
+          "ce": 0.6182537534241139,
+          "f1_macro": 0.6821544151641239,
+          "roc_auc": 0.772256,
+          "brier": 0.20656020705821465,
+          "correct": 692
+        }
+      ]
+    },
+    "Yelp": {
+      "arquivo": "sentiment labelled sentences/yelp_labelled.txt",
+      "sha256": "c76468b7b5c6e56a0804d728345c5f84aa2142ddb214420f61cc9cfd4c00d2ea",
+      "n": 1000,
+      "positivos": 500,
+      "excluidos_por_igualdade_com_treino_ou_validacao": 0,
+      "mediana_palavras": 10.0,
+      "medias": {
+        "Palavras": {
+          "accuracy": 0.6943333333333334,
+          "f1_macro": 0.6827992646755471,
+          "ce": 0.6091314320120581
+        },
+        "BPE": {
+          "accuracy": 0.6966666666666667,
+          "f1_macro": 0.6911139442312507,
+          "ce": 0.5945608628580633
+        }
+      },
+      "execucoes": [
+        {
+          "modelo": "Palavras",
+          "semente": 17,
+          "accuracy": 0.696,
+          "ce": 0.6113235532027687,
+          "f1_macro": 0.6833333333333333,
+          "roc_auc": 0.7824399999999999,
+          "brier": 0.2061230905551917,
+          "correct": 696
+        },
+        {
+          "modelo": "BPE",
+          "semente": 17,
+          "accuracy": 0.706,
+          "ce": 0.5704703323579448,
+          "f1_macro": 0.7035991531404375,
+          "roc_auc": 0.782756,
+          "brier": 0.1944310798333425,
+          "correct": 706
+        },
+        {
+          "modelo": "Palavras",
+          "semente": 29,
+          "accuracy": 0.701,
+          "ce": 0.6022798559186344,
+          "f1_macro": 0.6924219559289011,
+          "roc_auc": 0.788704,
+          "brier": 0.2014683240941517,
+          "correct": 701
+        },
+        {
+          "modelo": "BPE",
+          "semente": 29,
+          "accuracy": 0.691,
+          "ce": 0.5902325314789423,
+          "f1_macro": 0.6849121883919203,
+          "roc_auc": 0.7781440000000001,
+          "brier": 0.20131985667948252,
+          "correct": 691
+        },
+        {
+          "modelo": "Palavras",
+          "semente": 43,
+          "accuracy": 0.686,
+          "ce": 0.6137908869147711,
+          "f1_macro": 0.6726425047644069,
+          "roc_auc": 0.781464,
+          "brier": 0.20778899887085345,
+          "correct": 686
+        },
+        {
+          "modelo": "BPE",
+          "semente": 43,
+          "accuracy": 0.693,
+          "ce": 0.6229797247373028,
+          "f1_macro": 0.6848304911613945,
+          "roc_auc": 0.7726839999999999,
+          "brier": 0.20995480026773827,
+          "correct": 693
+        }
+      ]
+    }
+  },
+  "comentarios_youtube": [
+    {
+      "id": "A",
+      "texto": "Let's be honest, Justin Bieber owned the world for few days when this song was released",
+      "rotulo_referencia": null,
+      "predicoes": [
+        {
+          "modelo": "Palavras",
+          "semente": 17,
+          "epoca": 5,
+          "classe": "positiva",
+          "p_positiva": 0.7210189700126648,
+          "logits": [
+            -0.4634338617324829,
+            0.48608773946762085
+          ],
+          "tokens": [
+            "let's",
+            "be",
+            "honest",
+            "justin",
+            "<unk>",
+            "owned",
+            "the",
+            "world",
+            "for",
+            "few",
+            "days",
+            "when",
+            "this",
+            "song",
+            "was",
+            "released"
+          ],
+          "ids": [
+            1077,
+            26,
+            1495,
+            4813,
+            1,
+            7597,
+            2,
+            187,
+            18,
+            174,
+            433,
+            51,
+            10,
+            671,
+            13,
+            501
+          ],
+          "palavras_no_prefixo": 16
+        },
+        {
+          "modelo": "BPE",
+          "semente": 17,
+          "epoca": 5,
+          "classe": "positiva",
+          "p_positiva": 0.950893759727478,
+          "logits": [
+            -1.6462593078613281,
+            1.317156434059143
+          ],
+          "tokens": [
+            "let's</w>",
+            "be</w>",
+            "honest</w>",
+            "justin</w>",
+            "bi",
+            "e",
+            "ber</w>",
+            "owned</w>",
+            "the</w>",
+            "world</w>",
+            "for</w>",
+            "few</w>",
+            "days</w>",
+            "when</w>",
+            "this</w>",
+            "song</w>",
+            "was</w>",
+            "released</w>"
+          ],
+          "ids": [
+            2703,
+            184,
+            3611,
+            9193,
+            387,
+            17,
+            661,
+            13196,
+            78,
+            725,
+            155,
+            698,
+            1277,
+            282,
+            110,
+            1959,
+            131,
+            1577
+          ],
+          "palavras_no_prefixo": 16
+        },
+        {
+          "modelo": "Palavras",
+          "semente": 29,
+          "epoca": 6,
+          "classe": "positiva",
+          "p_positiva": 0.789591908454895,
+          "logits": [
+            -0.4962002635002136,
+            0.8262670040130615
+          ],
+          "tokens": [
+            "let's",
+            "be",
+            "honest",
+            "justin",
+            "<unk>",
+            "owned",
+            "the",
+            "world",
+            "for",
+            "few",
+            "days",
+            "when",
+            "this",
+            "song",
+            "was",
+            "released"
+          ],
+          "ids": [
+            1077,
+            26,
+            1495,
+            4813,
+            1,
+            7597,
+            2,
+            187,
+            18,
+            174,
+            433,
+            51,
+            10,
+            671,
+            13,
+            501
+          ],
+          "palavras_no_prefixo": 16
+        },
+        {
+          "modelo": "BPE",
+          "semente": 29,
+          "epoca": 5,
+          "classe": "positiva",
+          "p_positiva": 0.984176754951477,
+          "logits": [
+            -1.6916890144348145,
+            2.43863582611084
+          ],
+          "tokens": [
+            "let's</w>",
+            "be</w>",
+            "honest</w>",
+            "justin</w>",
+            "bi",
+            "e",
+            "ber</w>",
+            "owned</w>",
+            "the</w>",
+            "world</w>",
+            "for</w>",
+            "few</w>",
+            "days</w>",
+            "when</w>",
+            "this</w>",
+            "song</w>",
+            "was</w>",
+            "released</w>"
+          ],
+          "ids": [
+            2703,
+            184,
+            3611,
+            9193,
+            387,
+            17,
+            661,
+            13196,
+            78,
+            725,
+            155,
+            698,
+            1277,
+            282,
+            110,
+            1959,
+            131,
+            1577
+          ],
+          "palavras_no_prefixo": 16
+        },
+        {
+          "modelo": "Palavras",
+          "semente": 43,
+          "epoca": 6,
+          "classe": "positiva",
+          "p_positiva": 0.9454565644264221,
+          "logits": [
+            -1.3963234424591064,
+            1.4563474655151367
+          ],
+          "tokens": [
+            "let's",
+            "be",
+            "honest",
+            "justin",
+            "<unk>",
+            "owned",
+            "the",
+            "world",
+            "for",
+            "few",
+            "days",
+            "when",
+            "this",
+            "song",
+            "was",
+            "released"
+          ],
+          "ids": [
+            1077,
+            26,
+            1495,
+            4813,
+            1,
+            7597,
+            2,
+            187,
+            18,
+            174,
+            433,
+            51,
+            10,
+            671,
+            13,
+            501
+          ],
+          "palavras_no_prefixo": 16
+        },
+        {
+          "modelo": "BPE",
+          "semente": 43,
+          "epoca": 6,
+          "classe": "positiva",
+          "p_positiva": 0.9843410849571228,
+          "logits": [
+            -1.8842674493789673,
+            2.256666421890259
+          ],
+          "tokens": [
+            "let's</w>",
+            "be</w>",
+            "honest</w>",
+            "justin</w>",
+            "bi",
+            "e",
+            "ber</w>",
+            "owned</w>",
+            "the</w>",
+            "world</w>",
+            "for</w>",
+            "few</w>",
+            "days</w>",
+            "when</w>",
+            "this</w>",
+            "song</w>",
+            "was</w>",
+            "released</w>"
+          ],
+          "ids": [
+            2703,
+            184,
+            3611,
+            9193,
+            387,
+            17,
+            661,
+            13196,
+            78,
+            725,
+            155,
+            698,
+            1277,
+            282,
+            110,
+            1959,
+            131,
+            1577
+          ],
+          "palavras_no_prefixo": 16
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "texto": "why 7million dislike for this song?",
+      "rotulo_referencia": null,
+      "predicoes": [
+        {
+          "modelo": "Palavras",
+          "semente": 17,
+          "epoca": 5,
+          "classe": "positiva",
+          "p_positiva": 0.7063558101654053,
+          "logits": [
+            -0.6351937651634216,
+            0.242556631565094
+          ],
+          "tokens": [
+            "why",
+            "7",
+            "million",
+            "dislike",
+            "for",
+            "this",
+            "song"
+          ],
+          "ids": [
+            132,
+            756,
+            1430,
+            3397,
+            18,
+            10,
+            671
+          ],
+          "palavras_no_prefixo": 6
+        },
+        {
+          "modelo": "BPE",
+          "semente": 17,
+          "epoca": 5,
+          "classe": "positiva",
+          "p_positiva": 0.9044378995895386,
+          "logits": [
+            -1.2546836137771606,
+            0.9928537011146545
+          ],
+          "tokens": [
+            "why</w>",
+            "7</w>",
+            "million</w>",
+            "dislike</w>",
+            "for</w>",
+            "this</w>",
+            "song</w>"
+          ],
+          "ids": [
+            575,
+            62,
+            3488,
+            6883,
+            155,
+            110,
+            1959
+          ],
+          "palavras_no_prefixo": 6
+        },
+        {
+          "modelo": "Palavras",
+          "semente": 29,
+          "epoca": 6,
+          "classe": "positiva",
+          "p_positiva": 0.8545925617218018,
+          "logits": [
+            -0.7732216715812683,
+            0.9978634119033813
+          ],
+          "tokens": [
+            "why",
+            "7",
+            "million",
+            "dislike",
+            "for",
+            "this",
+            "song"
+          ],
+          "ids": [
+            132,
+            756,
+            1430,
+            3397,
+            18,
+            10,
+            671
+          ],
+          "palavras_no_prefixo": 6
+        },
+        {
+          "modelo": "BPE",
+          "semente": 29,
+          "epoca": 5,
+          "classe": "positiva",
+          "p_positiva": 0.6400390863418579,
+          "logits": [
+            -0.06837453693151474,
+            0.5071591138839722
+          ],
+          "tokens": [
+            "why</w>",
+            "7</w>",
+            "million</w>",
+            "dislike</w>",
+            "for</w>",
+            "this</w>",
+            "song</w>"
+          ],
+          "ids": [
+            575,
+            62,
+            3488,
+            6883,
+            155,
+            110,
+            1959
+          ],
+          "palavras_no_prefixo": 6
+        },
+        {
+          "modelo": "Palavras",
+          "semente": 43,
+          "epoca": 6,
+          "classe": "positiva",
+          "p_positiva": 0.9079643487930298,
+          "logits": [
+            -1.0572900772094727,
+            1.2317389249801636
+          ],
+          "tokens": [
+            "why",
+            "7",
+            "million",
+            "dislike",
+            "for",
+            "this",
+            "song"
+          ],
+          "ids": [
+            132,
+            756,
+            1430,
+            3397,
+            18,
+            10,
+            671
+          ],
+          "palavras_no_prefixo": 6
+        },
+        {
+          "modelo": "BPE",
+          "semente": 43,
+          "epoca": 6,
+          "classe": "positiva",
+          "p_positiva": 0.8198912739753723,
+          "logits": [
+            -0.6391376852989197,
+            0.8764737844467163
+          ],
+          "tokens": [
+            "why</w>",
+            "7</w>",
+            "million</w>",
+            "dislike</w>",
+            "for</w>",
+            "this</w>",
+            "song</w>"
+          ],
+          "ids": [
+            575,
+            62,
+            3488,
+            6883,
+            155,
+            110,
+            1959
+          ],
+          "palavras_no_prefixo": 6
+        }
+      ]
+    }
+  ]
+}

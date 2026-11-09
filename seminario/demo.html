@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resenhas no IMDb | MAE5920</title>
+<style>
+  :root { color-scheme: light; font: 17px/1.5 system-ui, sans-serif; color: #142637; background: #f6f8fa; }
+  body { max-width: 58rem; margin: 2.5rem auto; padding: 0 1.25rem; }
+  h1 { font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.1; margin: .4rem 0 1rem; }
+  h2 { font-size: 1.2rem; }
+  .course { font-size: .85rem; color: #176c69; font-weight: 700; letter-spacing: .05em; }
+  label { display: block; font-weight: 700; margin: 1.5rem 0 .4rem; }
+  textarea { box-sizing: border-box; width: 100%; font: inherit; padding: .8rem; border: 1px solid #778a9b; border-radius: .3rem; }
+  button { font: inherit; font-weight: 650; background: #176c69; color: white; border: 0; border-radius: .3rem; padding: .55rem 1.1rem; margin-top: .45rem; }
+  table { width: 100%; border-collapse: collapse; background: white; font-size: .9rem; }
+  th, td { padding: .7rem; border-bottom: 1px solid #d7e0e7; text-align: left; vertical-align: top; }
+  code { color: #145c5a; overflow-wrap: anywhere; }
+  details { margin-top: 1.2rem; }
+  summary { cursor: pointer; color: #145c5a; font-weight: 650; }
+  .note { color: #42576a; font-size: .9rem; }
+  [role="alert"] { color: #8e321c; }
+</style>
+<main>
+  <div class="course">MAE5920 · INTRODUÇÃO A DEEP LEARNING</div>
+  <h1>O que a CNN lê em uma resenha?</h1>
+  <p>Compare palavras e BPE usando os dois checkpoints da semente $seed.</p>
+  <form method="post" action="/">
+    <label for="review">Resenha em inglês</label>
+    <textarea id="review" name="text" rows="4" maxlength="4000" required>$review</textarea>
+    <button type="submit">Classificar</button>
+  </form>
+  $result
+  <details>
+    <summary>Par do seminário para copiar</summary>
+    <p><strong>A.</strong> $example_a</p>
+    <p><strong>B.</strong> $example_b</p>
+  </details>
+  <p class="note">Os escores vêm do softmax. Cada entrada usa até 128 palavras do texto limpo e até 256 tokens.</p>
+</main>
+</html>

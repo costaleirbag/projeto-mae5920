@@ -11,12 +11,14 @@ import math
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+EXTERNAL_SOURCE = "seminario/dados/fora_dominio_resultados.json"
 SOURCES = [
     "results/qwen/evaluation/model_comparison.csv",
     "results/comparison.csv",
     "results/qwen/classification/metrics.json",
     "results/sequences/summary.json",
     "results/bpe/summary.json",
+    EXTERNAL_SOURCE,
 ]
 FIELDS = ["estudo", "condicao", "grupo", "n_avaliacao", "resumo",
           "probabilidades", "acuracia", "f1_macro", "loss_ce", "fonte"]
@@ -71,7 +73,13 @@ def collect():
         rows.append(row("bpe", "CNN — " + r["label"], "tokenização", 2048,
                         "média de três sementes", "sem calibração de temperatura",
                         r["accuracy_mean"], r["f1_macro_mean"], r["ce_mean"], SOURCES[4]))
-    assert len(rows) == 23
+    for domain, result in read_json(EXTERNAL_SOURCE)["dominios_rotulados"].items():
+        for label, scores in result["medias"].items():
+            rows.append(row(f"fora_imdb_{domain.lower()}", f"{domain} · CNN — {label}",
+                            "tokenização", result["n"], "média de três sementes",
+                            "sem calibração de temperatura", scores["accuracy"],
+                            scores["f1_macro"], scores["ce"], EXTERNAL_SOURCE))
+    assert len(rows) == 27
     return rows
 
 
@@ -85,16 +93,16 @@ def table(rows):
 
 
 def render(rows):
-    sections = {s: [r for r in rows if r["estudo"] == s] for s in ["original", "sequencias", "bpe"]}
+    studies = dict.fromkeys(r["estudo"] for r in rows)
+    sections = {study: [r for r in rows if r["estudo"] == study] for study in studies}
     document = f"""# Acurácia, F1 macro e loss em um lugar
 
 [Início](../README.md) · [Notebook único](../notebooks/seminario_completo.ipynb) ·
-[CSV consolidado, com as 23 linhas](../results/resumo_metricas.csv)
+[CSV consolidado, com as {len(rows)} linhas](../results/resumo_metricas.csv)
 
-Estas tabelas leem os resultados congelados; não executam novas inferências nem
-treinos. O CSV reúne as três comparações com uma coluna `estudo`. **Compare dentro
-de cada estudo:** o teste oficial e as duas auditorias internas são conjuntos distintos.
-Os exemplos de operações em CPU do notebook não são resultados deste benchmark.
+As tabelas reúnem as métricas salvas. A coluna `estudo` do CSV identifica
+o teste oficial, cada auditoria interna e cada fonte externa. Use a mesma
+amostra de avaliação ao comparar modelos.
 
 ## O que significa cada coluna
 
@@ -160,7 +168,17 @@ superioridade universal de uma tokenização.
 Fontes: [comparação BPE](../results/bpe/comparison.csv),
 [resumo](../results/bpe/summary.json) e [protocolo BPE](PROTOCOLO_BPE.md).
 
-## 4. Onde ficam os outros experimentos
+## 4. Avaliação externa das CNNs — Amazon e Yelp
+
+Aplicamos os mesmos pesos da seção 3 a 1.000 frases de cada fonte, com
+500 rótulos positivos e 500 negativos por fonte. As métricas são médias de
+três sementes, sem calibração. A coleção privilegia frases de polaridade
+clara. [Coleção UCI](https://doi.org/10.24432/C57604) ·
+[Protocolo e predições](../seminario/README.md#avaliação-fora-do-imdb).
+
+{table(sections['fora_imdb_amazon'] + sections['fora_imdb_yelp'])}
+
+## 5. Onde ficam os outros experimentos
 
 | Estudo | Avaliação e resultados |
 |---|---|
@@ -208,7 +226,7 @@ def main():
             assert path.read_text() == value, f"Outdated overview: {name}"
         else:
             path.write_text(value)
-    print("Metric overview verified: 23 rows, 3 identified evaluation cohorts, accuracy/F1 macro/CE linked to frozen sources.")
+    print("Metric overview verified: accuracy, macro F1 and CE linked to frozen sources.")
 
 
 if __name__ == "__main__":

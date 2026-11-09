@@ -1,0 +1,62 @@
+\section{Dados e protocolo de avaliação}
+\label{sec:dados}
+O Large Movie Review Dataset contém 25.000 avaliações rotuladas no treino
+oficial e 25.000 no teste \cite{maas}. A tarefa usa o texto em inglês e dois
+rótulos, \(y=0\) para negativo e \(y=1\) para positivo. Decodificamos entidades
+HTML, removemos tags e normalizamos espaços. A identificação de duplicatas
+usa o hash do texto limpo com \textit{casefold}.
+
+\subsection{Papéis das amostras}
+\begin{tabularx}{\linewidth}{@{}lrrX@{}}
+\toprule
+\tabelahead{Papel} & \tabelahead{Original} & \tabelahead{Ensaios internos} & \tabelahead{Uso}\\
+\midrule
+Treino       & 19.823 & 6.144 & Ajustar representação, vocabulário e pesos.\\
+Validação    &  2.478 & 1.536 & Escolher hiperparâmetros e época.\\
+Calibração   &  2.478 &  --   & Ajustar temperatura após a seleção original.\\
+Teste/auditoria & 25.000 & 2.048 & Avaliar a configuração já escolhida.\\
+\bottomrule
+\end{tabularx}
+\legendinha{Tabela 1. O número 2.048 se refere à auditoria de cada extensão.
+CNN/encoders, palavras/BPE e MLP usam amostras internas distintas.}
+
+No preparo original, removemos do treino textos com hash presente no teste,
+duplicatas internas e conflitos de rótulo. A comparação de hashes usa os textos
+do teste para excluir duplicatas, com rótulos reservados à avaliação. Os
+registros distinguem 123 linhas do treino que coincidiam com o teste e
+98 duplicatas internas do treino. O teste oficial conserva 201 ocorrências
+duplicadas. A auditoria detecta igualdade normalizada, de modo que paráfrases
+e possíveis exposições no pré-treinamento continuam como fontes de incerteza.
+
+As extensões partem do treino limpo. CNN/encoders e palavras/BPE compartilham
+treino e validação e recebem prefixos de até 128 palavras. Cada rede pode
+usar até 256 tokens. A auditoria BPE exclui também os papéis da extensão
+sequencial. A entrada de cada auditoria ficou reservada até o congelamento
+dos pesos e das escolhas. Os resultados de teste oficial vêm da execução
+original. \fonte{data/manifest.json}{Manifesto original}.
+\fonte{docs/PROTOCOLO_SEQUENCIAS.md}{Protocolo sequencial}.
+\fonte{docs/PROTOCOLO_BPE.md}{Protocolo BPE}.
+
+\subsection{Dicionário resumido}
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+\toprule
+\tabelahead{Campo} & \tabelahead{Significado}\\
+\midrule
+\texttt{id} & Identificador derivado da divisão oficial e da posição na fonte.\\
+\texttt{label} & Classe binária usada na função de perda e na avaliação.\\
+\texttt{clean\_text} & Texto após decodificação de HTML e normalização de espaços.\\
+\texttt{word\_count} & Número de segmentos separados por espaço no texto limpo.\\
+\texttt{text\_sha256} & Impressão do texto normalizado usada para verificar duplicações.\\
+\bottomrule
+\end{tabularx}
+\legendinha{Tabela 2. O texto é a entrada do classificador. ID, rótulo e hash têm papéis
+de preparação ou avaliação. \fonte{DATA_DICTIONARY.md}{Dicionário completo}.}
+
+\subsection{Métricas}
+Acurácia conta a proporção de classificações corretas. F1 macro calcula o F1
+de cada classe e faz a média com pesos iguais. A entropia cruzada binária,
+\(\mathrm{CE}=-n^{-1}\sum_i[y_i\log p_i+(1-y_i)\log(1-p_i)]\), avalia o
+escore \(p_i\) atribuído ao sentimento positivo. Ela aumenta quando a classe
+observada recebe probabilidade baixa. Na execução original, o cálculo salvo
+limita as probabilidades a \([10^{-7},1-10^{-7}]\). Os ensaios internos
+calculam CE diretamente dos logits.

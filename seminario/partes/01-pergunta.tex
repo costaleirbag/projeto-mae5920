@@ -1,0 +1,50 @@
+\thispagestyle{empty}
+\vspace*{8mm}
+{\sffamily\bfseries\color{Teal} MAE5920\enspace $\cdot$\enspace INTRODUÇÃO A DEEP LEARNING\par}
+\vspace{5mm}
+{\fontsize{34}{37}\selectfont\sffamily\bfseries O que a CNN lê\\ em uma resenha?\par}
+\vspace{3mm}
+{\large Classificação de sentimento e tokenização no IMDb\par}
+\vspace{5mm}
+{\sffamily Nestor, Letícia e Gabriel\par}
+\vspace{6mm}
+\noindent\textcolor{Rule}{\rule{\linewidth}{.7pt}}
+
+\subsection*{Resumo}
+Classificamos resenhas do IMDb em positivas e negativas com regressão logística
+sobre TF-IDF, uma CNN com embeddings aprendidos e encoders pré-treinados.
+O experimento original avalia os modelos no teste oficial. Ensaios internos
+com três sementes separam escolhas de otimizador, arquitetura e tokenização.
+Na comparação pareada, BPE reduziu tokens desconhecidos de 3,27\% para zero e
+a acurácia média passou de 82,00\% para 81,41\%. Trocamos a posição de dois
+adjetivos para mudar a leitura de positiva para negativa. Os seis checkpoints
+trocaram de classe na direção oposta. Um controle com as mesmas janelas
+convolucionais produziu logits idênticos em cada checkpoint. Fora do IMDb,
+as CNNs obtiveram de 68\% a 70\% de acurácia média em frases de Amazon e Yelp.
+
+\section{Ordem e sentimento}
+\label{sec:ordem}
+Considere duas resenhas que só trocam os lugares de \textit{terrible} e
+\textit{wonderful}. Pela avaliação após \textit{but}, a leitura adotada é
+positiva para A e negativa para B.
+
+\vspace{2mm}
+\caso{A}{\TextoA}
+\caso{B}{\TextoB}
+\vspace{1mm}
+As duas sequências têm a mesma contagem de cada palavra. Um modelo que recebe
+apenas unigramas vê o mesmo vetor para A e B. Os bigramas mudam, portanto o
+TF-IDF de referência deste trabalho, que inclui bigramas, pode separá-las.
+A CNN também pode responder de modo diferente, pois aplica filtros a janelas
+ordenadas de embeddings. A questão empírica é se ela atribui o sentimento à
+oração que encerra o contraste.
+
+Primeiro, medimos desempenho em resenhas reservadas e comparamos escolhas
+de treino e tokenização. Depois, usamos pesos congelados nos pares
+sintéticos para verificar sensibilidade à ordem e construir um limite exato
+da arquitetura. Avaliamos os mesmos checkpoints em outras fontes para
+examinar o que muda quando o texto deixa de ser uma resenha de filme.
+
+\vfill
+\nota{Código, notebook executado e resultados por execução.
+\href{\projetourl}{Repositório do projeto}.}

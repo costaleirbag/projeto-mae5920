@@ -1,0 +1,181 @@
+# Roteiro de fala
+
+A versão principal termina aos **12:00**, dentro da faixa do enunciado original.
+Os slides 12 e 13 ocupam três minutos adicionais se a turma tiver 15 minutos.
+Os slides 14 a 17 ficam disponíveis para perguntas. Os tempos incluem pausas
+curtas e passagens de fala. Os slides 4 e 8 são pontos naturais para trocar de pessoa.
+
+| Slide | Relógio | Assunto |
+|---:|---|---|
+| 1 | 00:00–00:25 | Pergunta do seminário |
+| 2 | 00:25–01:35 | Duas frases e a hipótese de ordem |
+| 3 | 01:35–02:35 | Amostras e escolhas de treino |
+| 4 | 02:35–03:45 | Palavras e BPE |
+| 5 | 03:45–05:15 | Arquitetura da TextCNN |
+| 6 | 05:15–06:40 | Taxa, época e generalização |
+| 7 | 06:40–07:50 | Teste oficial |
+| 8 | 07:50–09:00 | Auditoria de palavras e BPE |
+| 9 | 09:00–10:10 | A predição do par inicial |
+| 10 | 10:10–11:30 | O limite do máximo global |
+| 11 | 11:30–12:00 | Fechamento |
+| 12 | 12:00–13:30 | Comentários do YouTube ou demonstração |
+| 13 | 13:30–15:00 | Encoders e geração com o Qwen |
+
+## 1 · Pergunta do seminário
+
+“A tarefa do nosso projeto é classificar resenhas de filmes do IMDb em positivas
+ou negativas. Vamos usar uma CNN para acompanhar o que acontece entre ler uma
+frase e devolver uma classe. A pergunta é quanto da ordem da frase chega
+à decisão.”
+
+## 2 · O contraste na resenha
+
+Leia as duas frases e faça uma pausa breve antes de avançar.
+
+“Na primeira, eu achei que o filme era terrível, mas terminei dizendo que foi
+maravilhoso. Na segunda, a opinião final é terrível. Trocamos só os lugares de
+*terrible* e *wonderful*. Se eu representasse a resenha apenas pela contagem
+de palavras, as duas teriam a mesma representação. Nosso TF-IDF inclui bigramas,
+então já tem algum acesso à ordem local. A CNN olha janelas de vários tokens e
+pode reagir à troca. Guardem a expectativa sobre A e B. Vamos voltar ao que
+os modelos fizeram depois de ver como eles foram treinados.”
+
+## 3 · Treino, validação e avaliação
+
+“Usamos o IMDb, que traz resenhas em inglês com dois rótulos. No estudo original,
+separamos treino, validação e calibração antes da avaliação nas 25 mil resenhas
+do teste oficial. Removemos do treino textos repetidos, incluindo os que
+coincidiam com o teste por hash. A validação serve para escolher a configuração.
+A calibração usa outra amostra. Para estudar as escolhas de arquitetura e
+tokenização, trabalhamos com subconjuntos do treino limpo. Cada comparação
+tem uma auditoria reservada de 2.048 resenhas. Os números para CNN mudam de uma
+tabela para outra porque o conjunto e o comprimento de entrada mudam.”
+
+## 4 · Tokenização por palavras e BPE
+
+“A CNN recebe índices. Na versão por palavras, a expressão regular preserva
+palavras, contrações e números. Contamos a frequência só no treino e reservamos
+um índice para padding e outro para desconhecidos. Nesta frase, *pallbearer*
+fica com o índice de desconhecido. No BPE, aprendemos uniões de caracteres
+frequentes nos mesmos textos, sem consultar os rótulos. O tokenizer congelado
+reconhece *p*, *all* e *bearer* com marca de fim de palavra. Isso dá à rede
+uma representação específica para a palavra rara e aumenta o comprimento
+da sequência. Um filtro com a mesma largura passa a ver outro contexto.”
+
+## 5 · Arquitetura da TextCNN
+
+“Cada índice busca um vetor de 128 dimensões. Temos convoluções em paralelo
+com janelas de três, quatro e cinco tokens, cem filtros para cada largura.
+Um filtro usa a mesma matriz em todas as posições. Ele pode responder forte
+a um padrão de embeddings que aprendeu durante o treino. Depois da ReLU,
+escolhemos a maior resposta válida de cada filtro. A máscara tira as janelas
+de padding da disputa pelo máximo. Juntamos 300 valores e passamos por dropout
+e uma camada linear que produz dois logits. A maior parte dos 2,7 milhões de
+parâmetros está na tabela de embeddings. A entropia cruzada recebe os logits
+e o rótulo. O backward leva os gradientes até os filtros e os embeddings.
+Guardem este detalhe do pooling. Ele retém a força da resposta e descarta
+a posição em que ela ocorreu.”
+
+## 6 · Escolha da taxa e da época
+
+“Com a arquitetura fixa, variamos SGD, momentum e Adam. Cada método teve três
+taxas candidatas. Para cada semente, repetimos a partida e a ordem dos minibatches.
+Primeiro escolhemos a época de menor perda de validação de cada treino.
+Depois escolhemos a taxa pela média desse critério nas três sementes.
+À esquerda estão as curvas das taxas escolhidas. À direita vemos uma
+curva de treino que segue caindo depois que a de validação começa a subir.
+Isso dá um motivo concreto para guardar os pesos das épocas cinco ou seis
+no Adam, mesmo depois de executar as doze épocas. Também testamos larguras,
+número de filtros e dropout. As grades completas estão no relatório.”
+
+## 7 · Teste oficial do IMDb
+
+“Esta tabela pertence ao estudo original, com 25 mil resenhas de teste.
+O baseline com bigramas chegou a 90,14 por cento. A CNN chegou a 86,78
+e o BERT a 90,94. Acurácia conta os acertos, F1 macro dá o mesmo peso às
+duas classes e a entropia cruzada mede a confiança no rótulo observado.
+A tabela usa probabilidades calibradas em uma divisão separada. Cada
+receita recebe um comprimento diferente de entrada. No relatório, separamos
+as resenhas por comprimento. Na CNN, a acurácia cai para 81,52 por cento
+acima de 500 palavras. Isso é relevante quando a opinião decisiva está
+no fim do texto.”
+
+## 8 · Auditoria de palavras e BPE
+
+“Aqui os dois tokenizadores enfrentam a mesma auditoria interna. Usamos
+a mesma arquitetura, orçamento e taxa de Adam, com três sementes pareadas.
+A figura liga a versão por palavras à BPE dentro de cada semente. BPE
+reduziu de 3,27 por cento para zero a fração de tokens desconhecidos.
+Na mesma comparação, a acurácia média foi de 82 por cento para 81,41.
+Uma janela de cinco subpalavras pode cobrir menos palavras do que a de
+cinco palavras completas. E a taxa foi escolhida originalmente na CNN por
+palavras. Os números mostram o que ocorreu sob esse controle. Os escores
+dos pares ajudam a ver o que mudou em frases específicas.”
+
+## 9 · Predições no par de contraste
+
+“Voltem às duas frases do início. A acaba em *wonderful* e B acaba em *terrible*.
+Perguntamos duas coisas. A rede muda de classe quando trocamos a ordem? E
+muda na direção que o sentido da frase indica? Na CNN por palavras, o escore
+positivo médio vai de um por cento em A para quase 90 em B. O BPE vai de
+cerca de um para 84 por cento. As seis CNNs mudaram de classe, todas na
+direção oposta à leitura que propusemos.”
+
+## 10 · Limite do máximo global
+
+“Agora fazemos uma troca com um controle mais forte. Colocamos a mesma frase
+separadora no início, entre os dois blocos e no fim. O separador tem tokens
+suficientes para que uma janela de até cinco tokens só encontre um bloco
+por vez. Quando trocamos os blocos, cada janela que existia continua
+existindo. Confirmamos isso com os IDs das duas tokenizações. Se um filtro
+recebe as mesmas janelas, vê o mesmo conjunto de respostas. Como o pooling
+fica só com o máximo, o valor que ele manda para a saída é igual. Foi o
+que encontramos numericamente nos seis checkpoints. Aqui a igualdade é
+uma consequência da arquitetura.”
+
+## 11 · Fechamento aos 12 minutos
+
+“A CNN resume cada resenha pelos padrões locais que acionam seus filtros.
+Essa escolha explica tanto a reação ao primeiro par quanto a igualdade no
+segundo. Na extensão com o Qwen, passamos a observar a própria resenha que
+o modelo escreve quando alteramos uma ativação interna.”
+
+## 12 · Comentários fora do IMDb
+
+“A primeira pessoa comenta a repercussão do artista. A segunda pergunta por
+que tanta gente marcou dislike. A opinião pessoal sobre a música fica em
+aberto. As duas CNNs chamaram ambos de positivos nas três sementes. Na
+semente 17, a pergunta dos dislikes recebeu 70,6 por cento no modelo por
+palavras e 90,4 no BPE. Esses são os escores do classificador. Para medir
+acurácia fora do IMDb, usamos 2.000 frases rotuladas de Amazon e Yelp.
+Dependendo do tokenizer e da fonte, a acurácia média ficou entre 68 e 70
+por cento. O relatório tem a tabela com F1 macro e perda.”
+
+Se optarem pela demonstração, abram o navegador antes da fala e usem até
+30 segundos para obter uma resenha curta em inglês da plateia. Mostrem a
+classe, o escore e os tokens das duas CNNs. Se a resposta demorar, voltem
+aos dois resultados salvos no slide.
+
+## 13 · Encoders e geração com o Qwen
+
+“Testamos também BERT, DistilBERT e ModernBERT. Aqui o vetor de um token já
+incorpora seu contexto. Fazemos uma média mascarada desses vetores e
+colocamos uma camada linear de classificação. A tabela compara ajustar só
+essa cabeça com propagar gradientes por todo o encoder. Na auditoria
+sequencial, o ModernBERT passa de 81,30 para 91,24 por cento. O orçamento e
+o otimizador também mudam.
+
+Com o Qwen, usamos os escores dos tokens de rótulo para classificar. Também
+usamos o modelo para escrever uma opinião token a token a partir da mesma
+fonte. Mantivemos o prompt e deslocamos uma ativação durante a geração.
+O slide de apoio mostra as três opiniões que saíram do mesmo enredo.”
+
+## Cortes para o ensaio
+
+- Aos 12 minutos, encerrem no slide 11. Os exemplos salvos dos slides 9 e 10 já sustentam a explicação.
+- Se precisarem de cerca de 10 minutos, passem do slide 7 ao 9 depois de citar o resultado BPE em uma frase. Resumam a escolha de taxa e época do slide 6 em 35 segundos.
+- Se houver uma pergunta sobre calibração, comprimento ou mecanismos da disciplina, usem os slides 14 a 17.
+- Para mostrar as gerações do Qwen durante a fala de 15 minutos, reservem os últimos 30 segundos do slide 13 e avancem direto ao slide 16.
+
+As tabelas de treino, validação e teste, os controles e os casos completos
+estão no relatório. [Relatório do seminário](../output/pdf/relatorio_seminario.pdf).

@@ -1,0 +1,76 @@
+\section{Quando o modelo de aprendizagem profunda falha?}
+\label{sec:falhas}
+\subsection{A CNN reage à troca e inverte o sentido do contraste}
+A termina em \textit{wonderful} e tem leitura positiva. B termina em
+\textit{terrible} e tem leitura negativa. Todos os seis checkpoints deram
+classe negativa a A e positiva a B. Da primeira para a segunda frase, o
+escore positivo médio foi de \PalavrasA{} a \PalavrasB{} com palavras e de
+\BPEA{} a \BPEB{} com BPE.
+
+\subsection{O máximo global apaga a posição entre janelas}
+Separamos \textit{I loved the acting} de \textit{I hated the ending} com
+uma frase repetida no início, no meio e no fim. O separador faz com que
+cada janela de até cinco tokens veja no máximo um dos trechos. Ao trocá-los,
+verificamos que os multiconjuntos de janelas de IDs para \(k=3,4,5\)
+permaneceram iguais nas duas tokenizações.
+
+Janelas iguais geram as mesmas ativações para cada filtro. O máximo global
+retorna o mesmo valor para A e B, mesmo que a posição desse valor mude. Os
+vetores enviados à camada linear coincidem. A diferença máxima de logit foi
+\textbf{zero} nos seis checkpoints.
+
+\subsection{O sentimento fora do IMDb}
+Aplicamos os mesmos pesos, sem reajuste, a 1.000 frases de Amazon e 1.000
+de Yelp na coleção da UCI \cite{kotzias}. Cada fonte contém 500 rótulos
+positivos e 500 negativos. O gênero e o comprimento mudam juntos em
+relação ao IMDb.
+
+\begin{tabularx}{\linewidth}{@{}Xrrrrrr@{}}
+\toprule
+ & \multicolumn{3}{c}{\tabelahead{Palavras}} & \multicolumn{3}{c}{\tabelahead{BPE}}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+\tabelahead{Fonte} & \tabelahead{Acurácia} & \tabelahead{F1 macro} & \tabelahead{CE} &
+\tabelahead{Acurácia} & \tabelahead{F1 macro} & \tabelahead{CE}\\
+\midrule
+\LinhasForaDominio
+\bottomrule
+\end{tabularx}
+\legendinha{Tabela 11. Médias de três sementes em frases selecionadas por
+polaridade clara. \fonteatual{seminario/dados/fora_dominio_resultados.json}{Resultados por semente}.}
+
+Nos dois comentários de \textit{Baby}, os seis checkpoints deram classe
+positiva. Um fala da repercussão do artista e o outro pergunta pelos
+dislikes do público. A opinião pessoal sobre a música fica em aberto.
+Tratamos os comentários como casos sem rótulos de referência.
+
+\subsection{Tom e fatos na geração do Qwen}
+No bloco 28, aplicamos \(h'=h+\alpha s v\) após o marcador \texttt{REVIEW}.
+A direção \(v\) é a diferença normalizada entre as médias de ativações para
+dois tons em 128 enredos. Com escala \(s\) fixa, usamos \(\alpha=-2,0,+2\).
+O próprio Qwen, como juiz automático, reconheceu os dois tons-alvo em 55
+de 64 fontes. Os tokens de \texttt{FACT} coincidiram. Em um caso, a opinião
+positiva acrescentou um cenário de cidade pequena ausente da fonte.
+\fonte{results/qwen_improved/fact_flag_reading.json}{Leitura dos alertas factuais}.
+
+\begin{thebibliography}{9}
+\small
+\setlength{\itemsep}{1pt}
+\setlength{\parskip}{0pt}
+\bibitem{maas} Maas, A. L. et al. \textit{Learning Word Vectors for Sentiment Analysis}.
+ACL, 2011. \href{https://aclanthology.org/P11-1015/}{ACL Anthology}.
+\bibitem{kim} Kim, Y. \textit{Convolutional Neural Networks for Sentence Classification}.
+EMNLP, 2014. \href{https://aclanthology.org/D14-1181/}{ACL Anthology}.
+\bibitem{sennrich} Sennrich, R., Haddow, B. e Birch, A.
+\textit{Neural Machine Translation of Rare Words with Subword Units}. ACL, 2016.
+\href{https://aclanthology.org/P16-1162/}{ACL Anthology}.
+\bibitem{prince} Prince, S. J. D. \textit{Understanding Deep Learning}.
+MIT Press, 2023. Caps. 6, 8, 9 e 10. \href{https://udlbook.github.io/udlbook/}{Livro e materiais}.
+\bibitem{devlin} Devlin, J. et al. \textit{BERT: Pre-training of Deep Bidirectional
+Transformers for Language Understanding}. NAACL, 2019.
+\href{https://aclanthology.org/N19-1423/}{ACL Anthology}.
+\bibitem{qwen} Yang, A. et al. \textit{Qwen3 Technical Report}, 2025.
+\href{https://arxiv.org/abs/2505.09388}{arXiv:2505.09388}.
+\bibitem{kotzias} Kotzias, D. et al. \textit{From Group to Individual Labels Using Deep Features}.
+KDD, 2015. \href{https://doi.org/10.1145/2783258.2783380}{Artigo}.
+\href{https://doi.org/10.24432/C57604}{Coleção UCI}.
+\end{thebibliography}

@@ -85,7 +85,7 @@ def verify() -> None:
         assert path.stat().st_size < 100_000_000, f"Large file must be a release asset: {name}"
         if path.suffix == ".py":
             ast.parse(path.read_text(), filename=name)
-        if path.suffix in {".json", ".csv", ".txt", ".md", ".py", ".html", ".toml", ".ipynb", ".yml", ".yaml", ".svg"}:
+        if path.suffix in {".json", ".csv", ".txt", ".md", ".py", ".html", ".toml", ".ipynb", ".yml", ".yaml", ".svg", ".tex"}:
             content = path.read_text()
             assert not secret.search(content), f"Credential pattern: {name}"
             assert not local.search(content), f"Machine-local path: {name}"

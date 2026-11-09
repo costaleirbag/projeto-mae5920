@@ -1,12 +1,11 @@
 # Acurácia, F1 macro e loss em um lugar
 
 [Início](../README.md) · [Notebook único](../notebooks/seminario_completo.ipynb) ·
-[CSV consolidado, com as 23 linhas](../results/resumo_metricas.csv)
+[CSV consolidado, com as 27 linhas](../results/resumo_metricas.csv)
 
-Estas tabelas leem os resultados congelados; não executam novas inferências nem
-treinos. O CSV reúne as três comparações com uma coluna `estudo`. **Compare dentro
-de cada estudo:** o teste oficial e as duas auditorias internas são conjuntos distintos.
-Os exemplos de operações em CPU do notebook não são resultados deste benchmark.
+As tabelas reúnem as métricas salvas. A coluna `estudo` do CSV identifica
+o teste oficial, cada auditoria interna e cada fonte externa. Use a mesma
+amostra de avaliação ao comparar modelos.
 
 ## O que significa cada coluna
 
@@ -98,7 +97,22 @@ superioridade universal de uma tokenização.
 Fontes: [comparação BPE](../results/bpe/comparison.csv),
 [resumo](../results/bpe/summary.json) e [protocolo BPE](PROTOCOLO_BPE.md).
 
-## 4. Onde ficam os outros experimentos
+## 4. Avaliação externa das CNNs — Amazon e Yelp
+
+Aplicamos os mesmos pesos da seção 3 a 1.000 frases de cada fonte, com
+500 rótulos positivos e 500 negativos por fonte. As métricas são médias de
+três sementes, sem calibração. A coleção privilegia frases de polaridade
+clara. [Coleção UCI](https://doi.org/10.24432/C57604) ·
+[Protocolo e predições](../seminario/README.md#avaliação-fora-do-imdb).
+
+| Modelo / condição | Acurácia ↑ | F1 macro ↑ | Loss CE ↓ |
+|---|---:|---:|---:|
+| Amazon · CNN — Palavras | 68,10% | 0,6664 | 0,6372 |
+| Amazon · CNN — BPE | 69,97% | 0,6920 | 0,5900 |
+| Yelp · CNN — Palavras | 69,43% | 0,6828 | 0,6091 |
+| Yelp · CNN — BPE | 69,67% | 0,6911 | 0,5946 |
+
+## 5. Onde ficam os outros experimentos
 
 | Estudo | Avaliação e resultados |
 |---|---|

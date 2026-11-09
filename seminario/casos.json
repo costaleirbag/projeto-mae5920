@@ -1,0 +1,33 @@
+{
+  "pares": [
+    {
+      "id": "contraste",
+      "titulo": "Contraste depois de but",
+      "a": "I thought this movie was terrible, but it was wonderful.",
+      "b": "I thought this movie was wonderful, but it was terrible.",
+      "leitura": ["positiva", "negativa"]
+    },
+    {
+      "id": "negacao",
+      "titulo": "Escopo de not",
+      "a": "The movie is good, not bad.",
+      "b": "The movie is bad, not good.",
+      "leitura": ["positiva", "negativa"]
+    },
+    {
+      "id": "aspectos",
+      "titulo": "Sentimento por aspecto",
+      "a": "The acting was brilliant, but the ending was awful.",
+      "b": "The acting was awful, but the ending was brilliant.",
+      "leitura": ["mista", "mista"]
+    },
+    {
+      "id": "janelas",
+      "titulo": "Troca de blocos com as mesmas janelas",
+      "a": "I have a few thoughts about this movie. I loved the acting. I have a few thoughts about this movie. I hated the ending. I have a few thoughts about this movie.",
+      "b": "I have a few thoughts about this movie. I hated the ending. I have a few thoughts about this movie. I loved the acting. I have a few thoughts about this movie.",
+      "leitura": ["mista", "mista"]
+    }
+  ],
+  "cobertura": "The pallbearer scene was unexpectedly moving."
+}

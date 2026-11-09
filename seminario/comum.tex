@@ -1,0 +1,16 @@
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{graphicx,booktabs,tabularx,amsmath,tikz}
+\usetikzlibrary{arrows.meta}
+\definecolor{Ink}{HTML}{142637}
+\definecolor{Teal}{HTML}{176C69}
+\definecolor{Rust}{HTML}{9C4028}
+\definecolor{Rule}{HTML}{D6E0E9}
+\definecolor{Tint}{HTML}{EDF5F4}
+\newcommand{\projetourl}{https://github.com/costaleirbag/projeto-mae5920}
+\newcommand{\fonte}[2]{\href{\projetourl/blob/51cb94e9b67a05c0a4e0cbb9c6740c51e5821f15/#1}{#2}}
+\newcommand{\fonteatual}[2]{\href{\projetourl/blob/main/#1}{#2}}
+\newcommand{\nota}[1]{{\small\color{Ink!82}#1}}
+\newcommand{\caso}[2]{\noindent\textcolor{Teal}{\sffamily\bfseries #1}\quad\textit{#2}\par}
+\newcommand{\Arquitetura}{\resizebox{\linewidth}{!}{\input{arquitetura.tex}}}
+\input{dados/tabelas.tex}

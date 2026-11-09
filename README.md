@@ -8,11 +8,10 @@
 </p>
 
 <p align="center">
-  <a href="notebooks/seminario_completo.ipynb"><strong>Abrir o notebook único</strong></a> ·
-  <a href="docs/RESULTADOS.md">Tabelas de resultados</a> ·
-  <a href="output/slides/seminario_mae5920.pptx">Slides</a> ·
-  <a href="docs/GUIA_COMPLETO.md">Entender o projeto</a> ·
-  <a href="https://github.com/costaleirbag/projeto-mae5920/releases/latest">Baixar a entrega</a>
+  <a href="output/pdf/relatorio_seminario.pdf"><strong>Relatório do seminário</strong></a> ·
+  <a href="output/pdf/slides_15_min.pdf">Slides de 15 min</a> ·
+  <a href="notebooks/seminario_completo.ipynb">Notebook único</a> ·
+  <a href="docs/RESULTADOS.md">Tabelas de resultados</a>
 </p>
 
 **Como um texto vira uma classificação, o que o treinamento modifica e o que
@@ -21,6 +20,9 @@ resenhas de filmes do IMDb. A tarefa principal tem duas classes: sentimento
 negativo ou positivo. As extensões relacionam o experimento à disciplina:
 tokenização, CNNs, transferência com Transformers, otimização, regularização,
 double descent e steering de um modelo de linguagem.
+
+O relatório da turma e os slides de 15 minutos têm fontes editáveis em LaTeX.
+[Material do seminário, roteiro de fala e demonstração](seminario/README.md).
 
 ## Comece por aqui
 
@@ -35,7 +37,7 @@ de leitura estão em um anexo interno. Veja [como abrir e executar](docs/NOTEBOO
 |---|---|
 | Entender o trabalho pela primeira vez | [Guia do projeto](docs/GUIA_COMPLETO.md), depois o [notebook único](notebooks/seminario_completo.ipynb) |
 | Encontrar acurácia, F1 macro e loss juntos | [Resultados por estudo](docs/RESULTADOS.md) · [CSV consolidado](results/resumo_metricas.csv) |
-| Preparar a apresentação | [Slides editáveis](output/slides/seminario_mae5920.pptx) · [notas de fala](docs/NOTAS_APRESENTACAO.md) |
+| Preparar a apresentação | [Slides de 15 min](output/pdf/slides_15_min.pdf) · [roteiro](seminario/roteiro.md) · [fontes editáveis](seminario/) |
 | Ler arquiteturas, hiperparâmetros e BPE | [Relatório CNN e encoders](output/pdf/relatorio_cnn_encoders.pdf) |
 | Estudar intervenções nas ativações | [Relatório Qwen3-8B](relatorio_qwen3.pdf) · seção 11 do notebook único |
 | Conferir ou repetir as execuções | [Guia de reprodução](docs/REPRODUCAO.md) |
@@ -50,6 +52,7 @@ de leitura estão em um anexo interno. Veja [como abrir e executar](docs/NOTEBOO
 | Mecanismos da disciplina | 51 treinos de MLP: otimizadores, profundidade, resíduos e regularização; inicialização e 880 condições sintéticas de capacidade | [Suplemento](output/pdf/relatorio_disciplina.pdf) · [guia dos mecanismos](docs/CONEXOES_DISCIPLINA.md) |
 | CNNs e Transformers | 42 treinos de CNN, 27 cabeças sobre encoders congelados e 18 ajustes completos de BERT, DistilBERT e ModernBERT | [Relatório](output/pdf/relatorio_cnn_encoders.pdf) · [protocolo e grades](docs/PROTOCOLO_SEQUENCIAS.md) |
 | Palavras versus BPE | BPE aprendido só nos textos de treino, sem rótulos; três novas CNNs comparadas a três checkpoints por palavras | [Protocolo BPE](docs/PROTOCOLO_BPE.md) |
+| Testes com as CNNs congeladas | Permutação de palavras, 2.000 frases rotuladas fora do IMDb e dois comentários ambíguos do YouTube | [Material e evidências do seminário](seminario/README.md) |
 
 São **90 treinos neurais na extensão sequencial**, além dos 51 treinos do
 suplemento MLP. Esses totais descrevem estudos diferentes; checkpoints
@@ -95,8 +98,9 @@ de três sementes.
 
 O teste oficial original tem 25 mil resenhas. As extensões MLP, CNN/encoders e BPE
 usam auditorias internas distintas de 2.048 exemplos, retiradas do antigo treino
-limpo. Compare modelos **dentro do mesmo estudo**, usando a coluna `estudo` no CSV.
-O [guia](docs/GUIA_COMPLETO.md) explica essas divisões.
+limpo. A avaliação externa das CNNs usa 1.000 frases de Amazon e 1.000 de Yelp.
+Compare modelos **dentro do mesmo estudo**, usando a coluna `estudo` no CSV.
+[Divisões do IMDb](docs/GUIA_COMPLETO.md) · [Avaliação externa](seminario/README.md#avaliação-fora-do-imdb).
 
 Os experimentos permitem discutir que cobertura de vocabulário não garante ganho
 de acurácia, que o regime de ajuste muda a comparação entre encoders e que taxa,
@@ -108,8 +112,8 @@ humana independente.
 
 ## Executar e conferir
 
-Para **apenas ler**, abra o notebook no GitHub ou baixe os materiais da
-[release atual](https://github.com/costaleirbag/projeto-mae5920/releases/latest).
+Os materiais atualizados ficam na página inicial. As versões empacotadas
+estão em [Releases](https://github.com/costaleirbag/projeto-mae5920/releases).
 Para executar numa cópia local, com Python 3.11 ou posterior:
 
 ```bash
