@@ -1,0 +1,325 @@
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage{lmodern,microtype}
+\input{comum.tex}
+\hypersetup{colorlinks=true,linkcolor=Teal,urlcolor=Teal,
+  pdftitle={O que a CNN lê em uma resenha?},pdfauthor={Nestor, Letícia e Gabriel}}
+\setbeamertemplate{navigation symbols}{}
+\setbeamercolor{normal text}{fg=Ink,bg=white}
+\setbeamercolor{structure}{fg=Teal}
+\setbeamercolor{frametitle}{fg=Ink}
+\setbeamerfont{frametitle}{size=\Large,series=\bfseries}
+\setbeamersize{text margin left=8mm,text margin right=8mm}
+\setbeamertemplate{frametitle}{\vspace{3mm}\insertframetitle\par\vspace{.4mm}}
+\setbeamertemplate{footline}{%
+  \leavevmode\hbox{\begin{beamercolorbox}[wd=\paperwidth,ht=3.3ex,dp=1.7ex,
+  leftskip=8mm,rightskip=8mm]{normal text}%
+  \color{Ink!65}\scriptsize MAE5920\hfill\insertframenumber
+  \end{beamercolorbox}}}
+\setlength{\parskip}{3pt}
+\renewcommand{\arraystretch}{1.23}
+\newcommand{\smallsource}[1]{\vfill{\scriptsize\color{Ink!73}#1\par}}
+\newcommand{\strong}[1]{\textcolor{Teal}{\bfseries #1}}
+
+\begin{document}
+
+% 00:00–00:25
+{
+\setbeamercolor{background canvas}{bg=Ink}
+\begin{frame}[plain]
+\color{white}
+\vfill
+{\small\bfseries\color{white!75} MAE5920\enspace$\cdot$\enspace INTRODUÇÃO A DEEP LEARNING\par}
+\vspace{4mm}
+{\fontsize{28}{31}\selectfont\bfseries O que a CNN lê\\ em uma resenha?\par}
+\vspace{3mm}
+{\large Classificação de sentimento e tokenização no IMDb\par}
+\vspace{6mm}
+{\small Nestor, Letícia e Gabriel\par}
+\vfill
+\end{frame}
+}
+
+% 00:25–01:35
+\begin{frame}{O contraste na resenha}
+\large
+\caso{A}{I thought this movie was \textbf{terrible}, but it was \textbf{wonderful}.}
+\vspace{2mm}
+\caso{B}{I thought this movie was \textbf{wonderful}, but it was \textbf{terrible}.}
+\vspace{4mm}
+\normalsize
+As contagens de palavras são iguais. As janelas locais mudam.
+
+\strong{Qual sentimento a CNN atribui a cada frase?}
+\smallsource{Par sintético com leitura positiva para A e negativa para B.}
+\end{frame}
+
+% 01:35–02:35
+\begin{frame}{Treino, validação e avaliação}
+\begin{tabularx}{\linewidth}{@{}lrrX@{}}
+\toprule
+Papel & Original & Extensões & Decisão associada\\
+\midrule
+Treino & 19.823 & 6.144 & Ajustar vocabulário e pesos\\
+Validação & 2.478 & 1.536 & Escolher taxa e época\\
+Calibração & 2.478 & -- & Ajustar temperatura no original\\
+Teste / auditoria & 25.000 & 2.048 & Medir a receita escolhida\\
+\bottomrule
+\end{tabularx}
+\par\vspace{4mm}
+No estudo sequencial, as redes recebem até 128 palavras e 256 tokens.
+
+O teste oficial e as auditorias internas têm amostras próprias.
+\smallsource{IMDb, Maas et al. (2011). \fonte{data/manifest.json}{Dados} e
+\fonte{docs/PROTOCOLO_SEQUENCIAS.md}{protocolo}.}
+\end{frame}
+
+% 02:35–03:45
+\begin{frame}{Tokenização por palavras e BPE}
+\caso{Entrada}{\ExemploCobertura}
+\vspace{4mm}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.47\textwidth}
+\strong{Palavras}
+
+Contagem no treino e um ID por item frequente.
+
+\Large\texttt{<unk>}
+\end{column}
+\begin{column}{.48\textwidth}
+\strong{BPE}
+
+Uniões frequentes de caracteres aprendidas no treino.
+
+\Large\texttt{p + all + bearer</w>}
+\end{column}
+\end{columns}
+\vspace{5mm}
+Os dois vocabulários têm 20 mil itens. A CNN aprende os embeddings por gradiente.
+\smallsource{Peças observadas para \texttt{pallbearer}. \texttt{</w>} marca o fim de palavra.
+BPE de caracteres, Sennrich et al. (2016).}
+\end{frame}
+
+% 03:45–05:15
+\begin{frame}{Arquitetura da TextCNN}
+\Arquitetura
+\vspace{4mm}
+
+\strong{2.714.502 parâmetros}
+
+Cada filtro usa os mesmos pesos ao deslizar pelo texto. O máximo global
+guarda a maior resposta em cada um dos 300 filtros.
+
+No treino, a entropia cruzada fornece o gradiente que atualiza
+embeddings, filtros e camada linear.
+\smallsource{Kim (2014) e Prince (2023), cap. 10.
+\fonte{src/imdb_lab/models.py}{Classe TextCNN}.}
+\end{frame}
+
+% 05:15–06:40
+\begin{frame}{Escolha da taxa e da época}
+\centering
+\includegraphics[width=\linewidth,height=.52\textheight,keepaspectratio]{figuras/otimizacao.pdf}
+\par\raggedright\vspace{1mm}
+
+Três taxas por método, 12 épocas e as mesmas partidas e minibatches por semente.
+Escolhemos a menor CE de validação. Para Adam, os pesos guardados vieram das épocas 5 e 6.
+\smallsource{Média e mínimo--máximo das sementes 17, 29 e 43.
+\fonte{results/sequences/presentation_data.json}{Curvas salvas}.}
+\end{frame}
+
+% 06:40–07:50
+\begin{frame}{Teste oficial do IMDb}
+\begin{tabularx}{\linewidth}{@{}Xrrr@{}}
+\toprule
+Modelo & Acurácia & F1 macro & CE calibrada\\
+\midrule
+\LinhasTeste
+\bottomrule
+\end{tabularx}
+\vspace{5mm}
+
+O TF-IDF usa unigramas e bigramas do texto inteiro.
+A CNN lê até 400 tokens e o BERT até 192 WordPieces.
+
+Na CNN, a acurácia passa de 87,34\% até 100 palavras para 81,52\%
+acima de 500.
+\smallsource{25.000 resenhas. A temperatura foi ajustada em uma divisão separada.
+\fonte{results/comparison.csv}{Métricas originais}.}
+\end{frame}
+
+% 07:50–09:00
+\begin{frame}{Auditoria de palavras e BPE}
+\begin{columns}[c,onlytextwidth]
+\begin{column}{.51\textwidth}
+\includegraphics[width=\linewidth]{figuras/bpe_pareado.pdf}
+\end{column}
+\begin{column}{.45\textwidth}
+{\large\strong{3,27\% \(\to\) 0\%}}\par
+Tokens desconhecidos
+\vspace{2mm}
+
+{\large\strong{82,00\% \(\to\) 81,41\%}}\par
+Acurácia média
+\vspace{2mm}
+
+As janelas contam tokens. Com subpalavras, podem cobrir menos palavras.
+\end{column}
+\end{columns}
+\vspace{2mm}
+Mesma CNN, três sementes pareadas e Adam a 0,001 nas duas receitas.
+\smallsource{Auditoria BPE de 2.048 resenhas. Eixo vertical ampliado.
+\fonte{results/bpe/audit_metrics.json}{Resultados por semente}.}
+\end{frame}
+
+% 09:00–10:10
+\begin{frame}{Predições no par de contraste}
+\begin{tabularx}{\linewidth}{@{}Xlrr@{}}
+\toprule
+Fim da resenha & Leitura planejada & Palavras & BPE\\
+\midrule
+A. \textit{but it was wonderful} & Positiva & \PalavrasA & \BPEA\\
+B. \textit{but it was terrible} & Negativa & \PalavrasB & \BPEB\\
+\bottomrule
+\end{tabularx}
+\par\vspace{4mm}
+\large
+Todos os seis checkpoints classificaram A como negativa e B como positiva.
+\normalsize
+
+No par com negação, houve troca de classe em duas sementes por palavras
+e em uma semente com BPE.
+\smallsource{Escore positivo médio de três sementes por tokenizer. Frases próprias.
+Ver \texttt{dados/pares\_resultados.json}.}
+\end{frame}
+
+% 10:10–11:30
+\begin{frame}{Limite do máximo global}
+\nota{\(S=\) \textit{I have a few thoughts about this movie.}}
+\vspace{4mm}
+
+\textbf{A}\quad \(S\) \enspace \textit{I loved the acting.}\enspace \(S\)
+\enspace \textit{I hated the ending.}\enspace \(S\)
+
+\textbf{B}\quad \(S\) \enspace \textit{I hated the ending.}\enspace \(S\)
+\enspace \textit{I loved the acting.}\enspace \(S\)
+
+\vspace{3mm}
+O separador preserva as janelas de 3, 4 e 5 tokens quando os dois blocos trocam de lugar.
+Cada filtro continua vendo as mesmas janelas e retorna o mesmo máximo.
+
+\large\strong{Diferença máxima de logit igual a zero nos seis checkpoints.}
+\smallsource{Controle sintético com igualdade verificada nas duas tokenizações.}
+\end{frame}
+
+% 11:30–12:00
+\begin{frame}{Resultados e limites da CNN}
+\Large
+O que chega à camada final são os máximos de respostas locais.
+\vspace{4mm}
+
+\normalsize
+Isso explica a sensibilidade à ordem dentro de uma janela
+e a invariância quando as janelas se preservam.
+
+No relatório, os pares mostram \emph{como} a rede erra.
+A auditoria mede \emph{quanto} ela acerta no conjunto reservado.
+\smallsource{\href{\projetourl}{Código, notebook, relatórios e evidências}.}
+\end{frame}
+
+% Bloco adicional, 12:00–13:30
+\begin{frame}{Classificação de uma resenha na hora}
+Se a demonstração estiver aberta, escrevemos uma frase em inglês
+e comparamos a classe, o escore e os tokens das duas CNNs.
+\vspace{3mm}
+
+\caso{A}{The movie is good, not bad.}
+\caso{B}{The movie is bad, not good.}
+\vspace{1mm}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+Tokenizer & A & B\\
+\midrule
+\LinhasDemo
+\bottomrule
+\end{tabular}
+\smallsource{Plano com resultados já calculados. Escore positivo, semente 17.
+Demonstração local em CPU com os checkpoints congelados.}
+\end{frame}
+
+% Bloco adicional, 13:30–15:00
+\begin{frame}{Encoders congelados e ajuste completo}
+\begin{tabularx}{\linewidth}{@{}Xrr@{}}
+\toprule
+Encoder & Cabeça treinada & Ajuste completo\\
+\midrule
+\LinhasRegimes
+\bottomrule
+\end{tabularx}
+\vspace{4mm}
+
+Os encoders geram vetores contextuais. Uma média mascarada alimenta a
+cabeça linear. No ajuste completo, gradientes também chegam ao encoder.
+
+Cada regime tem seu próprio otimizador e orçamento.
+\smallsource{Acurácia média, três sementes, auditoria sequencial de 2.048 resenhas.
+\fonte{results/sequences/summary.json}{Resultados dos encoders}.}
+\end{frame}
+
+\appendix
+
+\begin{frame}{Métricas por divisão}
+\small
+\begin{tabularx}{\linewidth}{@{}lXrrr@{}}
+\toprule
+Divisão & Modelo & Acurácia & F1 macro & CE bruta\\
+\midrule
+\LinhasOriginal
+\bottomrule
+\end{tabularx}
+\smallsource{Apoio. Estudo original. \fonte{results/comparison.csv}{Resultados salvos}.}
+\end{frame}
+
+\begin{frame}{Comprimento e calibração}
+\includegraphics[width=\linewidth]{figuras/diagnostico_oficial.pdf}
+
+Temperatura reescala a margem. Na CNN, a CE do teste foi de
+0,3040 para 0,3037. A classificação usa o mesmo limiar.
+\smallsource{Apoio. Teste oficial. \fonte{results/analysis/subgroup_metrics.csv}{Comprimento}
+e \fonte{results/cnn/metrics.json}{calibração}.}
+\end{frame}
+
+\begin{frame}{Ensaios complementares}
+\strong{MLPs e generalização}
+
+51 treinos para estudar otimização, profundidade, atalhos residuais e
+regularização. Double descent observado em regressão sintética.
+\vspace{4mm}
+
+\strong{Qwen3-8B e ativações}
+
+Mantemos os pesos congelados. No bloco 28, aplicamos \(h'=h+\alpha s v\),
+com \(v\) estimada de estados positivos e negativos. O mesmo prompt gera
+as saídas para \(\alpha=-2,0,+2\).
+\smallsource{Apoio. \fonte{docs/CONEXOES_DISCIPLINA.md}{MLPs e regressão}.
+\fonte{QWEN_EXPERIMENTO.md}{Direções e controles do Qwen}.}
+\end{frame}
+
+\begin{frame}{Reprodução}
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+\toprule
+Material & O que permite conferir\\
+\midrule
+\fonte{notebooks/seminario_completo.ipynb}{Notebook único} & Arquitetura, tokenização, gradientes e estudos completos\\
+\fonte{docs/RESULTADOS.md}{Tabelas} & Acurácia, F1 macro e CE por protocolo\\
+\fonte{docs/PROTOCOLO_SEQUENCIAS.md}{CNN e encoders} & Grades, controles e escolha pela validação\\
+\fonte{docs/PROTOCOLO_BPE.md}{BPE} & Tokenizer, seis pesos e auditoria pareada\\
+\href{\projetourl}{Repositório} & Código, fontes LaTeX e resultados dos pares\\
+\bottomrule
+\end{tabularx}
+\par\vspace{4mm}
+O JSON de pares preserva escores, IDs e janelas por semente.
+\smallsource{Apoio. Os experimentos, condições descartadas e registros por semente
+ficam no repositório.}
+\end{frame}
+
+\end{document}

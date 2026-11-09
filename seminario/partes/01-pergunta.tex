@@ -1,0 +1,50 @@
+\thispagestyle{empty}
+\vspace*{8mm}
+{\sffamily\bfseries\color{Teal} MAE5920\enspace $\cdot$\enspace INTRODUÇÃO A DEEP LEARNING\par}
+\vspace{5mm}
+{\fontsize{34}{37}\selectfont\sffamily\bfseries O que a CNN lê\\ em uma resenha?\par}
+\vspace{3mm}
+{\large Classificação de sentimento e tokenização no IMDb\par}
+\vspace{5mm}
+{\sffamily Nestor, Letícia e Gabriel\par}
+\vspace{6mm}
+\noindent\textcolor{Rule}{\rule{\linewidth}{.7pt}}
+
+\subsection*{Resumo}
+Classificamos resenhas do IMDb em positivas e negativas com regressão logística
+sobre TF-IDF, uma CNN com embeddings aprendidos e encoders pré-treinados.
+O experimento original avalia os modelos no teste oficial. Ensaios internos
+com três sementes separam escolhas de otimizador, arquitetura e tokenização.
+Na comparação pareada, BPE reduziu tokens desconhecidos de 3,27\% para zero e
+a acurácia média passou de 82,00\% para 81,41\%. Em um par sintético com as mesmas
+palavras, as duas CNNs mudaram de classe quando trocamos a ordem dos adjetivos.
+Os seis checkpoints inverteram a interpretação prevista para as duas frases.
+Um controle com as mesmas janelas convolucionais produziu logits idênticos
+em cada checkpoint. Esses exemplos ajudam a localizar o que a arquitetura
+consegue distinguir, mesmo quando o desempenho agregado parece semelhante.
+
+\section{Ordem e sentimento}
+\label{sec:ordem}
+Considere duas resenhas que só trocam os lugares de \textit{terrible} e
+\textit{wonderful}. A oração após \textit{but} expressa a avaliação final.
+
+\vspace{2mm}
+\caso{A}{\TextoA}
+\caso{B}{\TextoB}
+\vspace{1mm}
+As duas sequências têm a mesma contagem de cada palavra. Um modelo que recebe
+apenas unigramas vê o mesmo vetor para A e B. Os bigramas mudam, portanto o
+TF-IDF de referência deste trabalho, que inclui bigramas, pode separá-las.
+A CNN também pode responder de modo diferente, pois aplica filtros a janelas
+ordenadas de embeddings. A questão empírica é se ela atribui o sentimento à
+oração que encerra o contraste.
+
+Investigamos essa questão em três escalas. Primeiro, medimos desempenho em
+resenhas reservadas. Depois, alteramos componentes da CNN sob controles de
+treino e avaliamos palavras contra subpalavras. Por fim, consultamos pesos
+congelados com pares sintéticos para verificar sensibilidade à ordem e
+construir um limite exato da arquitetura.
+
+\vfill
+\nota{Código, notebook executado e resultados por execução.
+\href{\projetourl}{Repositório do projeto}.}

@@ -1,0 +1,14 @@
+{
+  "results/comparison.csv": "7256f63f77c84e6457611235505c09494bb00929f5633e224f5908d543294570",
+  "results/tfidf/metadata.json": "8931e7673996d69f51485cbda54ab176d2296d3470e23b6e3b57233acef4d475",
+  "results/cnn/metadata.json": "39902562bc942a944acb0007bc33e800dfa08981c6a874943998a53df0d3a4f4",
+  "results/bert/metadata.json": "c5403c307b0fa332d2f55b35c8ae11760b5b216136505fd38ef4f7ba9f92b58b",
+  "results/cnn/metrics.json": "86a63c369b0b2e3bc6902c2a7b6026a247ca32a4f25340fc5fd2ddf4353722d1",
+  "results/analysis/subgroup_metrics.csv": "9fae2695444b17cb27ca265d1f5e259f24c71455ce7dd894fe3a31096c801e40",
+  "results/sequences/summary.json": "e6e2be90c21fcebdd6336a26818df17b77ea843a26bfd18fa69e5da289232e36",
+  "results/sequences/presentation_data.json": "69d5c064e94df97717f52015e69ce9e0b4ce8f9db4c91b817bf188f2790aac01",
+  "results/bpe/summary.json": "b88d4898cdb5dd0d157ebeb3e4c9d2541dbb8b61b2439774291d5baa38e5d25e",
+  "results/bpe/audit_metrics.json": "2cfacd93a7c5226f378cd433214f675cfc710b59c4cbf043c45f4b4f08f63ccb",
+  "seminario/casos.json": "9168ef07b2580802b4ec71d0d3b9a02e0ef85716df5cd1dfbed783676bf1402c",
+  "seminario/dados/pares_resultados.json": "37d1a33a0da97e7f1a4d713d50c24ae5dc3ce98f5a8013d2bde81e6aba43af1e"
+}

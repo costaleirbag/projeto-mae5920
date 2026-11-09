@@ -1,0 +1,2482 @@
+{
+  "protocolo": "Pares sintéticos fixos, inferência CPU com pesos congelados e escores de softmax sem calibração.",
+  "casos_sha256": "9168ef07b2580802b4ec71d0d3b9a02e0ef85716df5cd1dfbed783676bf1402c",
+  "sementes": [
+    17,
+    29,
+    43
+  ],
+  "checkpoints": [
+    {
+      "modelo": "Palavras",
+      "semente": 17,
+      "epoca": 5,
+      "sha256": "cf541d7008e475e7942d84aa446c84ac40799e4e9c114eced66562d8469b87f1"
+    },
+    {
+      "modelo": "BPE",
+      "semente": 17,
+      "epoca": 5,
+      "sha256": "0b4d2fa9e5377e2446002cd506717a305c567e59e945157b2873af5b0add36bd"
+    },
+    {
+      "modelo": "Palavras",
+      "semente": 29,
+      "epoca": 6,
+      "sha256": "547f192fd14254c0cb5caf54477256d8d977491e723b575d82d81ed73419a57e"
+    },
+    {
+      "modelo": "BPE",
+      "semente": 29,
+      "epoca": 5,
+      "sha256": "3b132f8478c99e0282f312c244a1a0ace805143d8f8b40729c27bebd0e44b5f1"
+    },
+    {
+      "modelo": "Palavras",
+      "semente": 43,
+      "epoca": 6,
+      "sha256": "e6aee6571b4ba452d9c54836323b67e8e3e5397ab4b07f85c190ff4a414289bf"
+    },
+    {
+      "modelo": "BPE",
+      "semente": 43,
+      "epoca": 6,
+      "sha256": "53f13898eac636bfc7d99ededdf6e99c53354c19234ba8cd181a7e889ec911fc"
+    }
+  ],
+  "pares": [
+    {
+      "id": "contraste",
+      "titulo": "Contraste depois de but",
+      "a": "I thought this movie was terrible, but it was wonderful.",
+      "b": "I thought this movie was wonderful, but it was terrible.",
+      "leitura": [
+        "positiva",
+        "negativa"
+      ],
+      "unigramas_iguais": true,
+      "bigramas_iguais": false,
+      "resultados": {
+        "Palavras": {
+          "janelas_iguais": {
+            "3": false,
+            "4": false,
+            "5": false
+          },
+          "media_p_a": 0.009858221126099428,
+          "media_p_b": 0.8994792699813843,
+          "mudancas_de_classe": 3,
+          "maior_diferenca_de_logit": 3.6669727563858032,
+          "predicoes": [
+            {
+              "semente": 17,
+              "a": {
+                "modelo": "Palavras",
+                "semente": 17,
+                "epoca": 5,
+                "classe": "negativa",
+                "p_positiva": 0.0059306928887963295,
+                "logits": [
+                  2.258878231048584,
+                  -2.8627874851226807
+                ],
+                "tokens": [
+                  "i",
+                  "thought",
+                  "this",
+                  "movie",
+                  "was",
+                  "terrible",
+                  "but",
+                  "it",
+                  "was",
+                  "wonderful"
+                ],
+                "ids": [
+                  8,
+                  169,
+                  10,
+                  14,
+                  13,
+                  355,
+                  16,
+                  11,
+                  13,
+                  357
+                ],
+                "palavras_no_prefixo": 10
+              },
+              "b": {
+                "modelo": "Palavras",
+                "semente": 17,
+                "epoca": 5,
+                "classe": "positiva",
+                "p_positiva": 0.8381083607673645,
+                "logits": [
+                  -1.1239553689956665,
+                  0.5202648639678955
+                ],
+                "tokens": [
+                  "i",
+                  "thought",
+                  "this",
+                  "movie",
+                  "was",
+                  "wonderful",
+                  "but",
+                  "it",
+                  "was",
+                  "terrible"
+                ],
+                "ids": [
+                  8,
+                  169,
+                  10,
+                  14,
+                  13,
+                  357,
+                  16,
+                  11,
+                  13,
+                  355
+                ],
+                "palavras_no_prefixo": 10
+              }
+            },
+            {
+              "semente": 29,
+              "a": {
+                "modelo": "Palavras",
+                "semente": 29,
+                "epoca": 6,
+                "classe": "negativa",
+                "p_positiva": 0.015039696358144283,
+                "logits": [
+                  2.302628755569458,
+                  -1.8792794942855835
+                ],
+                "tokens": [
+                  "i",
+                  "thought",
+                  "this",
+                  "movie",
+                  "was",
+                  "terrible",
+                  "but",
+                  "it",
+                  "was",
+                  "wonderful"
+                ],
+                "ids": [
+                  8,
+                  169,
+                  10,
+                  14,
+                  13,
+                  355,
+                  16,
+                  11,
+                  13,
+                  357
+                ],
+                "palavras_no_prefixo": 10
+              },
+              "b": {
+                "modelo": "Palavras",
+                "semente": 29,
+                "epoca": 6,
+                "classe": "positiva",
+                "p_positiva": 0.9345382452011108,
+                "logits": [
+                  -0.8708938956260681,
+                  1.7876932621002197
+                ],
+                "tokens": [
+                  "i",
+                  "thought",
+                  "this",
+                  "movie",
+                  "was",
+                  "wonderful",
+                  "but",
+                  "it",
+                  "was",
+                  "terrible"
+                ],
+                "ids": [
+                  8,
+                  169,
+                  10,
+                  14,
+                  13,
+                  357,
+                  16,
+                  11,
+                  13,
+                  355
+                ],
+                "palavras_no_prefixo": 10
+              }
+            },
+            {
+              "semente": 43,
+              "a": {
+                "modelo": "Palavras",
+                "semente": 43,
+                "epoca": 6,
+                "classe": "negativa",
+                "p_positiva": 0.00860427413135767,
+                "logits": [
+                  2.4843227863311768,
+                  -2.2625317573547363
+                ],
+                "tokens": [
+                  "i",
+                  "thought",
+                  "this",
+                  "movie",
+                  "was",
+                  "terrible",
+                  "but",
+                  "it",
+                  "was",
+                  "wonderful"
+                ],
+                "ids": [
+                  8,
+                  169,
+                  10,
+                  14,
+                  13,
+                  355,
+                  16,
+                  11,
+                  13,
+                  357
+                ],
+                "palavras_no_prefixo": 10
+              },
+              "b": {
+                "modelo": "Palavras",
+                "semente": 43,
+                "epoca": 6,
+                "classe": "positiva",
+                "p_positiva": 0.9257912039756775,
+                "logits": [
+                  -1.1356855630874634,
+                  1.3880810737609863
+                ],
+                "tokens": [
+                  "i",
+                  "thought",
+                  "this",
+                  "movie",
+                  "was",
+                  "wonderful",
+                  "but",
+                  "it",
+                  "was",
+                  "terrible"
+                ],
+                "ids": [
+                  8,
+                  169,
+                  10,
+                  14,
+                  13,
+                  357,
+                  16,
+                  11,
+                  13,
+                  355
+                ],
+                "palavras_no_prefixo": 10
+              }
+            }
+          ]
+        },
+        "BPE": {
+          "janelas_iguais": {
+            "3": false,
+            "4": false,
+            "5": false
+          },
+          "media_p_a": 0.011947338158885637,
+          "media_p_b": 0.8365325927734375,
+          "mudancas_de_classe": 3,
+          "maior_diferenca_de_logit": 3.947032332420349,
+          "predicoes": [
+            {
+              "semente": 17,
+              "a": {
+                "modelo": "BPE",
+                "semente": 17,
+                "epoca": 5,
+                "classe": "negativa",
+                "p_positiva": 0.01990383490920067,
+                "logits": [
+                  1.9005399942398071,
+                  -1.996198296546936
+                ],
+                "tokens": [
+                  "i</w>",
+                  "thought</w>",
+                  "this</w>",
+                  "movie</w>",
+                  "was</w>",
+                  "terrible</w>",
+                  "but</w>",
+                  "it</w>",
+                  "was</w>",
+                  "wonderful</w>"
+                ],
+                "ids": [
+                  60,
+                  673,
+                  110,
+                  137,
+                  131,
+                  1203,
+                  153,
+                  105,
+                  131,
+                  1206
+                ],
+                "palavras_no_prefixo": 10
+              },
+              "b": {
+                "modelo": "BPE",
+                "semente": 17,
+                "epoca": 5,
+                "classe": "positiva",
+                "p_positiva": 0.9147382378578186,
+                "logits": [
+                  -1.3088481426239014,
+                  1.064064383506775
+                ],
+                "tokens": [
+                  "i</w>",
+                  "thought</w>",
+                  "this</w>",
+                  "movie</w>",
+                  "was</w>",
+                  "wonderful</w>",
+                  "but</w>",
+                  "it</w>",
+                  "was</w>",
+                  "terrible</w>"
+                ],
+                "ids": [
+                  60,
+                  673,
+                  110,
+                  137,
+                  131,
+                  1206,
+                  153,
+                  105,
+                  131,
+                  1203
+                ],
+                "palavras_no_prefixo": 10
+              }
+            },
+            {
+              "semente": 29,
+              "a": {
+                "modelo": "BPE",
+                "semente": 29,
+                "epoca": 5,
+                "classe": "negativa",
+                "p_positiva": 0.005771194584667683,
+                "logits": [
+                  2.1842234134674072,
+                  -2.96486496925354
+                ],
+                "tokens": [
+                  "i</w>",
+                  "thought</w>",
+                  "this</w>",
+                  "movie</w>",
+                  "was</w>",
+                  "terrible</w>",
+                  "but</w>",
+                  "it</w>",
+                  "was</w>",
+                  "wonderful</w>"
+                ],
+                "ids": [
+                  60,
+                  673,
+                  110,
+                  137,
+                  131,
+                  1203,
+                  153,
+                  105,
+                  131,
+                  1206
+                ],
+                "palavras_no_prefixo": 10
+              },
+              "b": {
+                "modelo": "BPE",
+                "semente": 29,
+                "epoca": 5,
+                "classe": "positiva",
+                "p_positiva": 0.6449739336967468,
+                "logits": [
+                  -0.26888802647590637,
+                  0.3281305730342865
+                ],
+                "tokens": [
+                  "i</w>",
+                  "thought</w>",
+                  "this</w>",
+                  "movie</w>",
+                  "was</w>",
+                  "wonderful</w>",
+                  "but</w>",
+                  "it</w>",
+                  "was</w>",
+                  "terrible</w>"
+                ],
+                "ids": [
+                  60,
+                  673,
+                  110,
+                  137,
+                  131,
+                  1206,
+                  153,
+                  105,
+                  131,
+                  1203
+                ],
+                "palavras_no_prefixo": 10
+              }
+            },
+            {
+              "semente": 43,
+              "a": {
+                "modelo": "BPE",
+                "semente": 43,
+                "epoca": 6,
+                "classe": "negativa",
+                "p_positiva": 0.010166984982788563,
+                "logits": [
+                  2.279120445251465,
+                  -2.2992701530456543
+                ],
+                "tokens": [
+                  "i</w>",
+                  "thought</w>",
+                  "this</w>",
+                  "movie</w>",
+                  "was</w>",
+                  "terrible</w>",
+                  "but</w>",
+                  "it</w>",
+                  "was</w>",
+                  "wonderful</w>"
+                ],
+                "ids": [
+                  60,
+                  673,
+                  110,
+                  137,
+                  131,
+                  1203,
+                  153,
+                  105,
+                  131,
+                  1206
+                ],
+                "palavras_no_prefixo": 10
+              },
+              "b": {
+                "modelo": "BPE",
+                "semente": 43,
+                "epoca": 6,
+                "classe": "positiva",
+                "p_positiva": 0.9498856067657471,
+                "logits": [
+                  -1.6679118871688843,
+                  1.2741214036941528
+                ],
+                "tokens": [
+                  "i</w>",
+                  "thought</w>",
+                  "this</w>",
+                  "movie</w>",
+                  "was</w>",
+                  "wonderful</w>",
+                  "but</w>",
+                  "it</w>",
+                  "was</w>",
+                  "terrible</w>"
+                ],
+                "ids": [
+                  60,
+                  673,
+                  110,
+                  137,
+                  131,
+                  1206,
+                  153,
+                  105,
+                  131,
+                  1203
+                ],
+                "palavras_no_prefixo": 10
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "negacao",
+      "titulo": "Escopo de not",
+      "a": "The movie is good, not bad.",
+      "b": "The movie is bad, not good.",
+      "leitura": [
+        "positiva",
+        "negativa"
+      ],
+      "unigramas_iguais": true,
+      "bigramas_iguais": false,
+      "resultados": {
+        "Palavras": {
+          "janelas_iguais": {
+            "3": false,
+            "4": false,
+            "5": false
+          },
+          "media_p_a": 0.484208216269811,
+          "media_p_b": 0.10321020955840747,
+          "mudancas_de_classe": 2,
+          "maior_diferenca_de_logit": 1.3455166071653366,
+          "predicoes": [
+            {
+              "semente": 17,
+              "a": {
+                "modelo": "Palavras",
+                "semente": 17,
+                "epoca": 5,
+                "classe": "positiva",
+                "p_positiva": 0.5372297763824463,
+                "logits": [
+                  -0.19157198071479797,
+                  -0.042376808822155
+                ],
+                "tokens": [
+                  "the",
+                  "movie",
+                  "is",
+                  "good",
+                  "not",
+                  "bad"
+                ],
+                "ids": [
+                  2,
+                  14,
+                  7,
+                  43,
+                  21,
+                  72
+                ],
+                "palavras_no_prefixo": 6
+              },
+              "b": {
+                "modelo": "Palavras",
+                "semente": 17,
+                "epoca": 5,
+                "classe": "negativa",
+                "p_positiva": 0.175795778632164,
+                "logits": [
+                  0.718634843826294,
+                  -0.8264604806900024
+                ],
+                "tokens": [
+                  "the",
+                  "movie",
+                  "is",
+                  "bad",
+                  "not",
+                  "good"
+                ],
+                "ids": [
+                  2,
+                  14,
+                  7,
+                  72,
+                  21,
+                  43
+                ],
+                "palavras_no_prefixo": 6
+              }
+            },
+            {
+              "semente": 29,
+              "a": {
+                "modelo": "Palavras",
+                "semente": 29,
+                "epoca": 6,
+                "classe": "positiva",
+                "p_positiva": 0.5621379613876343,
+                "logits": [
+                  0.09557957947254181,
+                  0.3454228341579437
+                ],
+                "tokens": [
+                  "the",
+                  "movie",
+                  "is",
+                  "good",
+                  "not",
+                  "bad"
+                ],
+                "ids": [
+                  2,
+                  14,
+                  7,
+                  43,
+                  21,
+                  72
+                ],
+                "palavras_no_prefixo": 6
+              },
+              "b": {
+                "modelo": "Palavras",
+                "semente": 29,
+                "epoca": 6,
+                "classe": "negativa",
+                "p_positiva": 0.08383217453956604,
+                "logits": [
+                  1.4410961866378784,
+                  -0.9502863883972168
+                ],
+                "tokens": [
+                  "the",
+                  "movie",
+                  "is",
+                  "bad",
+                  "not",
+                  "good"
+                ],
+                "ids": [
+                  2,
+                  14,
+                  7,
+                  72,
+                  21,
+                  43
+                ],
+                "palavras_no_prefixo": 6
+              }
+            },
+            {
+              "semente": 43,
+              "a": {
+                "modelo": "Palavras",
+                "semente": 43,
+                "epoca": 6,
+                "classe": "negativa",
+                "p_positiva": 0.3532569110393524,
+                "logits": [
+                  0.31693971157073975,
+                  -0.2878139019012451
+                ],
+                "tokens": [
+                  "the",
+                  "movie",
+                  "is",
+                  "good",
+                  "not",
+                  "bad"
+                ],
+                "ids": [
+                  2,
+                  14,
+                  7,
+                  43,
+                  21,
+                  72
+                ],
+                "palavras_no_prefixo": 6
+              },
+              "b": {
+                "modelo": "Palavras",
+                "semente": 43,
+                "epoca": 6,
+                "classe": "negativa",
+                "p_positiva": 0.050002675503492355,
+                "logits": [
+                  1.4684760570526123,
+                  -1.4759066104888916
+                ],
+                "tokens": [
+                  "the",
+                  "movie",
+                  "is",
+                  "bad",
+                  "not",
+                  "good"
+                ],
+                "ids": [
+                  2,
+                  14,
+                  7,
+                  72,
+                  21,
+                  43
+                ],
+                "palavras_no_prefixo": 6
+              }
+            }
+          ]
+        },
+        "BPE": {
+          "janelas_iguais": {
+            "3": false,
+            "4": false,
+            "5": false
+          },
+          "media_p_a": 0.5305099586645762,
+          "media_p_b": 0.15543176978826523,
+          "mudancas_de_classe": 1,
+          "maior_diferenca_de_logit": 1.4300485253334045,
+          "predicoes": [
+            {
+              "semente": 17,
+              "a": {
+                "modelo": "BPE",
+                "semente": 17,
+                "epoca": 5,
+                "classe": "negativa",
+                "p_positiva": 0.4746323227882385,
+                "logits": [
+                  -0.13440734148025513,
+                  -0.23596525192260742
+                ],
+                "tokens": [
+                  "the</w>",
+                  "movie</w>",
+                  "is</w>",
+                  "good</w>",
+                  "not</w>",
+                  "bad</w>"
+                ],
+                "ids": [
+                  78,
+                  137,
+                  81,
+                  262,
+                  175,
+                  366
+                ],
+                "palavras_no_prefixo": 6
+              },
+              "b": {
+                "modelo": "BPE",
+                "semente": 17,
+                "epoca": 5,
+                "classe": "negativa",
+                "p_positiva": 0.1857534945011139,
+                "logits": [
+                  0.5967389345169067,
+                  -0.8811036348342896
+                ],
+                "tokens": [
+                  "the</w>",
+                  "movie</w>",
+                  "is</w>",
+                  "bad</w>",
+                  "not</w>",
+                  "good</w>"
+                ],
+                "ids": [
+                  78,
+                  137,
+                  81,
+                  366,
+                  175,
+                  262
+                ],
+                "palavras_no_prefixo": 6
+              }
+            },
+            {
+              "semente": 29,
+              "a": {
+                "modelo": "BPE",
+                "semente": 29,
+                "epoca": 5,
+                "classe": "negativa",
+                "p_positiva": 0.47745808959007263,
+                "logits": [
+                  0.06470050662755966,
+                  -0.025528371334075928
+                ],
+                "tokens": [
+                  "the</w>",
+                  "movie</w>",
+                  "is</w>",
+                  "good</w>",
+                  "not</w>",
+                  "bad</w>"
+                ],
+                "ids": [
+                  78,
+                  137,
+                  81,
+                  262,
+                  175,
+                  366
+                ],
+                "palavras_no_prefixo": 6
+              },
+              "b": {
+                "modelo": "BPE",
+                "semente": 29,
+                "epoca": 5,
+                "classe": "negativa",
+                "p_positiva": 0.0633205994963646,
+                "logits": [
+                  1.2385536432266235,
+                  -1.4555768966674805
+                ],
+                "tokens": [
+                  "the</w>",
+                  "movie</w>",
+                  "is</w>",
+                  "bad</w>",
+                  "not</w>",
+                  "good</w>"
+                ],
+                "ids": [
+                  78,
+                  137,
+                  81,
+                  366,
+                  175,
+                  262
+                ],
+                "palavras_no_prefixo": 6
+              }
+            },
+            {
+              "semente": 43,
+              "a": {
+                "modelo": "BPE",
+                "semente": 43,
+                "epoca": 6,
+                "classe": "positiva",
+                "p_positiva": 0.6394394636154175,
+                "logits": [
+                  -0.2815832793712616,
+                  0.29134881496429443
+                ],
+                "tokens": [
+                  "the</w>",
+                  "movie</w>",
+                  "is</w>",
+                  "good</w>",
+                  "not</w>",
+                  "bad</w>"
+                ],
+                "ids": [
+                  78,
+                  137,
+                  81,
+                  262,
+                  175,
+                  366
+                ],
+                "palavras_no_prefixo": 6
+              },
+              "b": {
+                "modelo": "BPE",
+                "semente": 43,
+                "epoca": 6,
+                "classe": "negativa",
+                "p_positiva": 0.2172212153673172,
+                "logits": [
+                  0.5800145864486694,
+                  -0.7019193172454834
+                ],
+                "tokens": [
+                  "the</w>",
+                  "movie</w>",
+                  "is</w>",
+                  "bad</w>",
+                  "not</w>",
+                  "good</w>"
+                ],
+                "ids": [
+                  78,
+                  137,
+                  81,
+                  366,
+                  175,
+                  262
+                ],
+                "palavras_no_prefixo": 6
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "aspectos",
+      "titulo": "Sentimento por aspecto",
+      "a": "The acting was brilliant, but the ending was awful.",
+      "b": "The acting was awful, but the ending was brilliant.",
+      "leitura": [
+        "mista",
+        "mista"
+      ],
+      "unigramas_iguais": true,
+      "bigramas_iguais": false,
+      "resultados": {
+        "Palavras": {
+          "janelas_iguais": {
+            "3": false,
+            "4": false,
+            "5": false
+          },
+          "media_p_a": 0.2989942133426666,
+          "media_p_b": 0.0025085103310023746,
+          "mudancas_de_classe": 0,
+          "maior_diferenca_de_logit": 3.0050274431705475,
+          "predicoes": [
+            {
+              "semente": 17,
+              "a": {
+                "modelo": "Palavras",
+                "semente": 17,
+                "epoca": 5,
+                "classe": "negativa",
+                "p_positiva": 0.2261294722557068,
+                "logits": [
+                  0.717461884021759,
+                  -0.512834906578064
+                ],
+                "tokens": [
+                  "the",
+                  "acting",
+                  "was",
+                  "brilliant",
+                  "but",
+                  "the",
+                  "ending",
+                  "was",
+                  "awful"
+                ],
+                "ids": [
+                  2,
+                  97,
+                  13,
+                  467,
+                  16,
+                  2,
+                  379,
+                  13,
+                  291
+                ],
+                "palavras_no_prefixo": 9
+              },
+              "b": {
+                "modelo": "Palavras",
+                "semente": 17,
+                "epoca": 5,
+                "classe": "negativa",
+                "p_positiva": 0.00293408683501184,
+                "logits": [
+                  2.795210599899292,
+                  -3.033210039138794
+                ],
+                "tokens": [
+                  "the",
+                  "acting",
+                  "was",
+                  "awful",
+                  "but",
+                  "the",
+                  "ending",
+                  "was",
+                  "brilliant"
+                ],
+                "ids": [
+                  2,
+                  97,
+                  13,
+                  291,
+                  16,
+                  2,
+                  379,
+                  13,
+                  467
+                ],
+                "palavras_no_prefixo": 9
+              }
+            },
+            {
+              "semente": 29,
+              "a": {
+                "modelo": "Palavras",
+                "semente": 29,
+                "epoca": 6,
+                "classe": "negativa",
+                "p_positiva": 0.2198556661605835,
+                "logits": [
+                  0.9671713709831238,
+                  -0.2993362843990326
+                ],
+                "tokens": [
+                  "the",
+                  "acting",
+                  "was",
+                  "brilliant",
+                  "but",
+                  "the",
+                  "ending",
+                  "was",
+                  "awful"
+                ],
+                "ids": [
+                  2,
+                  97,
+                  13,
+                  467,
+                  16,
+                  2,
+                  379,
+                  13,
+                  291
+                ],
+                "palavras_no_prefixo": 9
+              },
+              "b": {
+                "modelo": "Palavras",
+                "semente": 29,
+                "epoca": 6,
+                "classe": "negativa",
+                "p_positiva": 0.0012546548387035728,
+                "logits": [
+                  3.3752756118774414,
+                  -3.30436372756958
+                ],
+                "tokens": [
+                  "the",
+                  "acting",
+                  "was",
+                  "awful",
+                  "but",
+                  "the",
+                  "ending",
+                  "was",
+                  "brilliant"
+                ],
+                "ids": [
+                  2,
+                  97,
+                  13,
+                  291,
+                  16,
+                  2,
+                  379,
+                  13,
+                  467
+                ],
+                "palavras_no_prefixo": 9
+              }
+            },
+            {
+              "semente": 43,
+              "a": {
+                "modelo": "Palavras",
+                "semente": 43,
+                "epoca": 6,
+                "classe": "negativa",
+                "p_positiva": 0.4509975016117096,
+                "logits": [
+                  0.1323954164981842,
+                  -0.06424585729837418
+                ],
+                "tokens": [
+                  "the",
+                  "acting",
+                  "was",
+                  "brilliant",
+                  "but",
+                  "the",
+                  "ending",
+                  "was",
+                  "awful"
+                ],
+                "ids": [
+                  2,
+                  97,
+                  13,
+                  467,
+                  16,
+                  2,
+                  379,
+                  13,
+                  291
+                ],
+                "palavras_no_prefixo": 9
+              },
+              "b": {
+                "modelo": "Palavras",
+                "semente": 43,
+                "epoca": 6,
+                "classe": "negativa",
+                "p_positiva": 0.003336789319291711,
+                "logits": [
+                  3.0282974243164062,
+                  -2.6711063385009766
+                ],
+                "tokens": [
+                  "the",
+                  "acting",
+                  "was",
+                  "awful",
+                  "but",
+                  "the",
+                  "ending",
+                  "was",
+                  "brilliant"
+                ],
+                "ids": [
+                  2,
+                  97,
+                  13,
+                  291,
+                  16,
+                  2,
+                  379,
+                  13,
+                  467
+                ],
+                "palavras_no_prefixo": 9
+              }
+            }
+          ]
+        },
+        "BPE": {
+          "janelas_iguais": {
+            "3": false,
+            "4": false,
+            "5": false
+          },
+          "media_p_a": 0.1999110442896684,
+          "media_p_b": 0.0036509677302092314,
+          "mudancas_de_classe": 0,
+          "maior_diferenca_de_logit": 2.447940319776535,
+          "predicoes": [
+            {
+              "semente": 17,
+              "a": {
+                "modelo": "BPE",
+                "semente": 17,
+                "epoca": 5,
+                "classe": "negativa",
+                "p_positiva": 0.075954869389534,
+                "logits": [
+                  1.429304599761963,
+                  -1.0693169832229614
+                ],
+                "tokens": [
+                  "the</w>",
+                  "acting</w>",
+                  "was</w>",
+                  "brilliant</w>",
+                  "but</w>",
+                  "the</w>",
+                  "ending</w>",
+                  "was</w>",
+                  "awful</w>"
+                ],
+                "ids": [
+                  78,
+                  442,
+                  131,
+                  1504,
+                  153,
+                  78,
+                  1046,
+                  131,
+                  1039
+                ],
+                "palavras_no_prefixo": 9
+              },
+              "b": {
+                "modelo": "BPE",
+                "semente": 17,
+                "epoca": 5,
+                "classe": "negativa",
+                "p_positiva": 0.0010174917988479137,
+                "logits": [
+                  3.5549066066741943,
+                  -3.3344902992248535
+                ],
+                "tokens": [
+                  "the</w>",
+                  "acting</w>",
+                  "was</w>",
+                  "awful</w>",
+                  "but</w>",
+                  "the</w>",
+                  "ending</w>",
+                  "was</w>",
+                  "brilliant</w>"
+                ],
+                "ids": [
+                  78,
+                  442,
+                  131,
+                  1039,
+                  153,
+                  78,
+                  1046,
+                  131,
+                  1504
+                ],
+                "palavras_no_prefixo": 9
+              }
+            },
+            {
+              "semente": 29,
+              "a": {
+                "modelo": "BPE",
+                "semente": 29,
+                "epoca": 5,
+                "classe": "negativa",
+                "p_positiva": 0.05267060175538063,
+                "logits": [
+                  1.1289490461349487,
+                  -1.7606401443481445
+                ],
+                "tokens": [
+                  "the</w>",
+                  "acting</w>",
+                  "was</w>",
+                  "brilliant</w>",
+                  "but</w>",
+                  "the</w>",
+                  "ending</w>",
+                  "was</w>",
+                  "awful</w>"
+                ],
+                "ids": [
+                  78,
+                  442,
+                  131,
+                  1504,
+                  153,
+                  78,
+                  1046,
+                  131,
+                  1039
+                ],
+                "palavras_no_prefixo": 9
+              },
+              "b": {
+                "modelo": "BPE",
+                "semente": 29,
+                "epoca": 5,
+                "classe": "negativa",
+                "p_positiva": 0.0031301171984523535,
+                "logits": [
+                  2.1511003971099854,
+                  -3.6124494075775146
+                ],
+                "tokens": [
+                  "the</w>",
+                  "acting</w>",
+                  "was</w>",
+                  "awful</w>",
+                  "but</w>",
+                  "the</w>",
+                  "ending</w>",
+                  "was</w>",
+                  "brilliant</w>"
+                ],
+                "ids": [
+                  78,
+                  442,
+                  131,
+                  1039,
+                  153,
+                  78,
+                  1046,
+                  131,
+                  1504
+                ],
+                "palavras_no_prefixo": 9
+              }
+            },
+            {
+              "semente": 43,
+              "a": {
+                "modelo": "BPE",
+                "semente": 43,
+                "epoca": 6,
+                "classe": "negativa",
+                "p_positiva": 0.4711076617240906,
+                "logits": [
+                  -0.14235760271549225,
+                  -0.2580559551715851
+                ],
+                "tokens": [
+                  "the</w>",
+                  "acting</w>",
+                  "was</w>",
+                  "brilliant</w>",
+                  "but</w>",
+                  "the</w>",
+                  "ending</w>",
+                  "was</w>",
+                  "awful</w>"
+                ],
+                "ids": [
+                  78,
+                  442,
+                  131,
+                  1504,
+                  153,
+                  78,
+                  1046,
+                  131,
+                  1039
+                ],
+                "palavras_no_prefixo": 9
+              },
+              "b": {
+                "modelo": "BPE",
+                "semente": 43,
+                "epoca": 6,
+                "classe": "negativa",
+                "p_positiva": 0.006805294193327427,
+                "logits": [
+                  2.2772293090820312,
+                  -2.70599627494812
+                ],
+                "tokens": [
+                  "the</w>",
+                  "acting</w>",
+                  "was</w>",
+                  "awful</w>",
+                  "but</w>",
+                  "the</w>",
+                  "ending</w>",
+                  "was</w>",
+                  "brilliant</w>"
+                ],
+                "ids": [
+                  78,
+                  442,
+                  131,
+                  1039,
+                  153,
+                  78,
+                  1046,
+                  131,
+                  1504
+                ],
+                "palavras_no_prefixo": 9
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "janelas",
+      "titulo": "Troca de blocos com as mesmas janelas",
+      "a": "I have a few thoughts about this movie. I loved the acting. I have a few thoughts about this movie. I hated the ending. I have a few thoughts about this movie.",
+      "b": "I have a few thoughts about this movie. I hated the ending. I have a few thoughts about this movie. I loved the acting. I have a few thoughts about this movie.",
+      "leitura": [
+        "mista",
+        "mista"
+      ],
+      "unigramas_iguais": true,
+      "bigramas_iguais": true,
+      "resultados": {
+        "Palavras": {
+          "janelas_iguais": {
+            "3": true,
+            "4": true,
+            "5": true
+          },
+          "media_p_a": 0.8842626810073853,
+          "media_p_b": 0.8842626810073853,
+          "mudancas_de_classe": 0,
+          "maior_diferenca_de_logit": 0.0,
+          "predicoes": [
+            {
+              "semente": 17,
+              "a": {
+                "modelo": "Palavras",
+                "semente": 17,
+                "epoca": 5,
+                "classe": "positiva",
+                "p_positiva": 0.8115215301513672,
+                "logits": [
+                  -0.9199946522712708,
+                  0.5399326086044312
+                ],
+                "tokens": [
+                  "i",
+                  "have",
+                  "a",
+                  "few",
+                  "thoughts",
+                  "about",
+                  "this",
+                  "movie",
+                  "i",
+                  "loved",
+                  "the",
+                  "acting",
+                  "i",
+                  "have",
+                  "a",
+                  "few",
+                  "thoughts",
+                  "about",
+                  "this",
+                  "movie",
+                  "i",
+                  "hated",
+                  "the",
+                  "ending",
+                  "i",
+                  "have",
+                  "a",
+                  "few",
+                  "thoughts",
+                  "about",
+                  "this",
+                  "movie"
+                ],
+                "ids": [
+                  8,
+                  23,
+                  3,
+                  174,
+                  2830,
+                  38,
+                  10,
+                  14,
+                  8,
+                  342,
+                  2,
+                  97,
+                  8,
+                  23,
+                  3,
+                  174,
+                  2830,
+                  38,
+                  10,
+                  14,
+                  8,
+                  1559,
+                  2,
+                  379,
+                  8,
+                  23,
+                  3,
+                  174,
+                  2830,
+                  38,
+                  10,
+                  14
+                ],
+                "palavras_no_prefixo": 32
+              },
+              "b": {
+                "modelo": "Palavras",
+                "semente": 17,
+                "epoca": 5,
+                "classe": "positiva",
+                "p_positiva": 0.8115215301513672,
+                "logits": [
+                  -0.9199946522712708,
+                  0.5399326086044312
+                ],
+                "tokens": [
+                  "i",
+                  "have",
+                  "a",
+                  "few",
+                  "thoughts",
+                  "about",
+                  "this",
+                  "movie",
+                  "i",
+                  "hated",
+                  "the",
+                  "ending",
+                  "i",
+                  "have",
+                  "a",
+                  "few",
+                  "thoughts",
+                  "about",
+                  "this",
+                  "movie",
+                  "i",
+                  "loved",
+                  "the",
+                  "acting",
+                  "i",
+                  "have",
+                  "a",
+                  "few",
+                  "thoughts",
+                  "about",
+                  "this",
+                  "movie"
+                ],
+                "ids": [
+                  8,
+                  23,
+                  3,
+                  174,
+                  2830,
+                  38,
+                  10,
+                  14,
+                  8,
+                  1559,
+                  2,
+                  379,
+                  8,
+                  23,
+                  3,
+                  174,
+                  2830,
+                  38,
+                  10,
+                  14,
+                  8,
+                  342,
+                  2,
+                  97,
+                  8,
+                  23,
+                  3,
+                  174,
+                  2830,
+                  38,
+                  10,
+                  14
+                ],
+                "palavras_no_prefixo": 32
+              }
+            },
+            {
+              "semente": 29,
+              "a": {
+                "modelo": "Palavras",
+                "semente": 29,
+                "epoca": 6,
+                "classe": "positiva",
+                "p_positiva": 0.9543010592460632,
+                "logits": [
+                  -0.9328812956809998,
+                  2.1060235500335693
+                ],
+                "tokens": [
+                  "i",
+                  "have",
+                  "a",
+                  "few",
+                  "thoughts",
+                  "about",
+                  "this",
+                  "movie",
+                  "i",
+                  "loved",
+                  "the",
+                  "acting",
+                  "i",
+                  "have",
+                  "a",
+                  "few",
+                  "thoughts",
+                  "about",
+                  "this",
+                  "movie",
+                  "i",
+                  "hated",
+                  "the",
+                  "ending",
+                  "i",
+                  "have",
+                  "a",
+                  "few",
+                  "thoughts",
+                  "about",
+                  "this",
+                  "movie"
+                ],
+                "ids": [
+                  8,
+                  23,
+                  3,
+                  174,
+                  2830,
+                  38,
+                  10,
+                  14,
+                  8,
+                  342,
+                  2,
+                  97,
+                  8,
+                  23,
+                  3,
+                  174,
+                  2830,
+                  38,
+                  10,
+                  14,
+                  8,
+                  1559,
+                  2,
+                  379,
+                  8,
+                  23,
+                  3,
+                  174,
+                  2830,
+                  38,
+                  10,
+                  14
+                ],
+                "palavras_no_prefixo": 32
+              },
+              "b": {
+                "modelo": "Palavras",
+                "semente": 29,
+                "epoca": 6,
+                "classe": "positiva",
+                "p_positiva": 0.9543010592460632,
+                "logits": [
+                  -0.9328812956809998,
+                  2.1060235500335693
+                ],
+                "tokens": [
+                  "i",
+                  "have",
+                  "a",
+                  "few",
+                  "thoughts",
+                  "about",
+                  "this",
+                  "movie",
+                  "i",
+                  "hated",
+                  "the",
+                  "ending",
+                  "i",
+                  "have",
+                  "a",
+                  "few",
+                  "thoughts",
+                  "about",
+                  "this",
+                  "movie",
+                  "i",
+                  "loved",
+                  "the",
+                  "acting",
+                  "i",
+                  "have",
+                  "a",
+                  "few",
+                  "thoughts",
+                  "about",
+                  "this",
+                  "movie"
+                ],
+                "ids": [
+                  8,
+                  23,
+                  3,
+                  174,
+                  2830,
+                  38,
+                  10,
+                  14,
+                  8,
+                  1559,
+                  2,
+                  379,
+                  8,
+                  23,
+                  3,
+                  174,
+                  2830,
+                  38,
+                  10,
+                  14,
+                  8,
+                  342,
+                  2,
+                  97,
+                  8,
+                  23,
+                  3,
+                  174,
+                  2830,
+                  38,
+                  10,
+                  14
+                ],
+                "palavras_no_prefixo": 32
+              }
+            },
+            {
+              "semente": 43,
+              "a": {
+                "modelo": "Palavras",
+                "semente": 43,
+                "epoca": 6,
+                "classe": "positiva",
+                "p_positiva": 0.8869654536247253,
+                "logits": [
+                  -0.884663462638855,
+                  1.1754488945007324
+                ],
+                "tokens": [
+                  "i",
+                  "have",
+                  "a",
+                  "few",
+                  "thoughts",
+                  "about",
+                  "this",
+                  "movie",
+                  "i",
+                  "loved",
+                  "the",
+                  "acting",
+                  "i",
+                  "have",
+                  "a",
+                  "few",
+                  "thoughts",
+                  "about",
+                  "this",
+                  "movie",
+                  "i",
+                  "hated",
+                  "the",
+                  "ending",
+                  "i",
+                  "have",
+                  "a",
+                  "few",
+                  "thoughts",
+                  "about",
+                  "this",
+                  "movie"
+                ],
+                "ids": [
+                  8,
+                  23,
+                  3,
+                  174,
+                  2830,
+                  38,
+                  10,
+                  14,
+                  8,
+                  342,
+                  2,
+                  97,
+                  8,
+                  23,
+                  3,
+                  174,
+                  2830,
+                  38,
+                  10,
+                  14,
+                  8,
+                  1559,
+                  2,
+                  379,
+                  8,
+                  23,
+                  3,
+                  174,
+                  2830,
+                  38,
+                  10,
+                  14
+                ],
+                "palavras_no_prefixo": 32
+              },
+              "b": {
+                "modelo": "Palavras",
+                "semente": 43,
+                "epoca": 6,
+                "classe": "positiva",
+                "p_positiva": 0.8869654536247253,
+                "logits": [
+                  -0.884663462638855,
+                  1.1754488945007324
+                ],
+                "tokens": [
+                  "i",
+                  "have",
+                  "a",
+                  "few",
+                  "thoughts",
+                  "about",
+                  "this",
+                  "movie",
+                  "i",
+                  "hated",
+                  "the",
+                  "ending",
+                  "i",
+                  "have",
+                  "a",
+                  "few",
+                  "thoughts",
+                  "about",
+                  "this",
+                  "movie",
+                  "i",
+                  "loved",
+                  "the",
+                  "acting",
+                  "i",
+                  "have",
+                  "a",
+                  "few",
+                  "thoughts",
+                  "about",
+                  "this",
+                  "movie"
+                ],
+                "ids": [
+                  8,
+                  23,
+                  3,
+                  174,
+                  2830,
+                  38,
+                  10,
+                  14,
+                  8,
+                  1559,
+                  2,
+                  379,
+                  8,
+                  23,
+                  3,
+                  174,
+                  2830,
+                  38,
+                  10,
+                  14,
+                  8,
+                  342,
+                  2,
+                  97,
+                  8,
+                  23,
+                  3,
+                  174,
+                  2830,
+                  38,
+                  10,
+                  14
+                ],
+                "palavras_no_prefixo": 32
+              }
+            }
+          ]
+        },
+        "BPE": {
+          "janelas_iguais": {
+            "3": true,
+            "4": true,
+            "5": true
+          },
+          "media_p_a": 0.7361963987350464,
+          "media_p_b": 0.7361963987350464,
+          "mudancas_de_classe": 0,
+          "maior_diferenca_de_logit": 0.0,
+          "predicoes": [
+            {
+              "semente": 17,
+              "a": {
+                "modelo": "BPE",
+                "semente": 17,
+                "epoca": 5,
+                "classe": "positiva",
+                "p_positiva": 0.6091640591621399,
+                "logits": [
+                  -0.33154764771461487,
+                  0.11225217580795288
+                ],
+                "tokens": [
+                  "i</w>",
+                  "have</w>",
+                  "a</w>",
+                  "few</w>",
+                  "thoughts</w>",
+                  "about</w>",
+                  "this</w>",
+                  "movie</w>",
+                  "i</w>",
+                  "loved</w>",
+                  "the</w>",
+                  "acting</w>",
+                  "i</w>",
+                  "have</w>",
+                  "a</w>",
+                  "few</w>",
+                  "thoughts</w>",
+                  "about</w>",
+                  "this</w>",
+                  "movie</w>",
+                  "i</w>",
+                  "hated</w>",
+                  "the</w>",
+                  "ending</w>",
+                  "i</w>",
+                  "have</w>",
+                  "a</w>",
+                  "few</w>",
+                  "thoughts</w>",
+                  "about</w>",
+                  "this</w>",
+                  "movie</w>"
+                ],
+                "ids": [
+                  60,
+                  187,
+                  47,
+                  698,
+                  5925,
+                  241,
+                  110,
+                  137,
+                  60,
+                  1122,
+                  78,
+                  442,
+                  60,
+                  187,
+                  47,
+                  698,
+                  5925,
+                  241,
+                  110,
+                  137,
+                  60,
+                  3673,
+                  78,
+                  1046,
+                  60,
+                  187,
+                  47,
+                  698,
+                  5925,
+                  241,
+                  110,
+                  137
+                ],
+                "palavras_no_prefixo": 32
+              },
+              "b": {
+                "modelo": "BPE",
+                "semente": 17,
+                "epoca": 5,
+                "classe": "positiva",
+                "p_positiva": 0.6091640591621399,
+                "logits": [
+                  -0.33154764771461487,
+                  0.11225217580795288
+                ],
+                "tokens": [
+                  "i</w>",
+                  "have</w>",
+                  "a</w>",
+                  "few</w>",
+                  "thoughts</w>",
+                  "about</w>",
+                  "this</w>",
+                  "movie</w>",
+                  "i</w>",
+                  "hated</w>",
+                  "the</w>",
+                  "ending</w>",
+                  "i</w>",
+                  "have</w>",
+                  "a</w>",
+                  "few</w>",
+                  "thoughts</w>",
+                  "about</w>",
+                  "this</w>",
+                  "movie</w>",
+                  "i</w>",
+                  "loved</w>",
+                  "the</w>",
+                  "acting</w>",
+                  "i</w>",
+                  "have</w>",
+                  "a</w>",
+                  "few</w>",
+                  "thoughts</w>",
+                  "about</w>",
+                  "this</w>",
+                  "movie</w>"
+                ],
+                "ids": [
+                  60,
+                  187,
+                  47,
+                  698,
+                  5925,
+                  241,
+                  110,
+                  137,
+                  60,
+                  3673,
+                  78,
+                  1046,
+                  60,
+                  187,
+                  47,
+                  698,
+                  5925,
+                  241,
+                  110,
+                  137,
+                  60,
+                  1122,
+                  78,
+                  442,
+                  60,
+                  187,
+                  47,
+                  698,
+                  5925,
+                  241,
+                  110,
+                  137
+                ],
+                "palavras_no_prefixo": 32
+              }
+            },
+            {
+              "semente": 29,
+              "a": {
+                "modelo": "BPE",
+                "semente": 29,
+                "epoca": 5,
+                "classe": "positiva",
+                "p_positiva": 0.7159776091575623,
+                "logits": [
+                  -0.24732862412929535,
+                  0.67726731300354
+                ],
+                "tokens": [
+                  "i</w>",
+                  "have</w>",
+                  "a</w>",
+                  "few</w>",
+                  "thoughts</w>",
+                  "about</w>",
+                  "this</w>",
+                  "movie</w>",
+                  "i</w>",
+                  "loved</w>",
+                  "the</w>",
+                  "acting</w>",
+                  "i</w>",
+                  "have</w>",
+                  "a</w>",
+                  "few</w>",
+                  "thoughts</w>",
+                  "about</w>",
+                  "this</w>",
+                  "movie</w>",
+                  "i</w>",
+                  "hated</w>",
+                  "the</w>",
+                  "ending</w>",
+                  "i</w>",
+                  "have</w>",
+                  "a</w>",
+                  "few</w>",
+                  "thoughts</w>",
+                  "about</w>",
+                  "this</w>",
+                  "movie</w>"
+                ],
+                "ids": [
+                  60,
+                  187,
+                  47,
+                  698,
+                  5925,
+                  241,
+                  110,
+                  137,
+                  60,
+                  1122,
+                  78,
+                  442,
+                  60,
+                  187,
+                  47,
+                  698,
+                  5925,
+                  241,
+                  110,
+                  137,
+                  60,
+                  3673,
+                  78,
+                  1046,
+                  60,
+                  187,
+                  47,
+                  698,
+                  5925,
+                  241,
+                  110,
+                  137
+                ],
+                "palavras_no_prefixo": 32
+              },
+              "b": {
+                "modelo": "BPE",
+                "semente": 29,
+                "epoca": 5,
+                "classe": "positiva",
+                "p_positiva": 0.7159776091575623,
+                "logits": [
+                  -0.24732862412929535,
+                  0.67726731300354
+                ],
+                "tokens": [
+                  "i</w>",
+                  "have</w>",
+                  "a</w>",
+                  "few</w>",
+                  "thoughts</w>",
+                  "about</w>",
+                  "this</w>",
+                  "movie</w>",
+                  "i</w>",
+                  "hated</w>",
+                  "the</w>",
+                  "ending</w>",
+                  "i</w>",
+                  "have</w>",
+                  "a</w>",
+                  "few</w>",
+                  "thoughts</w>",
+                  "about</w>",
+                  "this</w>",
+                  "movie</w>",
+                  "i</w>",
+                  "loved</w>",
+                  "the</w>",
+                  "acting</w>",
+                  "i</w>",
+                  "have</w>",
+                  "a</w>",
+                  "few</w>",
+                  "thoughts</w>",
+                  "about</w>",
+                  "this</w>",
+                  "movie</w>"
+                ],
+                "ids": [
+                  60,
+                  187,
+                  47,
+                  698,
+                  5925,
+                  241,
+                  110,
+                  137,
+                  60,
+                  3673,
+                  78,
+                  1046,
+                  60,
+                  187,
+                  47,
+                  698,
+                  5925,
+                  241,
+                  110,
+                  137,
+                  60,
+                  1122,
+                  78,
+                  442,
+                  60,
+                  187,
+                  47,
+                  698,
+                  5925,
+                  241,
+                  110,
+                  137
+                ],
+                "palavras_no_prefixo": 32
+              }
+            },
+            {
+              "semente": 43,
+              "a": {
+                "modelo": "BPE",
+                "semente": 43,
+                "epoca": 6,
+                "classe": "positiva",
+                "p_positiva": 0.883447527885437,
+                "logits": [
+                  -0.9953617453575134,
+                  1.0301284790039062
+                ],
+                "tokens": [
+                  "i</w>",
+                  "have</w>",
+                  "a</w>",
+                  "few</w>",
+                  "thoughts</w>",
+                  "about</w>",
+                  "this</w>",
+                  "movie</w>",
+                  "i</w>",
+                  "loved</w>",
+                  "the</w>",
+                  "acting</w>",
+                  "i</w>",
+                  "have</w>",
+                  "a</w>",
+                  "few</w>",
+                  "thoughts</w>",
+                  "about</w>",
+                  "this</w>",
+                  "movie</w>",
+                  "i</w>",
+                  "hated</w>",
+                  "the</w>",
+                  "ending</w>",
+                  "i</w>",
+                  "have</w>",
+                  "a</w>",
+                  "few</w>",
+                  "thoughts</w>",
+                  "about</w>",
+                  "this</w>",
+                  "movie</w>"
+                ],
+                "ids": [
+                  60,
+                  187,
+                  47,
+                  698,
+                  5925,
+                  241,
+                  110,
+                  137,
+                  60,
+                  1122,
+                  78,
+                  442,
+                  60,
+                  187,
+                  47,
+                  698,
+                  5925,
+                  241,
+                  110,
+                  137,
+                  60,
+                  3673,
+                  78,
+                  1046,
+                  60,
+                  187,
+                  47,
+                  698,
+                  5925,
+                  241,
+                  110,
+                  137
+                ],
+                "palavras_no_prefixo": 32
+              },
+              "b": {
+                "modelo": "BPE",
+                "semente": 43,
+                "epoca": 6,
+                "classe": "positiva",
+                "p_positiva": 0.883447527885437,
+                "logits": [
+                  -0.9953617453575134,
+                  1.0301284790039062
+                ],
+                "tokens": [
+                  "i</w>",
+                  "have</w>",
+                  "a</w>",
+                  "few</w>",
+                  "thoughts</w>",
+                  "about</w>",
+                  "this</w>",
+                  "movie</w>",
+                  "i</w>",
+                  "hated</w>",
+                  "the</w>",
+                  "ending</w>",
+                  "i</w>",
+                  "have</w>",
+                  "a</w>",
+                  "few</w>",
+                  "thoughts</w>",
+                  "about</w>",
+                  "this</w>",
+                  "movie</w>",
+                  "i</w>",
+                  "loved</w>",
+                  "the</w>",
+                  "acting</w>",
+                  "i</w>",
+                  "have</w>",
+                  "a</w>",
+                  "few</w>",
+                  "thoughts</w>",
+                  "about</w>",
+                  "this</w>",
+                  "movie</w>"
+                ],
+                "ids": [
+                  60,
+                  187,
+                  47,
+                  698,
+                  5925,
+                  241,
+                  110,
+                  137,
+                  60,
+                  3673,
+                  78,
+                  1046,
+                  60,
+                  187,
+                  47,
+                  698,
+                  5925,
+                  241,
+                  110,
+                  137,
+                  60,
+                  1122,
+                  78,
+                  442,
+                  60,
+                  187,
+                  47,
+                  698,
+                  5925,
+                  241,
+                  110,
+                  137
+                ],
+                "palavras_no_prefixo": 32
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "cobertura": {
+    "texto": "The pallbearer scene was unexpectedly moving.",
+    "predicoes": [
+      {
+        "modelo": "Palavras",
+        "semente": 17,
+        "epoca": 5,
+        "classe": "negativa",
+        "p_positiva": 0.3767990171909332,
+        "logits": [
+          0.03789844363927841,
+          -0.46525871753692627
+        ],
+        "tokens": [
+          "the",
+          "<unk>",
+          "scene",
+          "was",
+          "unexpectedly",
+          "moving"
+        ],
+        "ids": [
+          2,
+          1,
+          163,
+          13,
+          4969,
+          751
+        ],
+        "palavras_no_prefixo": 6
+      },
+      {
+        "modelo": "BPE",
+        "semente": 17,
+        "epoca": 5,
+        "classe": "positiva",
+        "p_positiva": 0.6397513747215271,
+        "logits": [
+          -0.31197962164878845,
+          0.2623056471347809
+        ],
+        "tokens": [
+          "the</w>",
+          "p",
+          "all",
+          "bearer</w>",
+          "scene</w>",
+          "was</w>",
+          "unexpectedly</w>",
+          "moving</w>"
+        ],
+        "ids": [
+          78,
+          28,
+          503,
+          13958,
+          663,
+          131,
+          9315,
+          2072
+        ],
+        "palavras_no_prefixo": 6
+      }
+    ]
+  }
+}

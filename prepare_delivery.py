@@ -25,7 +25,7 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=ROOT / "dist/imdb_qwen3_entrega.zip")
     args = parser.parse_args()
     sources = [p for p in distribution_paths()
-               if p.suffix in {".py", ".mjs", ".md", ".toml", ".yml", ".yaml"}
+               if p.suffix in {".py", ".mjs", ".md", ".toml", ".yml", ".yaml", ".tex"} or p.name == "Makefile"
                or (p.parent == ROOT and p.suffix in {".json", ".txt"} and p.name != "publication_manifest.json" and not p.name.startswith("logs_"))]
     save(ROOT / "results/source_manifest.json", {
         "purpose": "Published source and documentation checksums. Historical scientific source hashes remain in frozen stage metadata.",

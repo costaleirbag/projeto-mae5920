@@ -1,0 +1,58 @@
+\section{Quando o modelo de aprendizagem profunda falha?}
+\label{sec:falhas}
+\subsection{O contraste troca a decisão, mas a leitura fica invertida}
+Na frase A, a opinião final é \textit{wonderful}. Na B, é \textit{terrible}.
+As médias de escore positivo da CNN por palavras foram \PalavrasA{} e
+\PalavrasB{}, respectivamente. Com BPE, foram \BPEA{} e \BPEB{}.
+Todos os checkpoints classificaram A como negativa e B como positiva.
+O par isola a ordem das palavras na entrada e revela uma falha de
+interpretação da concessão. O escore de um caso mede a resposta do
+checkpoint àquela frase. As métricas reservadas medem desempenho agregado.
+
+\subsection{O máximo global apaga a posição entre janelas}
+Para o controle, intercalamos as frases \textit{I loved the acting} e
+\textit{I hated the ending} com a mesma sequência de palavras. Repetimos
+o separador no início, no meio e no fim. Ele é longo o suficiente para
+que cada janela de até cinco tokens veja no máximo um dos dois trechos.
+Trocar os trechos preserva as janelas internas e as que cruzam suas fronteiras.
+
+Verificamos igualdade dos multiconjuntos de janelas de IDs para \(k=3,4,5\)
+nas duas tokenizações. A convolução com pesos compartilhados atribui a
+mesma ativação a janelas iguais. Ao aplicar o máximo global, cada filtro
+retorna o mesmo valor nos dois textos. O vetor concatenado e a saída linear
+coincidem. A diferença máxima observada de logit foi \textbf{zero} nos
+seis checkpoints. A construção mostra por que o modelo perde a ordem
+relativa de padrões quando as suas janelas locais permanecem iguais.
+
+\subsection{Cobertura, escopo e evidência fora do prefixo}
+BPE separa palavras raras em unidades conhecidas. A cobertura mede a proporção
+de tokens presentes no vocabulário. No ensaio
+pareado, mais cobertura veio acompanhada de sequências maiores e acurácia
+ligeiramente menor. No teste original, os textos longos também trazem a
+possibilidade de que a avaliação decisiva esteja além do prefixo.
+Os erros individuais e as análises por negação e contraste estão
+registrados com as previsões. \fonte{results/analysis/error_examples.json}{Exemplos de erro}.
+
+Um teste de seguimento pode variar a distância entre avaliação inicial e
+final, preservar as palavras e usar rótulos definidos antes da inferência.
+Uma segunda comparação pode alterar o pooling e manter os embeddings e
+as janelas. Isso separaria a capacidade de detectar um padrão da capacidade
+de situá-lo no texto.
+
+\begin{thebibliography}{9}
+\small
+\setlength{\itemsep}{1pt}
+\setlength{\parskip}{0pt}
+\bibitem{maas} Maas, A. L. et al. \textit{Learning Word Vectors for Sentiment Analysis}.
+ACL, 2011. \href{https://aclanthology.org/P11-1015/}{ACL Anthology}.
+\bibitem{kim} Kim, Y. \textit{Convolutional Neural Networks for Sentence Classification}.
+EMNLP, 2014. \href{https://aclanthology.org/D14-1181/}{ACL Anthology}.
+\bibitem{sennrich} Sennrich, R., Haddow, B. e Birch, A.
+\textit{Neural Machine Translation of Rare Words with Subword Units}. ACL, 2016.
+\href{https://aclanthology.org/P16-1162/}{ACL Anthology}.
+\bibitem{prince} Prince, S. J. D. \textit{Understanding Deep Learning}.
+MIT Press, 2023. Caps. 6, 8, 9 e 10. \href{https://udlbook.github.io/udlbook/}{Livro e materiais}.
+\bibitem{devlin} Devlin, J. et al. \textit{BERT: Pre-training of Deep Bidirectional
+Transformers for Language Understanding}. NAACL, 2019.
+\href{https://aclanthology.org/N19-1423/}{ACL Anthology}.
+\end{thebibliography}

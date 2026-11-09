@@ -1,0 +1,49 @@
+\section{Treinamento e escolha dos hiperparâmetros}
+\label{sec:treino}
+O forward produz dois logits. A entropia cruzada compara esses logits com
+o rótulo, e o \textit{backward} calcula gradientes para embeddings, filtros e
+saída. Limitamos a norma global a 1 antes do passo do otimizador. Os embeddings
+começam com distribuição normal de desvio 0,1 e linha de padding zero.
+Os filtros usam inicialização de He, e a saída usa Xavier. A escolha de
+inicialização, taxa e regularização liga o experimento aos capítulos de
+otimização e generalização de Prince \cite{prince}.
+
+\subsection{Grade da CNN sequencial}
+\begin{tabularx}{\linewidth}{@{}lXr@{}}
+\toprule
+\tabelahead{Otimizador} & \tabelahead{Taxas testadas} & \tabelahead{Taxa escolhida}\\
+\midrule
+SGD & 0,001 \quad 0,03 \quad 0,3 & 0,3\\
+SGD com momentum 0,9 & 0,001 \quad 0,01 \quad 0,1 & 0,1\\
+Adam & 0,0003 \quad 0,001 \quad 0,003 & 0,001\\
+\bottomrule
+\end{tabularx}
+\legendinha{Tabela 4. Três sementes por célula. CNN base com janelas 3/4/5 e
+cem filtros por largura, dropout 0,5, batch 64 e orçamento de 12 épocas.}
+
+Dentro de cada semente, comparamos os otimizadores com as mesmas matrizes
+iniciais e a mesma ordem de minibatches. Escolhemos a época de menor CE de
+validação em cada execução. Em seguida, escolhemos a taxa com menor média
+dessas perdas nas sementes 17, 29 e 43. A época zero mostra a inicialização
+e fica fora da seleção.
+
+\vspace{1mm}
+\includegraphics[width=\linewidth]{figuras/otimizacao.pdf}
+\legendinha{Figura 2. Médias de três sementes. As áreas mostram mínimo e máximo.
+À esquerda, cada otimizador usa sua taxa selecionada. À direita, as épocas
+5 e 6 contêm os checkpoints escolhidos para Adam.}
+
+\subsection{Capacidade e regularização}
+Além dos 27 ajustes de otimizador e taxa, fizemos nove treinos para
+janelas 3 e 5 isoladas e janelas 3/4/5 com 32 filtros por largura.
+Seis treinos adicionais variaram dropout entre 0 e 0,8.
+As variantes reutilizam a taxa de Adam da CNN base. São \textbf{42 treinos de
+CNN} no estudo sequencial. Na auditoria desse estudo, a CNN base obteve
+81,95\%, a variante de 32 filtros 81,64\% e dropout 0,8 obteve 80,44\%.
+Os números descrevem cada variante sob a receita fixada.
+
+Na curva de Adam, o erro de treino segue caindo depois das épocas escolhidas
+enquanto a CE de validação aumenta. O checkpoint selecionado corresponde ao
+critério de generalização estabelecido antes da auditoria.
+\fonte{docs/PROTOCOLO_SEQUENCIAS.md}{Grades e controles}.
+\fonte{results/sequences/runs}{Históricos de treino}.

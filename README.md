@@ -22,6 +22,9 @@ negativo ou positivo. As extensões relacionam o experimento à disciplina:
 tokenização, CNNs, transferência com Transformers, otimização, regularização,
 double descent e steering de um modelo de linguagem.
 
+O relatório da turma e os slides de 15 minutos têm fontes editáveis em LaTeX.
+[Material do seminário, roteiro de fala e demonstração](seminario/README.md).
+
 ## Comece por aqui
 
 **O [notebook único do seminário](notebooks/seminario_completo.ipynb) é o roteiro

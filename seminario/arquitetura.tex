@@ -1,0 +1,23 @@
+\begin{tikzpicture}[
+  bloco/.style={draw=Rule,fill=Tint,text=Ink,align=center,minimum height=9mm,
+    minimum width=21mm,inner sep=3pt,font=\sffamily\small},
+  passo/.style={-{Latex[length=2mm]},draw=Teal,line width=.55pt}
+]
+  \node[bloco] (ids) at (0,0) {IDs\\\(B\times T\)};
+  \node[bloco] (emb) at (2.75,0) {Embedding\\\(B\times T\times128\)};
+  \node[bloco] (k3) at (5.65,1.05) {Conv + ReLU\\\(k=3\), 100 filtros};
+  \node[bloco] (k4) at (5.65,0) {Conv + ReLU\\\(k=4\), 100 filtros};
+  \node[bloco] (k5) at (5.65,-1.05) {Conv + ReLU\\\(k=5\), 100 filtros};
+  \node[bloco] (max) at (8.48,0) {Máximo global\\com máscara};
+  \node[bloco] (cat) at (11.23,0) {Concatenação\\e dropout\\\(B\times300\)};
+  \node[bloco] (out) at (13.9,0) {Linear\\\(B\times2\)};
+  \draw[passo] (ids) -- (emb);
+  \draw[passo] (emb.east) -- ++(.18,0) |- (k3.west);
+  \draw[passo] (emb.east) -- (k4.west);
+  \draw[passo] (emb.east) -- ++(.18,0) |- (k5.west);
+  \draw[passo] (k3.east) -- ++(.18,0) |- (max.west);
+  \draw[passo] (k4.east) -- (max.west);
+  \draw[passo] (k5.east) -- ++(.18,0) |- (max.west);
+  \draw[passo] (max) -- (cat);
+  \draw[passo] (cat) -- (out);
+\end{tikzpicture}

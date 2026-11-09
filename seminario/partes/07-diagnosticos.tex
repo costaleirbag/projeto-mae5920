@@ -1,0 +1,51 @@
+\section{Calibração, comprimento e custo}
+\label{sec:diagnosticos}
+\subsection{Confiança no teste oficial}
+Se \(z\) é a margem entre os logits positivo e negativo, ajustamos uma
+temperatura \(T>0\) por CE na amostra de calibração. A probabilidade passa
+de \(\sigma(z)\) a \(\sigma(z/T)\). Como a temperatura preserva o sinal
+da margem, o limiar 0,5 preserva acurácia e F1 macro.
+
+\begin{tabularx}{\linewidth}{@{}Xrrr@{}}
+\toprule
+\tabelahead{Modelo} & \tabelahead{Acurácia} & \tabelahead{F1 macro} & \tabelahead{CE calibrada}\\
+\midrule
+\LinhasTeste
+\bottomrule
+\end{tabularx}
+\legendinha{Tabela 9. Teste oficial, \(n=25.000\), com temperatura escolhida em
+2.478 resenhas reservadas. Compare a CE bruta com a Tabela 5.}
+
+\vspace{1mm}
+\includegraphics[width=\linewidth]{figuras/diagnostico_oficial.pdf}
+\legendinha{Figura 4. À esquerda, as quatro faixas de comprimento contêm
+3.246, 14.624, 5.285 e 1.845 resenhas, respectivamente. À direita, médias
+de probabilidade e frequência positiva em dez faixas.}
+
+A temperatura teve efeito pequeno na CNN, com CE de 0,3040 para 0,3037.
+No comprimento, sua acurácia foi de 87,34\% até cem palavras e 81,52\%
+acima de 500. O BERT também cai na faixa longa, enquanto o TF-IDF com
+texto completo varia menos. Comprimento, conteúdo e recorte mudam juntos
+nessa análise descritiva.
+\fonte{results/analysis/subgroup_metrics.csv}{Métricas por comprimento}.
+
+\subsection{Custo computacional da execução original}
+\begin{tabularx}{\linewidth}{@{}Xlrr@{}}
+\toprule
+\tabelahead{Modelo} & \tabelahead{Dispositivo} & \tabelahead{Ajuste (s)} &
+\tabelahead{Inferência (s)}\\
+\midrule
+\LinhasCusto
+\bottomrule
+\end{tabularx}
+\legendinha{Tabela 10. Tempos registrados para as receitas originais. A inferência
+soma as quatro divisões. O ajuste do baseline inclui TF-IDF e a seleção de
+regularização. As medições usam dispositivos e orçamentos diferentes.}
+
+\subsection{Ensaios complementares}
+O suplemento de MLPs reúne 51 treinos, com otimização, profundidade, atalhos
+residuais e regularização. Double descent aparece no ensaio sintético de
+regressão com 880 condições. O Qwen3-8B congelado foi avaliado separadamente
+na classificação e em intervenções nas ativações. O
+\fonte{docs/CONEXOES_DISCIPLINA.md}{guia de mecanismos} e o
+\fonte{QWEN_EXPERIMENTO.md}{protocolo Qwen} reúnem esses resultados.
