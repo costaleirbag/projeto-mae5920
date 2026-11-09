@@ -238,21 +238,41 @@ p, h1 { margin: 0; }
 
 .transport {
   display: grid;
-  grid-template-columns: 9.2em 1fr 9.3em;
+  grid-template-columns: auto minmax(32px, 1fr) auto auto;
+  grid-template-areas: "steps slider count play";
   align-items: center;
-  gap: .9em;
+  gap: .65em;
   font-size: .89em;
 }
-.transport .play {
+.step-buttons { grid-area: steps; display: flex; gap: .35em; }
+.transport button {
+  color: var(--forest);
+  background: white;
+  border: 1px solid #97b4a9;
+  border-radius: .4em;
+  padding: .5em .65em;
+  white-space: nowrap;
+}
+.transport .step-next {
   color: white;
   background: var(--forest);
-  border: 1px solid var(--forest);
-  border-radius: .4em;
-  padding: .5em .7em;
-  text-align: left;
+  border-color: var(--forest);
 }
-.transport input { width: 100%; min-height: 25px; accent-color: var(--teal); cursor: pointer; }
-.transport output { text-align: right; color: var(--quiet); font-variant-numeric: tabular-nums; }
+.transport .play { grid-area: play; min-width: 8em; }
+.transport input {
+  grid-area: slider;
+  width: 100%;
+  min-height: 25px;
+  accent-color: var(--teal);
+  cursor: pointer;
+}
+.transport output {
+  grid-area: count;
+  min-width: 8em;
+  text-align: right;
+  color: var(--quiet);
+  font-variant-numeric: tabular-nums;
+}
 .lab-source { font-size: .72em; color: var(--quiet); }
 .lab-source a { margin-inline-start: .45em; }
 
@@ -270,7 +290,7 @@ p, h1 { margin: 0; }
   :root { --deck-width: calc(100vw - 20px); }
   .brand span { display: none; }
   .toolbar, .deck-nav { font-size: 13px; }
-  .stage:has(.lab:not([hidden])) { aspect-ratio: auto; min-height: 510px; }
+  .stage:has(.lab:not([hidden])) { aspect-ratio: auto; min-height: 540px; }
   .lab { font-size: 14px; padding: 14px; gap: 10px; }
   .lab h1 { font-size: 23px; }
   .lab-body { grid-template-columns: 1fr; gap: 8px; }
@@ -289,7 +309,12 @@ p, h1 { margin: 0; }
   .cnn-rail { display: grid; grid-template-columns: 1fr 1.8fr; }
   .cnn-rail .observation { grid-column: span 2; min-height: 0; }
   .readout-row { grid-template-columns: 1fr 1fr; }
-  .transport { grid-template-columns: 8.2em 1fr 8.8em; gap: .45em; font-size: 11px; }
+  .transport {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "steps play" "slider count";
+    gap: .45em;
+    font-size: 11px;
+  }
 }
 </style>
 <body>
@@ -338,10 +363,14 @@ p, h1 { margin: 0; }
         </aside>
       </div>
       <div class="transport">
-        <button type="button" id="bpe-play" class="play"></button>
+        <div class="step-buttons" aria-label="Etapas do BPE">
+          <button type="button" id="bpe-back" class="step-back" aria-label="Etapa anterior">← Anterior</button>
+          <button type="button" id="bpe-forward" class="step-next" aria-label="Próxima etapa">Próxima etapa →</button>
+        </div>
         <label class="sr-only" for="bpe-step">Etapa da fusão BPE</label>
         <input type="range" id="bpe-step" min="0" step="1" value="0">
         <output id="bpe-count" for="bpe-step"></output>
+        <button type="button" id="bpe-play" class="play"></button>
       </div>
       <footer class="lab-source">Fusões do tokenizer treinado no IMDb.
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/animacoes.json" target="_blank" rel="noopener">Etapas registradas</a>
@@ -399,10 +428,14 @@ p, h1 { margin: 0; }
         </aside>
       </div>
       <div class="transport">
-        <button type="button" id="cnn-play" class="play"></button>
+        <div class="step-buttons" aria-label="Etapas da CNN">
+          <button type="button" id="cnn-back" class="step-back" aria-label="Etapa anterior">← Anterior</button>
+          <button type="button" id="cnn-forward" class="step-next" aria-label="Próxima etapa">Próxima etapa →</button>
+        </div>
         <label class="sr-only" for="cnn-step">Posição da janela convolucional</label>
         <input type="range" id="cnn-step" min="0" step="1" value="0">
         <output id="cnn-count" for="cnn-step"></output>
+        <button type="button" id="cnn-play" class="play"></button>
       </div>
       <footer class="lab-source">Ativações reais da CNN por palavras, semente 17. Pesos fixos ao mudar o passo.
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/src/imdb_lab/models.py" target="_blank" rel="noopener">Implementação</a>
@@ -429,6 +462,8 @@ const number = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximu
 function makeTransport(name, draw) {
   const slider = byId(name + "-step");
   const button = byId(name + "-play");
+  const back = byId(name + "-back");
+  const forward = byId(name + "-forward");
   const count = byId(name + "-count");
   let timer = null;
 
@@ -437,6 +472,8 @@ function makeTransport(name, draw) {
     const label = draw(step);
     count.textContent = label;
     slider.setAttribute("aria-valuetext", label);
+    back.disabled = step === 0;
+    forward.disabled = step === Number(slider.max);
   }
 
   function pause() {
@@ -444,6 +481,17 @@ function makeTransport(name, draw) {
     timer = null;
     button.textContent = "▶ Reproduzir";
   }
+
+  function move(direction) {
+    pause();
+    const step = Number(slider.value) + direction;
+    if (step < 0 || step > Number(slider.max)) return false;
+    render(step);
+    return true;
+  }
+
+  back.addEventListener("click", () => move(-1));
+  forward.addEventListener("click", () => move(1));
 
   button.addEventListener("click", () => {
     if (timer !== null) {
@@ -464,6 +512,7 @@ function makeTransport(name, draw) {
   });
 
   return {
+    move,
     pause,
     reset(max) {
       pause();
@@ -596,6 +645,7 @@ const picker = byId("slide-picker");
 const previous = byId("previous");
 const next = byId("next");
 let slideIndex = -1;
+const labs = { bpe: bpeTransport, cnn: cnnTransport };
 slides.forEach((slide, index) => picker.add(new Option((index + 1) + " · " + slide.title, index)));
 
 function showSlide(index) {
@@ -648,14 +698,17 @@ picker.addEventListener("change", () => showSlide(Number(picker.value)));
 previous.addEventListener("click", () => showSlide(slideIndex - 1));
 next.addEventListener("click", () => showSlide(slideIndex + 1));
 window.addEventListener("keydown", (event) => {
-  if (event.altKey || event.ctrlKey || event.metaKey || event.target.closest?.("input, select, button, a")) return;
-  const moves = {
-    ArrowRight: slideIndex + 1, PageDown: slideIndex + 1, " ": slideIndex + 1,
-    ArrowLeft: slideIndex - 1, PageUp: slideIndex - 1, Home: 0, End: slides.length - 1,
-  };
-  if (Object.hasOwn(moves, event.key)) {
+  if (event.altKey || event.ctrlKey || event.metaKey || event.target.closest?.("input, select, textarea")) return;
+  if (event.key === " " && event.target.closest?.("button, a")) return;
+  const moves = { ArrowRight: 1, PageDown: 1, " ": 1, ArrowLeft: -1, PageUp: -1 };
+  const move = moves[event.key];
+  if (move) {
     event.preventDefault();
-    showSlide(moves[event.key]);
+    const lab = labs[slides[slideIndex].interactive];
+    if (!lab?.move(move)) showSlide(slideIndex + move);
+  } else if (event.key === "Home" || event.key === "End") {
+    event.preventDefault();
+    showSlide(event.key === "Home" ? 0 : slides.length - 1);
   } else if (event.key.toLowerCase() === "f" && !fullscreen.hidden) {
     fullscreen.click();
   }

@@ -233,21 +233,41 @@ p, h1 { margin: 0; }
 
 .transport {
   display: grid;
-  grid-template-columns: 9.2em 1fr 9.3em;
+  grid-template-columns: auto minmax(32px, 1fr) auto auto;
+  grid-template-areas: "steps slider count play";
   align-items: center;
-  gap: .9em;
+  gap: .65em;
   font-size: .89em;
 }
-.transport .play {
+.step-buttons { grid-area: steps; display: flex; gap: .35em; }
+.transport button {
+  color: var(--forest);
+  background: white;
+  border: 1px solid #97b4a9;
+  border-radius: .4em;
+  padding: .5em .65em;
+  white-space: nowrap;
+}
+.transport .step-next {
   color: white;
   background: var(--forest);
-  border: 1px solid var(--forest);
-  border-radius: .4em;
-  padding: .5em .7em;
-  text-align: left;
+  border-color: var(--forest);
 }
-.transport input { width: 100%; min-height: 25px; accent-color: var(--teal); cursor: pointer; }
-.transport output { text-align: right; color: var(--quiet); font-variant-numeric: tabular-nums; }
+.transport .play { grid-area: play; min-width: 8em; }
+.transport input {
+  grid-area: slider;
+  width: 100%;
+  min-height: 25px;
+  accent-color: var(--teal);
+  cursor: pointer;
+}
+.transport output {
+  grid-area: count;
+  min-width: 8em;
+  text-align: right;
+  color: var(--quiet);
+  font-variant-numeric: tabular-nums;
+}
 .lab-source { font-size: .72em; color: var(--quiet); }
 .lab-source a { margin-inline-start: .45em; }
 
@@ -265,7 +285,7 @@ p, h1 { margin: 0; }
   :root { --deck-width: calc(100vw - 20px); }
   .brand span { display: none; }
   .toolbar, .deck-nav { font-size: 13px; }
-  .stage:has(.lab:not([hidden])) { aspect-ratio: auto; min-height: 510px; }
+  .stage:has(.lab:not([hidden])) { aspect-ratio: auto; min-height: 540px; }
   .lab { font-size: 14px; padding: 14px; gap: 10px; }
   .lab h1 { font-size: 23px; }
   .lab-body { grid-template-columns: 1fr; gap: 8px; }
@@ -284,5 +304,10 @@ p, h1 { margin: 0; }
   .cnn-rail { display: grid; grid-template-columns: 1fr 1.8fr; }
   .cnn-rail .observation { grid-column: span 2; min-height: 0; }
   .readout-row { grid-template-columns: 1fr 1fr; }
-  .transport { grid-template-columns: 8.2em 1fr 8.8em; gap: .45em; font-size: 11px; }
+  .transport {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "steps play" "slider count";
+    gap: .45em;
+    font-size: 11px;
+  }
 }

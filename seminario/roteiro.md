@@ -53,9 +53,9 @@ tabela para outra porque o conjunto e o comprimento de entrada mudam.”
 
 ## 4 · Fusões do BPE
 
-No HTML, aperte **Reproduzir** e pare depois da primeira fusão para mostrar
-`r + e → re`. Arraste até a última etapa ao falar das três peças. No PDF,
-aponte as três linhas da sequência.
+No HTML, use **Próxima etapa** ou a seta direita para mostrar a primeira
+fusão, `r + e → re`. Avance no ritmo da fala ou arraste até a última etapa
+ao falar das três peças. No PDF, aponte as três linhas da sequência.
 
 “A CNN recebe índices. Na versão por palavras, a expressão regular preserva
 palavras, contrações e números. Contamos a frequência só no treino e reservamos
@@ -68,11 +68,11 @@ da sequência. Um filtro com a mesma largura passa a ver outro contexto.”
 
 ## 5 · Arquitetura da TextCNN
 
-Inicie a varredura em A, com largura 3 e passo 1. A janela *movie was
-terrible* atinge 0,98 após a ReLU. No último passo, o controle volta a
-destacar esse máximo. A sequência leva cerca de sete segundos. Troque
-para passo 2 e arraste até o final. A janela do pico fica de fora e o
-máximo cai para 0,40. Use a figura do PDF para a mesma explicação.
+Em A, com largura 3 e passo 1, avance com **Próxima etapa** até a janela
+*movie was terrible*. Ela atinge 0,98 após a ReLU. Na última etapa, o
+controle destaca o máximo. Troque para passo 2 e arraste até o final.
+A janela do pico fica de fora e o máximo cai para 0,40. Use a figura do
+PDF para a mesma explicação.
 
 “Cada índice busca um vetor de 128 dimensões. Temos convoluções em paralelo
 com janelas de três, quatro e cinco tokens, cem filtros para cada largura.

@@ -8,7 +8,7 @@ de apoio. O relatório tem oito páginas, dentro da faixa do enunciado.
 | Material | Para ler ou editar |
 |---|---|
 | Relatório | [PDF](../output/pdf/relatorio_seminario.pdf) · [LaTeX](relatorio.tex) · [seções](partes/) |
-| Apresentação | [HTML interativo](../output/slides/slides_15_min_interativos.html) · [PDF 16:9](../output/pdf/slides_15_min.pdf) · [Beamer](slides.tex) |
+| Apresentação | [Abrir no navegador](https://costaleirbag.github.io/projeto-mae5920/) · [HTML para baixar](../output/slides/slides_15_min_interativos.html) · [PDF 16:9](../output/pdf/slides_15_min.pdf) · [Beamer](slides.tex) |
 | Fala, tempos e cortes | [Roteiro](roteiro.md) |
 | Experimentos e código explicado | [Notebook único](../notebooks/seminario_completo.ipynb) |
 | Predições dos quatro pares e teste de cobertura | [Entradas](casos.json) · [Resultados por semente](dados/pares_resultados.json) |
@@ -17,14 +17,19 @@ de apoio. O relatório tem oito páginas, dentro da faixa do enunciado.
 
 ## Apresentação interativa
 
-No GitHub, abra o arquivo HTML e use **Download raw file**. Abra o arquivo
-baixado no navegador. Funciona offline, inclusive os controles de reprodução.
-Use as setas para trocar de slide e `F` para entrar em tela cheia. No slide 4,
-arraste a barra ou aperte **Reproduzir** para percorrer as sete fusões de
-*pallbearer*. No slide 5, faça a varredura nas frases A e B com larguras 3,
-4 ou 5 e passos 1, 2 ou 3. A última etapa destaca o máximo de um filtro
-real da CNN entre as janelas visitadas.
-[Baixar o HTML interativo](../output/slides/slides_15_min_interativos.html).
+Abra a apresentação pelo GitHub Pages. Nos slides 4 e 5, use **Anterior**
+e **Próxima etapa** ou as setas para passar uma etapa por vez. Depois da
+última etapa, a seta direita avança para o próximo slide. A barra pula para
+qualquer etapa e **Reproduzir** inicia a sequência automática. Use `F` para
+tela cheia. [Abrir a apresentação](https://costaleirbag.github.io/projeto-mae5920/).
+
+No slide 4, percorra as sete fusões de *pallbearer*. No slide 5, faça a
+varredura nas frases A e B com larguras 3, 4 ou 5 e passos 1, 2 ou 3. A última
+etapa destaca o máximo de um filtro real da CNN entre as janelas visitadas.
+[BPE](https://costaleirbag.github.io/projeto-mae5920/#slide-4) · [CNN](https://costaleirbag.github.io/projeto-mae5920/#slide-5).
+
+Para apresentar offline, use **Download raw file** no arquivo do GitHub e
+abra a cópia no navegador. [HTML para baixar](../output/slides/slides_15_min_interativos.html).
 
 A sequência BPE foi conferida com o tokenizer treinado. Para cada largura
 da CNN por palavras, mostramos o filtro com maior amplitude na frase A e
@@ -48,6 +53,9 @@ Para reconstruir também o HTML, rode `make -C seminario interativo` com
 `pypdf` e `pdftoppm` instalados. O HTML usa as páginas renderizadas do PDF
 nos slides fixos. Os slides 4 e 5 usam as etapas salvas e os controles da
 apresentação. [Fontes do HTML](apresentacao.html) · [estilo](apresentacao.css) · [controles](apresentacao.js).
+
+Inclua o HTML regenerado ao publicar a edição na `main`. O GitHub Pages
+publica automaticamente a nova versão do arquivo. [Configuração](../.github/workflows/slides-pages.yml).
 
 As tabelas e os gráficos vêm das métricas salvas. Para atualizá-los, rode
 `python seminario/preparar.py` antes de compilar. O arquivo

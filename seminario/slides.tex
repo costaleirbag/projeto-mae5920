@@ -37,7 +37,7 @@
   \fcolorbox{Rule}{white}{\parbox{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}{#1}}\endgroup}
 \newcommand{\chip}[1]{\begingroup\setlength{\fboxsep}{2.6pt}\colorbox{white}{\strut\texttt{#1}}\endgroup\,}
 \newcommand{\fused}[1]{\begingroup\setlength{\fboxsep}{2.6pt}\colorbox{Mint}{\strut\texttt{#1}}\endgroup\,}
-\newcommand{\liveversion}{\fonteatual{output/slides/slides_15_min_interativos.html}{Versão animada}}
+\newcommand{\liveversion}[1]{\href{https://costaleirbag.github.io/projeto-mae5920/\#slide-#1}{Abrir animação}}
 
 \begin{document}
 
@@ -126,7 +126,7 @@ O teste oficial e as auditorias internas têm amostras próprias.
 \plate{\textbf{Vocabulário por palavras} \enspace\texttt{pallbearer} recebe \texttt{<unk>}.}
 \par
 O BPE aplica pares aprendidos no treino, em ordem de prioridade.
-\smallsource{\texttt{</w>} marca o fim da palavra. Sennrich et al. (2016). \liveversion.}
+\smallsource{\texttt{</w>} marca o fim da palavra. Sennrich et al. (2016). \liveversion{4}.}
 \end{frame}
 
 % 03:45–05:15
@@ -145,7 +145,7 @@ No passo 2, esse filtro pula a janela do pico e conserva \MaximoPassoDois{}.
 \end{column}
 \end{columns}
 \smallsource{Ativações reais, semente 17, tokenizer por palavras. 2.714.502 parâmetros.
-\fonte{src/imdb_lab/models.py}{TextCNN}. \liveversion.}
+\fonte{src/imdb_lab/models.py}{TextCNN}. \liveversion{5}.}
 \end{frame}
 
 % 05:15–06:40

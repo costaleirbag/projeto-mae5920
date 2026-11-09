@@ -7,6 +7,8 @@ const number = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximu
 function makeTransport(name, draw) {
   const slider = byId(name + "-step");
   const button = byId(name + "-play");
+  const back = byId(name + "-back");
+  const forward = byId(name + "-forward");
   const count = byId(name + "-count");
   let timer = null;
 
@@ -15,6 +17,8 @@ function makeTransport(name, draw) {
     const label = draw(step);
     count.textContent = label;
     slider.setAttribute("aria-valuetext", label);
+    back.disabled = step === 0;
+    forward.disabled = step === Number(slider.max);
   }
 
   function pause() {
@@ -22,6 +26,17 @@ function makeTransport(name, draw) {
     timer = null;
     button.textContent = "▶ Reproduzir";
   }
+
+  function move(direction) {
+    pause();
+    const step = Number(slider.value) + direction;
+    if (step < 0 || step > Number(slider.max)) return false;
+    render(step);
+    return true;
+  }
+
+  back.addEventListener("click", () => move(-1));
+  forward.addEventListener("click", () => move(1));
 
   button.addEventListener("click", () => {
     if (timer !== null) {
@@ -42,6 +57,7 @@ function makeTransport(name, draw) {
   });
 
   return {
+    move,
     pause,
     reset(max) {
       pause();
@@ -174,6 +190,7 @@ const picker = byId("slide-picker");
 const previous = byId("previous");
 const next = byId("next");
 let slideIndex = -1;
+const labs = { bpe: bpeTransport, cnn: cnnTransport };
 slides.forEach((slide, index) => picker.add(new Option((index + 1) + " · " + slide.title, index)));
 
 function showSlide(index) {
@@ -226,14 +243,17 @@ picker.addEventListener("change", () => showSlide(Number(picker.value)));
 previous.addEventListener("click", () => showSlide(slideIndex - 1));
 next.addEventListener("click", () => showSlide(slideIndex + 1));
 window.addEventListener("keydown", (event) => {
-  if (event.altKey || event.ctrlKey || event.metaKey || event.target.closest?.("input, select, button, a")) return;
-  const moves = {
-    ArrowRight: slideIndex + 1, PageDown: slideIndex + 1, " ": slideIndex + 1,
-    ArrowLeft: slideIndex - 1, PageUp: slideIndex - 1, Home: 0, End: slides.length - 1,
-  };
-  if (Object.hasOwn(moves, event.key)) {
+  if (event.altKey || event.ctrlKey || event.metaKey || event.target.closest?.("input, select, textarea")) return;
+  if (event.key === " " && event.target.closest?.("button, a")) return;
+  const moves = { ArrowRight: 1, PageDown: 1, " ": 1, ArrowLeft: -1, PageUp: -1 };
+  const move = moves[event.key];
+  if (move) {
     event.preventDefault();
-    showSlide(moves[event.key]);
+    const lab = labs[slides[slideIndex].interactive];
+    if (!lab?.move(move)) showSlide(slideIndex + move);
+  } else if (event.key === "Home" || event.key === "End") {
+    event.preventDefault();
+    showSlide(event.key === "Home" ? 0 : slides.length - 1);
   } else if (event.key.toLowerCase() === "f" && !fullscreen.hidden) {
     fullscreen.click();
   }
