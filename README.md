@@ -55,6 +55,7 @@ de leitura estão em um anexo interno. Veja [como abrir e executar](docs/NOTEBOO
 | CNNs e Transformers | 42 treinos de CNN, 27 cabeças sobre encoders congelados e 18 ajustes completos de BERT, DistilBERT e ModernBERT | [Relatório](output/pdf/relatorio_cnn_encoders.pdf) · [protocolo e grades](docs/PROTOCOLO_SEQUENCIAS.md) |
 | Palavras versus BPE | BPE aprendido só nos textos de treino, sem rótulos; três novas CNNs comparadas a três checkpoints por palavras | [Protocolo BPE](docs/PROTOCOLO_BPE.md) |
 | Testes com as CNNs congeladas | Permutação de palavras, 2.000 frases rotuladas fora do IMDb e cinco comentários do YouTube | [Material e evidências do seminário](seminario/README.md) |
+| Discordâncias e janelas da CNN | Acertos exclusivos da CNN e do TF-IDF, efeitos do recorte e do passo | [Diagnósticos com exemplos](seminario/diagnosticos.md) |
 
 São **90 treinos neurais na extensão sequencial**, além dos 51 treinos do
 suplemento MLP. Esses totais descrevem estudos diferentes; checkpoints

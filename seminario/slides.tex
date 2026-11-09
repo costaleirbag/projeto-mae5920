@@ -141,7 +141,7 @@ O BPE aplica pares aprendidos no treino, em ordem de prioridade.
 \begin{column}{.29\textwidth}
 {\large\strong{\MaximoDemo}}\par
 \small Maior resposta do filtro \FiltroDemo{} na frase A, com \(k=3\).
-O máximo de cada filtro segue para a camada linear.
+No passo 2, esse filtro pula a janela do pico e conserva \MaximoPassoDois{}.
 \end{column}
 \end{columns}
 \smallsource{Ativações reais, semente 17, tokenizer por palavras. 2.714.502 parâmetros.
@@ -174,10 +174,10 @@ Modelo & Acurácia & F1 macro & CE calibrada\\
 O TF-IDF usa unigramas e bigramas do texto inteiro.
 A CNN lê até 400 tokens e o BERT até 192 WordPieces.
 
-Na CNN, a acurácia passa de 87,34\% até 100 palavras para 81,52\%
-acima de 500.
+CNN e TF-IDF deram classes diferentes em \Discordancias{} resenhas.
 \smallsource{25.000 resenhas. A temperatura foi ajustada em uma divisão separada.
-\fonte{results/comparison.csv}{Métricas originais}.}
+\fonte{results/comparison.csv}{Métricas originais}.
+\fonteatual{seminario/diagnosticos.md}{Casos de discordância}.}
 \end{frame}
 
 % 07:50–09:00
@@ -304,17 +304,31 @@ token a token. Comparamos o texto após alterar suas ativações.
 
 \appendix
 
-\begin{frame}{Métricas por divisão}
+\begin{frame}{Quando CNN e TF-IDF discordam}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.48\textwidth}
+\plate{\Large\strong{\SoTFIDF}\quad\normalsize Só TF-IDF acertou}
+\end{column}
+\begin{column}{.48\textwidth}
+\plate{\Large\strong{\SoCNN}\quad\normalsize Só CNN acertou}
+\end{column}
+\end{columns}
+\par\vspace{2mm}
 \small
-\renewcommand{\arraystretch}{1.09}
-\begin{tabularx}{\linewidth}{@{}lXrrr@{}}
+\strong{Resenha negativa de 780 tokens}\par
+\begin{tabularx}{\linewidth}{@{}Xrr@{}}
 \toprule
-Divisão & Modelo & Acurácia & F1 macro & CE bruta\\
+Entrada & TF-IDF & CNN\\
 \midrule
-\LinhasOriginal
+\LinhasRecorte
 \bottomrule
 \end{tabularx}
-\smallsource{Apoio. Estudo original. \fonte{results/comparison.csv}{Resultados salvos}.}
+\par\vspace{2mm}
+\strong{Resenha positiva de 61 tokens}\par
+A janela \textit{part is brilliant} favorece a classe positiva da CNN.
+CNN \CNNCurta{} e TF-IDF \TfidfCurta{}.
+\smallsource{Escores positivos. Os dois casos usam os mesmos pesos da avaliação original.
+\fonteatual{seminario/diagnosticos.md}{Contribuições e limites da comparação}.}
 \end{frame}
 
 \begin{frame}{Comprimento e calibração}
@@ -349,22 +363,40 @@ No bloco 28, somamos \(\alpha s v\) à ativação depois do marcador
 \fonte{QWEN_EXPERIMENTO.md}{Direção e controles}.}
 \end{frame}
 
-\begin{frame}{Reprodução}
-\begin{tabularx}{\linewidth}{@{}lX@{}}
+\begin{frame}{Largura e passo da janela}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.46\textwidth}
+\small
+\strong{Larguras treinadas}\par
+\begin{tabularx}{\linewidth}{@{}Xrr@{}}
 \toprule
-Material & O que permite conferir\\
+\(k\) & Filtros & Acurácia\\
 \midrule
-\fonte{notebooks/seminario_completo.ipynb}{Notebook único} & Arquitetura, tokenização, gradientes e estudos completos\\
-\fonteatual{docs/RESULTADOS.md}{Tabelas} & Acurácia, F1 macro e CE por protocolo\\
-\fonte{docs/PROTOCOLO_SEQUENCIAS.md}{CNN e encoders} & Grades, controles e escolha pela validação\\
-\fonte{docs/PROTOCOLO_BPE.md}{BPE} & Tokenizer, seis pesos e auditoria pareada\\
-\fonte{docs/CONEXOES_DISCIPLINA.md}{Mecanismos da disciplina} & MLPs, atalhos residuais e double descent\\
+\LinhasKernel
 \bottomrule
 \end{tabularx}
+\par\vspace{1mm}
+\(k\) indica quantos tokens entram na janela.
+\end{column}
+\begin{column}{.49\textwidth}
+\small
+\strong{Passos com pesos congelados}\par
+\begin{tabularx}{\linewidth}{@{}Xrr@{}}
+\toprule
+\(s\) & Janelas retidas & Acurácia\\
+\midrule
+\LinhasPasso
+\bottomrule
+\end{tabularx}
+\par\vspace{1mm}
+\(s\) indica quantos tokens a janela avança.
+\end{column}
+\end{columns}
 \par\vspace{4mm}
-O JSON de pares preserva escores, IDs e janelas por semente.
-\smallsource{Apoio. Os experimentos, condições descartadas e registros por semente
-ficam no repositório.}
+\plate{Na frase A, o filtro \FiltroDemo{} passa de \MaximoDemo{} para
+\MaximoPassoDois{} ao pular janelas com passo 2.}
+\smallsource{Médias de três sementes em duas auditorias de 2.048 resenhas.
+\fonteatual{seminario/diagnosticos.md}{Protocolos e métricas}.}
 \end{frame}
 
 \end{document}

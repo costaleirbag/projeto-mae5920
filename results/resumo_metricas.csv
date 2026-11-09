@@ -26,3 +26,6 @@ fora_imdb_amazon,Amazon · CNN — Palavras,tokenização,1000,média de três s
 fora_imdb_amazon,Amazon · CNN — BPE,tokenização,1000,média de três sementes,sem calibração de temperatura,0.6996666666666667,0.6919973924122987,0.5900293978556945,seminario/dados/fora_dominio_resultados.json
 fora_imdb_yelp,Yelp · CNN — Palavras,tokenização,1000,média de três sementes,sem calibração de temperatura,0.6943333333333334,0.6827992646755471,0.6091314320120581,seminario/dados/fora_dominio_resultados.json
 fora_imdb_yelp,Yelp · CNN — BPE,tokenização,1000,média de três sementes,sem calibração de temperatura,0.6966666666666667,0.6911139442312507,0.5945608628580633,seminario/dados/fora_dominio_resultados.json
+passo_inferencia,CNN palavras · passo 1,pesos congelados,2048,média de três sementes,sem calibração de temperatura,0.8199869791666666,0.819969593549493,0.3964172472953145,seminario/dados/passo_resultados.json
+passo_inferencia,CNN palavras · passo 2,pesos congelados,2048,média de três sementes,sem calibração de temperatura,0.814453125,0.8140121457775785,0.40138864285757125,seminario/dados/passo_resultados.json
+passo_inferencia,CNN palavras · passo 3,pesos congelados,2048,média de três sementes,sem calibração de temperatura,0.8097330729166666,0.8084611191715562,0.41365561521103517,seminario/dados/passo_resultados.json

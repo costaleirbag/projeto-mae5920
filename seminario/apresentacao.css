@@ -226,6 +226,7 @@ p, h1 { margin: 0; }
   transition: height 240ms ease, background-color 200ms ease;
 }
 .bar.future { background: #dae3df; }
+.bar.skipped { background: transparent; border-bottom: 2px dotted #9aa8a1; }
 .bar.current { background: var(--teal); }
 .cnn-rail { display: flex; flex-direction: column; justify-content: center; gap: .7cqw; }
 .readout-row { display: grid; grid-template-columns: 1fr; gap: .55cqw; }

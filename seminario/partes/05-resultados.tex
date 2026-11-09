@@ -20,9 +20,17 @@ resenhas, validação com 2.478 e teste oficial com 25.000. A Tabela 1 descreve
 a divisão de calibração. \fonte{results/comparison.csv}{CSV das divisões}.}
 
 No teste oficial, o baseline tem 90,14\% de acurácia, a CNN 86,78\% e BERT
-90,94\%. Na CNN, a diferença entre acurácia de treino e teste acompanha a
-mudança de CE. A análise por comprimento e a calibração na
-Seção~\ref{sec:diagnosticos} ajudam a interpretar o erro além da acurácia.
+90,94\%. A análise por comprimento e a calibração estão na
+Seção~\ref{sec:diagnosticos}.
+
+\subsection{Resenhas em que as duas receitas discordam}
+No teste oficial, só o TF-IDF acertou \SoTFIDF{} resenhas e só a CNN acertou
+\SoCNN{}. A vantagem do TF-IDF é mais frequente nos textos que excedem
+400 tokens. Em uma resenha negativa de 780 tokens, ambos dão positivo
+ao prefixo e negativo ao texto inteiro. Em outra resenha, positiva e
+com 61 tokens, \textit{part is brilliant} está entre as janelas que
+mais empurram a CNN para a classe positiva.
+\fonteatual{seminario/diagnosticos.md}{Casos e contribuições à decisão}.
 
 \subsection{Auditoria interna do estudo sequencial}
 Comparamos CNN e encoders nos mesmos prefixos de até 128 palavras, em
@@ -42,10 +50,6 @@ seguida de uma cabeça linear de dois logits. Em um regime, apenas a cabeça
 Encoders na tabela com ajuste completo. Os escores dessa auditoria usam o
 softmax sem calibração de temperatura.}
 
-Nos encoders congelados, as acurácias de BERT, DistilBERT e ModernBERT foram
-84,52\%, 83,35\% e 81,30\%. Cada receita tem seu orçamento e sua taxa
-selecionada. Os 27 treinos da cabeça congelada e os 18 ajustes completos,
-somados às 42 CNNs e às três CNNs BPE, perfazem 90 ajustes neurais.
-A mesma amostra permite comparar receitas, com efeitos de tokenização,
-pré-treinamento, capacidade e ajuste combinados.
+Nos encoders congelados, BERT, DistilBERT e ModernBERT alcançaram 84,52\%,
+83,35\% e 81,30\%. Cada receita tem seu orçamento e sua taxa.
 \fonte{results/sequences/summary.json}{Métricas, sementes e configurações}.

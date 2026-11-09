@@ -13,6 +13,7 @@ de apoio. O relatório tem oito páginas, dentro da faixa do enunciado.
 | Experimentos e código explicado | [Notebook único](../notebooks/seminario_completo.ipynb) |
 | Predições dos quatro pares e teste de cobertura | [Entradas](casos.json) · [Resultados por semente](dados/pares_resultados.json) |
 | Avaliação fora do IMDb e exemplos do YouTube | [Protocolo](#avaliação-fora-do-imdb) · [Resultados por semente](dados/fora_dominio_resultados.json) |
+| Discordâncias entre modelos e efeito de largura e passo | [Diagnósticos e exemplos](diagnosticos.md) |
 
 ## Apresentação interativa
 
@@ -20,8 +21,9 @@ No GitHub, abra o arquivo HTML e use **Download raw file**. Abra o arquivo
 baixado no navegador. Funciona offline, inclusive os controles de reprodução.
 Use as setas para trocar de slide e `F` para entrar em tela cheia. No slide 4,
 arraste a barra ou aperte **Reproduzir** para percorrer as sete fusões de
-*pallbearer*. No slide 5, faça a varredura das janelas com largura 3, 4 ou 5
-nas frases A e B. A última etapa destaca o máximo de um filtro real da CNN.
+*pallbearer*. No slide 5, faça a varredura nas frases A e B com larguras 3,
+4 ou 5 e passos 1, 2 ou 3. A última etapa destaca o máximo de um filtro
+real da CNN entre as janelas visitadas.
 [Baixar o HTML interativo](../output/slides/slides_15_min_interativos.html).
 
 A sequência BPE foi conferida com o tokenizer treinado. Para cada largura

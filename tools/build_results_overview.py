@@ -12,6 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 EXTERNAL_SOURCE = "seminario/dados/fora_dominio_resultados.json"
+STRIDE_SOURCE = "seminario/dados/passo_resultados.json"
 SOURCES = [
     "results/qwen/evaluation/model_comparison.csv",
     "results/comparison.csv",
@@ -19,6 +20,7 @@ SOURCES = [
     "results/sequences/summary.json",
     "results/bpe/summary.json",
     EXTERNAL_SOURCE,
+    STRIDE_SOURCE,
 ]
 FIELDS = ["estudo", "condicao", "grupo", "n_avaliacao", "resumo",
           "probabilidades", "acuracia", "f1_macro", "loss_ce", "fonte"]
@@ -79,7 +81,12 @@ def collect():
                             "tokenização", result["n"], "média de três sementes",
                             "sem calibração de temperatura", scores["accuracy"],
                             scores["f1_macro"], scores["ce"], EXTERNAL_SOURCE))
-    assert len(rows) == 27
+    stride = read_json(STRIDE_SOURCE)
+    for step, scores in stride["medias"].items():
+        rows.append(row("passo_inferencia", f"CNN palavras · passo {step}", "pesos congelados",
+                        stride["n"], "média de três sementes", "sem calibração de temperatura",
+                        scores["accuracy"], scores["f1_macro"], scores["ce"], STRIDE_SOURCE))
+    assert len(rows) == 30
     return rows
 
 
@@ -178,7 +185,15 @@ clara. [Coleção UCI](https://doi.org/10.24432/C57604) ·
 
 {table(sections['fora_imdb_amazon'] + sections['fora_imdb_yelp'])}
 
-## 5. Onde ficam os outros experimentos
+## 5. Passo da CNN na inferência
+
+As três CNNs por palavras da seção 3 mantêm seus pesos. Mudamos as
+posições em que os filtros são aplicados nas mesmas 2.048 resenhas.
+[Protocolo, janelas retidas e escores por semente](../seminario/diagnosticos.md#passo-com-pesos-congelados).
+
+{table(sections['passo_inferencia'])}
+
+## 6. Onde ficam os outros experimentos
 
 | Estudo | Avaliação e resultados |
 |---|---|

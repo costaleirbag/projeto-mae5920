@@ -1,7 +1,7 @@
 # Acurácia, F1 macro e loss em um lugar
 
 [Início](../README.md) · [Notebook único](../notebooks/seminario_completo.ipynb) ·
-[CSV consolidado, com as 27 linhas](../results/resumo_metricas.csv)
+[CSV consolidado, com as 30 linhas](../results/resumo_metricas.csv)
 
 As tabelas reúnem as métricas salvas. A coluna `estudo` do CSV identifica
 o teste oficial, cada auditoria interna e cada fonte externa. Use a mesma
@@ -112,7 +112,19 @@ clara. [Coleção UCI](https://doi.org/10.24432/C57604) ·
 | Yelp · CNN — Palavras | 69,43% | 0,6828 | 0,6091 |
 | Yelp · CNN — BPE | 69,67% | 0,6911 | 0,5946 |
 
-## 5. Onde ficam os outros experimentos
+## 5. Passo da CNN na inferência
+
+As três CNNs por palavras da seção 3 mantêm seus pesos. Mudamos as
+posições em que os filtros são aplicados nas mesmas 2.048 resenhas.
+[Protocolo, janelas retidas e escores por semente](../seminario/diagnosticos.md#passo-com-pesos-congelados).
+
+| Modelo / condição | Acurácia ↑ | F1 macro ↑ | Loss CE ↓ |
+|---|---:|---:|---:|
+| CNN palavras · passo 1 | 82,00% | 0,8200 | 0,3964 |
+| CNN palavras · passo 2 | 81,45% | 0,8140 | 0,4014 |
+| CNN palavras · passo 3 | 80,97% | 0,8085 | 0,4137 |
+
+## 6. Onde ficam os outros experimentos
 
 | Estudo | Avaliação e resultados |
 |---|---|
