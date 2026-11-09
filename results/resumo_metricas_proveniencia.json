@@ -14,6 +14,6 @@
     "results/qwen/classification/metrics.json": "754de8477096a43df27abaf2e1a23a129312a387e17f0bbd5c3f2fece95ea892",
     "results/sequences/summary.json": "e6e2be90c21fcebdd6336a26818df17b77ea843a26bfd18fa69e5da289232e36",
     "results/bpe/summary.json": "b88d4898cdb5dd0d157ebeb3e4c9d2541dbb8b61b2439774291d5baa38e5d25e",
-    "seminario/dados/fora_dominio_resultados.json": "84edeead17d9b01d604fea3f51255e5a7b8e290b302c488721d7fe7431444886"
+    "seminario/dados/fora_dominio_resultados.json": "8b1a8397de367408989b855d6fe768a527a87ddec914326aedd64375ff0a8190"
   }
 }

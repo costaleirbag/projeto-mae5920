@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="pt-BR">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>O que a CNN lê em uma resenha?</title>
+<style>/* DECK_CSS */</style>
+<body>
+<div class="deck">
+  <header class="toolbar">
+    <div class="brand"><strong>MAE5920</strong><span>Introdução a Deep Learning</span></div>
+    <div class="toolbar-actions">
+      <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/roteiro.md" target="_blank" rel="noopener">Roteiro</a>
+      <button type="button" id="fullscreen">Tela cheia</button>
+    </div>
+  </header>
+
+  <main class="stage" aria-label="Slide atual">
+    <div id="static-slide" class="static-slide">
+      <img id="slide-image" alt="">
+      <div id="slide-links"></div>
+      <p id="transcript" class="sr-only"></p>
+    </div>
+
+    <article id="bpe" class="lab" hidden aria-labelledby="bpe-title">
+      <header class="lab-heading">
+        <p class="eyebrow">01 · Representação <span>Laboratório 1 / 2</span></p>
+        <h1 id="bpe-title">Como o BPE divide uma palavra rara</h1>
+      </header>
+      <div class="lab-body bpe-layout">
+        <section class="panel token-panel" aria-label="Etapa da tokenização">
+          <p class="quote" id="bpe-sentence"></p>
+          <div id="bpe-before" class="prior-step" hidden>
+            <p class="micro">Antes da fusão</p>
+            <div id="bpe-before-pieces" class="pieces" aria-label="Par de origem destacado"></div>
+          </div>
+          <p class="micro" id="bpe-stage"></p>
+          <div id="bpe-pieces" class="pieces" aria-label="Peças atuais"></div>
+          <p id="bpe-event" class="observation" aria-live="polite"></p>
+        </section>
+        <aside class="rail bpe-rail">
+          <div>
+            <p class="micro">Vocabulário por palavras</p>
+            <p class="readout"><code>&lt;unk&gt;</code></p>
+          </div>
+          <div>
+            <p class="micro">Saída final do BPE</p>
+            <div id="bpe-result" class="pieces compact"></div>
+          </div>
+          <p>As fusões seguem a ordem aprendida no treino. <code>&lt;/w&gt;</code> marca o fim da palavra.</p>
+        </aside>
+      </div>
+      <div class="transport">
+        <button type="button" id="bpe-play" class="play"></button>
+        <label class="sr-only" for="bpe-step">Etapa da fusão BPE</label>
+        <input type="range" id="bpe-step" min="0" step="1" value="0">
+        <output id="bpe-count" for="bpe-step"></output>
+      </div>
+      <footer class="lab-source">Fusões do tokenizer treinado no IMDb.
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/animacoes.json" target="_blank" rel="noopener">Etapas registradas</a>
+      </footer>
+    </article>
+
+    <article id="cnn" class="lab" hidden aria-labelledby="cnn-title">
+      <header class="lab-heading">
+        <p class="eyebrow">01 · Representação <span>Laboratório 2 / 2</span></p>
+        <h1 id="cnn-title">Arquitetura da TextCNN</h1>
+      </header>
+      <ol class="pipeline" aria-label="Etapas da TextCNN">
+        <li><strong>IDs</strong><span>1 por token</span></li>
+        <li><strong>Embedding</strong><span>128 dimensões</span></li>
+        <li class="selected"><strong>Conv + ReLU</strong><span>100 filtros por largura</span></li>
+        <li><strong>Máximo global</strong><span>300 valores</span></li>
+        <li><strong>Linear</strong><span>2 logits</span></li>
+      </ol>
+      <div class="lab-body cnn-layout">
+        <section class="panel scanner" aria-label="Varredura da convolução">
+          <div class="scan-top">
+            <div class="switches" aria-label="Frase de contraste">
+              <span>Frase</span>
+              <button type="button" data-case="A" aria-pressed="true">A</button>
+              <button type="button" data-case="B" aria-pressed="false">B</button>
+            </div>
+            <div class="switches" aria-label="Largura da janela">
+              <span>Janela</span>
+              <button type="button" data-width="3" aria-pressed="true">3</button>
+              <button type="button" data-width="4" aria-pressed="false">4</button>
+              <button type="button" data-width="5" aria-pressed="false">5</button>
+            </div>
+          </div>
+          <div class="token-grid" id="cnn-tokens">
+            <div class="kernel-window" id="cnn-window" aria-hidden="true"></div>
+          </div>
+          <div class="plot">
+            <p class="micro">Ativação após ReLU</p>
+            <div id="cnn-bars" class="bars" aria-hidden="true"></div>
+          </div>
+        </section>
+        <aside class="rail cnn-rail">
+          <p class="micro" id="cnn-filter"></p>
+          <div class="readout-row">
+            <div><p class="micro">Antes da ReLU</p><p class="readout" id="cnn-raw"></p></div>
+            <div><p class="micro">Após a ReLU</p><p class="readout" id="cnn-relu"></p></div>
+          </div>
+          <p class="observation" id="cnn-reading" aria-live="polite"></p>
+        </aside>
+      </div>
+      <div class="transport">
+        <button type="button" id="cnn-play" class="play"></button>
+        <label class="sr-only" for="cnn-step">Posição da janela convolucional</label>
+        <input type="range" id="cnn-step" min="0" step="1" value="0">
+        <output id="cnn-count" for="cnn-step"></output>
+      </div>
+      <footer class="lab-source">Ativações reais da CNN por palavras, semente 17.
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/src/imdb_lab/models.py" target="_blank" rel="noopener">Implementação</a>
+      </footer>
+    </article>
+  </main>
+
+  <nav class="deck-nav" aria-label="Navegação dos slides">
+    <button type="button" id="previous" aria-label="Slide anterior">←</button>
+    <label class="sr-only" for="slide-picker">Ir para o slide</label>
+    <select id="slide-picker"></select>
+    <button type="button" id="next" aria-label="Próximo slide">→</button>
+    <span id="slide-count" class="slide-count" aria-live="polite"></span>
+  </nav>
+</div>
+<noscript>Abra a versão em PDF ou ative JavaScript para usar a apresentação interativa.</noscript>
+<script id="deck-data" type="application/json">/* DECK_DATA */</script>
+<script>/* DECK_JS */</script>
+</body>
+</html>

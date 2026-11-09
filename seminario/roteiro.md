@@ -51,7 +51,11 @@ tokenização, trabalhamos com subconjuntos do treino limpo. Cada comparação
 tem uma auditoria reservada de 2.048 resenhas. Os números para CNN mudam de uma
 tabela para outra porque o conjunto e o comprimento de entrada mudam.”
 
-## 4 · Tokenização por palavras e BPE
+## 4 · Fusões do BPE
+
+No HTML, aperte **Reproduzir** e pare depois da primeira fusão para mostrar
+`r + e → re`. Arraste até a última etapa ao falar das três peças. No PDF,
+aponte as três linhas da sequência.
 
 “A CNN recebe índices. Na versão por palavras, a expressão regular preserva
 palavras, contrações e números. Contamos a frequência só no treino e reservamos
@@ -63,6 +67,11 @@ uma representação específica para a palavra rara e aumenta o comprimento
 da sequência. Um filtro com a mesma largura passa a ver outro contexto.”
 
 ## 5 · Arquitetura da TextCNN
+
+Inicie a varredura em A, com largura 3. Quando a janela passar por
+*movie was terrible*, a resposta após a ReLU atinge 0,98. Na última etapa,
+o controle volta a destacar essa janela e mostra o máximo. A sequência
+leva cerca de sete segundos. Use a figura do PDF para a mesma explicação.
 
 “Cada índice busca um vetor de 128 dimensões. Temos convoluções em paralelo
 com janelas de três, quatro e cinco tokens, cem filtros para cada largura.
@@ -142,19 +151,19 @@ o modelo escreve quando alteramos uma ativação interna.”
 
 ## 12 · Comentários fora do IMDb
 
-“A primeira pessoa comenta a repercussão do artista. A segunda pergunta por
-que tanta gente marcou dislike. A opinião pessoal sobre a música fica em
-aberto. As duas CNNs chamaram ambos de positivos nas três sementes. Na
-semente 17, a pergunta dos dislikes recebeu 70,6 por cento no modelo por
-palavras e 90,4 no BPE. Esses são os escores do classificador. Para medir
-acurácia fora do IMDb, usamos 2.000 frases rotuladas de Amazon e Yelp.
-Dependendo do tokenizer e da fonte, a acurácia média ficou entre 68 e 70
-por cento. O relatório tem a tabela com F1 macro e perda.”
+“Em *Friday*, a frase sobre IA pode soar como admiração ou ironia. As CNNs
+devolveram negativo. No primeiro comentário de *The Room*, a pessoa critica
+o filme comparando com o trailer. Na semente 17, a CNN por palavras dá
+positivo e a BPE dá negativo. No segundo, o elogio está entre aspas e é
+seguido de *No one*. Mesmo assim, todas as seis redes deram positivo.
+Esses comentários são casos de leitura. Para medir acurácia fora do IMDb,
+usamos 2.000 frases rotuladas de Amazon e Yelp. A média fica entre 68 e 70
+por cento, conforme a fonte e o tokenizer.”
 
 Se optarem pela demonstração, abram o navegador antes da fala e usem até
 30 segundos para obter uma resenha curta em inglês da plateia. Mostrem a
 classe, o escore e os tokens das duas CNNs. Se a resposta demorar, voltem
-aos dois resultados salvos no slide.
+aos resultados salvos no slide.
 
 ## 13 · Encoders e geração com o Qwen
 

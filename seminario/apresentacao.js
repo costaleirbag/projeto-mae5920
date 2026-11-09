@@ -1,0 +1,233 @@
+"use strict";
+
+const byId = (id) => document.getElementById(id);
+const { slides, evidence } = JSON.parse(byId("deck-data").textContent);
+const number = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+function makeTransport(name, draw) {
+  const slider = byId(name + "-step");
+  const button = byId(name + "-play");
+  const count = byId(name + "-count");
+  let timer = null;
+
+  function render(step) {
+    slider.value = step;
+    const label = draw(step);
+    count.textContent = label;
+    slider.setAttribute("aria-valuetext", label);
+  }
+
+  function pause() {
+    window.clearInterval(timer);
+    timer = null;
+    button.textContent = "▶ Reproduzir";
+  }
+
+  button.addEventListener("click", () => {
+    if (timer !== null) {
+      pause();
+      return;
+    }
+    if (slider.value === slider.max) render(0);
+    button.textContent = "Ⅱ Pausar";
+    timer = window.setInterval(() => {
+      const step = Number(slider.value) + 1;
+      render(step);
+      if (step === Number(slider.max)) pause();
+    }, 900);
+  });
+  slider.addEventListener("input", () => {
+    pause();
+    render(Number(slider.value));
+  });
+
+  return {
+    pause,
+    reset(max) {
+      pause();
+      slider.max = max;
+      render(0);
+    },
+  };
+}
+
+function token(text, suffix = "") {
+  const element = document.createElement("code");
+  if (suffix && text.endsWith(suffix)) {
+    element.textContent = text.slice(0, -suffix.length);
+    const boundary = document.createElement("small");
+    boundary.textContent = suffix;
+    element.append(boundary);
+  } else {
+    element.textContent = text;
+  }
+  return element;
+}
+
+const bpe = evidence.bpe;
+const bpeLast = bpe.etapas.length - 1;
+const [left, right] = bpe.frase.split(bpe.palavra);
+const focusWord = document.createElement("strong");
+focusWord.textContent = bpe.palavra;
+byId("bpe-sentence").append(left, focusWord, right);
+byId("bpe-result").append(...bpe.etapas[bpeLast].pecas.map((text) => token(text, bpe.sufixo)));
+
+const bpeTransport = makeTransport("bpe", (step) => {
+  const stage = bpe.etapas[step];
+  byId("bpe-before").hidden = step === 0;
+  if (step > 0) {
+    const before = bpe.etapas[step - 1].pecas.map((text, i) => {
+      const piece = token(text, bpe.sufixo);
+      piece.classList.toggle("source-pair", i === stage.indice || i === stage.indice + 1);
+      return piece;
+    });
+    byId("bpe-before-pieces").replaceChildren(...before);
+  }
+  const pieces = stage.pecas.map((text, i) => {
+    const piece = token(text, bpe.sufixo);
+    piece.classList.toggle("fused", i === stage.indice);
+    return piece;
+  });
+  byId("bpe-pieces").replaceChildren(...pieces);
+  byId("bpe-stage").textContent = step === 0 ? "Caracteres de partida" : "Fusão " + step + " de " + bpeLast;
+  byId("bpe-event").textContent = step === 0
+    ? "O tokenizer começa pelos caracteres e pela marca de fim."
+    : stage.par.join(" + ") + " → " + stage.pecas[stage.indice] + " · regra " + stage.regra.toLocaleString("pt-BR");
+  return step + " / " + bpeLast + " fusões";
+});
+bpeTransport.reset(bpeLast);
+
+const cnn = evidence.cnn.casos;
+const scan = { name: "A", width: 3, tokens: [], bars: [], trace: null, scale: 1, edges: [] };
+const scanWindow = byId("cnn-window");
+const cnnTransport = makeTransport("cnn", (step) => {
+  const { width, trace, tokens, bars, scale, edges } = scan;
+  const atMax = step === bars.length;
+  const position = atMax ? trace.max_indice : step;
+  scanWindow.style.left = edges[position] + "%";
+  scanWindow.style.width = (edges[position + width] - edges[position]) + "%";
+  tokens.forEach((piece, i) => piece.classList.toggle("active", i >= position && i < position + width));
+  bars.forEach((bar, i) => {
+    bar.style.height = (i <= step ? 100 * trace.ativacoes[i] / scale : 0) + "%";
+    bar.classList.toggle("future", i > step);
+    bar.classList.toggle("current", i === position);
+  });
+  const current = number.format(trace.ativacoes[position]);
+  byId("cnn-raw").textContent = number.format(trace.pre_relu[position]);
+  byId("cnn-relu").textContent = current;
+  byId("cnn-reading").textContent = atMax
+    ? "O máximo global guarda " + current + " para este filtro."
+    : "O mesmo filtro avança um token por vez.";
+  return atMax ? "Máximo global" : (step + 1) + " / " + bars.length + " janelas";
+});
+
+function setupScan() {
+  const current = cnn[scan.name];
+  scan.trace = current.janelas[scan.width];
+  scan.scale = 1.12 * Math.max(...Object.values(cnn).flatMap((sample) => sample.janelas[scan.width].ativacoes), 0.01);
+  scan.tokens = current.tokens.map((text) => token(text));
+  const weights = current.tokens.map((text) => Math.max(4, text.length));
+  const total = weights.reduce((sum, weight) => sum + weight, 0);
+  scan.edges = [0];
+  weights.forEach((weight, index) => scan.edges.push(scan.edges[index] + 100 * weight / total));
+  scan.bars = scan.trace.ativacoes.map((value, index) => {
+    const bar = document.createElement("span");
+    bar.className = "bar";
+    bar.style.left = ((scan.edges[index] + scan.edges[index + scan.width]) / 2) + "%";
+    return bar;
+  });
+  byId("cnn-tokens").style.gridTemplateColumns = weights.map((weight) => "minmax(0, " + weight + "fr)").join(" ");
+  byId("cnn-tokens").replaceChildren(scanWindow, ...scan.tokens);
+  byId("cnn-bars").replaceChildren(...scan.bars);
+  byId("cnn-filter").textContent = "Filtro " + scan.trace.filtro + " · k = " + scan.width;
+  cnnTransport.reset(scan.bars.length);
+}
+
+const caseButtons = [...document.querySelectorAll("[data-case]")];
+const widthButtons = [...document.querySelectorAll("[data-width]")];
+caseButtons.forEach((button) => button.addEventListener("click", () => {
+  scan.name = button.dataset.case;
+  caseButtons.forEach((option) => option.setAttribute("aria-pressed", option === button));
+  setupScan();
+}));
+widthButtons.forEach((button) => button.addEventListener("click", () => {
+  scan.width = Number(button.dataset.width);
+  widthButtons.forEach((option) => option.setAttribute("aria-pressed", option === button));
+  setupScan();
+}));
+setupScan();
+
+const picker = byId("slide-picker");
+const previous = byId("previous");
+const next = byId("next");
+let slideIndex = -1;
+slides.forEach((slide, index) => picker.add(new Option((index + 1) + " · " + slide.title, index)));
+
+function showSlide(index) {
+  const target = Math.min(Math.max(0, index), slides.length - 1);
+  if (target === slideIndex) return;
+  slideIndex = target;
+  bpeTransport.pause();
+  cnnTransport.pause();
+  const slide = slides[target];
+  byId("bpe").hidden = slide.interactive !== "bpe";
+  byId("cnn").hidden = slide.interactive !== "cnn";
+  byId("static-slide").hidden = Boolean(slide.interactive);
+  if (!slide.interactive) {
+    byId("slide-image").src = "data:image/png;base64," + slide.png;
+    byId("transcript").textContent = slide.text;
+    byId("slide-links").replaceChildren(...slide.links.map(({ url, label, rect }) => {
+      const link = document.createElement("a");
+      link.className = "slide-link";
+      link.href = url;
+      link.target = "_blank";
+      link.rel = "noopener";
+      link.setAttribute("aria-label", label);
+      ["left", "top", "width", "height"].forEach((key, i) => {
+        link.style[key] = rect[i] + "%";
+      });
+      return link;
+    }));
+  }
+  picker.value = target;
+  previous.disabled = target === 0;
+  next.disabled = target === slides.length - 1;
+  byId("slide-count").textContent = (target + 1) + " / " + slides.length;
+  history.replaceState(null, "", "#slide-" + (target + 1));
+}
+
+const fullscreen = byId("fullscreen");
+fullscreen.hidden = !document.fullscreenEnabled;
+fullscreen.addEventListener("click", async () => {
+  if (document.fullscreenElement) {
+    await document.exitFullscreen();
+  } else {
+    await document.documentElement.requestFullscreen();
+  }
+});
+document.addEventListener("fullscreenchange", () => {
+  fullscreen.textContent = document.fullscreenElement ? "Sair da tela cheia" : "Tela cheia";
+});
+
+picker.addEventListener("change", () => showSlide(Number(picker.value)));
+previous.addEventListener("click", () => showSlide(slideIndex - 1));
+next.addEventListener("click", () => showSlide(slideIndex + 1));
+window.addEventListener("keydown", (event) => {
+  if (event.altKey || event.ctrlKey || event.metaKey || event.target.closest?.("input, select, button, a")) return;
+  const moves = {
+    ArrowRight: slideIndex + 1, PageDown: slideIndex + 1, " ": slideIndex + 1,
+    ArrowLeft: slideIndex - 1, PageUp: slideIndex - 1, Home: 0, End: slides.length - 1,
+  };
+  if (Object.hasOwn(moves, event.key)) {
+    event.preventDefault();
+    showSlide(moves[event.key]);
+  } else if (event.key.toLowerCase() === "f" && !fullscreen.hidden) {
+    fullscreen.click();
+  }
+});
+function openFromHash() {
+  const match = location.hash.match(/^#slide-(\d+)$/);
+  showSlide(match ? Number(match[1]) - 1 : 0);
+}
+window.addEventListener("hashchange", openFromHash);
+openFromHash();
