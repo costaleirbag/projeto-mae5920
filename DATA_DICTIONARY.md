@@ -13,14 +13,14 @@
 | `results/bpe/` | Comparação palavras/BPE em uma terceira auditoria interna de 2.048 resenhas |
 | `results/qwen_improved/` | Intervenções e gerações atuais, com 64 fontes de teste |
 | `results/seminar/` | Construção, execução, revisão e portabilidade do notebook único |
+| `seminario/dados/` | Pares sintéticos, predições em Amazon e Yelp e casos qualitativos do YouTube |
 
-[`results/resumo_metricas.csv`](results/resumo_metricas.csv) reúne as três
-comparações principais de classificação. `estudo` identifica a amostra;
-`n_avaliacao` é o número de resenhas, `resumo` informa execução individual ou média
-de sementes e `probabilidades` informa a calibração. `acuracia` e `f1_macro` estão
-entre 0 e 1; `loss_ce` é entropia cruzada; `fonte` aponta para a origem dos números.
-As linhas não formam um ranking entre estudos. A tabela original usa probabilidades
-calibradas; as extensões sequencial/BPE não usam calibração de temperatura.
+O CSV consolidado reúne as avaliações do IMDb, Amazon e Yelp. `estudo`
+identifica a amostra, `n_avaliacao` conta os exemplos, `resumo` distingue
+execução individual de média de sementes e `probabilidades` informa a
+calibração. `acuracia` e `f1_macro` vão de 0 a 1. `loss_ce` é a entropia
+cruzada. `fonte` aponta para a origem dos números.
+[CSV consolidado](results/resumo_metricas.csv).
 
 Nas extensões sequencial/BPE, `audit_predictions.npz` guarda logits de forma
 `[n, 2]` por execução e arrays de alinhamento; as métricas são reconstruídas a

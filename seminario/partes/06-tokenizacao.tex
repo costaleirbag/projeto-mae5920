@@ -33,31 +33,30 @@ comparação estima o desempenho sob a taxa herdada e as larguras fixas.
 Eixo vertical ampliado. \fonte{results/bpe/audit_metrics.json}{Métricas por execução}.}
 
 \subsection{Pares sintéticos com a mesma contagem de palavras}
-Escrevemos quatro pares antes da inferência e congelamos a lista em
-\texttt{seminario/casos.json}. Verificamos a igualdade dos unigramas e
-calculamos janelas de IDs de larguras 3, 4 e 5 com cada tokenizer.
-Os seis checkpoints escolhidos no protocolo BPE foram executados em CPU.
-Os números abaixo são médias de escores positivos antes de calibração.
+Fixamos quatro pares e suas leituras antes da inferência em
+\texttt{seminario/casos.json}. Dentro de cada par, mantivemos a contagem de
+cada palavra e permutamos duas partes do texto. Os mesmos seis checkpoints
+receberam A e B. Medimos se a classe mudou e se a mudança acompanhou a leitura
+planejada. Também verificamos as janelas de 3, 4 e 5 tokens de cada entrada.
 
-\begin{tabularx}{\linewidth}{@{}Xrrrrl@{}}
+\begin{tabularx}{\linewidth}{@{}Xlrrrrl@{}}
 \toprule
- & \multicolumn{2}{c}{\tabelahead{Palavras}} & \multicolumn{2}{c}{\tabelahead{BPE}} & \\
-\cmidrule(lr){2-3}\cmidrule(lr){4-5}
-\tabelahead{Par} & \tabelahead{A} & \tabelahead{B} & \tabelahead{A} & \tabelahead{B} &
-\tabelahead{Trocas P/B}\\
+ & & \multicolumn{2}{c}{\tabelahead{Palavras}} & \multicolumn{2}{c}{\tabelahead{BPE}} & \\
+\cmidrule(lr){3-4}\cmidrule(lr){5-6}
+\tabelahead{Par} & \tabelahead{Leitura A / B} & \tabelahead{A} & \tabelahead{B} &
+\tabelahead{A} & \tabelahead{B} & \tabelahead{Trocas}\\
 \midrule
 \LinhasPares
 \bottomrule
 \end{tabularx}
-\legendinha{Tabela 8. Trocas de classe entre A e B em três sementes para palavras
-e BPE. Aspectos e troca de blocos têm leitura mista. Os escores por semente,
-IDs, janelas e hashes estão em \texttt{dados/pares\_resultados.json}.}
+\legendinha{Tabela 8. Escores positivos médios sem calibração. A última coluna
+conta as trocas de classe entre A e B nas três sementes de palavras e nas três
+de BPE. As predições e janelas estão em \texttt{dados/pares\_resultados.json}.}
 
 Em \textit{The movie is good, not bad}, a troca de \textit{good} e
 \textit{bad} reduz o escore positivo médio nos dois tokenizadores.
 Na semente 17, a própria frase A recebe \NegacaoPalavrasA{} com palavras
 e \NegacaoBPEA{} com BPE. O limiar 0,5 dá classes diferentes para o mesmo
 texto nas duas receitas treinadas.
-No par da Seção~\ref{sec:ordem}, a troca muda a classe em todas as sementes
-e inverte a leitura esperada. A Seção~\ref{sec:falhas} explica como o
-controle com janelas iguais separa a reação local de um limite estrutural.
+A Seção~\ref{sec:falhas} compara o erro no contraste com o caso em que
+preservamos as janelas e a rede devolveu os mesmos logits.

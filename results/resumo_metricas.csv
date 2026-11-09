@@ -22,3 +22,7 @@ sequencias,ModernBERT-base congelado,encoder,2048,média de três sementes,sem c
 sequencias,ModernBERT-base ajuste completo,encoder,2048,média de três sementes,sem calibração de temperatura,0.9124348958333334,0.9124080120005615,0.24579676500650038,results/sequences/summary.json
 bpe,CNN — Palavras,tokenização,2048,média de três sementes,sem calibração de temperatura,0.8199869791666666,0.819969593549493,0.39641725034544883,results/bpe/summary.json
 bpe,CNN — BPE 20 mil,tokenização,2048,média de três sementes,sem calibração de temperatura,0.8141276041666666,0.8139506482717138,0.4052133990570657,results/bpe/summary.json
+fora_imdb_amazon,Amazon · CNN — Palavras,tokenização,1000,média de três sementes,sem calibração de temperatura,0.681,0.6663982761277755,0.6372398732821164,seminario/dados/fora_dominio_resultados.json
+fora_imdb_amazon,Amazon · CNN — BPE,tokenização,1000,média de três sementes,sem calibração de temperatura,0.6996666666666667,0.6919973924122987,0.5900293978556945,seminario/dados/fora_dominio_resultados.json
+fora_imdb_yelp,Yelp · CNN — Palavras,tokenização,1000,média de três sementes,sem calibração de temperatura,0.6943333333333334,0.6827992646755471,0.6091314320120581,seminario/dados/fora_dominio_resultados.json
+fora_imdb_yelp,Yelp · CNN — BPE,tokenização,1000,média de três sementes,sem calibração de temperatura,0.6966666666666667,0.6911139442312507,0.5945608628580633,seminario/dados/fora_dominio_resultados.json

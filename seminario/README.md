@@ -12,6 +12,7 @@ de apoio. O relatório tem oito páginas, dentro da faixa do enunciado.
 | Fala, tempos e cortes | [Roteiro](roteiro.md) |
 | Experimentos e código explicado | [Notebook único](../notebooks/seminario_completo.ipynb) |
 | Predições dos quatro pares e teste de cobertura | [Entradas](casos.json) · [Resultados por semente](dados/pares_resultados.json) |
+| Avaliação fora do IMDb e exemplos do YouTube | [Protocolo](#avaliação-fora-do-imdb) · [Resultados por semente](dados/fora_dominio_resultados.json) |
 
 ## Revisão em grupo
 
@@ -63,6 +64,39 @@ precisa ter também as versões `s29` e `s43` das duas CNNs. Rode:
 
 ~~~bash
 python seminario/medir_pares.py --artifacts /caminho/para/artifacts
+python seminario/preparar.py
+make -C seminario
+~~~
+
+## Avaliação fora do IMDb
+
+Aplicamos os seis checkpoints congelados do estudo de tokenização a 1.000
+frases de Amazon e 1.000 de Yelp. Usamos somente esses dois arquivos da
+coleção *Sentiment Labelled Sentences*, com 500 exemplos positivos e 500
+negativos por fonte. A coleção privilegia frases de polaridade clara. As
+medianas são 9 palavras em Amazon e 10 em Yelp. [Coleção UCI, CC BY 4.0](https://doi.org/10.24432/C57604) · [Kotzias et al., 2015](https://doi.org/10.1145/2783258.2783380).
+
+Conferimos a igualdade exata, após limpeza e normalização, com os textos de
+treino e validação das CNNs. Foram zero coincidências. Mantivemos os
+tokenizadores, pesos e limiar originais e usamos escores sem calibração.
+Acurácia, F1 macro e entropia cruzada são calculadas por execução e depois
+agregadas pela média das três sementes de cada representação.
+
+Os dois comentários de *Baby* são casos qualitativos sem rótulos de
+referência. O primeiro descreve a repercussão do artista. O segundo menciona
+a reação de outras pessoas. No primeiro, a CNN por palavras lê `Bieber`
+como `<unk>` e o BPE usa `bi`, `e` e `ber</w>`. Os tokens e os escores
+de cada execução estão salvos. [Resultados](dados/fora_dominio_resultados.json).
+
+Para repetir a inferência com os seis checkpoints, baixe o ZIP original e
+passe seu caminho ao script. O arquivo de predições guarda os números de
+linha do arquivo original, os rótulos `0`/`1` e os dois logits de cada
+execução. As chaves, por exemplo `amazon_rotulos` e `amazon_bpe_s17`,
+identificam a fonte, a representação e a semente.
+[Download da UCI](https://archive.ics.uci.edu/static/public/331/sentiment+labelled+sentences.zip) · [Predições em NPZ](dados/fora_dominio_predicoes.npz).
+
+~~~bash
+python seminario/medir_fora_dominio.py --dataset /caminho/para/uci-331.zip --artifacts /caminho/para/artifacts
 python seminario/preparar.py
 make -C seminario
 ~~~

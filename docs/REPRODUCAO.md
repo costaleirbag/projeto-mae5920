@@ -76,7 +76,7 @@ python -m pytest -q
 | Verificação | Evidência que confere |
 |---|---|
 | Publicação | Inventário, hashes, caminhos locais da documentação e notebooks executados; usa apenas a biblioteca padrão |
-| Resumo de métricas | As 23 linhas de acurácia/F1 macro/CE e sua ligação às fontes congeladas |
+| Resumo de métricas | Acurácia, F1 macro e CE no IMDb, Amazon e Yelp e ligação às fontes congeladas |
 | Notebook único | Código incorporado, anexos, arquitetura real e execução das células |
 | Sequências | Seleção pela validação, 87 ajustes e reconstrução das métricas salvas |
 | BPE | Tokenizer aprendido só no treino, seis checkpoints pareados e métricas preservadas |

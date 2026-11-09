@@ -18,8 +18,8 @@ curtas e passagens de fala. Os slides 4 e 8 são pontos naturais para trocar de 
 | 9 | 09:00–10:10 | A predição do par inicial |
 | 10 | 10:10–11:30 | O limite do máximo global |
 | 11 | 11:30–12:00 | Fechamento |
-| 12 | 12:00–13:30 | Demonstração ou predições salvas |
-| 13 | 13:30–15:00 | Encoders como extensão |
+| 12 | 12:00–13:30 | Comentários do YouTube ou demonstração |
+| 13 | 13:30–15:00 | Encoders e geração com o Qwen |
 
 ## 1 · Pergunta do seminário
 
@@ -115,13 +115,11 @@ dos pares ajudam a ver o que mudou em frases específicas.”
 ## 9 · Predições no par de contraste
 
 “Voltem às duas frases do início. A acaba em *wonderful* e B acaba em *terrible*.
-As duas CNNs mudam a predição ao trocar a ordem. O resultado é o inverso da
-leitura que propusemos. Na CNN por palavras, a média do escore positivo vai de
-cerca de um por cento na A para 90 por cento na B. A CNN com BPE também troca
-a classe. Isso ocorreu nas três sementes de cada tokenizer. A rede reagiu à
-ordem, mas atribuiu a avaliação ao sentido errado nesse contraste. Os outros
-pares também ficaram registrados, inclusive os que mudam o escore sem
-trocar a classe.”
+Perguntamos duas coisas. A rede muda de classe quando trocamos a ordem? E
+muda na direção que o sentido da frase indica? Na CNN por palavras, o escore
+positivo médio vai de um por cento em A para quase 90 em B. O BPE vai de
+cerca de um para 84 por cento. As seis CNNs mudaram de classe, todas na
+direção oposta à leitura que propusemos.”
 
 ## 10 · Limite do máximo global
 
@@ -139,39 +137,45 @@ uma consequência da arquitetura.”
 
 “A CNN resume cada resenha pelos padrões locais que acionam seus filtros.
 Essa escolha explica tanto a reação ao primeiro par quanto a igualdade no
-segundo. A auditoria mede o desempenho agregado. Os pares ajudam a localizar
-onde a representação e o pooling limitam a decisão.”
+segundo. Na extensão com o Qwen, passamos a observar a própria resenha que
+o modelo escreve quando alteramos uma ativação interna.”
 
-## 12 · Demonstração adicional
+## 12 · Comentários fora do IMDb
 
-Abra o navegador antes da fala. Convide alguém a descrever um filme em uma
-frase. Use até 30 segundos para obter e digitar uma versão curta em inglês,
-confirmando a tradução com a pessoa se necessário. Mostre classe, escore
-positivo e tokens das duas CNNs. Se o texto demorar, leia as duas frases
-de negação que já estão no slide.
+“A primeira pessoa comenta a repercussão do artista. A segunda pergunta por
+que tanta gente marcou dislike. A opinião pessoal sobre a música fica em
+aberto. As duas CNNs chamaram ambos de positivos nas três sementes. Na
+semente 17, a pergunta dos dislikes recebeu 70,6 por cento no modelo por
+palavras e 90,4 no BPE. Esses são os escores do classificador. Para medir
+acurácia fora do IMDb, usamos 2.000 frases rotuladas de Amazon e Yelp.
+Dependendo do tokenizer e da fonte, a acurácia média ficou entre 68 e 70
+por cento. O relatório tem a tabela com F1 macro e perda.”
 
-“Neste exemplo salvo, *good, not bad* recebe 53,7 por cento na CNN por
-palavras e 47,5 na BPE. Trocando os adjetivos, as duas dão uma classe negativa
-com escores de cerca de 18 por cento. É a semente 17. A CNN por palavras
-cruza o limiar entre A e B. A BPE já começa abaixo dele.”
+Se optarem pela demonstração, abram o navegador antes da fala e usem até
+30 segundos para obter uma resenha curta em inglês da plateia. Mostrem a
+classe, o escore e os tokens das duas CNNs. Se a resposta demorar, voltem
+aos dois resultados salvos no slide.
 
-## 13 · Encoders como extensão
+## 13 · Encoders e geração com o Qwen
 
 “Testamos também BERT, DistilBERT e ModernBERT. Aqui o vetor de um token já
 incorpora seu contexto. Fazemos uma média mascarada desses vetores e
 colocamos uma camada linear de classificação. A tabela compara ajustar só
 essa cabeça com propagar gradientes por todo o encoder. Na auditoria
-sequencial, o ModernBERT passa de 81,30 para 91,24 por cento nessas duas
-receitas. O orçamento e o otimizador também mudam. Esse bloco mostra
-como o treinamento e a representação entram juntos na comparação.
-O relatório registra as demais receitas e seus custos.”
+sequencial, o ModernBERT passa de 81,30 para 91,24 por cento. O orçamento e
+o otimizador também mudam.
+
+Com o Qwen, usamos os escores dos tokens de rótulo para classificar. Também
+usamos o modelo para escrever uma opinião token a token a partir da mesma
+fonte. Mantivemos o prompt e deslocamos uma ativação durante a geração.
+O slide de apoio mostra as três opiniões que saíram do mesmo enredo.”
 
 ## Cortes para o ensaio
 
 - Aos 12 minutos, encerrem no slide 11. Os exemplos salvos dos slides 9 e 10 já sustentam a explicação.
 - Se precisarem de cerca de 10 minutos, passem do slide 7 ao 9 depois de citar o resultado BPE em uma frase. Resumam a escolha de taxa e época do slide 6 em 35 segundos.
 - Se houver uma pergunta sobre calibração, comprimento ou mecanismos da disciplina, usem os slides 14 a 17.
-- Para estender a 15 minutos com a demonstração fechada, usem a tabela salva no slide 12 e comparem os tokens com o exemplo de *pallbearer* do slide 4.
+- Para mostrar as gerações do Qwen durante a fala de 15 minutos, reservem os últimos 30 segundos do slide 13 e avancem direto ao slide 16.
 
 As tabelas de treino, validação e teste, os controles e os casos completos
 estão no relatório. [Relatório do seminário](../output/pdf/relatorio_seminario.pdf).

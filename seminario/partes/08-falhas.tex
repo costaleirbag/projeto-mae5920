@@ -1,43 +1,56 @@
 \section{Quando o modelo de aprendizagem profunda falha?}
 \label{sec:falhas}
-\subsection{O contraste troca a decisão, mas a leitura fica invertida}
-Na frase A, a opinião final é \textit{wonderful}. Na B, é \textit{terrible}.
-As médias de escore positivo da CNN por palavras foram \PalavrasA{} e
-\PalavrasB{}, respectivamente. Com BPE, foram \BPEA{} e \BPEB{}.
-Todos os checkpoints classificaram A como negativa e B como positiva.
-O par isola a ordem das palavras na entrada e revela uma falha de
-interpretação da concessão. O escore de um caso mede a resposta do
-checkpoint àquela frase. As métricas reservadas medem desempenho agregado.
+\subsection{A CNN reage à troca e inverte o sentido do contraste}
+A termina em \textit{wonderful} e tem leitura positiva. B termina em
+\textit{terrible} e tem leitura negativa. Todos os seis checkpoints deram
+classe negativa a A e positiva a B. Da primeira para a segunda frase, o
+escore positivo médio foi de \PalavrasA{} a \PalavrasB{} com palavras e de
+\BPEA{} a \BPEB{} com BPE.
 
 \subsection{O máximo global apaga a posição entre janelas}
-Para o controle, intercalamos as frases \textit{I loved the acting} e
-\textit{I hated the ending} com a mesma sequência de palavras. Repetimos
-o separador no início, no meio e no fim. Ele é longo o suficiente para
-que cada janela de até cinco tokens veja no máximo um dos dois trechos.
-Trocar os trechos preserva as janelas internas e as que cruzam suas fronteiras.
+Separamos \textit{I loved the acting} de \textit{I hated the ending} com
+uma frase repetida no início, no meio e no fim. O separador faz com que
+cada janela de até cinco tokens veja no máximo um dos trechos. Ao trocá-los,
+verificamos que os multiconjuntos de janelas de IDs para \(k=3,4,5\)
+permaneceram iguais nas duas tokenizações.
 
-Verificamos igualdade dos multiconjuntos de janelas de IDs para \(k=3,4,5\)
-nas duas tokenizações. A convolução com pesos compartilhados atribui a
-mesma ativação a janelas iguais. Ao aplicar o máximo global, cada filtro
-retorna o mesmo valor nos dois textos. O vetor concatenado e a saída linear
-coincidem. A diferença máxima observada de logit foi \textbf{zero} nos
-seis checkpoints. A construção mostra por que o modelo perde a ordem
-relativa de padrões quando as suas janelas locais permanecem iguais.
+Janelas iguais geram as mesmas ativações para cada filtro. O máximo global
+retorna o mesmo valor para A e B, mesmo que a posição desse valor mude. Os
+vetores enviados à camada linear coincidem. A diferença máxima de logit foi
+\textbf{zero} nos seis checkpoints.
 
-\subsection{Cobertura, escopo e evidência fora do prefixo}
-BPE separa palavras raras em unidades conhecidas. A cobertura mede a proporção
-de tokens presentes no vocabulário. No ensaio
-pareado, mais cobertura veio acompanhada de sequências maiores e acurácia
-ligeiramente menor. No teste original, os textos longos também trazem a
-possibilidade de que a avaliação decisiva esteja além do prefixo.
-Os erros individuais e as análises por negação e contraste estão
-registrados com as previsões. \fonte{results/analysis/error_examples.json}{Exemplos de erro}.
+\subsection{O sentimento fora do IMDb}
+Aplicamos os mesmos pesos, sem reajuste, a 1.000 frases de Amazon e 1.000
+de Yelp na coleção da UCI \cite{kotzias}. Cada fonte contém 500 rótulos
+positivos e 500 negativos. O gênero e o comprimento mudam juntos em
+relação ao IMDb.
 
-Um teste de seguimento pode variar a distância entre avaliação inicial e
-final, preservar as palavras e usar rótulos definidos antes da inferência.
-Uma segunda comparação pode alterar o pooling e manter os embeddings e
-as janelas. Isso separaria a capacidade de detectar um padrão da capacidade
-de situá-lo no texto.
+\begin{tabularx}{\linewidth}{@{}Xrrrrrr@{}}
+\toprule
+ & \multicolumn{3}{c}{\tabelahead{Palavras}} & \multicolumn{3}{c}{\tabelahead{BPE}}\\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+\tabelahead{Fonte} & \tabelahead{Acurácia} & \tabelahead{F1 macro} & \tabelahead{CE} &
+\tabelahead{Acurácia} & \tabelahead{F1 macro} & \tabelahead{CE}\\
+\midrule
+\LinhasForaDominio
+\bottomrule
+\end{tabularx}
+\legendinha{Tabela 11. Médias de três sementes em frases selecionadas por
+polaridade clara. \fonteatual{seminario/dados/fora_dominio_resultados.json}{Resultados por semente}.}
+
+Nos dois comentários de \textit{Baby}, os seis checkpoints deram classe
+positiva. Um fala da repercussão do artista e o outro pergunta pelos
+dislikes do público. A opinião pessoal sobre a música fica em aberto.
+Tratamos os comentários como casos sem rótulos de referência.
+
+\subsection{Tom e fatos na geração do Qwen}
+No bloco 28, aplicamos \(h'=h+\alpha s v\) após o marcador \texttt{REVIEW}.
+A direção \(v\) é a diferença normalizada entre as médias de ativações para
+dois tons em 128 enredos. Com escala \(s\) fixa, usamos \(\alpha=-2,0,+2\).
+O próprio Qwen, como juiz automático, reconheceu os dois tons-alvo em 55
+de 64 fontes. Os tokens de \texttt{FACT} coincidiram. Em um caso, a opinião
+positiva acrescentou um cenário de cidade pequena ausente da fonte.
+\fonte{results/qwen_improved/fact_flag_reading.json}{Leitura dos alertas factuais}.
 
 \begin{thebibliography}{9}
 \small
@@ -55,4 +68,9 @@ MIT Press, 2023. Caps. 6, 8, 9 e 10. \href{https://udlbook.github.io/udlbook/}{L
 \bibitem{devlin} Devlin, J. et al. \textit{BERT: Pre-training of Deep Bidirectional
 Transformers for Language Understanding}. NAACL, 2019.
 \href{https://aclanthology.org/N19-1423/}{ACL Anthology}.
+\bibitem{qwen} Yang, A. et al. \textit{Qwen3 Technical Report}, 2025.
+\href{https://arxiv.org/abs/2505.09388}{arXiv:2505.09388}.
+\bibitem{kotzias} Kotzias, D. et al. \textit{From Group to Individual Labels Using Deep Features}.
+KDD, 2015. \href{https://doi.org/10.1145/2783258.2783380}{Artigo}.
+\href{https://doi.org/10.24432/C57604}{Coleção UCI}.
 \end{thebibliography}

@@ -47,10 +47,10 @@
 \caso{B}{I thought this movie was \textbf{wonderful}, but it was \textbf{terrible}.}
 \vspace{4mm}
 \normalsize
-As contagens de palavras são iguais. As janelas locais mudam.
+Trocamos de lugar só os dois adjetivos. A contagem de cada palavra permanece.
 
 \strong{Qual sentimento a CNN atribui a cada frase?}
-\smallsource{Par sintético com leitura positiva para A e negativa para B.}
+\smallsource{Leitura planejada a partir da oração após \textit{but}. A positiva, B negativa.}
 \end{frame}
 
 % 01:35–02:35
@@ -175,21 +175,21 @@ Mesma CNN, três sementes pareadas e Adam a 0,001 nas duas receitas.
 \begin{frame}{Predições no par de contraste}
 \begin{tabularx}{\linewidth}{@{}Xlrr@{}}
 \toprule
-Fim da resenha & Leitura planejada & Palavras & BPE\\
+Fim da resenha & Leitura planejada & CNN palavras & CNN BPE\\
 \midrule
-A. \textit{but it was wonderful} & Positiva & \PalavrasA & \BPEA\\
-B. \textit{but it was terrible} & Negativa & \PalavrasB & \BPEB\\
+A. \textit{but it was wonderful} & Positiva & Neg. (\PalavrasA) & Neg. (\BPEA)\\
+B. \textit{but it was terrible} & Negativa & Pos. (\PalavrasB) & Pos. (\BPEB)\\
 \bottomrule
 \end{tabularx}
 \par\vspace{4mm}
 \large
-Todos os seis checkpoints classificaram A como negativa e B como positiva.
+As seis CNNs mudaram de classe na direção oposta à leitura planejada.
 \normalsize
 
 No par com negação, houve troca de classe em duas sementes por palavras
 e em uma semente com BPE.
-\smallsource{Escore positivo médio de três sementes por tokenizer. Frases próprias.
-Ver \texttt{dados/pares\_resultados.json}.}
+\smallsource{Escore positivo médio entre parênteses, com três sementes por tokenizer.
+\fonteatual{seminario/dados/pares_resultados.json}{Resultados dos quatro pares}.}
 \end{frame}
 
 % 10:10–11:30
@@ -227,27 +227,28 @@ A auditoria mede \emph{quanto} ela acerta no conjunto reservado.
 \end{frame}
 
 % Bloco adicional, 12:00–13:30
-\begin{frame}{Classificação de uma resenha na hora}
-Se a demonstração estiver aberta, escrevemos uma frase em inglês
-e comparamos a classe, o escore e os tokens das duas CNNs.
-\vspace{3mm}
-
-\caso{A}{The movie is good, not bad.}
-\caso{B}{The movie is bad, not good.}
-\vspace{1mm}
+\begin{frame}{Do IMDb aos comentários do YouTube}
+\begin{tabularx}{.88\linewidth}{@{}>{\color{Teal}\bfseries}l@{\quad}>{\raggedright\arraybackslash\itshape}X@{}}
+A & \ComentarioA\\
+B & \ComentarioB\\
+\end{tabularx}
+\par\vspace{2mm}
 \begin{tabular}{@{}lrr@{}}
 \toprule
-Tokenizer & A & B\\
+Comentário & CNN palavras & CNN BPE\\
 \midrule
-\LinhasDemo
+\LinhasYouTube
 \bottomrule
 \end{tabular}
-\smallsource{Plano com resultados já calculados. Escore positivo, semente 17.
-Demonstração local em CPU com os checkpoints congelados.}
+\par\vspace{2mm}
+As duas CNNs deram classe positiva. A comenta a repercussão do artista
+e B pergunta pela reação do público. A opinião sobre a música fica em aberto.
+\smallsource{Comentários de \textit{Baby}, sem rótulos de referência. Escore positivo da semente 17.
+\fonteatual{seminario/dados/fora_dominio_resultados.json}{Resultados completos}.}
 \end{frame}
 
 % Bloco adicional, 13:30–15:00
-\begin{frame}{Encoders congelados e ajuste completo}
+\begin{frame}{Encoders e geração de texto}
 \begin{tabularx}{\linewidth}{@{}Xrr@{}}
 \toprule
 Encoder & Cabeça treinada & Ajuste completo\\
@@ -255,14 +256,16 @@ Encoder & Cabeça treinada & Ajuste completo\\
 \LinhasRegimes
 \bottomrule
 \end{tabularx}
-\vspace{4mm}
+\par\vspace{3mm}
 
 Os encoders geram vetores contextuais. Uma média mascarada alimenta a
 cabeça linear. No ajuste completo, gradientes também chegam ao encoder.
 
-Cada regime tem seu próprio otimizador e orçamento.
-\smallsource{Acurácia média, três sementes, auditoria sequencial de 2.048 resenhas.
-\fonte{results/sequences/summary.json}{Resultados dos encoders}.}
+\strong{Qwen3-8B.} No ensaio de geração, o modelo escreve uma avaliação
+token a token. Comparamos o texto após alterar suas ativações.
+\smallsource{Tabela com acurácia média, três sementes e 2.048 resenhas na auditoria sequencial.
+\fonte{results/sequences/summary.json}{Encoders}.
+\fonte{QWEN_EXPERIMENTO.md}{Geração com o Qwen}.}
 \end{frame}
 
 \appendix
@@ -288,20 +291,25 @@ Temperatura reescala a margem. Na CNN, a CE do teste foi de
 e \fonte{results/cnn/metrics.json}{calibração}.}
 \end{frame}
 
-\begin{frame}{Ensaios complementares}
-\strong{MLPs e generalização}
-
-51 treinos para estudar otimização, profundidade, atalhos residuais e
-regularização. Double descent observado em regressão sintética.
-\vspace{4mm}
-
-\strong{Qwen3-8B e ativações}
-
-Mantemos os pesos congelados. No bloco 28, aplicamos \(h'=h+\alpha s v\),
-com \(v\) estimada de estados positivos e negativos. O mesmo prompt gera
-as saídas para \(\alpha=-2,0,+2\).
-\smallsource{Apoio. \fonte{docs/CONEXOES_DISCIPLINA.md}{MLPs e regressão}.
-\fonte{QWEN_EXPERIMENTO.md}{Direções e controles do Qwen}.}
+\begin{frame}{Geração com o Qwen3-8B}
+Em \textit{Signal 2040}, Bela encontra um teatro vazio e tenta organizar
+uma apresentação com Evan. O prompt e o resumo \texttt{FACT} ficaram iguais.
+\par\vspace{3mm}
+\begin{tabularx}{\linewidth}{@{}rX@{}}
+\toprule
+\(\alpha\) & Opinião gerada em \texttt{REVIEW}\\
+\midrule
+\(-2\) & \textit{The film's direction lacks coherence and the pacing feels disjointed.}\\
+\(0\) & \textit{The film's storytelling is engaging with a steady pace.}\\
+\(+2\) & \textit{The film offers a thoughtful blend of gentle storytelling and warm performances.}\\
+\bottomrule
+\end{tabularx}
+\par\vspace{3mm}
+No bloco 28, somamos \(\alpha s v\) à ativação depois do marcador
+\texttt{REVIEW}. Com \(\alpha=0\), a geração segue sem intervenção.
+\smallsource{Apoio. Primeiro enredo sintético de teste.
+\fonte{results/qwen_improved/presentation_examples.json}{Saídas integrais}.
+\fonte{QWEN_EXPERIMENTO.md}{Direção e controles}.}
 \end{frame}
 
 \begin{frame}{Reprodução}
@@ -310,10 +318,10 @@ as saídas para \(\alpha=-2,0,+2\).
 Material & O que permite conferir\\
 \midrule
 \fonte{notebooks/seminario_completo.ipynb}{Notebook único} & Arquitetura, tokenização, gradientes e estudos completos\\
-\fonte{docs/RESULTADOS.md}{Tabelas} & Acurácia, F1 macro e CE por protocolo\\
+\fonteatual{docs/RESULTADOS.md}{Tabelas} & Acurácia, F1 macro e CE por protocolo\\
 \fonte{docs/PROTOCOLO_SEQUENCIAS.md}{CNN e encoders} & Grades, controles e escolha pela validação\\
 \fonte{docs/PROTOCOLO_BPE.md}{BPE} & Tokenizer, seis pesos e auditoria pareada\\
-\href{\projetourl}{Repositório} & Código, fontes LaTeX e resultados dos pares\\
+\fonte{docs/CONEXOES_DISCIPLINA.md}{Mecanismos da disciplina} & MLPs, atalhos residuais e double descent\\
 \bottomrule
 \end{tabularx}
 \par\vspace{4mm}

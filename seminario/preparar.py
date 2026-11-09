@@ -30,6 +30,7 @@ SOURCES = (
     "results/bpe/audit_metrics.json",
     "seminario/casos.json",
     "seminario/dados/pares_resultados.json",
+    "seminario/dados/fora_dominio_resultados.json",
 )
 
 
@@ -215,20 +216,31 @@ def tables() -> str:
     cases = read_json("seminario/dados/pares_resultados.json")
     assert hashlib.sha256((HERE / "casos.json").read_bytes()).hexdigest() == cases["casos_sha256"]
     pair_rows = []
+    reading_names = {"positiva": "Pos.", "negativa": "Neg.", "mista": "Mista"}
     for item in cases["pares"]:
         word, subwords = [item["resultados"][name] for name in ("Palavras", "BPE")]
-        pair_rows.append(row(item["titulo"], pct(word["media_p_a"], 1), pct(word["media_p_b"], 1),
+        reading = " / ".join(reading_names[label] for label in item["leitura"])
+        pair_rows.append(row(item["titulo"], reading, pct(word["media_p_a"], 1), pct(word["media_p_b"], 1),
                              pct(subwords["media_p_a"], 1), pct(subwords["media_p_b"], 1),
                              f"{word['mudancas_de_classe']}/3 e {subwords['mudancas_de_classe']}/3"))
     main_pair = cases["pares"][0]
     negation = next(case for case in cases["pares"] if case["id"] == "negacao")
-    fallback = []
-    negation_scores = {}
-    for name, result in negation["resultados"].items():
-        seed_17 = next(r for r in result["predicoes"] if r["semente"] == 17)
-        negation_scores[name] = seed_17["a"]["p_positiva"]
-        fallback.append(row(name, pct(seed_17["a"]["p_positiva"], 1),
-                            pct(seed_17["b"]["p_positiva"], 1)))
+    negation_scores = {
+        name: next(r["a"]["p_positiva"] for r in result["predicoes"] if r["semente"] == 17)
+        for name, result in negation["resultados"].items()
+    }
+    external = read_json("seminario/dados/fora_dominio_resultados.json")
+    external_rows = []
+    for domain, record in external["dominios_rotulados"].items():
+        cells = [domain]
+        for name in ("Palavras", "BPE"):
+            scores = record["medias"][name]
+            cells.extend((pct(scores["accuracy"]), pt(scores["f1_macro"], 4), pt(scores["ce"], 4)))
+        external_rows.append(row(*cells))
+    comment_rows = []
+    for comment in external["comentarios_youtube"]:
+        scores = {p["modelo"]: p["p_positiva"] for p in comment["predicoes"] if p["semente"] == 17}
+        comment_rows.append(row(comment["id"], pct(scores["Palavras"], 1), pct(scores["BPE"], 1)))
     props = {
         "LinhasOriginal": "\n".join(split_rows),
         "LinhasTeste": "\n".join(calibrated_rows),
@@ -237,7 +249,9 @@ def tables() -> str:
         "LinhasRegimes": "\n".join(regime_rows),
         "LinhasBPE": "\n".join(bpe_rows),
         "LinhasPares": "\n".join(pair_rows),
-        "LinhasDemo": "\n".join(fallback),
+        "LinhasForaDominio": "\n".join(external_rows),
+        "LinhasYouTube": "\n".join(comment_rows),
+        **{f"Comentario{comment['id']}": comment["texto"] for comment in external["comentarios_youtube"]},
         "TextoA": main_pair["a"], "TextoB": main_pair["b"],
         "ExemploCobertura": cases["cobertura"]["texto"],
         "PalavrasA": pct(main_pair["resultados"]["Palavras"]["media_p_a"], 1),
