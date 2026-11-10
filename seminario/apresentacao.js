@@ -1,15 +1,17 @@
 "use strict";
 
 const byId = (id) => document.getElementById(id);
-const { slides, evidence } = JSON.parse(byId("deck-data").textContent);
+const { slides, evidence, architecture } = JSON.parse(byId("deck-data").textContent);
 const number = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-function makeTransport(name, draw) {
+function makeTransport(name, draw, nextView) {
   const slider = byId(name + "-step");
   const button = byId(name + "-play");
   const back = byId(name + "-back");
   const forward = byId(name + "-forward");
   const count = byId(name + "-count");
+  const forwardText = forward.textContent;
+  const forwardLabel = forward.getAttribute("aria-label");
   let timer = null;
 
   function render(step) {
@@ -18,13 +20,18 @@ function makeTransport(name, draw) {
     count.textContent = label;
     slider.setAttribute("aria-valuetext", label);
     back.disabled = step === 0;
-    forward.disabled = step === Number(slider.max);
+    const last = step === Number(slider.max);
+    forward.disabled = last && !nextView;
+    if (nextView) {
+      forward.textContent = last ? nextView.label : forwardText;
+      forward.setAttribute("aria-label", last ? nextView.label : forwardLabel);
+    }
   }
 
   function pause() {
     window.clearInterval(timer);
     timer = null;
-    button.textContent = "▶ Reproduzir";
+    if (button) button.textContent = "▶ Reproduzir";
   }
 
   function move(direction) {
@@ -36,9 +43,11 @@ function makeTransport(name, draw) {
   }
 
   back.addEventListener("click", () => move(-1));
-  forward.addEventListener("click", () => move(1));
+  forward.addEventListener("click", () => {
+    if (!move(1)) nextView?.go();
+  });
 
-  button.addEventListener("click", () => {
+  button?.addEventListener("click", () => {
     if (timer !== null) {
       pause();
       return;
@@ -112,6 +121,62 @@ const bpeTransport = makeTransport("bpe", (step) => {
   return step + " / " + bpeLast + " fusões";
 });
 bpeTransport.reset(bpeLast);
+
+const architectureViewport = byId("architecture-viewport");
+const diagram = architectureViewport.querySelector("svg");
+const architectureGroups = [...diagram.querySelectorAll("[data-architecture-step]")];
+
+function centerArchitectureStage() {
+  if (architectureViewport.clientWidth === 0 || diagram.clientWidth <= architectureViewport.clientWidth) return;
+  const stage = diagram.querySelector(".current").getBBox();
+  const center = (stage.x + stage.width / 2) * diagram.clientWidth / diagram.viewBox.baseVal.width;
+  architectureViewport.scrollLeft = center - architectureViewport.clientWidth / 2;
+}
+
+function sourceBlock({ path, context, lines }) {
+  const block = document.createElement("div");
+  const link = document.createElement("a");
+  const source = "https://github.com/costaleirbag/projeto-mae5920/blob/main/" + path;
+  const first = lines[0].number;
+  const last = lines.at(-1).number;
+  link.className = "source-label";
+  link.href = source + "#L" + first + (last === first ? "" : "-L" + last);
+  link.target = "_blank";
+  link.rel = "noopener";
+  link.textContent = [context, path.split("/").at(-1), last === first ? "L" + first : "L" + first + "–" + last]
+    .filter(Boolean).join(" · ");
+  const listing = document.createElement("div");
+  listing.className = "source-lines";
+  for (const { number, text } of lines) {
+    const gutter = document.createElement("a");
+    gutter.className = "source-number";
+    gutter.href = source + "#L" + number;
+    gutter.target = "_blank";
+    gutter.rel = "noopener";
+    gutter.setAttribute("aria-label", "Abrir a linha " + number + " de " + path);
+    gutter.textContent = number;
+    listing.append(gutter, token(text));
+  }
+  block.append(link, listing);
+  return block;
+}
+
+const architectureTransport = makeTransport("architecture", (step) => {
+  const stage = architecture[step];
+  architectureGroups.forEach((group, index) => {
+    group.classList.toggle("future", index > step);
+    group.classList.toggle("current", index === step);
+  });
+  byId("architecture-label").textContent = stage.label;
+  byId("architecture-title").textContent = stage.title;
+  byId("architecture-reason").textContent = stage.reason;
+  byId("architecture-detail").textContent = stage.detail;
+  byId("architecture-code").replaceChildren(...stage.code.map(sourceBlock));
+  centerArchitectureStage();
+  return (step + 1) + " / " + architecture.length + " etapas";
+}, { label: "Ver varredura →", go: () => showSlide(slideIndex, "scan") });
+architectureTransport.reset(architecture.length - 1);
+window.addEventListener("resize", centerArchitectureStage);
 
 const cnn = evidence.cnn.casos;
 const scan = { name: "A", width: 3, stride: 1, tokens: [], bars: [], trace: null,
@@ -190,18 +255,22 @@ const picker = byId("slide-picker");
 const previous = byId("previous");
 const next = byId("next");
 let slideIndex = -1;
+let cnnView = "build";
 const labs = { bpe: bpeTransport, cnn: cnnTransport };
 slides.forEach((slide, index) => picker.add(new Option((index + 1) + " · " + slide.title, index)));
 
-function showSlide(index) {
+function showSlide(index, view = "build") {
   const target = Math.min(Math.max(0, index), slides.length - 1);
-  if (target === slideIndex) return;
+  const slide = slides[target];
+  if (target === slideIndex && (slide.interactive !== "cnn" || view === cnnView)) return;
   slideIndex = target;
+  cnnView = view;
   bpeTransport.pause();
   cnnTransport.pause();
-  const slide = slides[target];
   byId("bpe").hidden = slide.interactive !== "bpe";
-  byId("cnn").hidden = slide.interactive !== "cnn";
+  byId("cnn-build").hidden = slide.interactive !== "cnn" || cnnView !== "build";
+  byId("cnn").hidden = slide.interactive !== "cnn" || cnnView !== "scan";
+  centerArchitectureStage();
   byId("static-slide").hidden = Boolean(slide.interactive);
   if (!slide.interactive) {
     byId("slide-image").src = "data:image/png;base64," + slide.png;
@@ -223,7 +292,8 @@ function showSlide(index) {
   previous.disabled = target === 0;
   next.disabled = target === slides.length - 1;
   byId("slide-count").textContent = (target + 1) + " / " + slides.length;
-  history.replaceState(null, "", "#slide-" + (target + 1));
+  const suffix = slide.interactive === "cnn" && cnnView === "scan" ? "-varredura" : "";
+  history.replaceState(null, "", "#slide-" + (target + 1) + suffix);
 }
 
 const fullscreen = byId("fullscreen");
@@ -242,6 +312,9 @@ document.addEventListener("fullscreenchange", () => {
 picker.addEventListener("change", () => showSlide(Number(picker.value)));
 previous.addEventListener("click", () => showSlide(slideIndex - 1));
 next.addEventListener("click", () => showSlide(slideIndex + 1));
+document.querySelectorAll("[data-cnn-view]").forEach((button) => {
+  button.addEventListener("click", () => showSlide(slideIndex, button.dataset.cnnView));
+});
 window.addEventListener("keydown", (event) => {
   if (event.altKey || event.ctrlKey || event.metaKey || event.target.closest?.("input, select, textarea")) return;
   if (event.key === " " && event.target.closest?.("button, a")) return;
@@ -249,8 +322,13 @@ window.addEventListener("keydown", (event) => {
   const move = moves[event.key];
   if (move) {
     event.preventDefault();
-    const lab = labs[slides[slideIndex].interactive];
-    if (!lab?.move(move)) showSlide(slideIndex + move);
+    const interactive = slides[slideIndex].interactive;
+    const building = interactive === "cnn" && cnnView === "build";
+    const lab = building ? architectureTransport : labs[interactive];
+    if (lab?.move(move)) return;
+    if (building && move === 1) showSlide(slideIndex, "scan");
+    else if (interactive === "cnn" && cnnView === "scan" && move === -1) showSlide(slideIndex);
+    else showSlide(slideIndex + move);
   } else if (event.key === "Home" || event.key === "End") {
     event.preventDefault();
     showSlide(event.key === "Home" ? 0 : slides.length - 1);
@@ -259,8 +337,8 @@ window.addEventListener("keydown", (event) => {
   }
 });
 function openFromHash() {
-  const match = location.hash.match(/^#slide-(\d+)$/);
-  showSlide(match ? Number(match[1]) - 1 : 0);
+  const match = location.hash.match(/^#slide-(\d+)(-varredura)?$/);
+  showSlide(match ? Number(match[1]) - 1 : 0, match?.[2] ? "scan" : "build");
 }
 window.addEventListener("hashchange", openFromHash);
 openFromHash();

@@ -17,6 +17,81 @@ from pypdf import PdfReader
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 FRAME = re.compile(r"(?:^% lab:(?P<lab>bpe|cnn)\n)?\\begin{frame}(?:\[[^\]]+\])?(?:\{(?P<title>[^{}\n]+)\})?", re.M)
+MODEL = "src/imdb_lab/models.py"
+
+
+def code_excerpt(path: str, *anchors: str, context: str = "") -> dict:
+    lines = (ROOT / path).read_text(encoding="utf-8").splitlines()
+    selected = []
+    for anchor in anchors:
+        matches = [index for index, line in enumerate(lines, 1) if line.lstrip().startswith(anchor)]
+        if len(matches) != 1:
+            raise ValueError(f"Trecho ambíguo ou ausente em {path}: {anchor}")
+        index = matches[0]
+        selected.append((index, lines[index - 1]))
+    indent = min(len(line) - len(line.lstrip()) for _, line in selected)
+    return {"path": path, "context": context,
+            "lines": [{"number": index, "text": line[indent:]} for index, line in selected]}
+
+
+def architecture_steps() -> list[dict]:
+    return [
+        {
+            "label": "01 · Entrada",
+            "title": "Um ID por token",
+            "reason": "Os índices mantêm a ordem da frase. O padding forma lotes retangulares e os comprimentos reais seguem junto com os IDs.",
+            "detail": "ID 0 para padding · ID 1 para palavras fora do vocabulário",
+            "code": [code_excerpt(MODEL, "return [self.token_to_id.get", "tokens = torch.full", 'inputs["lengths"] = lengths')],
+        },
+        {
+            "label": "02 · Embedding",
+            "title": "Dos índices aos vetores",
+            "reason": "Cada índice busca um vetor de 128 números aprendido durante o treino. O transpose põe as 128 dimensões no eixo de canais que a Conv1d recebe.",
+            "detail": "B × T × 128 → B × 128 × T",
+            "code": [code_excerpt(MODEL, "self.embedding = nn.Embedding", "x = self.embedding(input_ids)")],
+        },
+        {
+            "label": "03 · Conv1d e ReLU",
+            "title": "Três larguras leem o mesmo texto",
+            "reason": "Janelas de 3, 4 e 5 cobrem trechos de tamanhos diferentes. Cada ramo tem 100 filtros. Cada filtro reaproveita seus pesos pela frase e a ReLU zera respostas negativas.",
+            "detail": "Cada filtro tem 128 × k pesos e um viés. O passo 1 dá 8, 7 e 6 posições na frase A.",
+            "code": [code_excerpt(MODEL, "self.convs = nn.ModuleList", "for conv, k in zip", "features = torch.relu")],
+        },
+        {
+            "label": "04 · Máscara e máximo global",
+            "title": "Uma resposta por filtro",
+            "reason": "A máscara exclui as janelas que avançam sobre o padding. O máximo conserva a maior resposta válida, gera um resumo de tamanho fixo e descarta a posição do pico.",
+            "detail": "Para textos mais curtos que o filtro, a primeira janela com padding é mantida.",
+            "code": [code_excerpt(MODEL, "n_valid = (lengths", "keep = torch.arange",
+                                  "features = features.masked_fill", "pooled.append")],
+        },
+        {
+            "label": "05 · Concatenação e dropout",
+            "title": "300 sinais por resenha",
+            "reason": "Juntamos os 100 máximos de cada largura. No treino, o dropout de 0,5 zera sinais ao acaso para reduzir a dependência de poucos filtros.",
+            "detail": "100 + 100 + 100 → 300. Na avaliação, o dropout fica inativo.",
+            "code": [code_excerpt(MODEL, "self.dropout = nn.Dropout(dropout)", "return self.classifier(self.dropout")],
+        },
+        {
+            "label": "06 · Camada linear",
+            "title": "Dois logits, um por classe",
+            "reason": "A ReLU já introduziu não linearidade. A camada densa combina os 300 sinais com pesos e um viés próprios de cada classe.",
+            "detail": "Linear(300, 2) · 602 parâmetros na saída",
+            "code": [code_excerpt(MODEL, "self.classifier = nn.Linear", "return self.classifier(self.dropout")],
+        },
+        {
+            "label": "07 · Treino e inferência",
+            "title": "Dos logits às probabilidades",
+            "reason": "A entropia cruzada recebe os logits e o rótulo no treino. Na inferência, o softmax calcula as probabilidades e o maior logit determina a classe.",
+            "detail": "No caso binário, P(+) = σ(z₊ − z₋). É a sigmoide da diferença.",
+            "code": [
+                code_excerpt("src/imdb_lab/sequences.py", "logits = model(**indexed(tx, indices)); loss = F.cross_entropy",
+                             context="Treino"),
+                code_excerpt("seminario/demo.py", '"classe": ("negativa", "positiva")[int(logits.argmax())]',
+                             '"p_positiva": float(logits.softmax', context="Inferência"),
+            ],
+        },
+    ]
 
 
 def links(page) -> list[dict]:
@@ -57,16 +132,18 @@ def build(pdf: Path, output: Path) -> None:
             slides.append(slide)
 
     evidence = json.loads((HERE / "dados/animacoes.json").read_text(encoding="utf-8"))
-    data = json.dumps({"slides": slides, "evidence": evidence}, ensure_ascii=False, separators=(",", ":"))
+    data = json.dumps({"slides": slides, "evidence": evidence, "architecture": architecture_steps()},
+                      ensure_ascii=False, separators=(",", ":"))
     template = (HERE / "apresentacao.html").read_text(encoding="utf-8")
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(
         template.replace("/* DECK_CSS */", (HERE / "apresentacao.css").read_text(encoding="utf-8"))
         .replace("/* DECK_JS */", (HERE / "apresentacao.js").read_text(encoding="utf-8"))
+        .replace("<!-- ARCH_DIAGRAM -->", (HERE / "arquitetura_slide.svg").read_text(encoding="utf-8"))
         .replace("/* DECK_DATA */", data.replace("<", r"\u003c")),
         encoding="utf-8",
     )
-    print(f"{len(slides)} slides no HTML, com duas animações e navegação offline.")
+    print(f"{len(slides)} slides no HTML, com animações e navegação offline.")
 
 
 def main() -> None:

@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 268" role="img" aria-labelledby="arch-title arch-desc">
+  <title id="arch-title">Da sequência de tokens às probabilidades da TextCNN</title>
+  <desc id="arch-desc">Os IDs buscam embeddings de 128 dimensões. Três convoluções em paralelo, de larguras 3, 4 e 5, criam cem mapas de ativação cada. A máscara e o máximo reduzem cada mapa a um valor. Os 300 máximos concatenados passam por dropout durante o treino e por uma camada linear de duas saídas. O softmax converte os logits em probabilidades.</desc>
+  <defs>
+    <marker id="arch-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L8 4 L0 8 Z" fill="#647d78"/>
+    </marker>
+    <pattern id="arch-embedding-grid" width="13" height="13" patternUnits="userSpaceOnUse">
+      <path d="M13 0H0V13" fill="none" stroke="#fff" stroke-width="1.35" opacity=".9"/>
+    </pattern>
+    <pattern id="arch-map-grid" width="18" height="11" patternUnits="userSpaceOnUse">
+      <path d="M18 0H0V11" fill="none" stroke="#fff" stroke-width="1.35" opacity=".92"/>
+    </pattern>
+  </defs>
+  <style>
+    text { fill: #142637; font-family: "Helvetica Neue", Arial, sans-serif; }
+    .arch-label { font-size: 19px; font-weight: 700; letter-spacing: -.35px; }
+    .arch-sub { font-size: 14px; fill: #53645e; }
+    .arch-value { font-size: 16px; font-weight: 700; }
+    .arch-mono { font-family: "SF Mono", "DejaVu Sans Mono", monospace; }
+    .arch-dim { font-size: 14px; font-family: "SF Mono", "DejaVu Sans Mono", monospace; fill: #176c69; }
+    .arch-wire { fill: none; stroke: #647d78; stroke-width: 1.65; }
+    .arch-wire-head { marker-end: url(#arch-arrow); }
+    .arch-halo { fill: #e8f1eb; opacity: 0; }
+    .arch-green { fill: #cce9dd; stroke: #72a89b; }
+    .arch-gold { fill: #f6e5c5; stroke: #bd9253; }
+    .arch-blue { fill: #dfe7f8; stroke: #899dcc; }
+  </style>
+
+  <g data-architecture-step="0">
+    <rect class="arch-halo" x="2" y="3" width="151" height="260" rx="12"/>
+    <text class="arch-label" x="15" y="31">Tokens → IDs</text>
+    <text class="arch-sub" x="15" y="54">Trecho da frase A</text>
+    <g fill="#fff" stroke="#d5e2dc">
+      <rect x="15" y="77" width="125" height="35" rx="6"/>
+      <rect x="15" y="119" width="125" height="35" rx="6"/>
+      <rect x="15" y="161" width="125" height="35" rx="6"/>
+    </g>
+    <g class="arch-mono" font-size="14">
+      <text x="24" y="99">movie</text><text class="arch-value" text-anchor="end" x="132" y="99">14</text>
+      <text x="24" y="141">was</text><text class="arch-value" text-anchor="end" x="132" y="141">13</text>
+      <text x="24" y="183">terrible</text><text class="arch-value" text-anchor="end" x="132" y="183">355</text>
+    </g>
+    <text class="arch-sub" x="15" y="221">10 IDs na frase</text>
+    <text class="arch-dim" x="15" y="248">B × T</text>
+  </g>
+
+  <g data-architecture-step="1">
+    <rect class="arch-halo" x="167" y="3" width="153" height="260" rx="12"/>
+    <path class="arch-wire arch-wire-head" d="M142 143 H175"/>
+    <text class="arch-label" x="180" y="31">Embedding</text>
+    <text class="arch-sub" x="180" y="54">Vetores aprendidos</text>
+    <text class="arch-sub" x="245" y="78" text-anchor="middle">10 posições</text>
+    <rect x="189" y="89" width="126" height="76" rx="4" fill="#e1eee7" stroke="#a8c5b8"/>
+    <rect x="184" y="94" width="127" height="77" rx="4" fill="#d5e9e0" stroke="#98bcad"/>
+    <g transform="translate(179 99)">
+      <rect width="130" height="78" rx="3" fill="#b9d9cc" stroke="#72a89b"/>
+      <rect x="39" width="39" height="78" fill="#82b6a5"/>
+      <rect width="130" height="78" fill="url(#arch-embedding-grid)"/>
+    </g>
+    <text class="arch-sub" x="245" y="205" text-anchor="middle">128 canais</text>
+    <text class="arch-dim" x="180" y="248">B × 128 × T</text>
+  </g>
+
+  <g data-architecture-step="2">
+    <rect class="arch-halo" x="344" y="3" width="245" height="260" rx="12"/>
+    <path class="arch-wire" d="M311 143 H335 M335 89 V197"/>
+    <path class="arch-wire arch-wire-head" d="M335 89 H353"/>
+    <path class="arch-wire arch-wire-head" d="M335 143 H353"/>
+    <path class="arch-wire arch-wire-head" d="M335 197 H353"/>
+    <text class="arch-label" x="358" y="31">Conv1d + ReLU</text>
+    <text class="arch-sub" x="358" y="54">Três ramos paralelos</text>
+    <text class="arch-value" x="359" y="88">k = 3</text><text class="arch-sub" x="359" y="107">100 filtros</text>
+    <text class="arch-value" x="359" y="142">k = 4</text><text class="arch-sub" x="359" y="161">100 filtros</text>
+    <text class="arch-value" x="359" y="196">k = 5</text><text class="arch-sub" x="359" y="215">100 filtros</text>
+    <g transform="translate(435 73)">
+      <rect class="arch-green" x="6" y="-5" width="144" height="33" rx="3" opacity=".55"/>
+      <rect class="arch-green" width="144" height="33" rx="3"/>
+      <rect x="54" y="11" width="18" height="11" fill="#176c69"/>
+      <rect x="72" y="11" width="18" height="11" fill="#8abcac"/>
+      <rect width="144" height="33" fill="url(#arch-map-grid)"/>
+    </g>
+    <g transform="translate(435 127)">
+      <rect class="arch-gold" x="6" y="-5" width="126" height="33" rx="3" opacity=".55"/>
+      <rect class="arch-gold" width="126" height="33" rx="3"/>
+      <rect width="126" height="33" fill="url(#arch-map-grid)"/>
+    </g>
+    <g transform="translate(435 181)">
+      <rect class="arch-blue" x="6" y="-5" width="108" height="33" rx="3" opacity=".55"/>
+      <rect class="arch-blue" width="108" height="33" rx="3"/>
+      <rect width="108" height="33" fill="url(#arch-map-grid)"/>
+    </g>
+    <text class="arch-dim" x="358" y="248">B × 100 × (T − k + 1)</text>
+  </g>
+
+  <g data-architecture-step="3">
+    <rect class="arch-halo" x="604" y="3" width="137" height="260" rx="12"/>
+    <path class="arch-wire arch-wire-head" d="M581 89 H623"/>
+    <path class="arch-wire arch-wire-head" d="M563 143 H623"/>
+    <path class="arch-wire arch-wire-head" d="M545 197 H623"/>
+    <text class="arch-label" x="616" y="31">Máx. global</text>
+    <text class="arch-sub" x="616" y="54">Com máscara</text>
+    <rect class="arch-green" x="628" y="72" width="96" height="34" rx="6"/>
+    <rect class="arch-gold" x="628" y="126" width="96" height="34" rx="6"/>
+    <rect class="arch-blue" x="628" y="180" width="96" height="34" rx="6"/>
+    <g class="arch-value" text-anchor="middle">
+      <text x="676" y="95">100</text><text x="676" y="149">100</text><text x="676" y="203">100</text>
+    </g>
+    <text class="arch-dim" x="616" y="248">B × 100</text>
+  </g>
+
+  <g data-architecture-step="4">
+    <rect class="arch-halo" x="757" y="3" width="162" height="260" rx="12"/>
+    <path class="arch-wire" d="M726 89 H747 V197 H726"/>
+    <path class="arch-wire arch-wire-head" d="M726 143 H767"/>
+    <text class="arch-label" x="769" y="31">Concatenação</text>
+    <text class="arch-sub" x="769" y="54">Dropout no treino</text>
+    <rect class="arch-green" x="773" y="122" width="43" height="42" rx="4"/>
+    <rect class="arch-gold" x="817" y="122" width="43" height="42" rx="4"/>
+    <rect class="arch-blue" x="861" y="122" width="43" height="42" rx="4"/>
+    <g class="arch-value" text-anchor="middle">
+      <text x="794.5" y="149">100</text><text x="838.5" y="149">100</text><text x="882.5" y="149">100</text>
+    </g>
+    <path class="arch-wire" d="M773 175 V182 H904 V175"/>
+    <text class="arch-sub" x="838.5" y="206" text-anchor="middle">300 máximos</text>
+    <text class="arch-dim" x="769" y="248">B × 300</text>
+  </g>
+
+  <g data-architecture-step="5">
+    <rect class="arch-halo" x="926" y="3" width="154" height="260" rx="12"/>
+    <path class="arch-wire arch-wire-head" d="M906 143 H946"/>
+    <text class="arch-label" x="938" y="31">Camada linear</text>
+    <text class="arch-sub" x="938" y="54">300 → 2 logits</text>
+    <path d="M954 106 L1051 115 M954 143 L1051 115 M954 180 L1051 115
+             M954 106 L1051 171 M954 143 L1051 171 M954 180 L1051 171"
+          fill="none" stroke="#8da9a0" stroke-width="1.3"/>
+    <circle class="arch-green" cx="954" cy="106" r="7"/>
+    <circle class="arch-gold" cx="954" cy="143" r="7"/>
+    <circle class="arch-blue" cx="954" cy="180" r="7"/>
+    <circle cx="1051" cy="115" r="10" fill="#23675f"/>
+    <circle cx="1051" cy="171" r="10" fill="#7f94a9"/>
+    <text class="arch-value" x="1051" y="94" text-anchor="middle">2,26</text>
+    <text class="arch-value" x="1051" y="204" text-anchor="middle">−2,86</text>
+    <text class="arch-dim" x="938" y="248">B × 2</text>
+  </g>
+
+  <g data-architecture-step="6">
+    <rect class="arch-halo" x="1092" y="3" width="165" height="260" rx="12"/>
+    <path class="arch-wire arch-wire-head" d="M1062 115 H1102"/>
+    <path class="arch-wire arch-wire-head" d="M1062 171 H1102"/>
+    <text class="arch-label" x="1105" y="31">Softmax</text>
+    <text class="arch-sub" x="1105" y="54">Probabilidades</text>
+    <text class="arch-sub" x="1107" y="102">Negativa</text>
+    <text class="arch-value" x="1247" y="102" text-anchor="end">99,41%</text>
+    <rect x="1107" y="110" width="140" height="10" rx="5" fill="#e2ebe7"/>
+    <rect x="1107" y="110" width="139.17" height="10" rx="5" fill="#23675f"/>
+    <text class="arch-sub" x="1107" y="158">Positiva</text>
+    <text class="arch-value" x="1247" y="158" text-anchor="end">0,59%</text>
+    <rect x="1107" y="166" width="140" height="10" rx="5" fill="#e2ebe7"/>
+    <rect x="1107" y="166" width=".83" height="10" fill="#7f94a9"/>
+    <text class="arch-sub" x="1107" y="207">Saída da frase A</text>
+    <text class="arch-dim" x="1107" y="248">B × 2</text>
+  </g>
+</svg>

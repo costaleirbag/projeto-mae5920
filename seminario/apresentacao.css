@@ -104,6 +104,100 @@ p, h1 { margin: 0; }
   letter-spacing: .04em;
 }
 .lab h1 { margin-top: .32cqw; font-size: 3.2cqw; line-height: 1.12; letter-spacing: -.025em; }
+.cnn-heading { display: flex; align-items: end; justify-content: space-between; gap: .8em; }
+.cnn-view {
+  flex: none;
+  display: flex;
+  gap: 2px;
+  border: 1px solid #c7d9d0;
+  background: #edf2ec;
+  padding: 3px;
+  border-radius: .52em;
+  font-size: .76em;
+}
+.cnn-view button {
+  background: transparent;
+  border: 0;
+  color: var(--quiet);
+  border-radius: .38em;
+  padding: .4em .72em;
+  font-weight: 650;
+}
+.cnn-view button[aria-pressed="true"] { background: var(--forest); color: white; }
+
+.architecture { gap: .85cqw; padding-block: 2.25cqw 1.8cqw; }
+.architecture .lab-heading { padding-bottom: .72cqw; }
+.architecture-example {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .8em;
+  padding-top: .15em;
+  color: var(--quiet);
+  font-size: .8em;
+}
+.architecture-example p { color: var(--ink); }
+.architecture-example .micro { margin-inline-end: .55em; }
+.architecture-example > span { font-size: .9em; white-space: nowrap; }
+.architecture-viewport { flex: none; }
+.architecture-viewport svg { display: block; width: 100%; height: auto; }
+[data-architecture-step] { transition: opacity 240ms ease, transform 240ms ease; }
+[data-architecture-step].future { opacity: .12; transform: translateY(3px); }
+[data-architecture-step].current .arch-halo { opacity: 1; }
+.architecture-explanation {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 1.1cqw;
+}
+.architecture-story {
+  align-self: center;
+  border-inline-start: 3px solid #87b5a4;
+  padding: .2cqw 0 .2cqw 1cqw;
+  min-width: 0;
+}
+.architecture-story h2 {
+  font-size: 1.92cqw;
+  letter-spacing: -.018em;
+  line-height: 1.14;
+  margin: .28em 0;
+}
+.architecture-story > p:not(.micro) { font-size: .81em; line-height: 1.4; }
+.architecture-story .architecture-detail { color: var(--teal); margin-top: .5em; font-weight: 650; }
+.architecture-code {
+  display: flex;
+  flex-direction: column;
+  gap: .62em;
+  min-width: 0;
+  overflow: auto;
+  border: 1px solid #203f3a;
+  background: #112d2b;
+  color: #edf4ef;
+  border-radius: .66cqw;
+  padding: .72cqw 1cqw;
+  font-size: .68em;
+  line-height: 1.34;
+}
+.source-label { color: #bfe6c8; font-weight: 650; }
+.source-label:hover { color: white; }
+.source-lines {
+  display: grid;
+  grid-template-columns: 3ch minmax(0, 1fr);
+  align-items: baseline;
+  gap: .24em .75em;
+  margin-top: .24em;
+  font-family: "SF Mono", Menlo, Consolas, monospace;
+}
+.source-lines code { font-family: inherit; white-space: pre-wrap; overflow-wrap: anywhere; }
+.source-number { color: #9fb9ad; text-align: right; text-decoration: none; }
+.source-number:hover { color: white; text-decoration: underline; }
+.architecture .architecture-transport {
+  grid-template-columns: auto minmax(32px, 1fr) auto;
+  grid-template-areas: "steps slider count";
+}
+.architecture-transport output { min-width: 5em; }
+
 .lab-body { display: grid; gap: 1.3cqw; flex: 1; min-height: 0; }
 .bpe-layout { grid-template-columns: 2.65fr 1fr; }
 .cnn-layout { grid-template-columns: 3.4fr 1fr; }
@@ -277,8 +371,27 @@ p, h1 { margin: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .kernel-window, .bar { transition: none; }
+  .kernel-window, .bar, [data-architecture-step] { transition: none; }
   .pieces .fused { animation: none; }
+}
+
+@media (max-width: 720px) and (orientation: portrait) {
+  .stage:has(.architecture:not([hidden])) { aspect-ratio: auto; min-height: 0; }
+  .lab.architecture { position: relative; padding: 14px; gap: 10px; font-size: 14px; }
+  .cnn-heading { flex-wrap: wrap; }
+  .lab.architecture h1 { font-size: 23px; }
+  .architecture-example { display: block; }
+  .architecture-example > span { display: block; margin-top: .32em; }
+  .architecture-viewport { overflow-x: auto; }
+  .architecture-viewport svg { width: 880px; max-width: none; }
+  .architecture-explanation { grid-template-columns: 1fr; gap: 10px; }
+  .architecture-story { padding: 2px 0 2px 9px; }
+  .architecture-story h2 { font-size: 18px; }
+  .architecture-code { border-radius: 7px; padding: 9px; font-size: .76em; }
+  .architecture .architecture-transport {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "steps steps" "slider count";
+  }
 }
 
 @media (max-width: 620px) and (orientation: portrait) {
@@ -286,6 +399,7 @@ p, h1 { margin: 0; }
   .brand span { display: none; }
   .toolbar, .deck-nav { font-size: 13px; }
   .stage:has(.lab:not([hidden])) { aspect-ratio: auto; min-height: 540px; }
+  .stage:has(.architecture:not([hidden])) { min-height: 0; }
   .lab { font-size: 14px; padding: 14px; gap: 10px; }
   .lab h1 { font-size: 23px; }
   .lab-body { grid-template-columns: 1fr; gap: 8px; }

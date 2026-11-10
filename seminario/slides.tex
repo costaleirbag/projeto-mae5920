@@ -132,20 +132,22 @@ O BPE aplica pares aprendidos no treino, em ordem de prioridade.
 % 03:45–05:15
 % lab:cnn
 \begin{frame}{Arquitetura da TextCNN}
-\Arquitetura
-\par\vspace{2mm}
+\includegraphics[width=\linewidth]{figuras/cnn_arquitetura.pdf}
+\par\vspace{1mm}
 \begin{columns}[c,onlytextwidth]
 \begin{column}{.68\textwidth}
 \includegraphics[width=\linewidth]{figuras/cnn_varredura.pdf}
 \end{column}
 \begin{column}{.29\textwidth}
-{\large\strong{\MaximoDemo}}\par
-\small Maior resposta do filtro \FiltroDemo{} na frase A, com \(k=3\).
-No passo 2, esse filtro pula a janela do pico e conserva \MaximoPassoDois{}.
+\small\strong{\MaximoDemo{} \(\to\) \MaximoPassoDois{}}\par
+Máximo do filtro \FiltroDemo{} ao mudar o passo de 1 para 2.
+\par\vspace{2mm}
+Na saída binária, \(p_+=\sigma(z_+-z_-)\).
 \end{column}
 \end{columns}
-\smallsource{Ativações reais, semente 17, tokenizer por palavras. 2.714.502 parâmetros.
-\fonte{src/imdb_lab/models.py}{TextCNN}. \liveversion{5}.}
+\smallsource{Frase A, semente 17. Mapas esquemáticos.
+\href{https://costaleirbag.github.io/projeto-mae5920/\#slide-5}{Montagem com código}.
+\href{https://costaleirbag.github.io/projeto-mae5920/\#slide-5-varredura}{Varredura}.}
 \end{frame}
 
 % 05:15–06:40
