@@ -1,0 +1,36 @@
+\begin{center}
+\begin{tikzpicture}[
+  x=1mm,y=1mm, font=\sffamily\small,
+  etapa/.style={draw=Rule,fill=Soft,rounded corners=2pt,text=Ink,
+    align=center,inner sep=3pt,minimum height=14mm},
+  ramo/.style={etapa,minimum width=44mm},
+  seta/.style={-{Latex[length=1.7mm]},line width=.65pt,draw=Muted}
+]
+  \node[etapa,minimum width=27mm] (ids) at (14,0)
+    {\textbf{IDs}\\[-.5mm]\(B\times T\)};
+  \node[etapa,minimum width=28mm] (emb) at (46,0)
+    {\textbf{Embeddings}\\[-.5mm]\(B\times128\times T\)};
+  \node[ramo,fill=SoftTeal] (k3) at (89,17)
+    {\textbf{Conv + ReLU}\enspace\(k=3\)\\[-.5mm]\(B\times100\times(T-2)\)};
+  \node[ramo,fill=SoftBlue] (k4) at (89,0)
+    {\textbf{Conv + ReLU}\enspace\(k=4\)\\[-.5mm]\(B\times100\times(T-3)\)};
+  \node[ramo,fill=SoftRust] (k5) at (89,-17)
+    {\textbf{Conv + ReLU}\enspace\(k=5\)\\[-.5mm]\(B\times100\times(T-4)\)};
+  \node[etapa,minimum width=20mm] (max) at (128,0)
+    {\textbf{Máximos}\\[-.5mm]\(B\times300\)};
+  \node[etapa,minimum width=18mm] (out) at (153.6,0)
+    {\textbf{Logits}\\[-.5mm]\(B\times2\)};
+  \draw[seta] (ids) -- (emb);
+  \draw[seta,Teal] (emb.east) -- ++(3,0) |- (k3.west);
+  \draw[seta,ReportBlue] (emb.east) -- (k4.west);
+  \draw[seta,Rust] (emb.east) -- ++(3,0) |- (k5.west);
+  \draw[seta,Teal] (k3.east) -- ++(4,0) |- ([yshift=3.5pt]max.west);
+  \draw[seta,ReportBlue] (k4.east) -- (max.west);
+  \draw[seta,Rust] (k5.east) -- ++(4,0) |- ([yshift=-3.5pt]max.west);
+  \draw[seta] (max) -- (out);
+  \node[font=\sffamily\scriptsize,text=Muted,align=center] at (128,-11)
+    {máscara, pooling\\e concatenação};
+  \node[font=\sffamily\scriptsize,text=Muted,align=center] at (153.6,-11)
+    {dropout no treino\\e camada linear};
+\end{tikzpicture}
+\end{center}

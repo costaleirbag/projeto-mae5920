@@ -1,56 +1,60 @@
-\section{Tokenização e arquitetura}
+\section{Da resenha aos dois logits}
 \label{sec:arquitetura}
-\subsection{Duas unidades de entrada}
-\textbf{Palavras.} Convertemos o prefixo limpo para minúsculas. A expressão
-\verb|[a-z]+(?:'[a-z]+)?|\verb!|\d+! preserva palavras, contrações e números.
-O vocabulário contém os 19.998 itens mais frequentes no treino, além de
-\texttt{<pad>} (ID 0) e \texttt{<unk>} (ID 1). A frequência determina a ordem,
-com desempate lexical. A posição de cada ID é preservada na sequência.
-Palavras de negação como \textit{not} seguem para o modelo.
+Imagine 300 detectores que percorrem a resenha. Cada um reage a um padrão
+local e entrega sua maior resposta. A camada final aprende quanto cada
+resposta conta a favor de cada classe. Essa é a TextCNN usada nos ensaios
+por palavras e por BPE \cite{kim,prince}.
 
-\textbf{BPE.} Mantemos a normalização lexical e separamos palavras com
-\texttt{WhitespaceSplit}. O BPE de caracteres aprende uniões de pares
-frequentes com os 6.144 textos de treino, frequência mínima 2 e vocabulário
-de 20.000 itens. O marcador \texttt{</w>} identifica o fim de palavra.
-O tokenizer é congelado antes do treino supervisionado da CNN.
-O procedimento adapta BPE para unidades de texto \cite{sennrich}.
+\subsection{De palavras a IDs}
+O tokenizador por palavras preserva contrações, números e negações como
+\textit{not}. O vocabulário reserva 19.998 lugares aos itens mais frequentes
+do treino, além de \texttt{<pad>} e \texttt{<unk>}. O BPE aprende fusões de
+pares de caracteres frequentes nos 6.144 textos de treino, com frequência
+mínima 2 e vocabulário de 20 mil itens. O marcador \texttt{</w>} indica o
+fim de palavra \cite{sennrich}.
+\fonte{docs/PROTOCOLO_BPE.md}{Normalização e vocabulários}.
 
-\caso{Entrada}{\ExemploCobertura}
-\begin{tabularx}{\linewidth}{@{}lX@{}}
-\toprule
-\tabelahead{Palavras} & \texttt{the \enspace <unk> \enspace scene \enspace was \enspace unexpectedly \enspace moving}\\
-\tabelahead{BPE} & \texttt{the</w> \enspace p \enspace all \enspace bearer</w> \enspace scene</w>} \newline
-\texttt{was</w> \enspace unexpectedly</w> \enspace moving</w>}\\
-\bottomrule
-\end{tabularx}
-\legendinha{Tabela 3. Saída dos tokenizadores congelados. \texttt{pallbearer} tem
-um ID desconhecido com palavras e três peças com BPE.}
+\painel[SoftBlue]{\rotulo{Quando uma palavra vira três peças}\enspace
+  \textit{\ExemploCobertura}\par\smallskip
+  \small Palavras\enspace\tokenrel[SoftRust]{<unk>}
+  \qquad BPE\enspace\tokenrel[SoftTeal]{p}\enspace
+  \tokenrel[SoftTeal]{all}\enspace\tokenrel[SoftTeal]{bearer</w>}\par\smallskip
+  Uma janela de largura 3 pode cobrir as três peças de uma única palavra.}
 
-\subsection{Convolução sobre embeddings}
-Cada ID acessa um vetor de 128 dimensões aprendido com a tarefa. O filtro
-de largura \(k\) lê \(k\) tokens vizinhos e usa os mesmos pesos em todas as
-posições. Aplicamos três grupos paralelos de convoluções de larguras 3, 4 e
-5, com cem filtros por largura. A ReLU deixa respostas positivas passarem.
-O máximo global seleciona a maior ativação por filtro. A topologia segue
-a família de CNNs para classificação de sentenças \cite{kim,prince}.
+\smallskip
+\input{partes/figura-cnn-relatorio.tex}
+\legendinha{Figura 1. Fluxo da TextCNN. \(B\) é o número de resenhas no
+minibatch e \(T\) é o comprimento com padding. As dimensões representam
+tensores. Os trechos abaixo levam às linhas da implementação.}
 
-\vspace{2mm}
-\Arquitetura
-\legendinha{Figura 1. TextCNN do projeto. \(B\) é o tamanho do minibatch e \(T\) é
-o comprimento após padding. A camada linear produz logits negativo e positivo.}
-
-Se \(e_t\) é o embedding na posição \(t\), o filtro \(f\) resume a entrada por
+\subsection{A mesma conta em cada janela}
+A sequência de IDs consulta vetores de 128 coordenadas aprendidas no treino.
+Após a transposição, os 128 canais entram na convolução. Para um filtro \(f\)
+de largura \(k\), a mesma matriz \(W_f\) e o mesmo viés \(b_f\) são usados
+em todas as posições. Se \(e_t\) é o embedding na posição \(t\), temos
 \[
-  m_f = \max_{t\in\mathcal V_k}
-  \operatorname{ReLU}\!\left(\langle W_f, [e_t,\ldots,e_{t+k-1}]\rangle + b_f\right).
+  a_{f,t}=\max\!\left(0,\,\langle W_f,[e_t,\ldots,e_{t+k-1}]\rangle+b_f\right),
+  \qquad m_f=\max_{t\in\mathcal V_k} a_{f,t}.
 \]
-\(\mathcal V_k\) exclui as janelas que avançam sobre padding em entradas com
-pelo menos \(k\) tokens. Para sequências mais curtas, a implementação mantém
-a primeira janela com padding. A concatenação dos 300 máximos passa por dropout de
-0,5 no treino e uma camada \(\mathrm{Linear}(300,2)\).
+A ReLU põe respostas negativas em zero. O máximo \(m_f\) guarda a força
+do melhor encaixe. Para uma sequência de \(L\) tokens, a máscara mantém
+\(\max(1,L-k+1)\) posições iniciais. Se \(L<k\), fica uma janela com
+padding. \codigoCNN{38-L45}{embedding}, \codigoCNN{47-L48}{conv},
+\codigoCNN{49-L52}{masked\_fill}.
 
-Na CNN principal, \(20.000\times128=2.560.000\) parâmetros pertencem aos
-embeddings. As convoluções somam \(100\sum_{k\in\{3,4,5\}}(128k+1)=153.900\).
-A saída soma \(2(300+1)=602\), totalizando \textbf{2.714.502 parâmetros}.
-A mesma largura em tokens pode abranger menos palavras quando BPE fragmenta
-uma palavra. \fonte{src/imdb_lab/models.py}{Implementação}.
+\subsection{Do pico à classe}
+Os máximos formam um vetor \(m\) de 300 componentes. No treino, passa-se
+por dropout de 0,5 antes da camada linear. Na inferência, a saída é
+\(z=Wm+b\), com dois logits, \(z_-\) e \(z_+\). A margem
+\(\Delta=z_+-z_-\) expressa a diferença entre os votos das duas classes.
+O softmax binário dá \(p(+)=\sigma(\Delta)\). Uma margem positiva
+corresponde a \(p(+)>0{,}5\). Na frase A da semente 17 por palavras,
+\(z_-\approx2{,}259\) e \(z_+\approx-2{,}863\) dão \(p(+)\approx0{,}59\%\).
+A entropia cruzada do treino recebe os dois logits diretamente.
+\codigoCNN{41-L53}{classifier}.
+
+\painel[SoftTeal]{\rotulo{Onde estão os 2.714.502 parâmetros da CNN por palavras?}\par
+  \smallskip\small
+  \(20.000\times128=2.560.000\) nos embeddings.\enspace
+  \(100\sum_{k\in\{3,4,5\}}(128k+1)=153.900\) nas convoluções.\enspace
+  \(2(300+1)=602\) na saída.}

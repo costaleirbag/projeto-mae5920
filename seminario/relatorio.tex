@@ -3,25 +3,28 @@
 \usepackage{libertinus,microtype,fancyhdr,titlesec}
 \usepackage[hidelinks]{hyperref}
 \input{comum.tex}
+\input{partes/visuais-relatorio.tex}
+\input{dados/relatorio.tex}
 \hypersetup{colorlinks=true,linkcolor=Teal,urlcolor=Teal,citecolor=Teal,
-  pdftitle={O que a CNN lê em uma resenha?},pdfauthor={Nestor, Letícia e Gabriel}}
+  pdftitle={O que a CNN lê em uma resenha?},pdfauthor={Nestor, Letícia e Gabriel},
+  pdfsubject={Relatório do seminário de Introdução a Deep Learning}}
 \color{Ink}
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{5pt plus 1pt minus 1pt}
 \setlength{\emergencystretch}{2em}
 \renewcommand{\arraystretch}{1.14}
-\setcounter{secnumdepth}{2}
+\setcounter{secnumdepth}{1}
 \titleformat{\section}{\Large\sffamily\bfseries\color{Ink}}{\textcolor{Teal}{\thesection}}{.65em}{}
 \titleformat{\subsection}{\normalsize\sffamily\bfseries\color{Teal}}{}{0pt}{}
-\titlespacing*{\section}{0pt}{8pt}{6pt}
+\titlespacing*{\section}{0pt}{4pt}{7pt}
 \titlespacing*{\subsection}{0pt}{8pt}{3pt}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\footnotesize\sffamily MAE5920\enspace$\cdot$\enspace Introdução a Deep Learning}
-\fancyhead[R]{\footnotesize\sffamily CNN e tokenização}
+\fancyhead[L]{\footnotesize\sffamily\color{Muted} MAE5920\enspace$\cdot$\enspace Introdução a Deep Learning}
+\fancyhead[R]{\footnotesize\sffamily\color{Muted} Relatório do seminário}
 \fancyfoot[R]{\footnotesize\sffamily\thepage}
 \renewcommand{\headrulewidth}{.4pt}
-\newcommand{\legendinha}[1]{\par\vspace{3pt}{\footnotesize #1\par}}
+\newcommand{\legendinha}[1]{\par\vspace{3pt}{\footnotesize\color{Muted} #1\par}}
 \newcommand{\tabelahead}[1]{\leavevmode{\sffamily\bfseries\color{Teal}#1}}
 \begin{document}
 \input{partes/01-pergunta.tex}
@@ -31,12 +34,14 @@
 \input{partes/03-arquitetura.tex}
 \newpage
 \input{partes/04-treino.tex}
+\input{partes/06-tokenizacao.tex}
 \newpage
 \input{partes/05-resultados.tex}
-\newpage
-\input{partes/06-tokenizacao.tex}
 \newpage
 \input{partes/07-diagnosticos.tex}
 \newpage
 \input{partes/08-falhas.tex}
+\newpage
+\input{partes/09-posicao.tex}
+\input{partes/10-transferencia.tex}
 \end{document}
