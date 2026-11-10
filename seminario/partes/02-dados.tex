@@ -1,12 +1,10 @@
 \section{Dados e protocolo de avaliação}
 \label{sec:dados}
-O Large Movie Review Dataset contém 25.000 avaliações rotuladas no treino
-oficial e 25.000 no teste \cite{maas}. Reservar um papel para cada grupo
-permite escolher o modelo, ajustar os escores e medir o resultado em amostras
-distintas. A tarefa usa o texto em inglês e dois
-rótulos, \(y=0\) para negativo e \(y=1\) para positivo. Decodificamos entidades
-HTML, removemos tags e normalizamos espaços. A identificação de duplicatas
-usa o hash do texto limpo com \textit{casefold}.
+O Large Movie Review Dataset contém 25.000 resenhas em inglês no treino
+oficial e 25.000 no teste \cite{maas}. Os rótulos são \(0\) para negativo e
+\(1\) para positivo. A limpeza aplica regras fixas a cada resenha, decodificando
+HTML, removendo tags e normalizando espaços. A busca de duplicatas usa SHA-256
+do texto limpo após normalizar maiúsculas e minúsculas (\textit{casefold}).
 
 \subsection{Papéis das amostras}
 \begin{tabularx}{\linewidth}{@{}lrrX@{}}
@@ -19,27 +17,31 @@ Calibração   &  2.478 &  --   & Ajustar temperatura após a seleção original
 Teste/auditoria & 25.000 & 2.048 & Avaliar a configuração já escolhida.\\
 \bottomrule
 \end{tabularx}
-\legendinha{Tabela 1. O número 2.048 se refere à auditoria de cada extensão.
-CNN/encoders, palavras/BPE e MLP usam amostras internas distintas.}
+\legendinha{Tabela 1. CNN/encoders, palavras/BPE e MLP usam auditorias
+distintas de 2.048 resenhas.}
 
-No preparo original, removemos do treino textos com hash presente no teste,
-duplicatas internas e conflitos de rótulo. A comparação de hashes usa os textos
-do teste para excluir duplicatas, com rótulos reservados à avaliação. Os
-registros distinguem 123 linhas do treino que coincidiam com o teste e
-98 duplicatas internas do treino. O teste oficial conserva 201 ocorrências
-duplicadas. A auditoria detecta igualdade normalizada, de modo que paráfrases
-e possíveis exposições no pré-treinamento continuam como fontes de incerteza.
+CNN/encoders e palavras/BPE partem do treino limpo e compartilham treino e
+validação. Recebem até 128 palavras e até 256 tokens. A auditoria BPE exclui
+também os papéis sequenciais. Cada auditoria foi aberta após congelar pesos e
+escolhas. Protocolos
+\fonte{docs/PROTOCOLO_SEQUENCIAS.md}{sequencial} e
+\fonte{docs/PROTOCOLO_BPE.md}{BPE}.
 
-As extensões partem do treino limpo. CNN/encoders e palavras/BPE compartilham
-treino e validação e recebem prefixos de até 128 palavras. Cada rede pode
-usar até 256 tokens. A auditoria BPE exclui também os papéis da extensão
-sequencial. A entrada de cada auditoria ficou reservada até o congelamento
-dos pesos e das escolhas. Os resultados de teste oficial vêm da execução
-original. \fonte{data/manifest.json}{Manifesto original}.
-\fonte{docs/PROTOCOLO_SEQUENCIAS.md}{Protocolo sequencial}.
-\fonte{docs/PROTOCOLO_BPE.md}{Protocolo BPE}.
+\subsection{Análise de possíveis vazamentos de informação}
+No preparo original, removemos 123 linhas do treino com hash presente no
+teste e 98 duplicatas internas. A comparação acessou os textos do teste
+para excluir duplicatas, com os rótulos reservados à avaliação. Os quatro
+conjuntos finais têm zero hashes compartilhados entre papéis. O teste
+oficial conserva 201 ocorrências duplicadas.
+\fonte{data/manifest.json}{Manifesto original}.
 
-\subsection{Dicionário resumido}
+TF-IDF, vocabulário da CNN e fusões do BPE foram ajustados apenas no treino.
+A checagem cobre igualdade de texto após normalização. Paráfrases e possível
+exposição ao IMDb no pré-treinamento seguem como limitações. A análise de
+erros e a extensão do Qwen sobre o IMDb reutilizam o teste em caráter
+exploratório.
+
+\subsection{Dicionário de dados resumido}
 \begin{tabularx}{\linewidth}{@{}lX@{}}
 \toprule
 \tabelahead{Campo} & \tabelahead{Significado}\\

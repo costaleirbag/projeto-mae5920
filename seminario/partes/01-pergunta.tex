@@ -1,20 +1,27 @@
 \thispagestyle{empty}
 \vspace*{3mm}
 {\sffamily\bfseries\color{Teal} MAE5920\enspace $\cdot$\enspace INTRODUÇÃO A DEEP LEARNING\par}
-\vspace{7mm}
+\vspace{4mm}
 {\fontsize{39}{41}\selectfont\sffamily\bfseries O que a CNN lê\\ em uma resenha?\par}
 \vspace{3mm}
 {\large Classificação de sentimento e tokenização no IMDb\par}
 \vspace{3mm}
 {\sffamily Nestor, Letícia e Gabriel\par}
-\vspace{6mm}
+\vspace{4mm}
 {\color{Rule}\rule{\linewidth}{.7pt}}\par
 
-\section{Duas frases, dois finais}
+\section{Introdução}
 \label{sec:ordem}
-Leia as frases como duas micro-resenhas. Em qual delas você recomendaria o
-filme? As palavras são as mesmas. A troca coloca um elogio ou uma crítica
-depois de \textit{but}, onde lemos o veredito.
+Classificamos resenhas de filmes do IMDb como positivas ou negativas.
+Comparamos TF-IDF com regressão logística, uma TextCNN treinada do zero e
+BERT ajustado. O objetivo didático é entender como tokenização, janelas de
+convolução e máximo global condicionam as decisões da CNN. Além das métricas
+médias, usamos alterações controladas de texto e exemplos de outros domínios
+para investigar seus limites.
+
+\subsection{Duas frases, dois finais}
+As micro-resenhas abaixo usam as mesmas palavras. A troca coloca um elogio
+ou uma crítica depois de \textit{but}, onde lemos o veredito.
 
 \medskip
 \FrasesContraste
@@ -26,22 +33,23 @@ mudar com a troca. A CNN também recebe informação de ordem dentro de cada
 janela. A Seção~\ref{sec:falhas} mostra o que cada treino fez com os dois finais.
 
 \subsection*{Resumo}
-No teste oficial do IMDb, com 25.000 resenhas, TF-IDF com regressão logística,
-TextCNN e BERT ajustado atingiram 90,14\%, 86,78\% e 90,94\% de acurácia.
+No teste oficial de 25.000 resenhas, TF-IDF, TextCNN e BERT ajustado atingiram
+90,14\%, 86,78\% e 90,94\% de acurácia.
 Em uma auditoria pareada separada, BPE reduziu a taxa de tokens desconhecidos
 de 3,27\% para zero, com acurácia média de 81,41\% ante 82,00\% com palavras.
-No par acima, os três treinos de cada tokenização atribuíram classe negativa
-a A e positiva a B. Um segundo par preservou as janelas e produziu logits
-iguais para as duas frases em cada checkpoint. Guardar dois picos por
-filtro em ordem de posição separou
-esse segundo par sem melhorar o acerto nos pares editados por pessoas.
+Nas três sementes de cada tokenização, as CNNs deram negativa para A e
+positiva para B.
+Um segundo par preservou as janelas e produziu logits iguais.
+Guardar dois picos por filtro em ordem de posição separou esse segundo par
+sem melhorar o acerto nos pares editados por pessoas.
 
 \medskip
-\painel{\rotulo{Percurso de leitura}\par\smallskip
-  \small Da preparação das resenhas à decisão do modelo, nas
-  Seções~\ref{sec:dados}--\ref{sec:arquitetura}. Dos resultados médios à troca
-  de duas palavras e ao ensaio de posição, nas
-  Seções~\ref{sec:resultados}--\ref{sec:falhas}.}
+\painel{\rotulo{Uso de ferramentas de IA}\par\smallskip
+  \small Usamos o Codex, da OpenAI, na implementação de código, execução e
+  análise dos experimentos e elaboração e revisão de textos, figuras e slides.
+  O Qwen3-8B foi empregado como modelo experimental. Os resultados quantitativos
+  provêm das execuções registradas no repositório. A revisão final e a
+  responsabilidade pelo conteúdo cabem aos autores.}
 \vfill
 \nota{Código, notebook executado e métricas por execução.
 \href{\projetourl}{Repositório do projeto}.}

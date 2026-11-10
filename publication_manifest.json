@@ -300,8 +300,8 @@
       "sha256": "67411fc666ffcb89209297b7afb98bd9e51d641a4c863297e84367c1350f1e3c"
     },
     "output/pdf/relatorio_seminario.pdf": {
-      "bytes": 782881,
-      "sha256": "cbd930819bf36ebe9ecd257d92c606dc448a9c17024bf8efc313cba1e8777b13"
+      "bytes": 782876,
+      "sha256": "8637423ba8bd65c2da5e7ddd316107179bc85e57d217db3ca4ff4ae59ecd5bdd"
     },
     "output/pdf/slides_15_min.pdf": {
       "bytes": 433147,
@@ -3364,12 +3364,12 @@
       "sha256": "269ff4acef65380430afd1c20d0fad0486fb242b0e6db5ff2b30c8b6de496139"
     },
     "seminario/partes/01-pergunta.tex": {
-      "bytes": 2129,
-      "sha256": "6e8d3bfc1ea8ba0e2b2b7c04bb5fd4123130404d0ae501f2be839b941eb95e22"
+      "bytes": 2559,
+      "sha256": "62e340319020390070ed05b652fc10eac322b61bd984139a810f789611c57da8"
     },
     "seminario/partes/02-dados.tex": {
-      "bytes": 3778,
-      "sha256": "3320ba7030da9b50a2abbda0708e176e18a7e85acd0d67ba61551d21f81f260b"
+      "bytes": 3681,
+      "sha256": "6d45db8259561a8586f759484217c9d79ed8fa4bc3db007782bdf51469dd6fab"
     },
     "seminario/partes/03-arquitetura.tex": {
       "bytes": 3175,
