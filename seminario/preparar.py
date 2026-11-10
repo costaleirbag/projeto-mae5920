@@ -34,6 +34,7 @@ SOURCES = (
     "seminario/dados/animacoes.json",
     "seminario/dados/discordancias.json",
     "seminario/dados/passo_resultados.json",
+    "seminario/dados/posicao_resultados.json",
 )
 
 
@@ -62,11 +63,16 @@ def macro(name: str, body: str) -> str:
     return "\\newcommand{\\" + name + "}{" + body + "}\n"
 
 
+def tex_call(name: str, *args) -> str:
+    return "\\" + name + "".join("{" + str(value) + "}" for value in args)
+
+
 def style_plots() -> None:
     plt.rcParams.update({
-        "font.family": "DejaVu Sans", "font.size": 12, "axes.titlesize": 14,
+        "font.family": "DejaVu Sans", "font.size": 13, "axes.titlesize": 15,
         "axes.labelsize": 12, "legend.fontsize": 11, "axes.titleweight": "bold",
-        "axes.spines.top": False, "axes.spines.right": False,
+        "axes.spines.top": False, "axes.spines.right": False, "axes.spines.left": False,
+        "xtick.major.size": 0, "ytick.major.size": 0, "axes.titlepad": 13,
         "axes.edgecolor": GRID, "axes.labelcolor": INK, "text.color": INK,
         "xtick.color": INK, "ytick.color": INK, "grid.color": GRID,
         "axes.axisbelow": True, "pdf.fonttype": 42,
@@ -74,7 +80,7 @@ def style_plots() -> None:
 
 
 def save(figure, name: str) -> None:
-    figure.savefig(FIGURES / name, bbox_inches="tight", pad_inches=0.08,
+    figure.savefig(FIGURES / name, bbox_inches="tight", pad_inches=0.045, transparent=True,
                    metadata={"CreationDate": None, "ModDate": None})
     plt.close(figure)
 
@@ -83,31 +89,33 @@ def learning_curves() -> None:
     curves = read_json("results/sequences/presentation_data.json")["curves"]
     fig, (left, right) = plt.subplots(1, 2, figsize=(10.4, 3.6), layout="constrained")
     for key, name, color, linestyle in [
-        ("cnn_sgd", "SGD · 0,3", BLUE, "--"),
-        ("cnn_momentum", "Momentum · 0,1", RUST, "-."),
-        ("cnn_adam", "Adam · 0,001", TEAL, "-"),
+        ("cnn_sgd", "SGD", BLUE, "--"),
+        ("cnn_momentum", "Momentum", RUST, "-."),
+        ("cnn_adam", "Adam", TEAL, "-"),
     ]:
         data = curves[key]["validation_ce"]
-        left.plot(data["epochs"], data["mean"], color=color, lw=2.1, ls=linestyle, label=name)
-        left.fill_between(data["epochs"], data["min"], data["max"], color=color, alpha=.10)
-    left.set_title("Validação por otimizador", loc="left")
-    left.set_ylabel("Entropia cruzada")
-    left.legend(frameon=False)
+        left.plot(data["epochs"], data["mean"], color=color, lw=2.35, ls=linestyle, label=name)
+        left.fill_between(data["epochs"], data["min"], data["max"], color=color, alpha=.08)
+    left.set_title("Entropia cruzada na validação", loc="left")
+    left.legend(loc="upper right", frameon=False, handlelength=1.45)
     for key, name, color, linestyle in [
         ("train_ce", "Treino", BLUE, "--"),
         ("validation_ce", "Validação", TEAL, "-"),
     ]:
         data = curves["cnn_adam"][key]
-        right.plot(data["epochs"], data["mean"], color=color, lw=2.2, ls=linestyle, label=name)
-        right.fill_between(data["epochs"], data["min"], data["max"], color=color, alpha=.10)
-    right.axvspan(5, 6, color=RUST, alpha=.12, label="Épocas escolhidas")
-    right.set_title("Treino com Adam", loc="left")
-    right.legend(frameon=False)
-    for axis in (left, right):
-        axis.set_xlabel("Época")
+        right.plot(data["epochs"], data["mean"], color=color, lw=2.4, ls=linestyle, label=name)
+        right.fill_between(data["epochs"], data["min"], data["max"], color=color, alpha=.08)
+        right.text(12.17, data["mean"][-1], name, color=color, va="center", fontsize=11, weight="bold")
+    chosen = curves["cnn_adam"]["validation_ce"]["mean"]
+    right.axvspan(4.85, 6.15, color=TEAL, alpha=.11, linewidth=0)
+    right.scatter([5, 6], chosen[5:7], color=TEAL, s=31, zorder=4)
+    right.text(5.5, .89, "épocas 5–6", ha="center", color=TEAL, fontsize=11, weight="bold")
+    right.set_title("Treino e validação com Adam", loc="left")
+    for axis, end in ((left, 12.25), (right, 14.55)):
+        axis.set(xlabel="Época", xlim=(-.2, end), ylim=(-.035, .98), yticks=[0, .2, .4, .6, .8])
         axis.set_xticks([0, 2, 4, 6, 8, 10, 12])
         axis.yaxis.set_major_formatter(FuncFormatter(lambda x, _: pt(x, 1)))
-        axis.grid(axis="y", alpha=.85)
+        axis.grid(axis="y", alpha=.8)
     save(fig, "otimizacao.pdf")
 
 
@@ -154,16 +162,17 @@ def original_diagnostics() -> None:
 def paired_bpe() -> None:
     rows = read_json("results/bpe/audit_metrics.json")["metrics"]
     pairs = {(r["kind"], r["seed"]): 100 * r["accuracy"] for r in rows}
-    fig, axis = plt.subplots(figsize=(5.3, 2.85), layout="constrained")
+    fig, axis = plt.subplots(figsize=(6.25, 3.05), layout="constrained")
     for seed, color, marker in [(17, TEAL, "o"), (29, RUST, "s"), (43, BLUE, "^")]:
-        axis.plot([0, 1], [pairs["word", seed], pairs["bpe", seed]],
-                  color=color, lw=2.1, marker=marker, ms=6, label=str(seed))
+        first, last = pairs["word", seed], pairs["bpe", seed]
+        axis.plot([0, 1], [first, last], color=color, lw=2.2, marker=marker, ms=7)
+        offset = {17: 0, 29: -.085, 43: .085}[seed]
+        axis.plot([1, 1.06], [last, last + offset], color=color, lw=.9)
+        axis.text(1.08, last + offset, str(seed), color=color, weight="bold", va="center")
     axis.set_xticks([0, 1], ["Palavras", "BPE"])
-    axis.set_xlim(-.18, 1.18)
-    axis.set_ylim(81.0, 82.55)
-    axis.set_ylabel("Acurácia (%)")
+    axis.set(xlim=(-.22, 1.24), ylim=(81.0, 82.65), yticks=[81, 81.5, 82, 82.5])
+    axis.set_title("Acurácia por semente (%)", loc="left")
     axis.yaxis.set_major_formatter(FuncFormatter(lambda x, _: pt(x, 1)))
-    axis.legend(title="Semente", frameon=False, loc="upper right", ncols=3)
     axis.grid(axis="y")
     save(fig, "bpe_pareado.pdf")
 
@@ -202,13 +211,16 @@ def tables() -> str:
                      and x["probabilities"] == "raw")
             split_rows.append(row(split_label, name, pct(float(r["accuracy"])),
                                   pt(float(r["f1_macro"]), 4), pt(float(r["log_loss"]), 4)))
-    calibrated_rows = []
+    calibrated_rows, chart_rows = [], []
     cost_rows = []
-    for key, name in baseline_names.items():
+    for y, (key, name) in zip((31, 20, 9), baseline_names.items(), strict=True):
         r = next(x for x in comparisons if x["model"] == key and x["split"] == "test"
                  and x["probabilities"] == "calibrated")
         calibrated_rows.append(row(name, pct(float(r["accuracy"])), pt(float(r["f1_macro"]), 4),
                                    pt(float(r["log_loss"]), 4)))
+        chart_rows.append(tex_call("officialpoint", y, name, float(r["accuracy"]) * 100,
+                                   pct(float(r["accuracy"])), pt(float(r["f1_macro"]), 4),
+                                   pt(float(r["log_loss"]), 4), "Teal" if key == "cnn" else "Quiet"))
         meta = read_json(f"results/{key}/metadata.json")
         device = {"tfidf": "CPU do Apple M1", "cnn": "Apple M1 (MPS)",
                   "bert": "NVIDIA GB10 (CUDA)"}[key]
@@ -224,9 +236,9 @@ def tables() -> str:
     sequence_rows[0] = sequence_rows[0].replace("Adam", "CNN + Adam", 1)
     sequence_rows.insert(0, row("TF-IDF + logística", pct(baseline["accuracy"]),
                                 pt(baseline["f1_macro"], 4), pt(baseline["ce"], 4)))
-    regime_rows = [
-        row(label, pct(by_key[family + "_probe"]["accuracy_mean"]),
-            pct(by_key[family + "_full"]["accuracy_mean"]))
+    regime_chart = [
+        tex_call("encoderrow", label, pct(by_key[family + "_probe"]["accuracy_mean"]),
+                 pct(by_key[family + "_full"]["accuracy_mean"]))
         for family, label in [("bert", "BERT-base"), ("distilbert", "DistilBERT"),
                               ("modernbert", "ModernBERT-base")]
     ]
@@ -261,19 +273,6 @@ def tables() -> str:
             scores = record["medias"][name]
             cells.extend((pct(scores["accuracy"]), pt(scores["f1_macro"], 4), pt(scores["ce"], 4)))
         external_rows.append(row(*cells))
-    comment_rows = []
-    for comment in external["comentarios_youtube"]:
-        if comment["origem"] == "Baby":
-            continue
-        quote = (r"\textcolor{Teal}{\scriptsize\bfseries " + comment["origem"] + r"}\par "
-                 + r"\textit{" + comment["texto"] + "}")
-        seed = {p["modelo"]: p for p in comment["predicoes"] if p["semente"] == 17}
-        cells = [quote]
-        for name in ("Palavras", "BPE"):
-            prediction = seed[name]
-            label = {"positiva": "Pos.", "negativa": "Neg."}[prediction["classe"]]
-            cells.append(f"{label} ({pct(prediction['p_positiva'], 1)})")
-        comment_rows.append(row(*cells))
     demo = read_json("seminario/dados/animacoes.json")
     steps = demo["bpe"]["etapas"]
     trace = demo["cnn"]["casos"]["A"]["janelas"]["3"]
@@ -284,44 +283,48 @@ def tables() -> str:
             command = r"\fused" if index == step.get("indice") else r"\chip"
             tokens.append(command + "{" + token + "}")
         bpe_steps[name] = "".join(tokens)
-    kernel_rows = [
-        row(width, filters, pct(by_key[key]["accuracy_mean"]))
-        for width, filters, key in (("3", 100, "cnn_kernel_3"), ("5", 100, "cnn_kernel_5"), ("3/4/5", 300, "cnn_base"))
-    ]
+    kernels = (("3", 100, "cnn_kernel_3"), ("5", 100, "cnn_kernel_5"), ("3/4/5", 300, "cnn_base"))
+    kernel_cards = [tex_call("labvalue", width, f"{filters} filtros", pct(by_key[key]["accuracy_mean"]))
+                    for width, filters, key in kernels]
     stride = read_json("seminario/dados/passo_resultados.json")["medias"]
-    stride_rows = [
-        row(step, pct(scores["fracao_de_janelas"], 1), pct(scores["accuracy"]))
-        for step, scores in stride.items()
-    ]
+    stride_cards = [tex_call("labvalue", step, pct(scores["fracao_de_janelas"], 1) + " das janelas",
+                            pct(scores["accuracy"])) for step, scores in stride.items()]
+    position = read_json("seminario/dados/posicao_resultados.json")
+    position_values = {
+        "SemPosHumanos": pct(position["medias"]["dois_picos_sem_posicao"]["contrast"]["fracao_pares"], 1),
+        "ComPosHumanos": pct(position["medias"]["dois_picos_com_posicao"]["contrast"]["fracao_pares"], 1),
+        "NParesHumanos": str(position["n"]["contrast"] // 2),
+    }
     disagreements = read_json("seminario/dados/discordancias.json")
-    long, short = disagreements["casos"]
-    cut_rows = [
-        row(label, pct(long[tfidf]["p_positiva"], 1), pct(long[cnn]["p_positiva"], 1))
-        for label, tfidf, cnn in (
-            ("Primeiros 400 tokens", "tfidf_prefixo", "cnn_prefixo"),
-            ("Texto inteiro", "tfidf_inteiro", "cnn_inteiro"),
-        )
+    long = disagreements["casos"][0]
+    cut_excerpts = (
+        ("Primeiros 400 tokens", "tfidf_prefixo", "cnn_prefixo"),
+        ("Texto inteiro", "tfidf_inteiro", "cnn_inteiro"),
+    )
+    cut_cards = [
+        tex_call("cutrow", label, pct(long[tfidf]["p_positiva"], 1), pct(long[cnn]["p_positiva"], 1),
+                 "Teal" if tfidf.endswith("prefixo") else "Rust")
+        for label, tfidf, cnn in cut_excerpts
     ]
     total = disagreements["total"]
     only_tfidf, only_cnn = total["so_tfidf_acerta"], total["so_cnn_acerta"]
     props = {
         "LinhasOriginal": "\n".join(split_rows),
         "LinhasTeste": "\n".join(calibrated_rows),
+        "PontosTeste": "\n".join(chart_rows),
+        "RegimesVisuais": "\n".join(regime_chart),
+        "KernelsVisuais": "\n".join(kernel_cards),
+        "PassosVisuais": "\n".join(stride_cards),
+        "RecorteVisual": "\n".join(cut_cards),
+        **position_values,
         "LinhasCusto": "\n".join(cost_rows),
         "LinhasSeq": "\n".join(sequence_rows),
-        "LinhasRegimes": "\n".join(regime_rows),
         "LinhasBPE": "\n".join(bpe_rows),
         "LinhasPares": "\n".join(pair_rows),
         "LinhasForaDominio": "\n".join(external_rows),
-        "LinhasYouTube": "\n".join(comment_rows),
-        "LinhasKernel": "\n".join(kernel_rows),
-        "LinhasPasso": "\n".join(stride_rows),
-        "LinhasRecorte": "\n".join(cut_rows),
         "SoTFIDF": f"{only_tfidf:,}".replace(",", "."),
         "SoCNN": f"{only_cnn:,}".replace(",", "."),
         "Discordancias": f"{only_tfidf + only_cnn:,}".replace(",", "."),
-        "TfidfCurta": pct(short["tfidf_inteiro"]["p_positiva"], 1),
-        "CNNCurta": pct(short["cnn_prefixo"]["p_positiva"], 1),
         "PassoUm": pct(stride["1"]["accuracy"]),
         "PassoDois": pct(stride["2"]["accuracy"]),
         "PassoTres": pct(stride["3"]["accuracy"]),

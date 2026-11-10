@@ -13,13 +13,15 @@ de apoio. O relatório tem oito páginas, dentro da faixa do enunciado.
 | Experimentos e código explicado | [Notebook único](../notebooks/seminario_completo.ipynb) |
 | Predições dos quatro pares e teste de cobertura | [Entradas](casos.json) · [Resultados por semente](dados/pares_resultados.json) |
 | Avaliação fora do IMDb e exemplos do YouTube | [Protocolo](#avaliação-fora-do-imdb) · [Resultados por semente](dados/fora_dominio_resultados.json) |
-| Discordâncias entre modelos e efeito de largura e passo | [Diagnósticos e exemplos](diagnosticos.md) |
+| Discordâncias, largura e passo | [Diagnósticos e exemplos](diagnosticos.md) |
+| Dois picos com e sem posição | [Protocolo e resultados](diagnosticos.md#o-que-acontece-quando-guardamos-a-posição-dos-picos) |
 
 ## Apresentação interativa
 
 Abra a apresentação pelo GitHub Pages. Nos slides 4 e 5, use **Anterior**
 e **Próxima etapa** ou as setas para passar uma etapa por vez. A barra pula
-para qualquer etapa. Use `F` para tela cheia.
+para qualquer etapa. No slide 9, as setas ou os botões A e B trocam os
+adjetivos e atualizam a predição. Use `F` para tela cheia.
 [Abrir a apresentação](https://costaleirbag.github.io/projeto-mae5920/).
 
 No slide 4, percorra as sete fusões de *pallbearer*. No slide 5, a
@@ -29,6 +31,11 @@ das escolhas e links para as linhas do código. A última etapa abre a
 ou 5 e passos 1, 2 ou 3. Nela, o último quadro destaca a maior resposta
 entre as janelas visitadas. BPE e Varredura oferecem reprodução automática.
 [BPE](https://costaleirbag.github.io/projeto-mae5920/#slide-4) · [Montagem](https://costaleirbag.github.io/projeto-mae5920/#slide-5) · [Varredura](https://costaleirbag.github.io/projeto-mae5920/#slide-5-varredura).
+
+O slide 9 retoma as frases do início. Mostra as duas orações, a leitura
+esperada da conclusão e o escore positivo de cada tokenizador. Cada linha
+resume três treinos, um por semente. A régua mantém o limiar de 50% e marca
+onde estava A quando você mostra B. [Par de contraste](https://costaleirbag.github.io/projeto-mae5920/#slide-9).
 
 Para apresentar offline, use **Download raw file** no arquivo do GitHub e
 abra a cópia no navegador. [HTML para baixar](../output/slides/slides_15_min_interativos.html).
@@ -53,7 +60,7 @@ As figuras e tabelas do LaTeX estão nessa própria pasta.
 
 Para reconstruir também o HTML, rode `make -C seminario interativo` com
 `pypdf` e `pdftoppm` instalados. O HTML usa as páginas renderizadas do PDF
-nos slides fixos. Os slides 4 e 5 usam as etapas salvas e os controles da
+nos slides fixos. Os slides 4, 5 e 9 usam os dados salvos e os controles da
 apresentação. [Fontes do HTML](apresentacao.html) · [estilo](apresentacao.css) · [controles](apresentacao.js).
 
 O diagrama vetorial do slide 5 é compartilhado com o PDF. Após editá-lo,

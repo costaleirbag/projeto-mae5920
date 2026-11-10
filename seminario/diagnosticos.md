@@ -109,3 +109,67 @@ identificam todos os insumos. [Restauração de dados e pesos](../docs/REPRODUCA
 python seminario/comparar_erros.py --test /caminho/para/test.parquet --artifacts /caminho/para/artefatos-originais
 python seminario/medir_passo.py --train /caminho/para/train.parquet --artifacts /caminho/para/artefatos-pareados
 ~~~
+
+## O que acontece quando guardamos a posição dos picos?
+
+A CNN original guarda o pico de cada filtro. No par da troca de blocos, o
+pico fica igual quando a ativação muda de lugar. Mantivemos os embeddings
+e as convoluções das três CNNs por palavras congelados. Para cada filtro,
+dividimos as janelas válidas em duas metades pelo índice de início, deixando
+uma janela a mais na primeira metade quando a contagem é ímpar. Guardamos
+o máximo de cada metade. Se a segunda estiver vazia, seu pico vale zero.
+
+Treinamos duas cabeças logísticas com 600 entradas e o mesmo número de
+coeficientes. A primeira recebe os dois picos ordenados por valor, **menor
+e maior**. A segunda recebe os mesmos picos na ordem do texto, **primeira
+e segunda metade**. Cada cabeça escolhe a regularização por entropia
+cruzada nas mesmas 1.536 resenhas de validação, após ajustar os coeficientes
+em 6.144 resenhas de treino. A grade de C foi 0,001, 0,01, 0,1, 1 e 10.
+Todas as cabeças selecionaram 0,01. Reajustamos também uma cabeça sobre
+o máximo global, com 300 entradas, para separar o efeito de reajustar a
+saída. [Código e protocolo](medir_posicao.py).
+
+| Cabeça | Auditoria, acurácia em 2.048 resenhas | 256 pares sintéticos, ambos corretos | 344 pares de edição humana, ambos corretos |
+|---|---:|---:|---:|
+| Máximo global, cabeça original | 82,00% | 40,23% | 40,21% |
+| Máximo global, cabeça reajustada | 81,90% | 39,19% | 40,02% |
+| Dois picos por valor | 82,28% | 39,32% | 39,83% |
+| Dois picos por posição | 82,29% | 39,97% | 39,15% |
+
+Os valores são médias das sementes 17, 29 e 43. Nos pares, o acerto exige
+classificar corretamente a versão positiva e a negativa. Os 256 pares
+sintéticos cruzam oito adjetivos positivos, oito negativos e quatro
+moldes em inglês. Em metade dos pares o veredito vem no começo, na outra
+metade vem no fim. No grupo com veredito no fim, nenhuma cabeça acertou
+as duas frases de um mesmo par em qualquer uma das sementes.
+
+Para a edição humana, usamos os dois arquivos de teste do IMDb Contrast
+Sets. Cada linha original vem acompanhada de uma edição que muda o
+rótulo. Excluímos 144 dos 488 pares porque pelo menos uma versão coincidia
+com uma entrada de treino ou validação depois da limpeza, tokenização
+e recorte. Entre os 344 pares restantes, oito têm a mesma entrada visível
+nas duas versões e foram mantidos. O recorte pode esconder uma edição,
+e as alterações humanas envolvem vários fenômenos linguísticos.
+[Gardner et al. (2020)](https://aclanthology.org/2020.findings-emnlp.117/) · [Dados na revisão avaliada](https://github.com/allenai/contrast-sets/tree/e2b87316ba7b30093bc9ffbc340e6550cab79f67/IMDb/data).
+
+No controle com as mesmas janelas, trocar os blocos troca exatamente
+os dois picos de posição em cada filtro. As três cabeças com ordem
+deram margens diferentes entre A e B, preservando a classe em ambos.
+As cabeças por valor deram margens iguais. A posição fica disponível
+à camada final. Nesta rede congelada e com essa cabeça linear, o
+acerto nos pares editados ficou semelhante, com variação entre as
+sementes. Uma arquitetura treinada de ponta a ponta com outro
+pooling responderia a outra pergunta.
+
+Baixe test_original.tsv e test_contrast.tsv na revisão acima e passe a
+pasta ao script junto com os dados e checkpoints do estudo pareado.
+O NPZ usa a ordem do manifesto para a auditoria e a ordem dos moldes
+e adjetivos do código para os pares sintéticos. Em cada par sintético,
+a positiva vem primeiro. Em cada par de edição humana, vem a original
+e depois a edição. contrast_tsv_rows guarda as linhas dos TSV
+começando pelo cabeçalho na linha 1. Os logits das regressões têm
+zero na primeira coluna e a margem na segunda. [Resultados por semente](dados/posicao_resultados.json) · [Logits e rótulos](dados/posicao_predicoes.npz).
+
+~~~bash
+python seminario/medir_posicao.py --train /caminho/para/train.parquet --contrast-dir /pasta/dos/tsv --artifacts /caminho/para/artefatos-pareados
+~~~

@@ -16,7 +16,7 @@ from pypdf import PdfReader
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
-FRAME = re.compile(r"(?:^% lab:(?P<lab>bpe|cnn)\n)?\\begin{frame}(?:\[[^\]]+\])?(?:\{(?P<title>[^{}\n]+)\})?", re.M)
+FRAME = re.compile(r"(?:^% lab:(?P<lab>bpe|cnn|contrast)\n)?\\begin{frame}(?:\[[^\]]+\])?(?:\{(?P<title>[^{}\n]+)\})?", re.M)
 MODEL = "src/imdb_lab/models.py"
 
 
@@ -111,11 +111,41 @@ def links(page) -> list[dict]:
     return result
 
 
+
+def contrast_example() -> dict:
+    cases = json.loads((HERE / "dados/pares_resultados.json").read_text(encoding="utf-8"))
+    case = next(case for case in cases["pares"] if case["id"] == "contraste")
+    pattern = r"(.+ )([a-z]+), (but it was )([a-z]+)\."
+    first_a, impression, last_a, verdict = re.fullmatch(pattern, case["a"]).groups()
+    first_b, second_b, last_b, fourth_b = re.fullmatch(pattern, case["b"]).groups()
+    assert (first_a, verdict, last_a, impression) == (first_b, second_b, last_b, fourth_b)
+    models = []
+    for name, result in case["resultados"].items():
+        runs = result["predicoes"]
+        seeds = [run["semente"] for run in runs]
+        predictions = {}
+        for key in ("a", "b"):
+            classes = [run[key]["classe"] for run in runs]
+            positive = classes.count("positiva")
+            predictions[key] = {"score": result[f"media_p_{key}"],
+                                "label": classes[0] if positive in (0, len(seeds)) else "dividida",
+                                "agreement": max(positive, len(seeds) - positive)}
+        models.append({"name": name, "seeds": seeds, "predictions": predictions})
+    assert models[0]["seeds"] == models[1]["seeds"]
+    reversed_runs = sum(
+        run["a"]["classe"] == case["leitura"][1] and run["b"]["classe"] == case["leitura"][0]
+        for result in case["resultados"].values() for run in result["predicoes"]
+    )
+    return {"start": first_a, "connector": last_a, "adjectives": [impression, verdict],
+            "expected": dict(zip(("a", "b"), case["leitura"], strict=True)), "models": models,
+            "reversed": reversed_runs}
+
+
 def build(pdf: Path, output: Path) -> None:
     reader = PdfReader(pdf)
     frames = list(FRAME.finditer((HERE / "slides.tex").read_text(encoding="utf-8")))
     assert len(frames) == len(reader.pages), "O PDF deve ter uma página por frame."
-    assert [frame["lab"] for frame in frames if frame["lab"]] == ["bpe", "cnn"]
+    assert [frame["lab"] for frame in frames if frame["lab"]] == ["bpe", "cnn", "contrast"]
 
     slides = []
     with TemporaryDirectory(prefix="mae5920-slides-") as directory:
@@ -132,7 +162,8 @@ def build(pdf: Path, output: Path) -> None:
             slides.append(slide)
 
     evidence = json.loads((HERE / "dados/animacoes.json").read_text(encoding="utf-8"))
-    data = json.dumps({"slides": slides, "evidence": evidence, "architecture": architecture_steps()},
+    data = json.dumps({"slides": slides, "evidence": evidence, "architecture": architecture_steps(),
+                       "contrast": contrast_example()},
                       ensure_ascii=False, separators=(",", ":"))
     template = (HERE / "apresentacao.html").read_text(encoding="utf-8")
     output.parent.mkdir(parents=True, exist_ok=True)
