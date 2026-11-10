@@ -64,10 +64,57 @@
       </footer>
     </article>
 
+    <article id="cnn-build" class="lab architecture" hidden aria-labelledby="cnn-build-title">
+      <header class="lab-heading cnn-heading">
+        <div>
+          <p class="eyebrow">01 · Representação</p>
+          <h1 id="cnn-build-title">Arquitetura da TextCNN</h1>
+        </div>
+        <div class="cnn-view" role="group" aria-label="Modo de visualização da CNN">
+          <button type="button" data-cnn-view="build" aria-pressed="true">Montagem</button>
+          <button type="button" data-cnn-view="scan" aria-pressed="false">Varredura</button>
+        </div>
+      </header>
+      <div class="architecture-example">
+        <p><span class="micro">Frase A</span> <i>I thought this movie was terrible, but it was wonderful.</i></p>
+        <span>10 tokens · CNN por palavras · semente 17</span>
+      </div>
+      <div class="architecture-viewport" id="architecture-viewport">
+        <!-- ARCH_DIAGRAM -->
+      </div>
+      <div class="architecture-explanation">
+        <section class="architecture-story" aria-live="polite">
+          <p class="micro" id="architecture-label"></p>
+          <h2 id="architecture-title"></h2>
+          <p id="architecture-reason"></p>
+          <p class="architecture-detail" id="architecture-detail"></p>
+        </section>
+        <section class="architecture-code" id="architecture-code" aria-label="Trechos da implementação"></section>
+      </div>
+      <div class="transport architecture-transport">
+        <div class="step-buttons" role="group" aria-label="Etapas da montagem">
+          <button type="button" id="architecture-back" class="step-back" aria-label="Etapa anterior">← Anterior</button>
+          <button type="button" id="architecture-forward" class="step-next" aria-label="Próxima etapa">Próxima etapa →</button>
+        </div>
+        <label class="sr-only" for="architecture-step">Etapa da montagem da TextCNN</label>
+        <input type="range" id="architecture-step" min="0" step="1" value="0">
+        <output id="architecture-count" for="architecture-step"></output>
+      </div>
+      <footer class="lab-source">Mapas esquemáticos. B é o tamanho do lote e T é o comprimento após padding.
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/animacoes.json" target="_blank" rel="noopener">Dados do exemplo</a>
+      </footer>
+    </article>
+
     <article id="cnn" class="lab" hidden aria-labelledby="cnn-title">
-      <header class="lab-heading">
-        <p class="eyebrow">01 · Representação <span>Laboratório 2 / 2</span></p>
-        <h1 id="cnn-title">Arquitetura da TextCNN</h1>
+      <header class="lab-heading cnn-heading">
+        <div>
+          <p class="eyebrow">01 · Representação</p>
+          <h1 id="cnn-title">Varredura dos filtros</h1>
+        </div>
+        <div class="cnn-view" role="group" aria-label="Modo de visualização da CNN">
+          <button type="button" data-cnn-view="build" aria-pressed="false">Montagem</button>
+          <button type="button" data-cnn-view="scan" aria-pressed="true">Varredura</button>
+        </div>
       </header>
       <ol class="pipeline" aria-label="Etapas da TextCNN">
         <li><strong>IDs</strong><span>1 por token</span></li>

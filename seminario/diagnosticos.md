@@ -96,7 +96,7 @@ No slide 5, o filtro 89 com largura 3 responde 0,98 à janela
 `movie was terrible`. Ao mudar para passo 2, a varredura pula essa posição
 e o máximo passa a 0,40. O ensaio de inferência mede o efeito de remover
 janelas de uma rede treinada com passo 1. Os filtros foram mantidos fixos.
-[Slide interativo](https://costaleirbag.github.io/projeto-mae5920/#slide-5) · [Métricas por semente](dados/passo_resultados.json) · [Logits e rótulos](dados/passo_predicoes.npz).
+[Varredura interativa](https://costaleirbag.github.io/projeto-mae5920/#slide-5-varredura) · [Métricas por semente](dados/passo_resultados.json) · [Logits e rótulos](dados/passo_predicoes.npz).
 
 ## Repetir os diagnósticos
 

@@ -68,23 +68,23 @@ da sequência. Um filtro com a mesma largura passa a ver outro contexto.”
 
 ## 5 · Arquitetura da TextCNN
 
-Em A, com largura 3 e passo 1, avance com **Próxima etapa** até a janela
-*movie was terrible*. Ela atinge 0,98 após a ReLU. Na última etapa, o
-controle destaca o máximo. Troque para passo 2 e arraste até o final.
-A janela do pico fica de fora e o máximo cai para 0,40. Use a figura do
-PDF para a mesma explicação.
+Comece em **Montagem** e use a seta direita para avançar junto com a fala.
+Aponte para o trecho de código que aparece em cada etapa. Reserve cerca
+de um minuto para a montagem e o restante para a varredura.
 
-“Cada índice busca um vetor de 128 dimensões. Temos convoluções em paralelo
-com janelas de três, quatro e cinco tokens, cem filtros para cada largura.
-Um filtro usa a mesma matriz em todas as posições. Ele pode responder forte
-a um padrão de embeddings que aprendeu durante o treino. Depois da ReLU,
-escolhemos a maior resposta válida de cada filtro. A máscara tira as janelas
-de padding da disputa pelo máximo. Juntamos 300 valores e passamos por dropout
-e uma camada linear que produz dois logits. A maior parte dos 2,7 milhões de
-parâmetros está na tabela de embeddings. A entropia cruzada recebe os logits
-e o rótulo. O backward leva os gradientes até os filtros e os embeddings.
-Guardem este detalhe do pooling. Ele retém a força da resposta e descarta
-a posição em que ela ocorreu.”
+“Cada ID busca um vetor aprendido de 128 dimensões. As janelas de três,
+quatro e cinco tokens leem esses mesmos vetores em paralelo. Cada ramo tem
+cem filtros e a ReLU zera respostas negativas. A máscara exclui as janelas
+criadas pelo padding. O máximo de cada filtro conserva a força e descarta
+a posição. Juntamos os 300 máximos, usamos dropout no treino e aprendemos
+uma camada linear com dois logits. A entropia cruzada recebe os logits no
+treino. Para exibir a previsão, o softmax dá as probabilidades. A positiva
+também pode ser calculada pela sigmoide da diferença dos logits.”
+
+Abra **Varredura** na última etapa. Em A, com largura 3 e passo 1, salte
+pela barra até *movie was terrible*. O filtro chega a 0,98. Troque para
+passo 2 e vá ao máximo. A janela do pico fica de fora e o valor cai para
+0,40. No PDF, use o diagrama completo e o gráfico do mesmo filtro.
 
 ## 6 · Escolha da taxa e da época
 
