@@ -1,7 +1,7 @@
 "use strict";
 
 const byId = (id) => document.getElementById(id);
-const { slides, evidence, architecture, contrast } = JSON.parse(byId("deck-data").textContent);
+const { slides, evidence, architecture, contrast, cut } = JSON.parse(byId("deck-data").textContent);
 const number = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 function makeTransport(name, draw, nextView) {
@@ -340,13 +340,68 @@ swapButtons.forEach((button) => button.addEventListener("click", () => showContr
 showContrast("a", false);
 const contrastTransport = { move: (direction) => showContrast(direction > 0 ? "b" : "a") };
 
+const cutButtons = [...document.querySelectorAll("[data-cut]")];
+const cutResults = [...document.querySelectorAll("[data-cut-model]")];
+const cutRuler = document.querySelector(".cut-ruler");
+cutRuler.style.setProperty("--cut-ratio", 100 * cut.cap / cut.total + "%");
+byId("cut-cap").textContent = cut.cap;
+byId("cut-limit").textContent = cut.cap;
+byId("cut-total").textContent = cut.total + " tokens";
+byId("cut-label").textContent = cut.label;
+byId("cut-label").dataset.tone = cut.label.toLowerCase();
+
+function tokenRange(excerpt) {
+  return "tokens " + excerpt.primeiro_token + "–" + excerpt.ultimo_token;
+}
+byId("cut-start-range").textContent = "Dentro do recorte · " + tokenRange(cut.excerpts.prefixo);
+byId("cut-start-quote").textContent = "“" + cut.excerpts.prefixo.texto + "…”";
+byId("cut-end-quote").textContent = "“" + cut.excerpts.final.texto + "”";
+byId("cut-omitted").textContent = (cut.total - cut.cap) + " tokens ficaram fora.";
+let cutScope;
+function showCut(scope) {
+  if (scope === cutScope) return false;
+  const full = scope === "inteiro";
+  cutButtons.forEach((button) => button.setAttribute("aria-pressed", button.dataset.cut === scope));
+  cutRuler.classList.toggle("full", full);
+  byId("cut-end-range").textContent = full
+    ? "Depois do corte · " + tokenRange(cut.excerpts.final) : "Depois do token " + cut.cap;
+  byId("cut-end-quote").hidden = !full;
+  byId("cut-omitted").hidden = full;
+  cutResults.forEach((row) => {
+    const model = row.dataset.cutModel;
+    const original = full ? model === "tfidf" : model === "cnn";
+    const score = cut.scores[scope][model];
+    const category = row.querySelector(".class-label");
+    row.querySelector(".cut-value").textContent = percent.format(score);
+    row.querySelector(".cut-original").textContent = original ? "Usado no teste original" : "Reavaliação";
+    category.textContent = score >= .5 ? "Positiva" : "Negativa";
+    category.dataset.tone = category.textContent.toLowerCase();
+  });
+  byId("cut-outcome").textContent = full ? "Os dois acertaram o rótulo negativo." : "Os dois previram positiva com o recorte.";
+  cutScope = scope;
+  return true;
+}
+cutButtons.forEach((button) => button.addEventListener("click", () => showCut(button.dataset.cut)));
+showCut("prefixo");
+const cutTransport = { move: (direction) => showCut(direction > 0 ? "inteiro" : "prefixo") };
+
 const picker = byId("slide-picker");
 const previous = byId("previous");
 const next = byId("next");
 let slideIndex = -1;
 let cnnView = "build";
-const labs = { bpe: bpeTransport, cnn: cnnTransport, contrast: contrastTransport };
-slides.forEach((slide, index) => picker.add(new Option((index + 1) + " · " + slide.title, index)));
+const labs = { bpe: bpeTransport, cnn: cnnTransport, contrast: contrastTransport, cut: cutTransport };
+const ending = slides.findIndex((slide) => slide.interactive === "closing");
+const mainGroup = document.createElement("optgroup");
+const supportGroup = document.createElement("optgroup");
+mainGroup.label = "Apresentação";
+supportGroup.label = "Apoio";
+slides.forEach((slide, index) => {
+  const group = index <= ending ? mainGroup : supportGroup;
+  const number = index <= ending ? index + 1 : index - ending;
+  group.append(new Option(number + " · " + slide.title, index));
+});
+picker.append(mainGroup, supportGroup);
 
 function showSlide(index, view = "build") {
   const target = Math.min(Math.max(0, index), slides.length - 1);
@@ -356,11 +411,10 @@ function showSlide(index, view = "build") {
   cnnView = view;
   bpeTransport.pause();
   cnnTransport.pause();
-  byId("bpe").hidden = slide.interactive !== "bpe";
+  for (const id of ["bpe", "contrast", "youtube", "closing", "cut"]) byId(id).hidden = slide.interactive !== id;
   byId("cnn-build").hidden = slide.interactive !== "cnn" || cnnView !== "build";
   byId("cnn").hidden = slide.interactive !== "cnn" || cnnView !== "scan";
   centerArchitectureStage();
-  byId("contrast").hidden = slide.interactive !== "contrast";
   byId("static-slide").hidden = Boolean(slide.interactive);
   if (!slide.interactive) {
     byId("slide-image").src = "data:image/png;base64," + slide.png;
@@ -380,8 +434,10 @@ function showSlide(index, view = "build") {
   }
   picker.value = target;
   previous.disabled = target === 0;
-  next.disabled = target === slides.length - 1;
-  byId("slide-count").textContent = (target + 1) + " / " + slides.length;
+  next.disabled = target === ending || target === slides.length - 1;
+  byId("slide-count").textContent = target <= ending
+    ? (target + 1) + " / " + (ending + 1)
+    : "Apoio " + (target - ending) + " / " + (slides.length - ending - 1);
   const suffix = slide.interactive === "cnn" && cnnView === "scan" ? "-varredura" : "";
   history.replaceState(null, "", "#slide-" + (target + 1) + suffix);
 }
@@ -418,17 +474,19 @@ window.addEventListener("keydown", (event) => {
     if (lab?.move(move)) return;
     if (building && move === 1) showSlide(slideIndex, "scan");
     else if (interactive === "cnn" && cnnView === "scan" && move === -1) showSlide(slideIndex);
-    else showSlide(slideIndex + move);
+    else if (move < 0 || slideIndex !== ending) showSlide(slideIndex + move);
   } else if (event.key === "Home" || event.key === "End") {
     event.preventDefault();
-    showSlide(event.key === "Home" ? 0 : slides.length - 1);
+    showSlide(event.key === "Home" ? 0 : ending);
   } else if (event.key.toLowerCase() === "f" && !fullscreen.hidden) {
     fullscreen.click();
   }
 });
 function openFromHash() {
   const match = location.hash.match(/^#slide-(\d+)(-varredura)?$/);
-  showSlide(match ? Number(match[1]) - 1 : 0, match?.[2] ? "scan" : "build");
+  const cutIndex = slides.findIndex((slide) => slide.interactive === "cut");
+  const shortcuts = { "#encerramento": ending, "#apoio": ending + 1, "#recorte": cutIndex };
+  showSlide(match ? Number(match[1]) - 1 : (shortcuts[location.hash] ?? 0), match?.[2] ? "scan" : "build");
 }
 window.addEventListener("hashchange", openFromHash);
 openFromHash();

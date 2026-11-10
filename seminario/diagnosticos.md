@@ -23,12 +23,19 @@ cada modelo fez. [Cruzamentos originais, incluindo BERT](../results/analysis/err
 `imdb_test_03531` tem 780 tokens e rótulo negativo. A resenha termina com
 uma crítica explícita após o limite de 400 tokens. Mantivemos os pesos, os
 tokenizadores e as temperaturas originais e trocamos a parte do texto que
-cada modelo recebeu.
+cada modelo recebeu. Dentro do recorte, nos tokens 230–239, já aparece
+“This film is as crassly manipulative as it is vapid…”. Só no trecho
+final, nos tokens 716–724, aparece “I had to leave because it was so bad.”
+[Abrir o recorte interativo](https://costaleirbag.github.io/projeto-mae5920/#recorte).
 
 | Entrada | Escore positivo do TF-IDF | Escore positivo da CNN |
 |---|---:|---:|
 | Primeiros 400 tokens da CNN | 71,7% | 94,7% |
 | Texto inteiro | 6,5% | 12,1% |
+
+O experimento acrescentou de uma vez todos os 380 tokens restantes. Os
+trechos mostram onde havia pistas críticas. No teste original, valem a
+célula de TF-IDF com o texto inteiro e a célula de CNN com o recorte.
 
 No texto inteiro, `bad`, `awful` e `waste` são os três termos que mais
 empurram o logit do TF-IDF para o negativo. Na CNN com o texto inteiro,
@@ -36,6 +43,24 @@ as janelas `hate to waste` e `so bad i left` dão as maiores contribuições
 negativas à margem. A troca de classe nos dois modelos mostra o efeito do
 recorte nesse caso. O TF-IDF também recalcula a normalização quando recebe
 o prefixo. [Decomposição e escores](dados/discordancias.json).
+
+### Como o TF-IDF e a CNN representam a resenha
+
+O baseline transforma a resenha limpa num vetor de até 80.000 palavras e
+pares de palavras consecutivas do vocabulário aprendido no treino. Por
+exemplo, *so bad* ativa `so`, `bad` e `so bad` quando constam no vocabulário.
+A frequência usa escala logarítmica. O IDF dá mais peso a termos
+encontrados em menos resenhas de treino, e o vetor é normalizado. Uma
+regressão logística treinada com os rótulos soma as contribuições dos
+termos e um viés. A ordem entra nos bigramas. A posição de cada ocorrência
+e a ordem entre trechos distantes ficam de fora da representação.
+[Código do baseline](../src/imdb_lab/baseline.py).
+
+A TextCNN aprende embeddings e filtros sobre janelas ordenadas de 3, 4 e
+5 tokens. Cada filtro fornece sua maior ativação à camada linear. O
+limite de 400 pertence à entrada que usamos no teste original. Ao
+estender a entrada para 780, a mesma convolução percorre mais janelas.
+[Configuração original](../config.json) · [TextCNN](../src/imdb_lab/models.py).
 
 ### Só a CNN acertou
 

@@ -18,6 +18,17 @@ from imdb_lab.models import PadBatch, TextCNN, TOKEN_PATTERN, Vocabulary, tokeni
 
 
 EXAMPLES = {"imdb_test_03531": "tfidf", "imdb_test_22831": "cnn"}
+EXCERPTS = {
+    "prefixo": "This film is as crassly manipulative as it is vapid",
+    "final": "I had to leave because it was so bad.",
+}
+
+
+def locate_excerpt(text: str, excerpt: str, tokens: list) -> dict:
+    start = text.index(excerpt)
+    end = start + len(excerpt)
+    positions = [index for index, token in enumerate(tokens, 1) if token.start() < end and token.end() > start]
+    return {"texto": excerpt, "primeiro_token": positions[0], "ultimo_token": positions[-1]}
 
 
 def counts(frame: pd.DataFrame) -> dict:
@@ -108,7 +119,12 @@ def evaluate(test: Path, artifacts: Path) -> dict:
                   "cnn_prefixo": cnn_prefix, "tfidf_inteiro": tfidf_full}
         if truncated[id_]:
             lower = text.lower()
-            boundary = list(TOKEN_PATTERN.finditer(lower))[cap - 1].end()
+            tokens = list(TOKEN_PATTERN.finditer(lower))
+            boundary = tokens[cap - 1].end()
+            if id_ == "imdb_test_03531":
+                excerpts = {key: locate_excerpt(text, excerpt, tokens) for key, excerpt in EXCERPTS.items()}
+                assert excerpts["prefixo"]["ultimo_token"] <= cap < excerpts["final"]["primeiro_token"]
+                result["trechos"] = excerpts
             result["cnn_inteiro"] = cnn_score(text, int(token_count[id_]), model, vocab, temperature["cnn"])
             result["tfidf_prefixo"] = tfidf_score(lower[:boundary], pipeline, temperature["tfidf"])
         examples.append(result)
@@ -135,7 +151,8 @@ def main() -> None:
     for key in ("total", "sem_recorte", "com_recorte"):
         print(key, result[key])
     for case in result["casos"]:
-        print(case["id"], {k: round(v["p_positiva"], 4) for k, v in case.items() if isinstance(v, dict)})
+        print(case["id"], {k: round(v["p_positiva"], 4) for k, v in case.items()
+                           if isinstance(v, dict) and "p_positiva" in v})
 
 
 if __name__ == "__main__":
