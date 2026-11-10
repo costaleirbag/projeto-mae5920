@@ -12,7 +12,8 @@
   "seminario/casos.json": "9168ef07b2580802b4ec71d0d3b9a02e0ef85716df5cd1dfbed783676bf1402c",
   "seminario/dados/pares_resultados.json": "37d1a33a0da97e7f1a4d713d50c24ae5dc3ce98f5a8013d2bde81e6aba43af1e",
   "seminario/dados/fora_dominio_resultados.json": "8b1a8397de367408989b855d6fe768a527a87ddec914326aedd64375ff0a8190",
-  "seminario/dados/animacoes.json": "920961efe0effffa44362c83fbc9818159799c99fb3c9fd0fd8a9d7db8392c49",
+  "seminario/dados/qwen_youtube_resultados.json": "ef15b8bbc22963dc85a2f9d20b7cb43b1adb713c6e6819a5def95777cdd61dc9",
+  "seminario/dados/animacoes.json": "81ceb765e5514cc0738c4fa708e124973c18e4a7a6ea104b3576e3acc4a460d8",
   "seminario/dados/discordancias.json": "c9da11725c92b2ce4f59c87eb00c63a197a951f935019e9605fede193678091d",
   "seminario/dados/passo_resultados.json": "e16ff11c4632d7442f07187ef2eaea41278b4faa3d136b9153734f226769d7fe",
   "seminario/dados/posicao_resultados.json": "311c402f409e06764b2c699ca7b5137b6d04f0a0f125ab57fd8dc70ecda490d2"

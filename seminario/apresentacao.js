@@ -1,7 +1,7 @@
 "use strict";
 
 const byId = (id) => document.getElementById(id);
-const { slides, evidence, architecture, contrast, cut } = JSON.parse(byId("deck-data").textContent);
+const { slides, evidence, architecture, contrast, position, youtubeQwen, cut } = JSON.parse(byId("deck-data").textContent);
 const number = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 function makeTransport(name, draw, nextView) {
@@ -386,6 +386,39 @@ poolButtons.forEach((button) => button.addEventListener("click", () => showPooli
 showPooling("A");
 const poolingTransport = { move: (direction) => showPooling(direction > 0 ? "B" : "A") };
 
+document.querySelectorAll("[data-position-order]").forEach((table) => {
+  const byValue = table.dataset.positionOrder === "value";
+  table.querySelectorAll("[data-position-case]").forEach((row) => {
+    const peaks = pooling.casos[row.dataset.positionCase].picos_por_metade;
+    const values = byValue ? [...peaks].sort((a, b) => a - b) : peaks;
+    row.querySelectorAll("td").forEach((cell, index) => {
+      cell.textContent = number.format(values[index]);
+      cell.classList.toggle("peak", values[index] === Math.max(...peaks));
+    });
+  });
+});
+byId("position-pairs").textContent = position.pairs;
+for (const order of ["value", "half"]) byId("position-rate-" + order).textContent = percent.format(position.rates[order]);
+
+document.querySelectorAll("[data-youtube-qwen]").forEach((row) => {
+  const modes = youtubeQwen[row.dataset.youtubeQwen];
+  row.querySelectorAll("[data-mode]").forEach((result) => {
+    const votes = modes[result.dataset.mode];
+    const badge = result.querySelector(".class-label");
+    const [first] = votes;
+    if (first && votes.every((vote) => vote === first)) {
+      badge.dataset.tone = first;
+      badge.textContent = first[0].toUpperCase() + first.slice(1) + " " + votes.length + "/" + votes.length;
+    } else {
+      badge.textContent = [[ "positiva", "pos." ], [ "negativa", "neg." ], [ null, "sem rótulo" ]]
+        .map(([kind, label]) => [votes.filter((vote) => vote === kind).length, label])
+        .filter(([count]) => count > 0)
+        .map(([count, label]) => count + " " + label)
+        .join(" · ");
+    }
+  });
+});
+
 const cutButtons = [...document.querySelectorAll("[data-cut]")];
 const cutResults = [...document.querySelectorAll("[data-cut-model]")];
 const cutRuler = document.querySelector(".cut-ruler");
@@ -457,7 +490,7 @@ function showSlide(index, view = "build") {
   cnnView = view;
   bpeTransport.pause();
   cnnTransport.pause();
-  for (const id of ["bpe", "contrast", "pooling", "youtube", "closing", "cut"]) byId(id).hidden = slide.interactive !== id;
+  for (const id of ["bpe", "contrast", "pooling", "position", "youtube", "closing", "cut"]) byId(id).hidden = slide.interactive !== id;
   byId("cnn-build").hidden = slide.interactive !== "cnn" || cnnView !== "build";
   byId("cnn").hidden = slide.interactive !== "cnn" || cnnView !== "scan";
   centerArchitectureStage();
