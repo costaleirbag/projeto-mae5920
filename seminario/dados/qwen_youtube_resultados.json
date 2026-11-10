@@ -1,0 +1,241 @@
+{
+  "modelo": "Qwen/Qwen3-8B",
+  "revisao": "b968826d9c46dd6066d109eabc6255188de91218",
+  "precisao": "bfloat16",
+  "atencao": "sdpa",
+  "transformers": "4.57.6",
+  "torch": "2.10.0a0+b4e4ee81d3.nv25.12",
+  "protocolo": "Somente o texto. Prompt original de resenha e pesos congelados. No teste direto comparamos os logits com e sem inverter a ordem dos rótulos. Na geração comparamos a resposta final com raciocínio desativado e ativado.",
+  "amostragem": {
+    "num_return_sequences": 3,
+    "do_sample": true,
+    "temperature": 0.6,
+    "top_p": 0.95,
+    "top_k": 20,
+    "max_new_tokens": 1536,
+    "semente": 20261020
+  },
+  "tokens_dos_rotulos": {
+    "negative": 42224,
+    "positive": 30487
+  },
+  "entrada_sha256": "8b1a8397de367408989b855d6fe768a527a87ddec914326aedd64375ff0a8190",
+  "configuracao_sha256": "79badf23f46fb5d5c0ea3004b9fff8c1dfbebdfc94111a240b03693aa2fbef63",
+  "codigo_qwen_sha256": "324316003993c57c7704513a503186cb2c1e41ff78116b10b6a36fc18a7594fb",
+  "comentarios": [
+    {
+      "id": "E",
+      "origem": "The Room",
+      "texto": "\"The best movie of the year\" - No one",
+      "rotulo_referencia": null,
+      "testes": {
+        "padrao": {
+          "classe": "positiva",
+          "escore_positivo_restrito": 0.9933071490757153,
+          "massa_dos_rotulos_no_vocabulario": 1.0,
+          "logits": {
+            "negative": 51.0,
+            "positive": 56.0
+          },
+          "prompt_sha256": "27c6a296f628c03096b4bef1ce5d2aac0b64a804bf6440bf3d42556d14b52225",
+          "tokens_da_entrada": 10
+        },
+        "ordem_invertida": {
+          "classe": "positiva",
+          "escore_positivo_restrito": 0.9999785550515792,
+          "massa_dos_rotulos_no_vocabulario": 1.0,
+          "logits": {
+            "negative": 47.25,
+            "positive": 58.0
+          },
+          "prompt_sha256": "414b7f82dd334862386fc0a421abdb15434f41e44d2956e206e5eb526920dafd",
+          "tokens_da_entrada": 10
+        }
+      },
+      "geracao": {
+        "sem_raciocinio": [
+          {
+            "classe": "positiva",
+            "tokens_gerados": 1,
+            "tokens_ate_fim_do_raciocinio": 0,
+            "fim_do_raciocinio": null,
+            "encerrou_com_eos": true
+          },
+          {
+            "classe": "positiva",
+            "tokens_gerados": 1,
+            "tokens_ate_fim_do_raciocinio": 0,
+            "fim_do_raciocinio": null,
+            "encerrou_com_eos": true
+          },
+          {
+            "classe": "positiva",
+            "tokens_gerados": 1,
+            "tokens_ate_fim_do_raciocinio": 0,
+            "fim_do_raciocinio": null,
+            "encerrou_com_eos": true
+          }
+        ],
+        "com_raciocinio": [
+          {
+            "classe": "positiva",
+            "tokens_gerados": 806,
+            "tokens_ate_fim_do_raciocinio": 804,
+            "fim_do_raciocinio": true,
+            "encerrou_com_eos": true
+          },
+          {
+            "classe": "positiva",
+            "tokens_gerados": 221,
+            "tokens_ate_fim_do_raciocinio": 219,
+            "fim_do_raciocinio": true,
+            "encerrou_com_eos": true
+          },
+          {
+            "classe": "positiva",
+            "tokens_gerados": 1302,
+            "tokens_ate_fim_do_raciocinio": 1300,
+            "fim_do_raciocinio": true,
+            "encerrou_com_eos": true
+          }
+        ]
+      }
+    },
+    {
+      "id": "C",
+      "origem": "Friday",
+      "texto": "AI could never do this",
+      "rotulo_referencia": null,
+      "testes": {
+        "padrao": {
+          "classe": "negativa",
+          "escore_positivo_restrito": 0.01098694263059318,
+          "massa_dos_rotulos_no_vocabulario": 0.9999237060546875,
+          "logits": {
+            "negative": 46.5,
+            "positive": 42.0
+          },
+          "prompt_sha256": "4ecbc4826dedad7f7af92352a6d5c60d74a8b558fb00020e55572ced29fbf48e",
+          "tokens_da_entrada": 5
+        },
+        "ordem_invertida": {
+          "classe": "negativa",
+          "escore_positivo_restrito": 0.2227001388253088,
+          "massa_dos_rotulos_no_vocabulario": 0.9990925192832947,
+          "logits": {
+            "negative": 44.75,
+            "positive": 43.5
+          },
+          "prompt_sha256": "87c5ae89ed4206616329e18b9f6b54ba05098d43b2b857eb9c57c05ba214b2fa",
+          "tokens_da_entrada": 5
+        }
+      },
+      "geracao": {
+        "sem_raciocinio": [
+          {
+            "classe": "negativa",
+            "tokens_gerados": 1,
+            "tokens_ate_fim_do_raciocinio": 0,
+            "fim_do_raciocinio": null,
+            "encerrou_com_eos": true
+          },
+          {
+            "classe": "negativa",
+            "tokens_gerados": 1,
+            "tokens_ate_fim_do_raciocinio": 0,
+            "fim_do_raciocinio": null,
+            "encerrou_com_eos": true
+          },
+          {
+            "classe": "negativa",
+            "tokens_gerados": 1,
+            "tokens_ate_fim_do_raciocinio": 0,
+            "fim_do_raciocinio": null,
+            "encerrou_com_eos": true
+          }
+        ],
+        "com_raciocinio": [
+          {
+            "classe": "negativa",
+            "tokens_gerados": 802,
+            "tokens_ate_fim_do_raciocinio": 800,
+            "fim_do_raciocinio": true,
+            "encerrou_com_eos": true
+          },
+          {
+            "classe": "negativa",
+            "tokens_gerados": 1374,
+            "tokens_ate_fim_do_raciocinio": 1372,
+            "fim_do_raciocinio": true,
+            "encerrou_com_eos": true
+          },
+          {
+            "classe": "negativa",
+            "tokens_gerados": 300,
+            "tokens_ate_fim_do_raciocinio": 298,
+            "fim_do_raciocinio": true,
+            "encerrou_com_eos": true
+          }
+        ]
+      }
+    }
+  ],
+  "controles": [
+    {
+      "texto": "This film is wonderful. I loved every minute of it.",
+      "rotulo_referencia": "positiva",
+      "testes": {
+        "padrao": {
+          "classe": "positiva",
+          "escore_positivo_restrito": 0.9999999468421502,
+          "massa_dos_rotulos_no_vocabulario": 1.0,
+          "logits": {
+            "negative": 43.75,
+            "positive": 60.5
+          },
+          "prompt_sha256": "215eb8a4cf7b8b6675894d2bc69304218afee14182bc29a765fea1a26d2d0849",
+          "tokens_da_entrada": 12
+        },
+        "ordem_invertida": {
+          "classe": "positiva",
+          "escore_positivo_restrito": 0.999999998394772,
+          "massa_dos_rotulos_no_vocabulario": 1.0,
+          "logits": {
+            "negative": 41.0,
+            "positive": 61.25
+          },
+          "prompt_sha256": "8b303b8a964df0d4bb6a896724e287f833307ab904390de911f012fe91cf5b17",
+          "tokens_da_entrada": 12
+        }
+      }
+    },
+    {
+      "texto": "This film is terrible. I hated every minute of it.",
+      "rotulo_referencia": "negativa",
+      "testes": {
+        "padrao": {
+          "classe": "negativa",
+          "escore_positivo_restrito": 6.825602910446288e-08,
+          "massa_dos_rotulos_no_vocabulario": 1.0,
+          "logits": {
+            "negative": 61.5,
+            "positive": 45.0
+          },
+          "prompt_sha256": "1740f28e08d90e293c1ecf973a5e492fd5ccbce340e8d709b4d05a0e4ab9a217",
+          "tokens_da_entrada": 12
+        },
+        "ordem_invertida": {
+          "classe": "negativa",
+          "escore_positivo_restrito": 8.764247451323235e-08,
+          "massa_dos_rotulos_no_vocabulario": 1.0,
+          "logits": {
+            "negative": 61.25,
+            "positive": 45.0
+          },
+          "prompt_sha256": "177755ccf64c30bfda36e1146ed0aa90f5c1fa73ae99ca611d6c5f1c27319e25",
+          "tokens_da_entrada": 12
+        }
+      }
+    }
+  ]
+}

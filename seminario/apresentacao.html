@@ -223,7 +223,7 @@
     </article>
     <article id="pooling" class="lab readable pooling-slide" hidden aria-labelledby="pool-title">
       <header class="lab-heading">
-        <p class="eyebrow">03 · Limites <span>Troca de blocos</span></p>
+        <p class="eyebrow">03 · Limites <span>Controle sintético</span></p>
         <h1 id="pool-title">O pico muda de lugar. O máximo fica.</h1>
       </header>
       <div class="pool-switch-row">
@@ -231,12 +231,12 @@
           <button type="button" data-pool-case="A" aria-pressed="true">A · Elogio primeiro</button>
           <button type="button" data-pool-case="B" aria-pressed="false">B · Crítica primeiro ⇄</button>
         </div>
-        <p>Trocamos duas opiniões inteiras de lugar.</p>
+        <p>A e B foram montados para trocar a ordem dos blocos.</p>
       </div>
 
       <div class="lab-body pool-layout">
-        <section class="panel pool-panel" aria-label="Ativações ao longo da resenha">
-          <div class="pool-blocks" aria-label="Partes da resenha na ordem escolhida">
+        <section class="panel pool-panel" aria-label="Ativações ao longo do texto">
+          <div class="pool-blocks" aria-label="Blocos do texto na ordem escolhida">
             <span>Separador</span><strong id="pool-first" lang="en"></strong><span>Separador</span>
             <strong id="pool-second" lang="en"></strong><span>Separador</span>
           </div>
@@ -248,7 +248,7 @@
               <p id="pool-current" aria-live="polite"></p>
             </div>
             <div class="bars pool-bars" id="pool-bars" aria-hidden="true"></div>
-            <div class="pool-axis" aria-hidden="true"><span>Início</span><span>Fim da resenha</span></div>
+            <div class="pool-axis" aria-hidden="true"><span>Início</span><span>Fim do texto</span></div>
           </div>
         </section>
 
@@ -280,12 +280,58 @@
       </footer>
     </article>
 
+    <article id="position" class="lab readable position-slide" hidden aria-labelledby="position-title">
+      <header class="lab-heading">
+        <p class="eyebrow">03 · Limites <span>Dois picos por filtro</span></p>
+        <h1 id="position-title">Guardar a posição ajudou a classificar?</h1>
+      </header>
+      <p class="position-lead">Dividimos as janelas em duas metades e pegamos a maior resposta de cada uma.</p>
+      <section class="position-example" aria-label="Os dois picos do filtro do slide anterior">
+        <p class="micro">Exemplo do slide anterior · mesmo filtro</p>
+        <div class="position-cards">
+          <section class="position-card" aria-labelledby="position-value-title">
+            <h2 id="position-value-title">Sem posição</h2>
+            <table data-position-order="value" aria-label="Os mesmos picos ordenados pelo valor">
+              <thead><tr><th scope="col">Texto</th><th scope="col">Pico menor</th><th scope="col">Pico maior</th></tr></thead>
+              <tbody>
+                <tr data-position-case="A"><th scope="row">A</th><td></td><td></td></tr>
+                <tr data-position-case="B"><th scope="row">B</th><td></td><td></td></tr>
+              </tbody>
+            </table>
+            <p>A e B chegam iguais à camada final.</p>
+          </section>
+          <section class="position-card" aria-labelledby="position-half-title">
+            <h2 id="position-half-title">Com posição</h2>
+            <table data-position-order="half" aria-label="Os picos na ordem das metades">
+              <thead><tr><th scope="col">Texto</th><th scope="col">1ª metade</th><th scope="col">2ª metade</th></tr></thead>
+              <tbody>
+                <tr data-position-case="A"><th scope="row">A</th><td></td><td></td></tr>
+                <tr data-position-case="B"><th scope="row">B</th><td></td><td></td></tr>
+              </tbody>
+            </table>
+            <p>A e B chegam em ordens diferentes.</p>
+          </section>
+        </div>
+      </section>
+      <section class="position-test" aria-label="Avaliação com resenhas editadas por pessoas">
+        <p class="micro">Teste separado · <span id="position-pairs"></span> pares de resenhas</p>
+        <div class="position-rates">
+          <div><strong id="position-rate-value"></strong><span>Sem posição</span></div>
+          <div><strong id="position-rate-half"></strong><span>Com posição</span></div>
+        </div>
+        <p>Cada par tem uma resenha e uma edição humana que inverte o rótulo. Contamos acerto só quando as duas versões estão certas.</p>
+      </section>
+      <footer class="lab-source">CNN por palavras. Filtros fixos, 600 entradas em ambos os casos. Reajustamos só a camada final.
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/diagnosticos.md#o-que-acontece-quando-guardamos-a-posi%C3%A7%C3%A3o-dos-picos" target="_blank" rel="noopener">Protocolo e três sementes</a>
+      </footer>
+    </article>
+
     <article id="youtube" class="lab readable youtube-slide" hidden aria-labelledby="youtube-title">
       <header class="lab-heading">
         <p class="eyebrow">Extensão <span class="youtube-brand"><span aria-hidden="true">▶</span> YouTube</span></p>
-        <h1 id="youtube-title">Do YouTube para a CNN</h1>
+        <h1 id="youtube-title">CNN e Qwen leem o YouTube</h1>
       </header>
-      <p class="youtube-intro">A CNN recebeu só o texto do comentário.</p>
+      <p class="youtube-intro">Os dois modelos receberam só o texto de cada comentário.</p>
       <div class="youtube-cases">
         <section class="youtube-case" aria-labelledby="room-title">
           <div class="youtube-video">
@@ -297,9 +343,18 @@
                  alt="“The best movie of the year” - No one.">
           </figure>
           <div class="youtube-prediction">
-            <span class="micro">Classe prevista</span>
-            <strong class="class-label" data-tone="positiva">Positiva</strong>
-            <span>6 de 6 treinos</span>
+            <div>
+              <span class="micro">CNN</span>
+              <strong class="class-label" data-tone="positiva">Positiva</strong>
+              <span>6/6 treinos</span>
+            </div>
+            <div class="youtube-qwen" data-youtube-qwen="E">
+              <p class="micro">Qwen3-8B</p>
+              <div class="youtube-modes">
+                <div data-mode="sem_raciocinio"><span>Sem raciocínio</span><strong class="class-label"></strong></div>
+                <div data-mode="com_raciocinio"><span>Com raciocínio</span><strong class="class-label"></strong></div>
+              </div>
+            </div>
           </div>
           <p class="youtube-reading">“No one” transforma o elogio em crítica.</p>
         </section>
@@ -313,15 +368,25 @@
                  alt="AI could never do this.">
           </figure>
           <div class="youtube-prediction">
-            <span class="micro">Classe prevista</span>
-            <strong class="class-label" data-tone="negativa">Negativa</strong>
-            <span>6 de 6 treinos</span>
+            <div>
+              <span class="micro">CNN</span>
+              <strong class="class-label" data-tone="negativa">Negativa</strong>
+              <span>6/6 treinos</span>
+            </div>
+            <div class="youtube-qwen" data-youtube-qwen="C">
+              <p class="micro">Qwen3-8B</p>
+              <div class="youtube-modes">
+                <div data-mode="sem_raciocinio"><span>Sem raciocínio</span><strong class="class-label"></strong></div>
+                <div data-mode="com_raciocinio"><span>Com raciocínio</span><strong class="class-label"></strong></div>
+              </div>
+            </div>
           </div>
           <p class="youtube-reading">A frase admite admiração ou ironia.</p>
         </section>
       </div>
-      <footer class="lab-source">Dois tokenizadores, três treinos cada. Casos sem rótulo de referência.
-        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/fora_dominio_resultados.json" target="_blank" rel="noopener">Escores por semente</a>
+      <footer class="lab-source">CNN com dois tokenizadores e três treinos cada. Qwen gerou três respostas por modo. Casos sem rótulo de referência.
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/fora_dominio_resultados.json" target="_blank" rel="noopener">Escores da CNN</a>
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/qwen_youtube_resultados.json" target="_blank" rel="noopener">Escores do Qwen</a>
       </footer>
     </article>
 

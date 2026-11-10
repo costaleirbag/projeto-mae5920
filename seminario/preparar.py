@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from collections import Counter
 import csv
 import hashlib
 import json
@@ -31,6 +32,7 @@ SOURCES = (
     "seminario/casos.json",
     "seminario/dados/pares_resultados.json",
     "seminario/dados/fora_dominio_resultados.json",
+    "seminario/dados/qwen_youtube_resultados.json",
     "seminario/dados/animacoes.json",
     "seminario/dados/discordancias.json",
     "seminario/dados/passo_resultados.json",
@@ -198,6 +200,18 @@ def cnn_scan() -> None:
     save(fig, "cnn_varredura.pdf")
 
 
+def qwen_vote_badge(outputs: list[dict]) -> str:
+    counts = Counter(output["classe"] for output in outputs)
+    total = len(outputs)
+    for kind, command in (("positiva", r"\good"), ("negativa", r"\bad")):
+        if counts[kind] == total:
+            return f"{command}{{{kind.capitalize()} {total}/{total}}}"
+    parts = [f"{counts[kind]} {label}" for kind, label in (
+        ("positiva", "pos."), ("negativa", "neg."), (None, "s/ rótulo")
+    ) if counts[kind]]
+    return r"\pill{Paper}{Ink}{" + " / ".join(parts) + "}"
+
+
 def tables() -> str:
     comparisons = read_csv("results/comparison.csv")
     baseline_names = {"tfidf": "TF-IDF + logística", "cnn": "CNN", "bert": "BERT"}
@@ -275,6 +289,9 @@ def tables() -> str:
         external_rows.append(row(*cells))
     demo = read_json("seminario/dados/animacoes.json")
     pool = demo["pooling"]
+    qwen = read_json("seminario/dados/qwen_youtube_resultados.json")
+    qwen_labels = {case["id"]: case["geracao"] for case in qwen["comentarios"]}
+    early, late = pool["casos"]["A"]["picos_por_metade"]
     steps = demo["bpe"]["etapas"]
     trace = demo["cnn"]["casos"]["A"]["janelas"]["3"]
     bpe_steps = {}
@@ -352,6 +369,12 @@ def tables() -> str:
         "InicioControleB": str(pool["casos"]["B"]["max_indice"] + 1),
         "MaximoControle": pt(max(pool["casos"]["A"]["ativacoes"])),
         "FiltroControle": str(pool["filtro"]),
+        "PicoPrimeiraMetade": pt(early),
+        "PicoSegundaMetade": pt(late),
+        "QwenRoomSem": qwen_vote_badge(qwen_labels["E"]["sem_raciocinio"]),
+        "QwenRoomCom": qwen_vote_badge(qwen_labels["E"]["com_raciocinio"]),
+        "QwenFridaySem": qwen_vote_badge(qwen_labels["C"]["sem_raciocinio"]),
+        "QwenFridayCom": qwen_vote_badge(qwen_labels["C"]["com_raciocinio"]),
     }
     return "% Gerado por preparar.py a partir das evidências publicadas.\n" + "".join(
         macro(name, value) for name, value in props.items()

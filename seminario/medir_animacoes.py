@@ -92,14 +92,20 @@ def pooling_trace(frozen, pair: dict) -> dict:
     assert eligible.any()
     # Escolhe a resposta mais forte entre os filtros com pico único nessa janela.
     index = int(top[:, 0].masked_fill(~eligible, -1).argmax())
+    cases = {}
+    for name, position, values in zip(("A", "B"), positions, (first, second), strict=True):
+        activations = values[index].tolist()
+        midpoint = (len(activations) + 1) // 2
+        cases[name] = {
+            "max_indice": position, "ativacoes": activations,
+            "picos_por_metade": [max(activations[:midpoint]), max(activations[midpoint:])],
+        }
+    assert cases["A"]["picos_por_metade"] == cases["B"]["picos_por_metade"][::-1]
     return {
         "semente": frozen.seed, "checkpoint_sha256": frozen.checkpoint_sha256,
         "largura": width, "filtro": index, "janela": focus,
         "separador": separator, "elogio": opinion, "critica": criticism,
-        "casos": {
-            name: {"max_indice": position, "ativacoes": values[index].tolist()}
-            for name, position, values in zip(("A", "B"), positions, (first, second), strict=True)
-        },
+        "casos": cases,
     }
 
 

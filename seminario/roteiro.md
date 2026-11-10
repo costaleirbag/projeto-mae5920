@@ -18,7 +18,7 @@ trocar de pessoa.
 | 8 | 07:50–09:00 | Auditoria de palavras e BPE |
 | 9 | 09:00–10:10 | A predição do par inicial |
 | 10 | 10:10–11:10 | O limite do máximo global |
-| 11 | 11:10–11:40 | O que muda se guardarmos posição? |
+| 11 | 11:10–11:40 | Dois picos por filtro e acerto em pares |
 | 12 | 11:40–13:10 | Comentários do YouTube ou demonstração |
 | 13 | 13:10–14:35 | Encoders e geração com o Qwen |
 | 14 | 14:35–15:00 ou 11:40–12:00 | Conclusão e perguntas |
@@ -142,20 +142,22 @@ Mostre A e depois pressione **B** ou a seta direita. No PDF, compare as duas
 linhas e aponte a posição e o valor do pico.
 
 “No slide anterior, trocar duas palavras mudava as janelas. Aqui trocamos
-dois blocos inteiros. A frase de oito palavras separa as opiniões e mantém os vizinhos de cada uma.
+dois blocos inteiros em textos montados para este controle. A frase de
+oito palavras separa as opiniões e mantém os vizinhos de cada uma.
 Reparem em *movie i loved*. *Movie* termina o separador. Quando o elogio
 vai para depois da crítica, essa janela passa do token 8 ao 20.
 Este filtro atinge o mesmo pico, 0,47, nos dois lugares. O máximo entrega
 0,47 à camada final e descarta a posição. Como todos os filtros continuam
 vendo as mesmas janelas, os 300 valores e os escores finais são iguais.”
 
-## 11 · Guardar a posição basta?
+## 11 · Guardar a posição ajudou a classificar?
 
-“Dividimos as janelas em duas metades e guardamos o pico de cada uma. Com
-os filtros congelados, treinamos duas saídas com os mesmos dois números.
-Uma recebe menor e maior. A outra recebe início e fim. Com posição, o
-par anterior ganha escores diferentes. Nos 344 pares editados por pessoas,
-porém, o acerto nas duas versões ficou perto de 40% nas duas saídas.”
+“Pegamos o máximo em cada metade. No filtro do slide anterior, A tem
+0,47 no início e 0,25 no fim. Em B, eles trocam de lugar. Se eu ordenar
+pelo valor, as duas entradas ficam iguais. Pela ordem das metades, ficam
+diferentes. Com os filtros fixos, treinamos só a última camada. Em 344
+pares de resenhas editadas por pessoas, o acerto ficou perto de 40%
+nas duas versões. Um par só conta quando acertamos as duas resenhas.”
 
 Se perguntarem sobre o teste sintético, há quatro moldes com veredito no
 começo ou no fim. Nenhuma das cabeças acertou as duas frases de qualquer
@@ -167,14 +169,15 @@ Mostre os prints e aponte o destaque em *No one*. O modelo recebeu o
 texto de cada comentário. Os vídeos e a interface ajudam a plateia a
 interpretá-lo. [Trailer de The Room](https://www.youtube.com/watch?v=cG_e8k9PILM&t=2s) · [Friday](https://www.youtube.com/watch?v=kfVsfOSbJY0).
 
-“Em *The Room*, o elogio está entre aspas e é seguido de *No one*. Mesmo
-assim, os seis treinos deram positiva. Em *Friday*, a frase sobre IA pode
-soar como admiração ou ironia. As CNNs devolveram negativo. Em outro
-comentário de *The Room*, a pessoa critica o filme comparando com o trailer.
-Na semente 17, a CNN por palavras dá positivo e a BPE dá negativo.
-Esses comentários são casos de leitura. Para medir acurácia fora do IMDb,
-usamos 2.000 frases rotuladas de Amazon e Yelp. A média fica entre 68 e 70
-por cento, conforme a fonte e o tokenizer.”
+“Em *The Room*, o elogio entre aspas é seguido de *No one*. A CNN e o
+Qwen deram positiva. Em *Friday*, a frase pode soar como admiração ou
+ironia. Os dois modelos deram negativa. Com o Qwen, geramos três
+respostas sem raciocínio e três com raciocínio para cada comentário.
+As classes se repetiram nos dois modos. Para medir acurácia fora do IMDb,
+usamos 2.000 frases rotuladas de Amazon e Yelp. As CNNs ficaram entre
+68 e 70 por cento, conforme a fonte e o tokenizer.”
+
+[Escores do Qwen e controle de ordem](dados/qwen_youtube_resultados.json).
 
 Se optarem pela demonstração, abram o navegador antes da fala e usem até
 30 segundos para obter uma resenha curta em inglês da plateia. Mostrem a

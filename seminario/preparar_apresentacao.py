@@ -16,7 +16,7 @@ from pypdf import PdfReader
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
-FRAME = re.compile(r"(?:^% lab:(?P<lab>bpe|cnn|contrast|pooling|youtube|closing|cut)\n)?\\begin{frame}(?:\[[^\]]+\])?(?:\{(?P<title>[^{}\n]+)\})?", re.M)
+FRAME = re.compile(r"(?:^% lab:(?P<lab>bpe|cnn|contrast|pooling|position|youtube|closing|cut)\n)?\\begin{frame}(?:\[[^\]]+\])?(?:\{(?P<title>[^{}\n]+)\})?", re.M)
 MODEL = "src/imdb_lab/models.py"
 
 
@@ -158,7 +158,7 @@ def build(pdf: Path, output: Path) -> None:
     reader = PdfReader(pdf)
     frames = list(FRAME.finditer((HERE / "slides.tex").read_text(encoding="utf-8")))
     assert len(frames) == len(reader.pages), "O PDF deve ter uma página por frame."
-    assert [frame["lab"] for frame in frames if frame["lab"]] == ["bpe", "cnn", "contrast", "pooling", "youtube", "closing", "cut"]
+    assert [frame["lab"] for frame in frames if frame["lab"]] == ["bpe", "cnn", "contrast", "pooling", "position", "youtube", "closing", "cut"]
 
     slides = []
     with TemporaryDirectory(prefix="mae5920-slides-") as directory:
@@ -175,8 +175,21 @@ def build(pdf: Path, output: Path) -> None:
             slides.append(slide)
 
     evidence = json.loads((HERE / "dados/animacoes.json").read_text(encoding="utf-8"))
+    position_results = json.loads((HERE / "dados/posicao_resultados.json").read_text(encoding="utf-8"))
+    position = {
+        "pairs": position_results["n"]["contrast"] // 2,
+        "rates": {
+            order: position_results["medias"][key]["contrast"]["fracao_pares"]
+            for order, key in (("value", "dois_picos_sem_posicao"), ("half", "dois_picos_com_posicao"))
+        },
+    }
+    youtube_results = json.loads((HERE / "dados/qwen_youtube_resultados.json").read_text(encoding="utf-8"))
+    youtube_qwen = {
+        case["id"]: {mode: [answer["classe"] for answer in answers] for mode, answers in case["geracao"].items()}
+        for case in youtube_results["comentarios"]
+    }
     data = json.dumps({"slides": slides, "evidence": evidence, "architecture": architecture_steps(),
-                       "contrast": contrast_example(), "cut": cut_example()},
+                       "contrast": contrast_example(), "position": position, "youtubeQwen": youtube_qwen, "cut": cut_example()},
                       ensure_ascii=False, separators=(",", ":"))
     template = (HERE / "apresentacao.html").read_text(encoding="utf-8")
     for marker, file in (("ROOM", "the-room"), ("FRIDAY", "friday")):

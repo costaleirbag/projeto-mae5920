@@ -41,6 +41,12 @@ No slide 10, troque A por B e acompanhe um pico real da CNN. A mesma
 janela começa no token 8 em A e no 20 em B. O valor que o filtro entrega
 continua igual. [Controle do máximo global](https://costaleirbag.github.io/projeto-mae5920/#slide-10).
 
+Os textos A e B do slide 10 são construídos. A frase separadora aparece
+três vezes em cada um, preservando as janelas quando os blocos trocam de
+lugar. O slide 11 mostra os picos reais das duas metades desse mesmo
+exemplo e separa esse controle do teste com pares de resenhas editadas.
+[Dois picos por filtro](https://costaleirbag.github.io/projeto-mae5920/#slide-11).
+
 O primeiro slide de apoio alterna entre o recorte de 400 tokens e o texto
 inteiro de uma resenha do IMDb. **Conclusão** no topo vai ao encerramento.
 Ao chegar lá, o avanço normal para e os slides de apoio ficam disponíveis
@@ -149,6 +155,28 @@ público. Em *Friday*, “AI could never do this” admite admiração e ironia.
 Os dois de *The Room* criticam o filme por comparação com o trailer ou
 com um elogio citado. O comentário com “No one” recebeu classe positiva
 nos seis checkpoints. [Tokens e escores por execução](dados/fora_dominio_resultados.json).
+
+O Qwen3-8B recebeu o mesmo texto de cada print, com o prompt binário de
+resenhas do projeto. No protocolo padrão, deu positiva para o comentário
+de *The Room* e negativa para o de *Friday*. Inverter a ordem dos rótulos
+no prompt manteve as classes. Em *Friday*, o escore positivo entre os dois
+rótulos foi de 1,10% para 22,27%. O escore bruto é restrito aos rótulos
+`negative` e `positive`. Os comentários seguem sem rótulo de referência.
+[Qwen, logits e dois controles de sanidade](dados/qwen_youtube_resultados.json).
+
+
+Também geramos três respostas por comentário com raciocínio desativado
+e três com raciocínio ativado. Usamos a mesma instrução e a mesma
+amostragem nos dois modos, com temperatura 0,6, top-p 0,95, top-k 20,
+semente 20261020 e limite de 1.536 tokens novos. Os seis rótulos de
+*The Room* foram positivos e os seis de *Friday* foram negativos.
+As respostas com raciocínio chegaram ao rótulo final depois do bloco
+de raciocínio. O arquivo guarda as classes e as contagens de tokens.
+[Configuração recomendada pelo Qwen](https://huggingface.co/Qwen/Qwen3-8B#switching-between-thinking-and-non-thinking-mode).
+
+Para reproduzir com CUDA e o ambiente Qwen do projeto, rode
+`python seminario/medir_qwen_youtube.py`.
+[Configuração da inferência](../QWEN_EXPERIMENTO.md).
 
 Para repetir a inferência com os seis checkpoints, baixe o ZIP original e
 passe seu caminho ao script. O arquivo de predições guarda os números de

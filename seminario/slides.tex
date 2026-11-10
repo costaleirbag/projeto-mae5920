@@ -310,7 +310,7 @@ Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
   \good{\small I loved the acting.}\enspace
   \pill{Paper}{Quiet}{\scriptsize Separador}}
 \par
-{\scriptsize Separador de 8 palavras \enspace \textit{I have a few thoughts about this movie.}}
+{\scriptsize\strong{Controle sintético} \enspace Separador de 8 palavras \enspace \textit{I have a few thoughts about this movie.}}
 \par\vspace{2mm}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{.33\textwidth}
@@ -334,25 +334,42 @@ Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
 \end{frame}
 
 % 11:10–11:40
-\begin{frame}{Guardar a posição basta?}
+% lab:position
+\begin{frame}{Guardar a posição ajudou a classificar?}
+\noindent{\small Dividimos as janelas em duas metades e guardamos a maior resposta de cada uma.}
+\par\vspace{.8mm}
+\eyebrow{Exemplo do slide anterior \(\cdot\) mesmo filtro}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{.48\textwidth}
-\slidecard{Wash}{\eyebrow{Sem posição}\par
-  \large\bfseries Menor pico \(\mid\) Maior pico}
+\slidecard{Wash}{\textbf{Sem posição}\par
+  {\small
+  \begin{tabular*}{\linewidth}{@{}l@{\extracolsep{\fill}}rr@{}}
+  Texto & Pico menor & Pico maior\\
+  A & \PicoSegundaMetade & \strong{\PicoPrimeiraMetade}\\
+  B & \PicoSegundaMetade & \strong{\PicoPrimeiraMetade}
+  \end{tabular*}}}
 \end{column}
 \begin{column}{.48\textwidth}
-\slidecard{Mint}{\eyebrow{Com posição}\par
-  \large\bfseries Pico do início \(\mid\) Pico do fim}
+\slidecard{Mint}{\textbf{Com posição}\par
+  {\small
+  \begin{tabular*}{\linewidth}{@{}l@{\extracolsep{\fill}}rr@{}}
+  Texto & 1ª metade & 2ª metade\\
+  A & \strong{\PicoPrimeiraMetade} & \PicoSegundaMetade\\
+  B & \PicoSegundaMetade & \strong{\PicoPrimeiraMetade}
+  \end{tabular*}}}
 \end{column}
 \end{columns}
-\par\vspace{2mm}
-{\small Em cada filtro, guardamos os mesmos dois valores e ajustamos a camada final.}
-\vfill
-{\eyebrow{Acerto nas duas versões de cada resenha}\par
- \fontsize{25}{28}\selectfont\strong{\SemPosHumanos{} \(\to\) \ComPosHumanos{}}\par}
-{\small \NParesHumanos{} pares editados por pessoas. Na troca de blocos, os escores diferiram e a classe ficou igual.}
-\smallsource{Três sementes, filtros congelados, 600 entradas nas duas cabeças.
-\fonteatual{seminario/diagnosticos.md}{Experimento e controles}.}
+\par\vspace{1mm}
+\eyebrow{Teste separado \(\cdot\) \NParesHumanos{} pares de resenhas}
+\par
+{\large\strong{\SemPosHumanos{}}\enspace\small sem posição}
+\hspace{7mm}
+{\large\strong{\ComPosHumanos{}}\enspace\small com posição}
+\par
+{\small Cada par tem uma resenha e uma edição humana que inverte o rótulo.
+Só conta acerto nas duas versões.}
+\smallsource{Filtros congelados. Ajustamos só a camada final. 600 entradas por modelo.
+\fonteatual{seminario/diagnosticos.md}{Protocolo}.}
 \end{frame}
 
 % Bloco adicional, 11:40–13:10
@@ -360,20 +377,25 @@ Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
 \setbeamercolor{background canvas}{bg=Forest}
 \setbeamertemplate{frametitle}{}
 % lab:youtube
-\begin{frame}[plain]{Do YouTube para a CNN}
+\begin{frame}[plain]{CNN e Qwen leem o YouTube}
 \color{white}
 \vfill
 \pill{ScreenRed}{white}{\(\triangleright\) YouTube}
-\enspace {\small\color{Lime} A CNN recebeu só o texto do comentário.}
+\enspace {\small\color{Lime} Os dois modelos receberam só o texto de cada comentário.}
 \par\vspace{1.3mm}
-{\Large\bfseries Do YouTube para a CNN\par}
+{\Large\bfseries CNN e Qwen leem o YouTube\par}
 \vspace{2mm}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{.485\textwidth}
 \textbf{The Room}\hfill
 \href{https://www.youtube.com/watch?v=cG_e8k9PILM&t=2s}{\textcolor{Lime}{\small Trailer \(\nearrow\)}}\par
 \youtubeprint{the-room}\par\vspace{.7mm}
-{\scriptsize\bfseries\color{Lime} CNN}\enspace\good{Positiva}\enspace{\small 6 de 6 treinos}
+{\scriptsize\bfseries\color{Lime} CNN}\enspace\good{Positiva}\enspace{\small 6/6}\par\vspace{.4mm}
+{\scriptsize\bfseries\color{Lime} Qwen3-8B}\par
+\makebox[.50\linewidth][l]{\scriptsize Sem raciocínio}
+\makebox[.48\linewidth][l]{\scriptsize Com raciocínio}\par
+\makebox[.50\linewidth][l]{\scriptsize\QwenRoomSem}
+\makebox[.48\linewidth][l]{\scriptsize\QwenRoomCom}
 \par\vspace{.6mm}
 {\small “No one” transforma o elogio em crítica.}
 \end{column}
@@ -381,14 +403,20 @@ Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
 \textbf{Friday}\hfill
 \href{https://www.youtube.com/watch?v=kfVsfOSbJY0}{\textcolor{Lime}{\small Clipe de Rebecca Black \(\nearrow\)}}\par
 \youtubeprint{friday}\par\vspace{.7mm}
-{\scriptsize\bfseries\color{Lime} CNN}\enspace\bad{Negativa}\enspace{\small 6 de 6 treinos}
+{\scriptsize\bfseries\color{Lime} CNN}\enspace\bad{Negativa}\enspace{\small 6/6}\par\vspace{.4mm}
+{\scriptsize\bfseries\color{Lime} Qwen3-8B}\par
+\makebox[.50\linewidth][l]{\scriptsize Sem raciocínio}
+\makebox[.48\linewidth][l]{\scriptsize Com raciocínio}\par
+\makebox[.50\linewidth][l]{\scriptsize\QwenFridaySem}
+\makebox[.48\linewidth][l]{\scriptsize\QwenFridayCom}
 \par\vspace{.6mm}
 {\small A frase admite admiração ou ironia.}
 \end{column}
 \end{columns}
 \vfill
-{\scriptsize\color{Lime}Dois tokenizadores, três treinos cada. Casos sem rótulo de referência.
-\fonteatual{seminario/dados/fora_dominio_resultados.json}{\textcolor{Lime}{Escores por semente}}.\par}
+{\scriptsize\color{Lime}CNN com dois tokenizadores e três treinos cada. Qwen gerou três respostas por modo. Casos sem rótulo de referência.
+\fonteatual{seminario/dados/fora_dominio_resultados.json}{\textcolor{Lime}{CNN}} \(\cdot\)
+\fonteatual{seminario/dados/qwen_youtube_resultados.json}{\textcolor{Lime}{Qwen}}.\par}
 \vspace{2mm}
 \end{frame}
 }
