@@ -340,6 +340,52 @@ swapButtons.forEach((button) => button.addEventListener("click", () => showContr
 showContrast("a", false);
 const contrastTransport = { move: (direction) => showContrast(direction > 0 ? "b" : "a") };
 
+const pooling = evidence.pooling;
+const poolButtons = [...document.querySelectorAll("[data-pool-case]")];
+const poolBlocks = [byId("pool-first"), byId("pool-second")];
+const poolCases = [pooling.casos.A, pooling.casos.B];
+const poolMaxima = poolCases.map(({ ativacoes, max_indice }) => ativacoes[max_indice]);
+const poolScale = 1.14 * Math.max(...poolMaxima);
+const poolCount = poolCases[0].ativacoes.length;
+const poolChart = byId("pool-bars");
+poolChart.style.setProperty("--window-count", poolCount);
+const poolBars = Array.from({ length: poolCount }, (_, index) => {
+  const bar = document.createElement("span");
+  bar.className = "bar";
+  bar.style.left = (100 * (index + .5) / poolCount) + "%";
+  return bar;
+});
+poolChart.append(...poolBars);
+
+byId("pool-separator-text").textContent = "“" + pooling.separador + "”";
+byId("pool-window").append(...pooling.janela.map((word) => token(word)));
+byId("pool-positions").textContent = poolCases.map(({ max_indice }) => max_indice + 1).join(" → ");
+byId("pool-maxima").textContent = poolMaxima.map((value) => number.format(value)).join(" = ");
+byId("pool-evidence").textContent = "CNN por palavras, semente " + pooling.semente + ". Filtro "
+  + pooling.filtro + ", janelas de " + pooling.largura + " tokens.";
+
+let poolState;
+function showPooling(state) {
+  if (state === poolState) return false;
+  const order = state === "A" ? ["elogio", "critica"] : ["critica", "elogio"];
+  poolBlocks.forEach((block, index) => {
+    block.textContent = pooling[order[index]];
+    block.dataset.tone = order[index] === "elogio" ? "positiva" : "negativa";
+  });
+  const { ativacoes, max_indice } = pooling.casos[state];
+  poolBars.forEach((bar, index) => {
+    bar.style.height = (100 * ativacoes[index] / poolScale) + "%";
+    bar.classList.toggle("current", index === max_indice);
+  });
+  byId("pool-current").textContent = "Em " + state + ", pico no token " + (max_indice + 1);
+  poolButtons.forEach((button) => button.setAttribute("aria-pressed", button.dataset.poolCase === state));
+  poolState = state;
+  return true;
+}
+poolButtons.forEach((button) => button.addEventListener("click", () => showPooling(button.dataset.poolCase)));
+showPooling("A");
+const poolingTransport = { move: (direction) => showPooling(direction > 0 ? "B" : "A") };
+
 const cutButtons = [...document.querySelectorAll("[data-cut]")];
 const cutResults = [...document.querySelectorAll("[data-cut-model]")];
 const cutRuler = document.querySelector(".cut-ruler");
@@ -390,7 +436,7 @@ const previous = byId("previous");
 const next = byId("next");
 let slideIndex = -1;
 let cnnView = "build";
-const labs = { bpe: bpeTransport, cnn: cnnTransport, contrast: contrastTransport, cut: cutTransport };
+const labs = { bpe: bpeTransport, cnn: cnnTransport, contrast: contrastTransport, pooling: poolingTransport, cut: cutTransport };
 const ending = slides.findIndex((slide) => slide.interactive === "closing");
 const mainGroup = document.createElement("optgroup");
 const supportGroup = document.createElement("optgroup");
@@ -411,7 +457,7 @@ function showSlide(index, view = "build") {
   cnnView = view;
   bpeTransport.pause();
   cnnTransport.pause();
-  for (const id of ["bpe", "contrast", "youtube", "closing", "cut"]) byId(id).hidden = slide.interactive !== id;
+  for (const id of ["bpe", "contrast", "pooling", "youtube", "closing", "cut"]) byId(id).hidden = slide.interactive !== id;
   byId("cnn-build").hidden = slide.interactive !== "cnn" || cnnView !== "build";
   byId("cnn").hidden = slide.interactive !== "cnn" || cnnView !== "scan";
   centerArchitectureStage();

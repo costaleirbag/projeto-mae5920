@@ -221,6 +221,65 @@
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/pares_resultados.json" target="_blank" rel="noopener">Resultados por semente</a>
       </footer>
     </article>
+    <article id="pooling" class="lab readable pooling-slide" hidden aria-labelledby="pool-title">
+      <header class="lab-heading">
+        <p class="eyebrow">03 · Limites <span>Troca de blocos</span></p>
+        <h1 id="pool-title">O pico muda de lugar. O máximo fica.</h1>
+      </header>
+      <div class="pool-switch-row">
+        <div class="cnn-view" role="group" aria-label="Ordem das opiniões">
+          <button type="button" data-pool-case="A" aria-pressed="true">A · Elogio primeiro</button>
+          <button type="button" data-pool-case="B" aria-pressed="false">B · Crítica primeiro ⇄</button>
+        </div>
+        <p>Trocamos duas opiniões inteiras de lugar.</p>
+      </div>
+
+      <div class="lab-body pool-layout">
+        <section class="panel pool-panel" aria-label="Ativações ao longo da resenha">
+          <div class="pool-blocks" aria-label="Partes da resenha na ordem escolhida">
+            <span>Separador</span><strong id="pool-first" lang="en"></strong><span>Separador</span>
+            <strong id="pool-second" lang="en"></strong><span>Separador</span>
+          </div>
+          <p class="pool-separator">Separador de oito palavras <span id="pool-separator-text" lang="en"></span></p>
+
+          <div class="plot pool-plot">
+            <div class="pool-plot-heading">
+              <p class="micro">Resposta do filtro por janela</p>
+              <p id="pool-current" aria-live="polite"></p>
+            </div>
+            <div class="bars pool-bars" id="pool-bars" aria-hidden="true"></div>
+            <div class="pool-axis" aria-hidden="true"><span>Início</span><span>Fim da resenha</span></div>
+          </div>
+        </section>
+
+        <aside class="rail pool-rail" aria-label="O que chega à camada final">
+          <div>
+            <p class="micro">Janela com maior resposta</p>
+            <div id="pool-window" class="pieces compact" lang="en"></div>
+            <p class="pool-window-note">Uma palavra do separador e duas da opinião.</p>
+          </div>
+          <div class="pool-comparison">
+            <div>
+              <p class="micro">Token inicial em A e B</p>
+              <p class="readout" id="pool-positions"></p>
+            </div>
+            <div>
+              <p class="micro">Máximo guardado em A e B</p>
+              <p class="readout" id="pool-maxima"></p>
+            </div>
+          </div>
+        </aside>
+      </div>
+
+      <div class="pool-takeaway">
+        <p>A mesma frase cerca cada opinião. As mesmas janelas de 3, 4 e 5 tokens aparecem em outra ordem.</p>
+        <p><strong>Mesmos 300 máximos → mesmos escores finais em A e B.</strong></p>
+      </div>
+      <footer class="lab-source"><span id="pool-evidence"></span>
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/pares_resultados.json" target="_blank" rel="noopener">Controle nos seis treinos</a>
+      </footer>
+    </article>
+
     <article id="youtube" class="lab readable youtube-slide" hidden aria-labelledby="youtube-title">
       <header class="lab-heading">
         <p class="eyebrow">Extensão <span class="youtube-brand"><span aria-hidden="true">▶</span> YouTube</span></p>
