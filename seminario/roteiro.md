@@ -136,17 +136,18 @@ o filme foi terrível. Os escores pulam para 89,9% e 83,7%. Todos os
 treinos passam para positiva. Neste par, a classe prevista coincidiu
 com o sentimento da primeira oração nas duas versões.”
 
-## 10 · Limite do máximo global
+## 10 · O pico muda de lugar. O máximo fica.
 
-“Agora fazemos uma troca com um controle mais forte. Colocamos a mesma frase
-separadora no início, entre os dois blocos e no fim. O separador tem tokens
-suficientes para que uma janela de até cinco tokens só encontre um bloco
-por vez. Quando trocamos os blocos, cada janela que existia continua
-existindo. Confirmamos isso com os IDs das duas tokenizações. Se um filtro
-recebe as mesmas janelas, vê o mesmo conjunto de respostas. Como o pooling
-fica só com o máximo, o valor que ele manda para a saída é igual. Foi o
-que encontramos numericamente nos seis checkpoints. Aqui a igualdade é
-uma consequência da arquitetura.”
+Mostre A e depois pressione **B** ou a seta direita. No PDF, compare as duas
+linhas e aponte a posição e o valor do pico.
+
+“No slide anterior, trocar duas palavras mudava as janelas. Aqui trocamos
+dois blocos inteiros. A frase de oito palavras separa as opiniões e mantém os vizinhos de cada uma.
+Reparem em *movie i loved*. *Movie* termina o separador. Quando o elogio
+vai para depois da crítica, essa janela passa do token 8 ao 20.
+Este filtro atinge o mesmo pico, 0,47, nos dois lugares. O máximo entrega
+0,47 à camada final e descarta a posição. Como todos os filtros continuam
+vendo as mesmas janelas, os 300 valores e os escores finais são iguais.”
 
 ## 11 · Guardar a posição basta?
 

@@ -37,6 +37,10 @@ esperada da conclusão e o escore positivo de cada tokenizador. Cada linha
 resume três treinos, um por semente. A régua mantém o limiar de 50% e marca
 onde estava A quando você mostra B. [Par de contraste](https://costaleirbag.github.io/projeto-mae5920/#slide-9).
 
+No slide 10, troque A por B e acompanhe um pico real da CNN. A mesma
+janela começa no token 8 em A e no 20 em B. O valor que o filtro entrega
+continua igual. [Controle do máximo global](https://costaleirbag.github.io/projeto-mae5920/#slide-10).
+
 O primeiro slide de apoio alterna entre o recorte de 400 tokens e o texto
 inteiro de uma resenha do IMDb. **Conclusão** no topo vai ao encerramento.
 Ao chegar lá, o avanço normal para e os slides de apoio ficam disponíveis
@@ -70,7 +74,7 @@ os dados das figuras estáticas e da tabela de posição.
 
 Para reconstruir também o HTML, rode `make -C seminario interativo` com
 `pypdf` e `pdftoppm` instalados. O HTML usa as páginas renderizadas do PDF
-nos slides fixos. Os slides de BPE, CNN, contraste e recorte usam os dados
+nos slides fixos. Os slides de BPE, CNN, contraste, máximo global e recorte usam os dados
 salvos e os controles da apresentação. Os prints do YouTube também ficam
 embutidos no HTML. [Fontes do HTML](apresentacao.html) · [estilo](apresentacao.css) · [controles](apresentacao.js).
 

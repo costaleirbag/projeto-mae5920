@@ -309,16 +309,16 @@
       "sha256": "cbd930819bf36ebe9ecd257d92c606dc448a9c17024bf8efc313cba1e8777b13"
     },
     "output/pdf/slides_15_min.pdf": {
-      "bytes": 429303,
-      "sha256": "23bf885c1ebf3a5270daa8cc70b565c075c2276c34c0604b3d6c3eed7175bd4f"
+      "bytes": 431514,
+      "sha256": "937d7ab94985356ea3f9f7ca06ce268a64cd3caeff38d469b70200a5d540ebf9"
     },
     "output/slides/seminario_mae5920.pptx": {
       "bytes": 139325,
       "sha256": "c5eeff28fa6d0df9b53187f2465ac9c970885cf2660d54be9ff414d6e9e9006f"
     },
     "output/slides/slides_15_min_interativos.html": {
-      "bytes": 1753283,
-      "sha256": "6b97e1c6b091e316c2792783a6cb6b9299f242ea9abbea3abf383399afad7dfc"
+      "bytes": 1649219,
+      "sha256": "de810ff6514e4a76585b2a3305d5d203089373ab8208894fb977a1f4900d6745"
     },
     "plot_qwen_improve.py": {
       "bytes": 2970,
@@ -3130,7 +3130,7 @@
     },
     "results/source_manifest.json": {
       "bytes": 14752,
-      "sha256": "dde39507a97db90eac7c29848d8e41794f0c5e313779d45a672bf5dc7964521e"
+      "sha256": "44ae93c68fd25ca284afe73f259703159db2c33adf20cc14a1603fc2acef9db2"
     },
     "results/steering/directions.npz": {
       "bytes": 46260,
@@ -3213,20 +3213,20 @@
       "sha256": "e57297423f13b723cf32d6fdb5f3b2071ae81ca9d8e51ae9d1b0abe19f32c950"
     },
     "seminario/README.md": {
-      "bytes": 10928,
-      "sha256": "def7ab9bb59059af1d9bb1725eb217164d637f37cbb984e28beff24cf88d0c4f"
+      "bytes": 11192,
+      "sha256": "6ff0800871bcb323fcc9b2eaf38f408cc6e9a8567a9317eb62bee18d6d6ce7cd"
     },
     "seminario/apresentacao.css": {
-      "bytes": 23136,
-      "sha256": "94917692d4e4710905821404f5c987cf5305babbf6f0c9749f642305e03ec39d"
+      "bytes": 25282,
+      "sha256": "8c212e15bf6d39b25059b6b8174d1e6ae37db35b493353067451d73bf8b51682"
     },
     "seminario/apresentacao.html": {
-      "bytes": 18285,
-      "sha256": "e60fed093288717271d64b63fe5747da90cef39caa38fe8259ac0f77eafb0487"
+      "bytes": 21217,
+      "sha256": "92b9eeb3c1382ea965154997e5cc41d1012be6733c74c1fa00ae136fca8ea784"
     },
     "seminario/apresentacao.js": {
-      "bytes": 21827,
-      "sha256": "c826d774d6483b890c02bf12c7fe829ba8f4869c2858731cd23afbf46acd1779"
+      "bytes": 24152,
+      "sha256": "97b4d527fa36c95511bed0e53058506d9e8450a82acf9626340503afd94ca02d"
     },
     "seminario/arquitetura.tex": {
       "bytes": 1166,
@@ -3249,8 +3249,8 @@
       "sha256": "367e466b53ff5bfd1b58a400f3264c263190cb9b51dd8bb80b41ebd1721871b1"
     },
     "seminario/dados/animacoes.json": {
-      "bytes": 6668,
-      "sha256": "e0c1bf65135f336c21ad15d28c79d297f28cdd26a73729ef1c66412336fd175f"
+      "bytes": 8759,
+      "sha256": "920961efe0effffa44362c83fbc9818159799c99fb3c9fd0fd8a9d7db8392c49"
     },
     "seminario/dados/discordancias.json": {
       "bytes": 7572,
@@ -3258,7 +3258,7 @@
     },
     "seminario/dados/fontes.json": {
       "bytes": 1787,
-      "sha256": "3119c83f86fcbaee68740193df826860916ac99a24a3c19c309e87e945e5d7a0"
+      "sha256": "697d46569d855f0509d50043fc433509d2264111bc601b5f3128b99e70c71099"
     },
     "seminario/dados/fora_dominio_predicoes.npz": {
       "bytes": 96099,
@@ -3293,8 +3293,8 @@
       "sha256": "c1dbf7991ca918108357c874db963e10fb8cd0fc20c71e6f2f7501d473fbb830"
     },
     "seminario/dados/tabelas.tex": {
-      "bytes": 4027,
-      "sha256": "d03251193b847d1c5a808d82fac37ad0dc93798d26066fc8f6ce84ac7a860bc2"
+      "bytes": 4206,
+      "sha256": "349e6a3862b9011558d96c430780f05466ae30afa5c39e1c29245aba85fbfab0"
     },
     "seminario/demo.html": {
       "bytes": 2090,
@@ -3337,8 +3337,8 @@
       "sha256": "48442f796f54ccd944a963454b12be5236996039bc7d083cc2ead659ae9e30e8"
     },
     "seminario/medir_animacoes.py": {
-      "bytes": 3506,
-      "sha256": "b6849cd9bda1bb47e1b00d5705e90bf971a26c44db3833d673a0e4f72d2bc6d7"
+      "bytes": 5697,
+      "sha256": "d9245ec824de119fc3d124a86af7dd2d234039ad7f86b60a52e85af7a66304c2"
     },
     "seminario/medir_fora_dominio.py": {
       "bytes": 5528,
@@ -3413,12 +3413,12 @@
       "sha256": "4e209104a296bfd08b7eaa665e9523857841af7bae91211dd5ab44343cc35183"
     },
     "seminario/preparar.py": {
-      "bytes": 18147,
-      "sha256": "9645214e5491a308373fa8fee72a6b2fd9c9e12cd6ec19885051e203bb06dc5c"
+      "bytes": 18481,
+      "sha256": "a9fc85dd397069b06a972af42e8b132efbb394842ef9ed7d6cef258cb132c94d"
     },
     "seminario/preparar_apresentacao.py": {
-      "bytes": 10736,
-      "sha256": "8091b49aa60d267d0ab0ada5788b433bc5513ad94c3eb5e872fb136393663361"
+      "bytes": 10755,
+      "sha256": "78b331d47e0220b53245992fa68c6a72c600100a43fd35d03eb12a286b6c2a13"
     },
     "seminario/preparar_relatorio.py": {
       "bytes": 2738,
@@ -3429,12 +3429,12 @@
       "sha256": "aeaf67b7519705940e7016ebc50ce01143864224b6fd21482a740c28d866e092"
     },
     "seminario/roteiro.md": {
-      "bytes": 11820,
-      "sha256": "66ac08930c467ab8cb0eaccbc1464e7f5deafbda9e2d34b1a2ce45b804c549f9"
+      "bytes": 11864,
+      "sha256": "2a192fa76e102d54bd3af33a9786b2f0b681962d88906520a343eacd06f9b489"
     },
     "seminario/slides.tex": {
-      "bytes": 20692,
-      "sha256": "299dca3b351303de84a41f48c91dc2012b0ed6d9707bb0624a55d52f3c03293f"
+      "bytes": 21253,
+      "sha256": "8cb710adcf7b98aff6b128ed49fd29c2371a953ceb6eaeae1a3f419ed538e0e0"
     },
     "sequence_config.json": {
       "bytes": 3342,

@@ -274,6 +274,7 @@ def tables() -> str:
             cells.extend((pct(scores["accuracy"]), pt(scores["f1_macro"], 4), pt(scores["ce"], 4)))
         external_rows.append(row(*cells))
     demo = read_json("seminario/dados/animacoes.json")
+    pool = demo["pooling"]
     steps = demo["bpe"]["etapas"]
     trace = demo["cnn"]["casos"]["A"]["janelas"]["3"]
     bpe_steps = {}
@@ -346,6 +347,11 @@ def tables() -> str:
         "FiltroDemo": str(trace["filtro"]),
         "MaximoDemo": pt(max(trace["ativacoes"])),
         "MaximoPassoDois": pt(max(trace["ativacoes"][::2])),
+        "JanelaControle": " ".join(pool["janela"]),
+        "InicioControleA": str(pool["casos"]["A"]["max_indice"] + 1),
+        "InicioControleB": str(pool["casos"]["B"]["max_indice"] + 1),
+        "MaximoControle": pt(max(pool["casos"]["A"]["ativacoes"])),
+        "FiltroControle": str(pool["filtro"]),
     }
     return "% Gerado por preparar.py a partir das evidências publicadas.\n" + "".join(
         macro(name, value) for name, value in props.items()

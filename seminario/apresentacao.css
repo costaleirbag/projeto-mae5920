@@ -613,3 +613,47 @@ p, h1 { margin: 0; }
   .cut-header { flex-wrap: wrap; }
   .cut-scores { border-inline-start: 0; padding-inline-start: 0; }
 }
+
+.pool-switch-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .65em;
+  color: var(--quiet);
+  font-size: .87em;
+}
+.pool-switch-row .cnn-view { font-size: .96em; }
+.pool-layout { grid-template-columns: minmax(0, 2.1fr) minmax(0, 1fr); }
+.pool-panel { display: flex; flex-direction: column; gap: .6em; padding: 1.05cqw 1.2cqw; }
+.pool-blocks {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto minmax(0, 1fr) auto;
+  gap: .25em;
+  text-align: center;
+  font-size: .84em;
+}
+.pool-blocks > * { display: grid; place-items: center; border-radius: .33em; padding: .45em .38em; line-height: 1.16; }
+.pool-blocks span { color: var(--quiet); background: #eeeee7; font-size: .8em; }
+.pool-separator { color: var(--quiet); font-size: .75em; }
+.pool-separator [lang] { font-style: italic; }
+.pool-plot-heading, .pool-axis { display: flex; align-items: baseline; justify-content: space-between; gap: .55em; }
+#pool-current, .pool-axis { color: var(--quiet); font-size: .71em; }
+.pool-bars { min-height: 4.7em; }
+.pool-bars .bar { width: calc(71% / var(--window-count)); min-height: 0; }
+.pool-rail { display: flex; flex-direction: column; justify-content: center; gap: .72em; }
+.pool-rail .pieces { margin-top: .25em; }
+.pool-rail .pieces code:first-child { background: #eeeee7; color: var(--quiet); }
+.pool-window-note { color: var(--quiet); font-size: .75em; }
+.pool-comparison { display: grid; gap: .45em; }
+.pool-comparison > div { border-top: 1px solid #afcdc0; padding-top: .45em; }
+.pool-comparison .readout { margin-top: .1em; font-size: 1.55em; white-space: nowrap; }
+.pool-takeaway { display: flex; flex-wrap: wrap; gap: .18em 1.1em; color: var(--quiet); font-size: .86em; }
+.pool-takeaway strong { color: var(--forest); }
+.pooling-slide .lab-source { padding-top: .45em; border-top: 1px solid var(--rule); }
+
+@media (max-width: 720px) and (orientation: portrait) {
+  .pool-switch-row { flex-wrap: wrap; }
+  .pool-layout { grid-template-columns: 1fr; gap: 9px; }
+  .pool-panel, .pool-rail { padding: 9px; border-radius: 7px; }
+  .pool-comparison { grid-template-columns: 1fr 1fr; gap: 9px; }
+}

@@ -293,28 +293,47 @@ Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
 \fonteatual{seminario/dados/pares_resultados.json}{Resultados por semente}.}
 \end{frame}
 
-% 10:10–11:25
-\begin{frame}{Quando o máximo apaga a troca}
-\nota{\(S=\) \textit{I have a few thoughts about this movie.}}
-\par\vspace{1.4mm}
-\slidecard{Wash}{\textbf{A}\qquad \chip{S}
-  \good{I loved the acting.}\enspace \chip{S}\bad{I hated the ending.}\enspace \chip{S}}
-\par\vspace{.5mm}
-\slidecard{Wash}{\textbf{B}\qquad \chip{S}
-  \bad{I hated the ending.}\enspace \chip{S}\good{I loved the acting.}\enspace \chip{S}}
+% 10:10–11:10
+% lab:pooling
+\begin{frame}{O pico muda de lugar. O máximo fica.}
+\slidecard{Wash}{\textbf{A}\enspace
+  \pill{Paper}{Quiet}{\scriptsize Separador}\enspace
+  \good{\small I loved the acting.}\enspace
+  \pill{Paper}{Quiet}{\scriptsize Separador}\enspace
+  \bad{\small I hated the ending.}\enspace
+  \pill{Paper}{Quiet}{\scriptsize Separador}}
+\par\vspace{.7mm}
+\slidecard{Wash}{\textbf{B}\enspace
+  \pill{Paper}{Quiet}{\scriptsize Separador}\enspace
+  \bad{\small I hated the ending.}\enspace
+  \pill{Paper}{Quiet}{\scriptsize Separador}\enspace
+  \good{\small I loved the acting.}\enspace
+  \pill{Paper}{Quiet}{\scriptsize Separador}}
+\par
+{\scriptsize Separador de 8 palavras \enspace \textit{I have a few thoughts about this movie.}}
+\par\vspace{2mm}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.33\textwidth}
+\eyebrow{Janela com maior resposta}\par
+{\large\strong{\texttt{\JanelaControle}}}
+\end{column}
+\begin{column}{.29\textwidth}
+\eyebrow{Token inicial em A e B}\par
+{\large\bfseries \InicioControleA{} \(\to\) \InicioControleB}
+\end{column}
+\begin{column}{.30\textwidth}
+\eyebrow{Máximo em A e B}\par
+{\large\strong{\MaximoControle{} \(=\) \MaximoControle}}
+\end{column}
+\end{columns}
 \par\vfill
-\begin{tikzpicture}[x=1mm,y=1mm,font=\sffamily\small]
-  \node[anchor=west,text=Quiet] at (0,9) {Mesmas janelas de 3, 4 e 5};
-  \draw[Teal,-{Latex[length=1.6mm]}] (58,9) -- (64,9);
-  \node[anchor=west,text=Quiet] at (67,9) {Mesmos máximos};
-  \draw[Teal,-{Latex[length=1.6mm]}] (101,9) -- (107,9);
-  \node[anchor=west,text=Teal,font=\bfseries] at (110,9) {Logits idênticos};
-\end{tikzpicture}
-\smallsource{Diferença máxima igual a zero em todos os treinos.
-\fonteatual{seminario/dados/pares_resultados.json}{Controle com as mesmas janelas}.}
+{\small Os separadores preservam as janelas de 3, 4 e 5 tokens.}\par
+\strong{Mesmos 300 máximos \(\to\) mesmos escores finais em A e B.}
+\smallsource{Filtro \FiltroControle{} de largura 3, CNN por palavras, semente 17.
+\liveversion{10}. \fonteatual{seminario/dados/pares_resultados.json}{Controle nos seis treinos}.}
 \end{frame}
 
-% 11:25–12:00
+% 11:10–11:40
 \begin{frame}{Guardar a posição basta?}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{.48\textwidth}

@@ -10,7 +10,8 @@ import torch
 
 from demo import HERE, ROOT, load_models
 from imdb_lab.common import file_sha256, read_json
-from imdb_lab.models import PadBatch
+from imdb_lab.models import PadBatch, tokenize
+from medir_pares import windows
 
 
 def bpe_steps(tokenizer, word: str) -> dict:
@@ -33,16 +34,20 @@ def bpe_steps(tokenizer, word: str) -> dict:
 
 
 @torch.inference_mode()
+def cnn_responses(frozen, text: str) -> tuple[dict, dict]:
+    prediction = frozen.predict(text)
+    ids = prediction["ids"]
+    inputs, _ = PadBatch("cnn")([(ids, 0)])
+    embedded = frozen.model.embedding(inputs["input_ids"]).transpose(1, 2)
+    responses = {width: conv(embedded)[0, :, :len(ids) - width + 1]
+                 for width, conv in zip(frozen.model.kernels, frozen.model.convs)}
+    return prediction, responses
+
+
 def cnn_trace(frozen, texts: dict[str, str]) -> dict:
-    cases = {}
-    responses = {}
+    cases, responses = {}, {}
     for name, text in texts.items():
-        prediction = frozen.predict(text)
-        ids = prediction["ids"]
-        inputs, _ = PadBatch("cnn")([(ids, 0)])
-        embedded = frozen.model.embedding(inputs["input_ids"]).transpose(1, 2)
-        responses[name] = {width: conv(embedded)[0, :, :len(ids) - width + 1]
-                           for width, conv in zip(frozen.model.kernels, frozen.model.convs)}
+        prediction, responses[name] = cnn_responses(frozen, text)
         cases[name] = {"tokens": prediction["tokens"], "logits": prediction["logits"],
                        "classe": prediction["classe"], "p_positiva": prediction["p_positiva"],
                        "janelas": {}}
@@ -59,6 +64,45 @@ def cnn_trace(frozen, texts: dict[str, str]) -> dict:
             "larguras": list(frozen.model.kernels), "casos": cases}
 
 
+def pooling_trace(frozen, pair: dict) -> dict:
+    separator = "I have a few thoughts about this movie."
+    a, b = ([block.strip() for block in pair[key].split(separator) if block.strip()] for key in ("a", "b"))
+    assert len(a) == 2 and a == b[::-1]
+    opinion, criticism = a
+    width = 3
+    focus = [tokenize(separator)[-1], *tokenize(opinion)[:2]]
+    predictions, responses = zip(*(cnn_responses(frozen, pair[key]) for key in ("a", "b")), strict=True)
+    for k in frozen.model.kernels:
+        assert windows(predictions[0]["ids"], k) == windows(predictions[1]["ids"], k)
+        assert torch.equal(responses[0][k].relu().amax(dim=1), responses[1][k].relu().amax(dim=1))
+    assert predictions[0]["logits"] == predictions[1]["logits"]
+
+    positions = []
+    for prediction in predictions:
+        tokens = prediction["tokens"]
+        found = [start for start in range(len(tokens) - width + 1) if tokens[start:start + width] == focus]
+        (position,) = found
+        positions.append(position)
+    assert positions[0] != positions[1]
+
+    first, second = (response[width].relu() for response in responses)
+    top = first.topk(2, dim=1).values
+    eligible = ((first.argmax(1) == positions[0]) & (second.argmax(1) == positions[1])
+                & (top[:, 0] > top[:, 1]))
+    assert eligible.any()
+    # Escolhe a resposta mais forte entre os filtros com pico único nessa janela.
+    index = int(top[:, 0].masked_fill(~eligible, -1).argmax())
+    return {
+        "semente": frozen.seed, "checkpoint_sha256": frozen.checkpoint_sha256,
+        "largura": width, "filtro": index, "janela": focus,
+        "separador": separator, "elogio": opinion, "critica": criticism,
+        "casos": {
+            name: {"max_indice": position, "ativacoes": values[index].tolist()}
+            for name, position, values in zip(("A", "B"), positions, (first, second), strict=True)
+        },
+    }
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--artifacts", type=Path, default=ROOT / "artifacts")
@@ -68,10 +112,12 @@ def main() -> None:
     word, bpe = load_models(args.artifacts, 17)
     cases = read_json(HERE / "casos.json")
     contrast = next(pair for pair in cases["pares"] if pair["id"] == "contraste")
+    blocks = next(pair for pair in cases["pares"] if pair["id"] == "janelas")
     data = {
         "bpe": {**bpe_steps(bpe.tokenizer, "pallbearer"), "frase": cases["cobertura"],
                 "tokenizer_sha256": file_sha256(ROOT / "results/bpe/tokenizer.json")},
         "cnn": cnn_trace(word, {"A": contrast["a"], "B": contrast["b"]}),
+        "pooling": pooling_trace(word, blocks),
     }
     args.output.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 

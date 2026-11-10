@@ -16,7 +16,7 @@ from pypdf import PdfReader
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
-FRAME = re.compile(r"(?:^% lab:(?P<lab>bpe|cnn|contrast|youtube|closing|cut)\n)?\\begin{frame}(?:\[[^\]]+\])?(?:\{(?P<title>[^{}\n]+)\})?", re.M)
+FRAME = re.compile(r"(?:^% lab:(?P<lab>bpe|cnn|contrast|pooling|youtube|closing|cut)\n)?\\begin{frame}(?:\[[^\]]+\])?(?:\{(?P<title>[^{}\n]+)\})?", re.M)
 MODEL = "src/imdb_lab/models.py"
 
 
@@ -158,7 +158,7 @@ def build(pdf: Path, output: Path) -> None:
     reader = PdfReader(pdf)
     frames = list(FRAME.finditer((HERE / "slides.tex").read_text(encoding="utf-8")))
     assert len(frames) == len(reader.pages), "O PDF deve ter uma página por frame."
-    assert [frame["lab"] for frame in frames if frame["lab"]] == ["bpe", "cnn", "contrast", "youtube", "closing", "cut"]
+    assert [frame["lab"] for frame in frames if frame["lab"]] == ["bpe", "cnn", "contrast", "pooling", "youtube", "closing", "cut"]
 
     slides = []
     with TemporaryDirectory(prefix="mae5920-slides-") as directory:
