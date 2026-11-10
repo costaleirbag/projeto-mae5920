@@ -1,72 +1,40 @@
 \section{Quando o modelo de aprendizagem profunda falha?}
 \label{sec:falhas}
-\subsection{A CNN reage à troca e inverte o sentido do contraste}
-A termina em \textit{wonderful} (positiva) e B em \textit{terrible} (negativa).
-Com três sementes por tokenizador, os seis treinos previram negativa em A e
-positiva em B. O escore positivo foi de \PalavrasA{} a \PalavrasB{} com palavras
-e de \BPEA{} a \BPEB{} com BPE, na média.
-\href{https://costaleirbag.github.io/projeto-mae5920/\#slide-9}{Troca interativa A/B}.
+\subsection{As duas frases e os seis votos}
+\FrasesContraste
 
-\subsection{O máximo global apaga a posição entre janelas}
-Uma frase repetida separa \textit{I loved the acting} de \textit{I hated the ending}.
-Trocamos os dois blocos e verificamos que as janelas de 3, 4 e 5 IDs formam
-os mesmos multiconjuntos nos dois tokenizadores. Cada filtro recebe as mesmas
-janelas e conserva o mesmo máximo. Os logits coincidiram nos seis treinos.
+Cada linha é um checkpoint, os pesos salvos de um treino. Palavras e
+BPE têm três sementes cada (17, 29 e 43). O círculo marca o escore
+positivo de A, e o losango, o de B. Os seis treinos deram classe negativa
+a A e positiva a B. A leitura adotada segue a oração depois de \textit{but}.
 
-Com os filtros congelados, guardamos dois picos por filtro. Uma cabeça linear
-recebe menor e maior pico. A outra recebe os picos na ordem do texto. Guardar
-a posição fez os escores de A e B diferirem. Em \NParesHumanos{} pares de
-resenhas editadas, o acerto nas duas versões foi de \SemPosHumanos{} sem
-posição e \ComPosHumanos{} com posição. \fonteatual{seminario/diagnosticos.md}{Método e três sementes}.
+\input{partes/figura-votos-relatorio.tex}
+\legendinha{Figura 4. Escores sem calibração, por checkpoint. Da frase A para B,
+a média sobe de \PalavrasA{} para \PalavrasB{} com palavras, e de
+\BPEA{} para \BPEB{} com BPE.
+\fonteatual{seminario/dados/pares_resultados.json}{Escores e logits por treino}.}
 
-\subsection{O sentimento fora do IMDb}
-Avaliamos os mesmos pesos em 1.000 frases de Amazon e 1.000 de Yelp, com
-500 exemplos por classe em cada fonte \cite{kotzias}. Gênero e comprimento
-mudam juntos em relação ao IMDb.
+\subsection{O que o filtro 89 viu}
+Na CNN por palavras da semente 17, o filtro 89 lê três tokens por vez.
+Em A, o pico está em \textit{movie was terrible}, antes de \textit{but}.
+Em B, aparece em \textit{it was terrible}, no fim. O máximo global envia
+apenas a altura do pico. A camada linear combina essa altura com
+as dos outros 299 filtros.
 
-\begin{tabularx}{\linewidth}{@{}Xrrrrrr@{}}
-\toprule
- & \multicolumn{3}{c}{\tabelahead{Palavras}} & \multicolumn{3}{c}{\tabelahead{BPE}}\\
-\cmidrule(lr){2-4}\cmidrule(lr){5-7}
-\tabelahead{Fonte} & \tabelahead{Acurácia} & \tabelahead{F1 macro} & \tabelahead{CE} &
-\tabelahead{Acurácia} & \tabelahead{F1 macro} & \tabelahead{CE}\\
-\midrule
-\LinhasForaDominio
-\bottomrule
-\end{tabularx}
-\legendinha{Tabela 11. Médias de três sementes em frases selecionadas por
-polaridade clara. \fonteatual{seminario/dados/fora_dominio_resultados.json}{Resultados por semente}.}
+\input{partes/figura-filtro-relatorio.tex}
+\legendinha{Figura 5. Ativações após a ReLU nas oito janelas de cada frase.
+Em A, a primeira janela \textit{i thought this} vai de \(-0{,}42\) a 0.
+Com passo 2, só são visitadas as janelas 1, 3, 5 e 7. O pico da janela 4
+fica de fora e o máximo passa de \MaximoDemo{} a \MaximoPassoDois{}.
+\fonteatual{seminario/dados/animacoes.json}{Ativações registradas}.}
 
-Em \textit{The Room}, todos os treinos leram o elogio seguido de “No one”
-como positivo. Os comentários de \textit{Baby} deram positivo. O de
-\textit{Friday} deu negativo. \fonteatual{seminario/dados/fora_dominio_resultados.json}{Cinco casos sem rótulo}.
+\textbf{Efeito do passo.} O passo \(s\) faz a janela começar em
+\(0,s,2s,\ldots\). Para \(L\ge k\), há \(1+\lfloor(L-k)/s\rfloor\) janelas
+completas. Nas mesmas 2.048 resenhas da auditoria BPE e com os pesos
+congelados das três CNNs por palavras, a acurácia média foi
+\PassoUm{}, \PassoDois{} e \PassoTres{} nos passos 1, 2 e 3. O passo 2
+conservou 50,2\% das janelas e o passo 3, 33,6\%.
+\fonteatual{seminario/dados/passo_resultados.json}{Resultados por passo}.
 
-\subsection{Tom e fatos na geração do Qwen}
-No bloco 28, somamos \(\alpha s v\) após \texttt{REVIEW}, com \(\alpha=-2,0,+2\).
-A direção \(v\) compara as ativações médias para dois tons em 128 enredos.
-O Qwen, como juiz automático, reconheceu os dois tons-alvo em 55 de 64 fontes.
-\texttt{FACT} ficou igual. Em um caso, \texttt{REVIEW} inventou um cenário de
-cidade pequena. \fonte{results/qwen_improved/fact_flag_reading.json}{Alertas factuais}.
-
-\begin{thebibliography}{9}
-\small
-\setlength{\itemsep}{0pt}
-\setlength{\parskip}{0pt}
-\bibitem{maas} Maas, A. L. et al. \textit{Learning Word Vectors for Sentiment Analysis}.
-ACL, 2011. \href{https://aclanthology.org/P11-1015/}{ACL Anthology}.
-\bibitem{kim} Kim, Y. \textit{Convolutional Neural Networks for Sentence Classification}.
-EMNLP, 2014. \href{https://aclanthology.org/D14-1181/}{ACL Anthology}.
-\bibitem{sennrich} Sennrich, R., Haddow, B. e Birch, A.
-\textit{Neural Machine Translation of Rare Words with Subword Units}. ACL, 2016.
-\href{https://aclanthology.org/P16-1162/}{ACL Anthology}.
-\bibitem{prince} Prince, S. J. D. \textit{Understanding Deep Learning}.
-MIT Press, 2023. Caps. 6, 8, 9 e 10. \href{https://udlbook.github.io/udlbook/}{Livro e materiais}.
-\bibitem{devlin} Devlin, J. et al. \textit{BERT: Pre-training of Deep Bidirectional
-Transformers for Language Understanding}. NAACL, 2019.
-\href{https://aclanthology.org/N19-1423/}{ACL Anthology}.
-\bibitem{qwen} Yang, A. et al. \textit{Qwen3 Technical Report}, 2025.
-\href{https://arxiv.org/abs/2505.09388}{arXiv:2505.09388}.
-\bibitem{kotzias} Kotzias, D. et al. \textit{From Group to Individual Labels Using Deep Features}.
-KDD, 2015. \href{https://doi.org/10.1145/2783258.2783380}{Artigo}.
-\href{https://doi.org/10.24432/C57604}{Coleção UCI}.
-\end{thebibliography}
+Na \hyperref[sec:posicao]{página~\pageref*{sec:posicao}}, trocamos
+trechos preservando as janelas para isolar a perda de posição.

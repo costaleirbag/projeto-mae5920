@@ -1,0 +1,48 @@
+\begingroup
+\newcount\linhacontrasteidx
+\newcommand{\linhacontraste}[3]{%
+  \pgfmathsetmacro{\ys}{\inicioGrupo-\the\linhacontrasteidx}%
+  \node[anchor=east,text=Muted] at (-18,\ys) {#1};
+  \draw[Muted!64,line width=.72pt] (#2,\ys)--(#3,\ys);
+  \fill[Rust] (#2,\ys) circle[radius=1.9pt];
+  \path[fill=Teal] (#3,\ys) ++(0,2.6pt) -- ++(2.6pt,-2.6pt)
+    -- ++(-2.6pt,-2.6pt) -- ++(-2.6pt,2.6pt) -- cycle;
+  \node[anchor=east,text=Rust,font=\sffamily\bfseries\footnotesize] at (#2-1.8,\ys)
+    {\scorept{#2}};
+  \node[anchor=west,text=Teal,font=\sffamily\bfseries\footnotesize] at (#3+1.8,\ys)
+    {\scorept{#3}};
+  \advance\linhacontrasteidx by 1\relax
+}
+\centering
+\noindent
+\begin{tikzpicture}[x=1.08mm,y=4.1mm,font=\small\sffamily]
+  \path[fill=Soft,rounded corners=2pt] (-28,-.3) rectangle (122,12.7);
+  \node[anchor=west,font=\sffamily\bfseries\small] at (-24,11.9)
+    {Escore de sentimento positivo};
+  \fill[Rust] (76,11.9) circle[radius=1.9pt];
+  \node[anchor=west,text=Rust] at (78,11.9) {Frase A};
+  \path[fill=Teal] (98,11.9) ++(0,2.6pt) -- ++(2.6pt,-2.6pt)
+    -- ++(-2.6pt,-2.6pt) -- ++(-2.6pt,2.6pt) -- cycle;
+  \node[anchor=west,text=Teal] at (100,11.9) {Frase B};
+
+  \path[fill=SoftRust] (0,1.45) rectangle (50,10.85);
+  \path[fill=SoftTeal] (50,1.45) rectangle (100,10.85);
+  \node[text=Rust,font=\sffamily\footnotesize] at (25,10.3) {Classe negativa};
+  \node[text=Teal,font=\sffamily\footnotesize] at (75,10.3) {Classe positiva};
+  \draw[Muted,dashed,line width=.65pt] (50,1.45)--(50,10.85);
+  \draw[Rule] (0,1.45)--(100,1.45);
+  \foreach \tick in {0,25,50,75,100} {
+    \draw[Muted] (\tick,1.45)--(\tick,1.2);
+    \node[text=Muted,font=\sffamily\scriptsize] at (\tick,.77) {\tick\%};
+  }
+  \node[text=Muted,font=\sffamily\scriptsize] at (50,.15) {limiar};
+  \node[anchor=west,font=\sffamily\bfseries\footnotesize] at (-24,10.35) {Palavras};
+  \def\inicioGrupo{9.35}
+  \VotosPalavras
+  \node[anchor=west,font=\sffamily\bfseries\footnotesize] at (-24,6.05) {BPE};
+  \def\inicioGrupo{5.05}
+  \linhacontrasteidx=0
+  \VotosBPE
+\end{tikzpicture}
+\par
+\endgroup

@@ -6,12 +6,17 @@ RSVG_CONVERT ?= rsvg-convert
 export SOURCE_DATE_EPOCH := 1794182400
 export FORCE_SOURCE_DATE := 1
 
-.PHONY: all interativo figura-arquitetura
+.PHONY: all relatorio interativo figura-arquitetura
 all:
 	mkdir -p $(BUILD_DIR) $(PDF_DIR)
 	$(LATEXMK) -pdf -interaction=nonstopmode -halt-on-error -outdir=$(BUILD_DIR) relatorio.tex slides.tex
 	cp $(BUILD_DIR)/relatorio.pdf $(PDF_DIR)/relatorio_seminario.pdf
 	cp $(BUILD_DIR)/slides.pdf $(PDF_DIR)/slides_15_min.pdf
+
+relatorio:
+	mkdir -p $(BUILD_DIR) $(PDF_DIR)
+	$(LATEXMK) -pdf -interaction=nonstopmode -halt-on-error -outdir=$(BUILD_DIR) relatorio.tex
+	cp $(BUILD_DIR)/relatorio.pdf $(PDF_DIR)/relatorio_seminario.pdf
 
 interativo: all
 	$(PYTHON) preparar_apresentacao.py

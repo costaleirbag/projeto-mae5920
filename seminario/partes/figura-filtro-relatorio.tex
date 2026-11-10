@@ -1,0 +1,38 @@
+\begingroup
+\newcommand{\tracorel}[4]{%
+  \node[anchor=east,font=\sffamily\bfseries\small] at (.55,#2+.48) {#1};
+  \draw[Rule] (.65,#2)--(8.35,#2);
+  \draw[Rule] (.65,#2+1)--(8.35,#2+1);
+  \edef\scanvalues{#3}%
+  \foreach \val [count=\pos] in \scanvalues {%
+    \ifnum\pos=#4\relax
+      \def\corpico{Rust}%
+    \else
+      \def\corpico{Muted!65}%
+    \fi
+    \fill[\corpico] (\pos-.13,#2) rectangle (\pos+.13,#2+\val);
+    \fill[\corpico] (\pos,#2) circle[radius=1.35pt];
+    \ifnum\pos=#4\relax
+      \node[anchor=south,text=Rust,font=\sffamily\bfseries\footnotesize] at (\pos,#2+\val)
+        {\pgfmathprintnumber[fixed,fixed zerofill,precision=2,use comma]{\val}};
+    \fi
+  }%
+}
+\centering
+\noindent
+\begin{tikzpicture}[x=17.2mm,y=7.3mm,font=\small\sffamily]
+  \path[fill=Soft,rounded corners=2pt] (0,-.98) rectangle (9.42,3.94);
+  \node[anchor=west,font=\sffamily\bfseries\small] at (.23,3.6)
+    {Ativação do filtro 89, CNN por palavras / semente 17};
+  \tracorel{A}{1.66}{\AtivacoesA}{\JanelaPicoA}
+  \tracorel{B}{0}{\AtivacoesB}{\JanelaPicoB}
+  \foreach \pos in {1,...,8}
+    \node[text=Muted,font=\sffamily\scriptsize] at (\pos,-.28) {\pos};
+  \node[text=Muted,font=\sffamily\scriptsize] at (4.5,-.72) {Início da janela};
+  \node[anchor=west,text=Muted,font=\sffamily\scriptsize] at (8.46,2.66) {1,0};
+  \node[anchor=west,text=Muted,font=\sffamily\scriptsize] at (8.46,1.66) {0};
+  \node[anchor=west,text=Muted,font=\sffamily\scriptsize] at (8.46,1) {1,0};
+  \node[anchor=west,text=Muted,font=\sffamily\scriptsize] at (8.46,0) {0};
+\end{tikzpicture}
+\par
+\endgroup

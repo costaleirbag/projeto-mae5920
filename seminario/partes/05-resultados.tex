@@ -1,11 +1,10 @@
-\section{Resultados de classificação}
+\section{O teste oficial e as resenhas que dividem os modelos}
 \label{sec:resultados}
-\subsection{Treino, validação e teste oficial}
-O baseline ajusta TF-IDF de unigramas e bigramas no treino e seleciona a
-regularização da regressão logística na validação. Ele recebe o texto
-completo. A CNN original usa até 400 tokens. O BERT recebe até 192 WordPieces
-e passa por ajuste dos pesos \cite{devlin}. Esses comprimentos e o
-pré-treinamento fazem parte de cada receita.
+O baseline usa TF-IDF de unigramas e bigramas, regressão logística e texto
+completo. A CNN original recebe até 400 tokens. BERT recebe até 192
+WordPieces e tem seus pesos ajustados para a tarefa \cite{devlin}.
+Cada linha mede o resultado da receita inteira, com seu recorte,
+representação e regime de treino.
 
 \begin{tabularx}{\linewidth}{@{}lXrrr@{}}
 \toprule
@@ -15,41 +14,50 @@ pré-treinamento fazem parte de cada receita.
 \LinhasOriginal
 \bottomrule
 \end{tabularx}
-\legendinha{Tabela 5. Probabilidades antes da calibração. Treino com 19.823
-resenhas, validação com 2.478 e teste oficial com 25.000. A Tabela 1 descreve
-a divisão de calibração. \fonte{results/comparison.csv}{CSV das divisões}.}
+\legendinha{Tabela 5. Escores antes da calibração. Treino com 19.823 resenhas,
+validação com 2.478 e teste oficial com 25.000.
+\fonte{results/comparison.csv}{Resultados originais}.}
 
-No teste oficial, o baseline tem 90,14\% de acurácia, a CNN 86,78\% e BERT
-90,94\%. A análise por comprimento e a calibração estão na
-Seção~\ref{sec:diagnosticos}.
+\subsection{Quem acertou quando o outro errou?}
+Cruzamos as previsões da CNN e do TF-IDF pelo ID das 25.000 resenhas.
+Apenas o TF-IDF acertou \SoTFIDF{} e apenas a CNN acertou \SoCNN{}.
+Ambos acertaram 20.821 e ambos erraram 1.589. A fração de acertos exclusivos
+do TF-IDF foi 10,87\% no grupo em que a CNN teve recorte, ante 6,29\% no
+grupo sem recorte. Para a CNN, as duas frações foram 3,53\% e 3,50\%.
+Esse cruzamento compara grupos de textos diferentes. Para ver o efeito da
+entrada em um mesmo caso, repetimos as previsões da resenha longa.
 
-\subsection{Resenhas em que as duas receitas discordam}
-No teste oficial, só o TF-IDF acertou \SoTFIDF{} resenhas e só a CNN acertou
-\SoCNN{}. A vantagem do TF-IDF é mais frequente nos textos que excedem
-400 tokens. Em uma resenha negativa de 780 tokens, ambos dão positivo
-ao prefixo e negativo ao texto inteiro. Em outra resenha, positiva e
-com 61 tokens, \textit{part is brilliant} está entre as janelas que
-mais empurram a CNN para a classe positiva.
-\fonteatual{seminario/diagnosticos.md}{Casos e contribuições à decisão}.
+\medskip
+\painel[SoftBlue]{\rotulo{Resenha longa / 780 tokens / rótulo negativo}\par\smallskip
+  \small A crítica explícita aparece depois do limite de 400 tokens. Mantivemos
+  os pesos e passamos o prefixo e o texto inteiro aos dois modelos.
+  \par\smallskip
+  \newcommand{\cutrow}[4]{#1 & #2 & #3\\}
+  \begin{tabularx}{\linewidth}{@{}Xrr@{}}
+    & \tabelahead{TF-IDF \(p(+)\)} & \tabelahead{CNN \(p(+)\)}\\
+    \RecorteVisual
+  \end{tabularx}\par\smallskip
+  Com limiar de 50\%, a classe dos dois muda de positiva para negativa.
+  No texto inteiro, janelas
+  como \textit{hate to waste} empurram a margem da CNN para o negativo.}
+\smallskip
+\painel[SoftTeal]{\rotulo{Resenha curta / 61 tokens / rótulo positivo}\par\smallskip
+  \small Ambos leem o texto inteiro. A CNN dá \CurtaCNN{} de escore positivo e
+  o TF-IDF, \CurtaTFIDF{}. Na CNN, \textit{part is brilliant} soma \(+0{,}257\)
+  à margem e \textit{the ending doesn't make much} soma \(-0{,}167\).
+  No TF-IDF, \textit{brilliant} soma \(+0{,}503\) e o bigrama \textit{not one}
+  soma \(-0{,}337\), embora esse bigrama esteja numa comparação de enredos.}
 
-\subsection{Auditoria interna do estudo sequencial}
-Comparamos CNN e encoders nos mesmos prefixos de até 128 palavras, em
-2.048 resenhas reservadas. Os encoders produzem estados contextuais.
-Usamos a média dos estados finais com máscara de padding e tokens especiais,
-seguida de uma cabeça linear de dois logits. Em um regime, apenas a cabeça
-é ajustada. No outro, os pesos do encoder também são atualizados.
+\legendinha{Os escores dos dois casos usam as temperaturas originais. As
+contribuições acima são para as margens brutas, antes da temperatura. Na CNN,
+cada contribuição é o máximo de um filtro vezes o peso desse filtro na diferença
+entre os logits. No TF-IDF, é o valor da feature vezes o coeficiente da regressão.
+\fonteatual{seminario/diagnosticos.md}{Decomposição e contagens completas}.}
 
-\begin{tabularx}{\linewidth}{@{}Xrrr@{}}
-\toprule
-\tabelahead{Modelo} & \tabelahead{Acurácia} & \tabelahead{F1 macro} & \tabelahead{CE}\\
-\midrule
-\LinhasSeq
-\bottomrule
-\end{tabularx}
-\legendinha{Tabela 6. Baseline determinístico e médias das três sementes nas redes.
-Encoders na tabela com ajuste completo. Os escores dessa auditoria usam o
-softmax sem calibração de temperatura.}
-
-Nos encoders congelados, BERT, DistilBERT e ModernBERT alcançaram 84,52\%,
-83,35\% e 81,30\%. Cada receita tem seu orçamento e sua taxa.
-\fonte{results/sequences/summary.json}{Métricas, sementes e configurações}.
+\subsection{Encoders na auditoria sequencial}
+Com os mesmos prefixos de até 128 palavras em 2.048 resenhas, fazemos a média
+dos estados finais do encoder, excluindo padding e tokens especiais, e
+aplicamos uma cabeça linear. Congelados, BERT, DistilBERT e ModernBERT
+atingiram 84,52\%, 83,35\% e 81,30\%. Com ajuste completo, chegaram a
+88,31\%, 86,80\% e 91,24\%. A CNN e o TF-IDF tiveram 81,95\% e 83,30\%.
+\fonte{results/sequences/summary.json}{CE, F1 e configurações por execução}.

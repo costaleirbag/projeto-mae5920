@@ -1,0 +1,36 @@
+\definecolor{Muted}{HTML}{4D5E6C}
+\definecolor{Soft}{HTML}{F0F4F7}
+\definecolor{SoftTeal}{HTML}{EAF4F1}
+\definecolor{SoftRust}{HTML}{F8EDE7}
+\definecolor{SoftBlue}{HTML}{ECF0F8}
+\definecolor{ReportBlue}{HTML}{365985}
+
+\newcommand{\rotulo}[1]{{\footnotesize\sffamily\bfseries\color{Teal}#1}}
+\newcommand{\painel}[2][Soft]{%
+  \begingroup\setlength{\fboxsep}{9pt}%
+  \noindent\colorbox{#1}{\begin{minipage}{\dimexpr\linewidth-2\fboxsep\relax}%
+    \raggedright #2%
+  \end{minipage}}\endgroup\par
+}
+\newcommand{\frasecontraste}[5]{%
+  \begin{minipage}[t]{.487\linewidth}%
+    \painel[#1]{\rotulo{#2}\par\smallskip
+      \textit{I thought this movie was #3, but it was \textbf{#4}.}\par
+      \smallskip{\small\sffamily\bfseries #5}}%
+  \end{minipage}%
+}
+\newcommand{\FrasesContraste}{%
+  \noindent\frasecontraste{SoftTeal}{A\enspace / \enspace leitura positiva}%
+    {\textcolor{Rust}{terrible}}{\textcolor{Teal}{wonderful}}{Termina com elogio.}%
+  \hfill
+  \frasecontraste{SoftRust}{B\enspace / \enspace leitura negativa}%
+    {\textcolor{Teal}{wonderful}}{\textcolor{Rust}{terrible}}{Termina com crítica.}\par
+}
+\newcommand{\tokenrel}[2][SoftBlue]{%
+  \begingroup\setlength{\fboxsep}{3pt}\colorbox{#1}{\strut\texttt{\small #2}}\endgroup
+}
+\newcommand{\scorept}[1]{\pgfmathprintnumber[fixed,fixed zerofill,precision=1,use comma]{#1}\%}
+\newcommand{\codigoCNN}[2]{%
+  \href{\projetourl/blob/d64e1eea00524162f87b40c366f5255397f2fcc8/src/imdb_lab/models.py\#L#1}%
+    {\texttt{\small #2}}%
+}

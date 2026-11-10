@@ -58,12 +58,17 @@ intermediários em `tmp/seminario/`. Para usar Overleaf, importe a pasta `semina
 e selecione `relatorio.tex` ou `slides.tex` como documento principal, com pdfLaTeX.
 As figuras e tabelas do LaTeX estão nessa própria pasta.
 
+Para recompilar apenas o relatório, rode `make -C seminario relatorio`.
+Após atualizar os escores do contraste ou as métricas de posição, rode
+`python seminario/preparar_relatorio.py` antes de compilar para regenerar
+os dados das figuras estáticas e da tabela de posição.
+
 Para reconstruir também o HTML, rode `make -C seminario interativo` com
 `pypdf` e `pdftoppm` instalados. O HTML usa as páginas renderizadas do PDF
 nos slides fixos. Os slides 4, 5 e 9 usam os dados salvos e os controles da
 apresentação. [Fontes do HTML](apresentacao.html) · [estilo](apresentacao.css) · [controles](apresentacao.js).
 
-O diagrama vetorial do slide 5 é compartilhado com o PDF. Após editá-lo,
+O diagrama vetorial do slide 5 também aparece no PDF da apresentação. Após editá-lo,
 rode `make -C seminario figura-arquitetura` com `rsvg-convert` antes de
 recompilar os slides. Os trechos do código são lidos das fontes ao gerar
 o HTML. [Diagrama](arquitetura_slide.svg) · [Gerador](preparar_apresentacao.py).

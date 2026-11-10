@@ -1,12 +1,8 @@
-\section{Palavras, subpalavras e ordem}
+\subsection{Palavras e BPE no mesmo experimento}
 \label{sec:bpe}
-\subsection{Comparação pareada de tokenizadores}
-Mantivemos arquitetura, dimensões, dropout, inicialização numérica,
-minibatches e orçamento. Treinamos três CNNs com BPE e reutilizamos três
-checkpoints por palavras. Ambas as receitas usam Adam a 0,001, escolhido
-antes no estudo por palavras. Cada execução seleciona a época na validação.
-O pareamento controla os pesos iniciais como matrizes numéricas. As linhas
-de embedding correspondem a unidades distintas em cada vocabulário.
+As duas tokenizações usam Adam a 0,001, as mesmas dimensões, dropout,
+minibatches e orçamento. Escolhemos a época na validação. Na mesma semente,
+a matriz inicial é igual, e suas linhas representam unidades diferentes.
 
 \begin{tabularx}{\linewidth}{@{}Xrrrrr@{}}
 \toprule
@@ -16,47 +12,6 @@ de embedding correspondem a unidades distintas em cada vocabulário.
 \LinhasBPE
 \bottomrule
 \end{tabularx}
-\legendinha{Tabela 7. Nova auditoria interna, com 2.048 resenhas. Métricas
-médias de três sementes. UNK conta a proporção de tokens desconhecidos.}
-
-\vspace{2mm}
-\begin{minipage}[c]{.51\linewidth}
-\includegraphics[width=\linewidth]{figuras/bpe_pareado.pdf}
-\end{minipage}\hfill
-\begin{minipage}[c]{.45\linewidth}
-A diferença média é de \(-0,59\) ponto percentual para BPE. A cobertura
-melhorou e a sequência ficou mais longa. Um filtro de cinco tokens pode
-cobrir menos palavras, o que muda o contexto que ele observa. Esta
-comparação estima o desempenho sob a taxa herdada e as larguras fixas.
-\end{minipage}
-\legendinha{Figura 3. Cada linha une a mesma semente sob as duas tokenizações.
-Eixo vertical ampliado. \fonte{results/bpe/audit_metrics.json}{Métricas por execução}.}
-
-\subsection{Pares sintéticos com a mesma contagem de palavras}
-Fixamos quatro pares e suas leituras antes da inferência em
-\texttt{seminario/casos.json}. Dentro de cada par, mantivemos a contagem de
-cada palavra e permutamos duas partes do texto. Os mesmos seis checkpoints
-receberam A e B. Medimos se a classe mudou e se a mudança acompanhou a leitura
-planejada. Também verificamos as janelas de 3, 4 e 5 tokens de cada entrada.
-
-\begin{tabularx}{\linewidth}{@{}Xlrrrrl@{}}
-\toprule
- & & \multicolumn{2}{c}{\tabelahead{Palavras}} & \multicolumn{2}{c}{\tabelahead{BPE}} & \\
-\cmidrule(lr){3-4}\cmidrule(lr){5-6}
-\tabelahead{Par} & \tabelahead{Leitura A / B} & \tabelahead{A} & \tabelahead{B} &
-\tabelahead{A} & \tabelahead{B} & \tabelahead{Trocas}\\
-\midrule
-\LinhasPares
-\bottomrule
-\end{tabularx}
-\legendinha{Tabela 8. Escores positivos médios sem calibração. A última coluna
-conta as trocas de classe entre A e B nas três sementes de palavras e nas três
-de BPE. As predições e janelas estão em \texttt{dados/pares\_resultados.json}.}
-
-Em \textit{The movie is good, not bad}, a troca de \textit{good} e
-\textit{bad} reduz o escore positivo médio nos dois tokenizadores.
-Na semente 17, a própria frase A recebe \NegacaoPalavrasA{} com palavras
-e \NegacaoBPEA{} com BPE. O limiar 0,5 dá classes diferentes para o mesmo
-texto nas duas receitas treinadas.
-A Seção~\ref{sec:falhas} compara o erro no contraste com o caso em que
-preservamos as janelas e a rede devolveu os mesmos logits.
+\legendinha{Tabela 4. Médias de três sementes em 2.048 resenhas. UNK é a
+fração de tokens desconhecidos. Com BPE, a acurácia caiu nas três sementes
+e 0,59 ponto percentual em média. \fonte{results/bpe/audit_metrics.json}{Métricas por execução}.}

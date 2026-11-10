@@ -1,0 +1,33 @@
+\subsection{Fora do IMDb}
+Em 1.000 frases de Amazon, palavras e BPE tiveram 68,10\% e 69,97\% de
+acurácia média. Nas 1.000 de Yelp, tiveram 69,43\% e 69,67\%.
+Cada fonte contém 500 exemplos por classe \cite{kotzias}. Aplicamos
+os mesmos seis checkpoints. Entre cinco comentários de trailers,
+o elogio entre aspas seguido de \textit{No one} recebeu classe positiva
+de todos os treinos. Os comentários servem de leitura qualitativa.
+\fonteatual{seminario/dados/fora_dominio_resultados.json}{F1, CE e escores por semente}.
+
+\begin{thebibliography}{9}
+\footnotesize
+\setlength{\itemsep}{0pt}
+\setlength{\parskip}{0pt}
+\bibitem{maas} Maas, A. L. et al. \textit{Learning Word Vectors for Sentiment Analysis}.
+ACL, 2011. \href{https://aclanthology.org/P11-1015/}{ACL Anthology}.
+\bibitem{kim} Kim, Y. \textit{Convolutional Neural Networks for Sentence Classification}.
+EMNLP, 2014. \href{https://aclanthology.org/D14-1181/}{ACL Anthology}.
+\bibitem{sennrich} Sennrich, R., Haddow, B. e Birch, A.
+\textit{Neural Machine Translation of Rare Words with Subword Units}. ACL, 2016.
+\href{https://aclanthology.org/P16-1162/}{ACL Anthology}.
+\bibitem{prince} Prince, S. J. D. \textit{Understanding Deep Learning}.
+MIT Press, 2023. Caps. 6, 8, 9 e 10. \href{https://udlbook.github.io/udlbook/}{Livro e materiais}.
+\bibitem{devlin} Devlin, J. et al. \textit{BERT: Pre-training of Deep Bidirectional
+Transformers for Language Understanding}. NAACL, 2019. \href{https://aclanthology.org/N19-1423/}{ACL Anthology}.
+\bibitem{gardner} Gardner, M. et al. \textit{Evaluating Models' Local Decision
+Boundaries via Contrast Sets}. Findings of EMNLP, 2020.
+\href{https://aclanthology.org/2020.findings-emnlp.117/}{ACL Anthology}.
+\bibitem{kotzias} Kotzias, D. et al. \textit{From Group to Individual Labels Using Deep Features}.
+KDD, 2015. \href{https://doi.org/10.1145/2783258.2783380}{Artigo}.
+\href{https://doi.org/10.24432/C57604}{Coleção UCI}.
+\bibitem{qwen} Yang, A. et al. \textit{Qwen3 Technical Report}, 2025.
+\href{https://arxiv.org/abs/2505.09388}{arXiv}.
+\end{thebibliography}

@@ -1,18 +1,14 @@
+# Projeto MAE5920 · Introdução a Deep Learning
+
+Nestor · Letícia · Gabriel
+
+## Relatório e slides do seminário
+
+- **[Ler o relatório do seminário (PDF)](output/pdf/relatorio_seminario.pdf)** · 8 páginas sobre a TextCNN e os testes no IMDb.
+- **[Abrir os slides interativos no navegador](https://costaleirbag.github.io/projeto-mae5920/)** · Apresentação de 15 minutos. [Slides em PDF](output/pdf/slides_15_min.pdf) · [Roteiro](seminario/roteiro.md).
+
 <p align="center">
   <img src="docs/assets/capa.svg" alt="IMDb: CNN, BERT, DistilBERT, ModernBERT e intervenção nas ativações do Qwen3-8B" width="100%">
-</p>
-
-<p align="center">
-  <strong>Projeto MAE5920 · Introdução a Deep Learning</strong><br>
-  Nestor · Letícia · Gabriel
-</p>
-
-<p align="center">
-  <a href="output/pdf/relatorio_seminario.pdf"><strong>Relatório do seminário</strong></a> ·
-  <a href="https://costaleirbag.github.io/projeto-mae5920/">Abrir slides interativos</a> ·
-  <a href="output/pdf/slides_15_min.pdf">Slides em PDF</a> ·
-  <a href="notebooks/seminario_completo.ipynb">Notebook único</a> ·
-  <a href="docs/RESULTADOS.md">Tabelas de resultados</a>
 </p>
 
 **Como um texto vira uma classificação, o que o treinamento modifica e o que
@@ -22,9 +18,8 @@ negativo ou positivo. As extensões relacionam o experimento à disciplina:
 tokenização, CNNs, transferência com Transformers, otimização, regularização,
 double descent e steering de um modelo de linguagem.
 
-O seminário de 15 minutos tem uma versão que abre no navegador, com
-animações das fusões do BPE e da convolução. O relatório e os slides em
-PDF têm fontes editáveis em LaTeX. [Como abrir e ensaiar](seminario/README.md).
+As fontes em LaTeX e as instruções para ensaiar ficam na pasta do seminário.
+[Fontes e materiais do seminário](seminario/README.md).
 
 ## Comece por aqui
 
