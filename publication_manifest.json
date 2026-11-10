@@ -28,8 +28,8 @@
       "sha256": "ff9317956cf2df02f12597d46be88db48d5502e360bf9e2c6ae1e532c38c364e"
     },
     "README.md": {
-      "bytes": 11307,
-      "sha256": "d56296cf5c115e8f3954afaa2b0e5b587389e45925778c20e3cf3da6132f485e"
+      "bytes": 11150,
+      "sha256": "31bb589e47a7f568b25d89e2f7592dd7b0a5b37e3dc833bcf99fde342321f693"
     },
     "analyze_qwen_improve.py": {
       "bytes": 8833,
@@ -561,7 +561,7 @@
     },
     "results/delivery_manifest.json": {
       "bytes": 152459,
-      "sha256": "b84c9ebd643cf4c9175acfab4e82e127f7476bb86e5fa7c6b7562cff9092abec"
+      "sha256": "9c798cbe73919e497b9d0c651638fd217bcc4c181e59cd66dd01f53428ddb085"
     },
     "results/didactic/audit_features.npz": {
       "bytes": 979827,
@@ -3129,7 +3129,7 @@
     },
     "results/source_manifest.json": {
       "bytes": 14752,
-      "sha256": "4ffb0d6bda70e7db049a685e39c7ffd6194f33eb4f672213238d4fa964ea61ad"
+      "sha256": "df56b67872f7644aa46b50f16b911b675fa3aa4ec6be8d6bc9151eec16f9eca7"
     },
     "results/steering/directions.npz": {
       "bytes": 46260,
