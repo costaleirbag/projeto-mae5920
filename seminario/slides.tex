@@ -8,6 +8,8 @@
 \definecolor{Quiet}{HTML}{53645E}
 \definecolor{Blush}{HTML}{F4E1D7}
 \definecolor{Wash}{HTML}{F1F2EB}
+\definecolor{ScreenBlack}{HTML}{111111}
+\definecolor{ScreenRed}{HTML}{B62930}
 \hypersetup{colorlinks=true,linkcolor=Teal,urlcolor=Teal,
   pdftitle={O que a CNN lê em uma resenha?},pdfauthor={Nestor, Letícia e Gabriel}}
 \setbeamertemplate{navigation symbols}{}
@@ -71,6 +73,13 @@
 \newcommand{\opinion}[4]{%
   \slidecard{#1}{\makebox[.12\linewidth][l]{\textcolor{#2}{\bfseries \(#3\)}}\textit{#4}}\par
 }
+
+\newcommand{\youtubeprint}[1]{\begingroup\setlength{\fboxsep}{0pt}%
+  \colorbox{ScreenBlack}{\parbox[c][29mm][c]{\linewidth}{\centering
+  \includegraphics[width=.96\linewidth,height=27mm,keepaspectratio]{figuras/youtube-#1.png}\par}}%
+  \endgroup}
+\newcommand{\excerptcard}[3]{\slidecard{#1}{\parbox[t][11mm][t]{\linewidth}{%
+  \eyebrow{#2}\par\small\itshape #3}}}
 
 \begin{document}
 
@@ -327,21 +336,45 @@ Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
 \fonteatual{seminario/diagnosticos.md}{Experimento e controles}.}
 \end{frame}
 
-% Bloco adicional, 12:00–13:30
-\begin{frame}{A CNN leu a ironia como elogio}
+% Bloco adicional, 11:40–13:10
+{
+\setbeamercolor{background canvas}{bg=Forest}
+\setbeamertemplate{frametitle}{}
+% lab:youtube
+\begin{frame}[plain]{Do YouTube para a CNN}
+\color{white}
 \vfill
-\eyebrow{Comentário no trailer de The Room}\par\vspace{2mm}
-{\fontsize{20}{22}\selectfont\textit{“The best movie of the year”} \enspace\textcolor{Rust}{\bfseries --- No one}\par}
-\vspace{3mm}
-\good{Classe positiva em 6 de 6 treinos}
+\pill{ScreenRed}{white}{\(\triangleright\) YouTube}
+\enspace {\small\color{Lime} A CNN recebeu só o texto do comentário.}
+\par\vspace{1.3mm}
+{\Large\bfseries Do YouTube para a CNN\par}
+\vspace{2mm}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.485\textwidth}
+\textbf{The Room}\hfill
+\href{https://www.youtube.com/watch?v=cG_e8k9PILM&t=2s}{\textcolor{Lime}{\small Trailer \(\nearrow\)}}\par
+\youtubeprint{the-room}\par\vspace{.7mm}
+{\scriptsize\bfseries\color{Lime} CNN}\enspace\good{Positiva}\enspace{\small 6 de 6 treinos}
+\par\vspace{.6mm}
+{\small “No one” transforma o elogio em crítica.}
+\end{column}
+\begin{column}{.485\textwidth}
+\textbf{Friday}\hfill
+\href{https://www.youtube.com/watch?v=kfVsfOSbJY0}{\textcolor{Lime}{\small Clipe de Rebecca Black \(\nearrow\)}}\par
+\youtubeprint{friday}\par\vspace{.7mm}
+{\scriptsize\bfseries\color{Lime} CNN}\enspace\bad{Negativa}\enspace{\small 6 de 6 treinos}
+\par\vspace{.6mm}
+{\small A frase admite admiração ou ironia.}
+\end{column}
+\end{columns}
 \vfill
-{\small Em \textit{Friday}, “AI could never do this” recebeu classe negativa nos seis treinos.
-A frase também admite uma leitura de admiração.}
-\smallsource{Comentários sem rótulo de referência.
-\fonteatual{seminario/dados/fora_dominio_resultados.json}{Cinco comentários e todas as sementes}.}
+{\scriptsize\color{Lime}Dois tokenizadores, três treinos cada. Casos sem rótulo de referência.
+\fonteatual{seminario/dados/fora_dominio_resultados.json}{\textcolor{Lime}{Escores por semente}}.\par}
+\vspace{2mm}
 \end{frame}
+}
 
-% Bloco adicional, 13:30–15:00
+% Bloco adicional, 13:10–14:35
 \begin{frame}{O que muda com vetores contextuais?}
 \eyebrow{Acurácia na auditoria sequencial}\par\vspace{.8mm}
 \small
@@ -359,27 +392,67 @@ No ajuste completo, o treino também altera os pesos do encoder.
 \fonte{results/sequences/summary.json}{Encoders}. \fonte{QWEN_EXPERIMENTO.md}{Geração com o Qwen}.}
 \end{frame}
 
-\appendix
-
-\begin{frame}{O fim da resenha ficou fora do recorte}
+% 14:35–15:00 ou 11:40–12:00
+{
+\setbeamercolor{background canvas}{bg=Forest}
+\setbeamertemplate{frametitle}{}
+% lab:closing
+\begin{frame}[plain]{Encerramento}
+\color{white}
+\vfill
+{\scriptsize\bfseries\color{Lime} CONCLUSÃO\par}
+\vspace{2mm}
+{\fontsize{23}{25}\selectfont\bfseries O que chega à decisão da CNN?\par}
+\vspace{2mm}
+{\large A camada final recebe 300 máximos de padrões locais.}
+\par\vspace{3mm}
 \begin{columns}[T,onlytextwidth]
-\begin{column}{.48\textwidth}
-\slidecard{Wash}{\Large\strong{\SoTFIDF}\quad\normalsize Só TF-IDF acertou}
+\begin{column}{.30\textwidth}
+\textcolor{Lime}{\bfseries Tokenização}\par
+{\small BPE zerou os tokens desconhecidos na auditoria. A acurácia ficou próxima.}
 \end{column}
-\begin{column}{.48\textwidth}
-\slidecard{Mint}{\Large\strong{\SoCNN}\quad\normalsize Só CNN acertou}
+\begin{column}{.30\textwidth}
+\textcolor{Lime}{\bfseries Teste oficial}\par
+{\small A CNN fez 86,78\%. TF-IDF e BERT ficaram à frente.}
+\end{column}
+\begin{column}{.30\textwidth}
+\textcolor{Lime}{\bfseries Posição}\par
+{\small O máximo descarta onde o filtro respondeu. Preservar a posição mudou escores, com acerto semelhante nos pares humanos.}
 \end{column}
 \end{columns}
-\par\vspace{2.5mm}
+\vfill
+{\color{Lime!62!Forest}\rule{\linewidth}{.5pt}\par}
+{\Large\bfseries Perguntas?}\hfill{\scriptsize\color{Lime} FIM DA APRESENTAÇÃO}
+\par\vspace{2mm}
+\end{frame}
+}
+
+\appendix
+
+% lab:cut
+\begin{frame}{O fim da resenha ficou fora do recorte}
+\eyebrow{IMDb \(\cdot\) teste oficial}\enspace
+\bad{Rótulo negativo}\enspace{\small 780 tokens pela contagem da CNN.}
+\par\vspace{1.6mm}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.485\textwidth}
+\excerptcard{Wash}{Dentro do recorte \(\cdot\) \PosTrechoPrefixo}{“\TrechoPrefixo{}\,\ldots”}
+\end{column}
+\begin{column}{.485\textwidth}
+\excerptcard{Blush}{Depois do token 400 \(\cdot\) \PosTrechoFinal}{“\TrechoFinal”}
+\end{column}
+\end{columns}
+\par\vspace{2mm}
 \small
-\eyebrow{Uma resenha negativa de 780 tokens}\par
-\makebox[.75\linewidth][r]{\eyebrow{TF-IDF}}%
+\eyebrow{Escore positivo}\hfill
+\makebox[.25\linewidth][r]{\eyebrow{TF-IDF}}%
 \makebox[.25\linewidth][r]{\eyebrow{CNN}}\par
 {\color{Rule}\hrule}\vspace{.5mm}
 \RecorteVisual
 \par\vfill
-O trecho final muda a leitura. Com o texto inteiro, os dois escores positivos caem abaixo de 50\%.
-\smallsource{Mesmos pesos nos dois recortes. \fonteatual{seminario/diagnosticos.md}{Exemplos e limites}.}
+A CNN usou 400 tokens no teste original. O TF-IDF leu a resenha inteira.
+Os dois acertaram quando receberam o texto inteiro com os mesmos pesos.
+\smallsource{\texttt{imdb\_test\_03531}. \fonteatual{seminario/diagnosticos.md}{Trechos, escores e método}.}
 \end{frame}
 
 \begin{frame}{Confiança e acurácia respondem perguntas diferentes}

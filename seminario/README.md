@@ -37,6 +37,11 @@ esperada da conclusão e o escore positivo de cada tokenizador. Cada linha
 resume três treinos, um por semente. A régua mantém o limiar de 50% e marca
 onde estava A quando você mostra B. [Par de contraste](https://costaleirbag.github.io/projeto-mae5920/#slide-9).
 
+O primeiro slide de apoio alterna entre o recorte de 400 tokens e o texto
+inteiro de uma resenha do IMDb. **Conclusão** no topo vai ao encerramento.
+Ao chegar lá, o avanço normal para e os slides de apoio ficam disponíveis
+pelo link próprio. [Recorte](https://costaleirbag.github.io/projeto-mae5920/#recorte) · [Conclusão](https://costaleirbag.github.io/projeto-mae5920/#encerramento).
+
 Para apresentar offline, use **Download raw file** no arquivo do GitHub e
 abra a cópia no navegador. [HTML para baixar](../output/slides/slides_15_min_interativos.html).
 
@@ -65,8 +70,9 @@ os dados das figuras estáticas e da tabela de posição.
 
 Para reconstruir também o HTML, rode `make -C seminario interativo` com
 `pypdf` e `pdftoppm` instalados. O HTML usa as páginas renderizadas do PDF
-nos slides fixos. Os slides 4, 5 e 9 usam os dados salvos e os controles da
-apresentação. [Fontes do HTML](apresentacao.html) · [estilo](apresentacao.css) · [controles](apresentacao.js).
+nos slides fixos. Os slides de BPE, CNN, contraste e recorte usam os dados
+salvos e os controles da apresentação. Os prints do YouTube também ficam
+embutidos no HTML. [Fontes do HTML](apresentacao.html) · [estilo](apresentacao.css) · [controles](apresentacao.js).
 
 O diagrama vetorial do slide 5 também aparece no PDF da apresentação. Após editá-lo,
 rode `make -C seminario figura-arquitetura` com `rsvg-convert` antes de
@@ -106,8 +112,8 @@ O endpoint local `POST /predict` recebe JSON no formato
 `--text 'The movie was wonderful.'`.
 
 No dia, carreguem a página antes da fala e façam um teste rápido. O slide 12
-traz os escores salvos de *Friday* e *The Room*, que podem ocupar o tempo da
-demonstração. As animações dos slides 4 e 5 já funcionam no HTML baixado.
+traz os prints e as classes previstas para *Friday* e *The Room*. Esses
+casos podem ocupar o tempo da demonstração. As animações dos slides 4 e 5 já funcionam no HTML baixado.
 
 Para reproduzir os quatro pares com as três sementes, a pasta de artefatos
 precisa ter também as versões `s29` e `s43` das duas CNNs. Rode:

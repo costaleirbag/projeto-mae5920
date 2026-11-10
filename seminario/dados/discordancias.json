@@ -109,6 +109,18 @@
           ]
         }
       },
+      "trechos": {
+        "prefixo": {
+          "texto": "This film is as crassly manipulative as it is vapid",
+          "primeiro_token": 230,
+          "ultimo_token": 239
+        },
+        "final": {
+          "texto": "I had to leave because it was so bad.",
+          "primeiro_token": 716,
+          "ultimo_token": 724
+        }
+      },
       "cnn_inteiro": {
         "logit": -2.099548101425171,
         "p_positiva": 0.12126602434357456,

@@ -297,6 +297,11 @@ def tables() -> str:
     }
     disagreements = read_json("seminario/dados/discordancias.json")
     long = disagreements["casos"][0]
+    excerpts = {}
+    for source, name in (("prefixo", "Prefixo"), ("final", "Final")):
+        excerpt = long["trechos"][source]
+        excerpts["Trecho" + name] = excerpt["texto"]
+        excerpts["PosTrecho" + name] = f"{excerpt['primeiro_token']}--{excerpt['ultimo_token']}"
     cut_excerpts = (
         ("Primeiros 400 tokens", "tfidf_prefixo", "cnn_prefixo"),
         ("Texto inteiro", "tfidf_inteiro", "cnn_inteiro"),
@@ -316,6 +321,7 @@ def tables() -> str:
         "KernelsVisuais": "\n".join(kernel_cards),
         "PassosVisuais": "\n".join(stride_cards),
         "RecorteVisual": "\n".join(cut_cards),
+        **excerpts,
         **position_values,
         "LinhasCusto": "\n".join(cost_rows),
         "LinhasSeq": "\n".join(sequence_rows),

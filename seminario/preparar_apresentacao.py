@@ -16,7 +16,7 @@ from pypdf import PdfReader
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
-FRAME = re.compile(r"(?:^% lab:(?P<lab>bpe|cnn|contrast)\n)?\\begin{frame}(?:\[[^\]]+\])?(?:\{(?P<title>[^{}\n]+)\})?", re.M)
+FRAME = re.compile(r"(?:^% lab:(?P<lab>bpe|cnn|contrast|youtube|closing|cut)\n)?\\begin{frame}(?:\[[^\]]+\])?(?:\{(?P<title>[^{}\n]+)\})?", re.M)
 MODEL = "src/imdb_lab/models.py"
 
 
@@ -141,11 +141,24 @@ def contrast_example() -> dict:
             "reversed": reversed_runs}
 
 
+def cut_example() -> dict:
+    results = json.loads((HERE / "dados/discordancias.json").read_text(encoding="utf-8"))
+    case = next(case for case in results["casos"] if case["id"] == "imdb_test_03531")
+    return {
+        "cap": results["limite_cnn_tokens"], "total": case["tokens_cnn"],
+        "label": ("Negativa", "Positiva")[case["rotulo"]], "excerpts": case["trechos"],
+        "scores": {
+            scope: {model: case[f"{model}_{scope}"]["p_positiva"] for model in ("tfidf", "cnn")}
+            for scope in ("prefixo", "inteiro")
+        },
+    }
+
+
 def build(pdf: Path, output: Path) -> None:
     reader = PdfReader(pdf)
     frames = list(FRAME.finditer((HERE / "slides.tex").read_text(encoding="utf-8")))
     assert len(frames) == len(reader.pages), "O PDF deve ter uma página por frame."
-    assert [frame["lab"] for frame in frames if frame["lab"]] == ["bpe", "cnn", "contrast"]
+    assert [frame["lab"] for frame in frames if frame["lab"]] == ["bpe", "cnn", "contrast", "youtube", "closing", "cut"]
 
     slides = []
     with TemporaryDirectory(prefix="mae5920-slides-") as directory:
@@ -163,9 +176,12 @@ def build(pdf: Path, output: Path) -> None:
 
     evidence = json.loads((HERE / "dados/animacoes.json").read_text(encoding="utf-8"))
     data = json.dumps({"slides": slides, "evidence": evidence, "architecture": architecture_steps(),
-                       "contrast": contrast_example()},
+                       "contrast": contrast_example(), "cut": cut_example()},
                       ensure_ascii=False, separators=(",", ":"))
     template = (HERE / "apresentacao.html").read_text(encoding="utf-8")
+    for marker, file in (("ROOM", "the-room"), ("FRIDAY", "friday")):
+        asset = (HERE / "figuras" / f"youtube-{file}.png").read_bytes()
+        template = template.replace(f"/* YOUTUBE_{marker} */", b64encode(asset).decode("ascii"))
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(
         template.replace("/* DECK_CSS */", (HERE / "apresentacao.css").read_text(encoding="utf-8"))

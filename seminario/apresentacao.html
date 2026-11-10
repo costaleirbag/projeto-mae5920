@@ -10,6 +10,7 @@
     <div class="brand"><strong>MAE5920</strong><span>Introdução a Deep Learning</span></div>
     <div class="toolbar-actions">
       <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/roteiro.md" target="_blank" rel="noopener">Roteiro</a>
+      <a href="#encerramento">Conclusão</a>
       <button type="button" id="fullscreen">Tela cheia</button>
     </div>
   </header>
@@ -218,6 +219,123 @@
       </div>
       <footer class="lab-source">Escores salvos para este par sintético.
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/pares_resultados.json" target="_blank" rel="noopener">Resultados por semente</a>
+      </footer>
+    </article>
+    <article id="youtube" class="lab readable youtube-slide" hidden aria-labelledby="youtube-title">
+      <header class="lab-heading">
+        <p class="eyebrow">Extensão <span class="youtube-brand"><span aria-hidden="true">▶</span> YouTube</span></p>
+        <h1 id="youtube-title">Do YouTube para a CNN</h1>
+      </header>
+      <p class="youtube-intro">A CNN recebeu só o texto do comentário.</p>
+      <div class="youtube-cases">
+        <section class="youtube-case" aria-labelledby="room-title">
+          <div class="youtube-video">
+            <h2 id="room-title">The Room</h2>
+            <a href="https://www.youtube.com/watch?v=cG_e8k9PILM&amp;t=2s" target="_blank" rel="noopener">Trailer ↗</a>
+          </div>
+          <figure class="youtube-print">
+            <img width="316" height="105" src="data:image/png;base64,/* YOUTUBE_ROOM */" lang="en"
+                 alt="“The best movie of the year” - No one.">
+          </figure>
+          <div class="youtube-prediction">
+            <span class="micro">Classe prevista</span>
+            <strong class="class-label" data-tone="positiva">Positiva</strong>
+            <span>6 de 6 treinos</span>
+          </div>
+          <p class="youtube-reading">“No one” transforma o elogio em crítica.</p>
+        </section>
+        <section class="youtube-case" aria-labelledby="friday-title">
+          <div class="youtube-video">
+            <h2 id="friday-title">Friday</h2>
+            <a href="https://www.youtube.com/watch?v=kfVsfOSbJY0" target="_blank" rel="noopener">Clipe de Rebecca Black ↗</a>
+          </div>
+          <figure class="youtube-print">
+            <img width="275" height="141" src="data:image/png;base64,/* YOUTUBE_FRIDAY */" lang="en"
+                 alt="AI could never do this.">
+          </figure>
+          <div class="youtube-prediction">
+            <span class="micro">Classe prevista</span>
+            <strong class="class-label" data-tone="negativa">Negativa</strong>
+            <span>6 de 6 treinos</span>
+          </div>
+          <p class="youtube-reading">A frase admite admiração ou ironia.</p>
+        </section>
+      </div>
+      <footer class="lab-source">Dois tokenizadores, três treinos cada. Casos sem rótulo de referência.
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/fora_dominio_resultados.json" target="_blank" rel="noopener">Escores por semente</a>
+      </footer>
+    </article>
+
+    <article id="closing" class="lab readable closing-slide" hidden aria-labelledby="closing-title">
+      <p class="eyebrow">Conclusão</p>
+      <h1 id="closing-title">O que chega à decisão da CNN?</h1>
+      <p class="closing-lead">A camada final recebe <strong>300 máximos</strong> de padrões locais.</p>
+      <div class="closing-points">
+        <section>
+          <h2>Tokenização</h2>
+          <p>BPE zerou os tokens desconhecidos na auditoria. A acurácia ficou próxima.</p>
+        </section>
+        <section>
+          <h2>Teste oficial</h2>
+          <p>A CNN fez 86,78%. TF-IDF e BERT ficaram à frente.</p>
+        </section>
+        <section>
+          <h2>Posição</h2>
+          <p>O máximo descarta onde o filtro respondeu. Preservar a posição mudou escores, com acerto semelhante nos pares humanos.</p>
+        </section>
+      </div>
+      <footer class="closing-footer">
+        <div>
+          <p class="micro">Fim da apresentação</p>
+          <p class="closing-question">Perguntas?</p>
+        </div>
+        <a href="#apoio">Ver slides de apoio →</a>
+      </footer>
+    </article>
+
+    <article id="cut" class="lab readable cut-slide" hidden aria-labelledby="cut-title">
+      <header class="lab-heading">
+        <p class="eyebrow">Apoio <span>IMDb · teste oficial</span></p>
+        <h1 id="cut-title">O fim da resenha ficou fora do recorte</h1>
+      </header>
+      <div class="cut-header">
+        <p>Rótulo da resenha <strong id="cut-label" class="class-label"></strong></p>
+        <div class="cnn-view" role="group" aria-label="Trecho fornecido aos dois modelos">
+          <button type="button" data-cut="prefixo" aria-pressed="true">Até o token <span id="cut-cap"></span></button>
+          <button type="button" data-cut="inteiro" aria-pressed="false">Texto inteiro ⇄</button>
+        </div>
+      </div>
+      <div class="cut-columns">
+        <section class="cut-excerpts" aria-label="Trechos da resenha">
+          <div class="cut-ruler" aria-hidden="true">
+            <div class="cut-track"></div>
+            <div class="cut-ticks"><span>1</span><span id="cut-limit"></span><span id="cut-total"></span></div>
+          </div>
+          <div class="cut-quote">
+            <p class="micro" id="cut-start-range"></p>
+            <p id="cut-start-quote" lang="en"></p>
+          </div>
+          <div class="cut-quote cut-quote-end">
+            <p class="micro" id="cut-end-range"></p>
+            <p id="cut-end-quote" lang="en" hidden></p>
+            <p id="cut-omitted"></p>
+          </div>
+        </section>
+        <section class="cut-scores" aria-label="Escores dos modelos" aria-live="polite">
+          <p class="micro">Escore positivo dos modelos</p>
+          <div class="cut-result" data-cut-model="tfidf">
+            <div><h2>TF-IDF</h2><p class="cut-original"></p></div>
+            <div class="cut-readout"><strong class="cut-value"></strong><span class="class-label"></span></div>
+          </div>
+          <div class="cut-result" data-cut-model="cnn">
+            <div><h2>CNN</h2><p class="cut-original"></p></div>
+            <div class="cut-readout"><strong class="cut-value"></strong><span class="class-label"></span></div>
+          </div>
+          <p id="cut-outcome"></p>
+        </section>
+      </div>
+      <footer class="lab-source">Contagem pelo tokenizer da CNN. Mesmos pesos e calibração nas duas entradas.
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/diagnosticos.md" target="_blank" rel="noopener">Trechos, escores e método</a>
       </footer>
     </article>
   </main>

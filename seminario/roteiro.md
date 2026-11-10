@@ -1,9 +1,10 @@
 # Roteiro de fala
 
-A versão principal termina aos **12:00**, dentro da faixa do enunciado original.
-Os slides 12 e 13 ocupam três minutos adicionais se a turma tiver 15 minutos.
-Os slides 14 a 17 ficam disponíveis para perguntas. Os tempos incluem pausas
-curtas e passagens de fala. Os slides 4 e 8 são pontos naturais para trocar de pessoa.
+A apresentação termina no slide 14, **Conclusão**. Na versão de 12 minutos,
+vá do slide 11 direto para **Conclusão** pelo link no topo. Na de 15, passe
+também pelos slides 12 e 13. Os slides de apoio ficam num grupo separado
+e abrem pelo link na conclusão. Os slides 4 e 8 são pontos naturais para
+trocar de pessoa.
 
 | Slide | Relógio | Assunto |
 |---:|---|---|
@@ -16,10 +17,11 @@ curtas e passagens de fala. Os slides 4 e 8 são pontos naturais para trocar de 
 | 7 | 06:40–07:50 | Teste oficial |
 | 8 | 07:50–09:00 | Auditoria de palavras e BPE |
 | 9 | 09:00–10:10 | A predição do par inicial |
-| 10 | 10:10–11:25 | O limite do máximo global |
-| 11 | 11:25–12:00 | O que muda se guardarmos posição? |
-| 12 | 12:00–13:30 | Comentários do YouTube ou demonstração |
-| 13 | 13:30–15:00 | Encoders e geração com o Qwen |
+| 10 | 10:10–11:10 | O limite do máximo global |
+| 11 | 11:10–11:40 | O que muda se guardarmos posição? |
+| 12 | 11:40–13:10 | Comentários do YouTube ou demonstração |
+| 13 | 13:10–14:35 | Encoders e geração com o Qwen |
+| 14 | 14:35–15:00 ou 11:40–12:00 | Conclusão e perguntas |
 
 ## 1 · Pergunta do seminário
 
@@ -160,6 +162,10 @@ par com veredito no fim. [Método e resultados por semente](diagnosticos.md#o-qu
 
 ## 12 · Comentários fora do IMDb
 
+Mostre os prints e aponte o destaque em *No one*. O modelo recebeu o
+texto de cada comentário. Os vídeos e a interface ajudam a plateia a
+interpretá-lo. [Trailer de The Room](https://www.youtube.com/watch?v=cG_e8k9PILM&t=2s) · [Friday](https://www.youtube.com/watch?v=kfVsfOSbJY0).
+
 “Em *The Room*, o elogio está entre aspas e é seguido de *No one*. Mesmo
 assim, os seis treinos deram positiva. Em *Friday*, a frase sobre IA pode
 soar como admiração ou ironia. As CNNs devolveram negativo. Em outro
@@ -188,12 +194,19 @@ usamos o modelo para escrever uma opinião token a token a partir da mesma
 fonte. Mantivemos o prompt e deslocamos uma ativação durante a geração.
 O slide de apoio mostra as três opiniões que saíram do mesmo enredo.”
 
+## 14 · Conclusão
+
+“A TextCNN resume cada resenha em 300 máximos de padrões locais. O BPE
+ampliou a cobertura. No teste oficial, TF-IDF e BERT ficaram à frente da
+CNN. Os testes de troca mostram o que se perde ao descartar posição.”
+Deixe o quadro de perguntas na tela.
+
 ## Cortes para o ensaio
 
-- Aos 12 minutos, encerrem no slide 11. Os exemplos salvos dos slides 9 e 10 já sustentam a explicação.
+- Na versão de 12 minutos, vá do slide 11 à conclusão pelo link no topo.
 - Se precisarem de cerca de 10 minutos, passem do slide 7 ao 9 depois de citar o resultado BPE em uma frase. Resumam a escolha de taxa e época do slide 6 em 35 segundos.
-- Usem o slide 14 para os dois erros pareados, o 15 para calibração e o 17 para largura e passo. Esses quadros ficam reservados para perguntas.
-- Para mostrar as gerações do Qwen durante a fala de 15 minutos, reservem os últimos 30 segundos do slide 13 e avancem direto ao slide 16.
+- Na seção de apoio, usem o primeiro slide para mostrar o recorte da resenha, o segundo para calibração e o quarto para largura e passo.
+- Se quiserem mostrar a geração do Qwen nos 15 minutos, reservem os últimos 30 segundos do slide 13 para o terceiro slide de apoio e depois voltem à conclusão.
 
 As tabelas de treino, validação e teste, os controles e os casos completos
 estão no relatório. [Relatório do seminário](../output/pdf/relatorio_seminario.pdf).
