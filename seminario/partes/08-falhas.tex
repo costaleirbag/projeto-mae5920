@@ -1,29 +1,28 @@
 \section{Quando o modelo de aprendizagem profunda falha?}
 \label{sec:falhas}
 \subsection{A CNN reage à troca e inverte o sentido do contraste}
-A termina em \textit{wonderful} e tem leitura positiva. B termina em
-\textit{terrible} e tem leitura negativa. Todos os seis checkpoints deram
-classe negativa a A e positiva a B. Da primeira para a segunda frase, o
-escore positivo médio foi de \PalavrasA{} a \PalavrasB{} com palavras e de
-\BPEA{} a \BPEB{} com BPE.
+A termina em \textit{wonderful} (positiva) e B em \textit{terrible} (negativa).
+Com três sementes por tokenizador, os seis treinos previram negativa em A e
+positiva em B. O escore positivo foi de \PalavrasA{} a \PalavrasB{} com palavras
+e de \BPEA{} a \BPEB{} com BPE, na média.
+\href{https://costaleirbag.github.io/projeto-mae5920/\#slide-9}{Troca interativa A/B}.
 
 \subsection{O máximo global apaga a posição entre janelas}
-Separamos \textit{I loved the acting} de \textit{I hated the ending} com
-uma frase repetida no início, no meio e no fim. O separador faz com que
-cada janela de até cinco tokens veja no máximo um dos trechos. Ao trocá-los,
-verificamos que os multiconjuntos de janelas de IDs para \(k=3,4,5\)
-permaneceram iguais nas duas tokenizações.
+Uma frase repetida separa \textit{I loved the acting} de \textit{I hated the ending}.
+Trocamos os dois blocos e verificamos que as janelas de 3, 4 e 5 IDs formam
+os mesmos multiconjuntos nos dois tokenizadores. Cada filtro recebe as mesmas
+janelas e conserva o mesmo máximo. Os logits coincidiram nos seis treinos.
 
-Janelas iguais geram as mesmas ativações para cada filtro. O máximo global
-retorna o mesmo valor para A e B, mesmo que a posição desse valor mude. Os
-vetores enviados à camada linear coincidem. A diferença máxima de logit foi
-\textbf{zero} nos seis checkpoints.
+Com os filtros congelados, guardamos dois picos por filtro. Uma cabeça linear
+recebe menor e maior pico. A outra recebe os picos na ordem do texto. Guardar
+a posição fez os escores de A e B diferirem. Em \NParesHumanos{} pares de
+resenhas editadas, o acerto nas duas versões foi de \SemPosHumanos{} sem
+posição e \ComPosHumanos{} com posição. \fonteatual{seminario/diagnosticos.md}{Método e três sementes}.
 
 \subsection{O sentimento fora do IMDb}
-Aplicamos os mesmos pesos, sem reajuste, a 1.000 frases de Amazon e 1.000
-de Yelp na coleção da UCI \cite{kotzias}. Cada fonte contém 500 rótulos
-positivos e 500 negativos. O gênero e o comprimento mudam juntos em
-relação ao IMDb.
+Avaliamos os mesmos pesos em 1.000 frases de Amazon e 1.000 de Yelp, com
+500 exemplos por classe em cada fonte \cite{kotzias}. Gênero e comprimento
+mudam juntos em relação ao IMDb.
 
 \begin{tabularx}{\linewidth}{@{}Xrrrrrr@{}}
 \toprule
@@ -38,24 +37,20 @@ relação ao IMDb.
 \legendinha{Tabela 11. Médias de três sementes em frases selecionadas por
 polaridade clara. \fonteatual{seminario/dados/fora_dominio_resultados.json}{Resultados por semente}.}
 
-Em \textit{The Room}, “No one” contesta o elogio entre aspas, mas os seis
-checkpoints classificaram o comentário como positivo. Os dois comentários
-de \textit{Baby} também receberam classe positiva. Em \textit{Friday},
-“AI could never do this” recebeu classe negativa nos seis checkpoints.
-\fonteatual{seminario/dados/fora_dominio_resultados.json}{Cinco casos sem rótulos de referência}.
+Em \textit{The Room}, todos os treinos leram o elogio seguido de “No one”
+como positivo. Os comentários de \textit{Baby} deram positivo. O de
+\textit{Friday} deu negativo. \fonteatual{seminario/dados/fora_dominio_resultados.json}{Cinco casos sem rótulo}.
 
 \subsection{Tom e fatos na geração do Qwen}
-No bloco 28, aplicamos \(h'=h+\alpha s v\) após o marcador \texttt{REVIEW}.
-A direção \(v\) é a diferença normalizada entre as médias de ativações para
-dois tons em 128 enredos. Com escala \(s\) fixa, usamos \(\alpha=-2,0,+2\).
-O próprio Qwen, como juiz automático, reconheceu os dois tons-alvo em 55
-de 64 fontes. Os tokens de \texttt{FACT} coincidiram. Em um caso, a opinião
-positiva acrescentou um cenário de cidade pequena ausente da fonte.
-\fonte{results/qwen_improved/fact_flag_reading.json}{Leitura dos alertas factuais}.
+No bloco 28, somamos \(\alpha s v\) após \texttt{REVIEW}, com \(\alpha=-2,0,+2\).
+A direção \(v\) compara as ativações médias para dois tons em 128 enredos.
+O Qwen, como juiz automático, reconheceu os dois tons-alvo em 55 de 64 fontes.
+\texttt{FACT} ficou igual. Em um caso, \texttt{REVIEW} inventou um cenário de
+cidade pequena. \fonte{results/qwen_improved/fact_flag_reading.json}{Alertas factuais}.
 
 \begin{thebibliography}{9}
 \small
-\setlength{\itemsep}{1pt}
+\setlength{\itemsep}{0pt}
 \setlength{\parskip}{0pt}
 \bibitem{maas} Maas, A. L. et al. \textit{Learning Word Vectors for Sentiment Analysis}.
 ACL, 2011. \href{https://aclanthology.org/P11-1015/}{ACL Anthology}.

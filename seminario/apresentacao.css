@@ -425,3 +425,96 @@ p, h1 { margin: 0; }
     font-size: 11px;
   }
 }
+
+/* O mesmo contraste aparece na frase e na régua das predições. */
+.contrast { --negative: #963e29; --negative-bg: #f4e1d7; --positive-bg: #d7eadc; gap: 1.05cqw; }
+.swap-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .6em;
+  font-size: .83em;
+  color: var(--quiet);
+}
+.swap-switch { font-size: .98em; }
+.swap-switch button { padding: .45em .8em; }
+.swap-clauses { display: grid; grid-template-columns: 1.15fr 1fr; border: 1px solid #cbd9d4; border-radius: .55em; }
+.clause { min-width: 0; padding: .8em .9em; }
+.clause .micro { color: var(--quiet); }
+.conclusion { background: #eaf2eb; border-inline-start: 1px solid #cbd9d4; border-radius: 0 .55em .55em 0; }
+.conclusion .micro { color: var(--teal); }
+.swap-quote {
+  margin: .26em 0 .08em;
+  font-size: 1.23em;
+  font-weight: 500;
+  letter-spacing: -.025em;
+  line-height: 1.45;
+}
+.swap-adjective { display: inline-block; position: relative; z-index: 2; padding: 0 .25em; border-radius: .22em; font-weight: 760; }
+.swap-expectation { display: flex; align-items: center; gap: .55em; margin-top: .36em; color: var(--quiet); font-size: .79em; }
+.class-label {
+  display: inline-flex;
+  padding: .14em .48em;
+  border-radius: .3em;
+  color: var(--forest);
+  font-weight: 720;
+}
+[data-tone="positiva"] { color: #155b48; background: var(--positive-bg); }
+[data-tone="negativa"] { color: var(--negative); background: var(--negative-bg); }
+.swap-scores { display: grid; align-content: center; flex: 1; min-height: 0; }
+.swap-scale, .swap-model {
+  display: grid;
+  grid-template-columns: 21% minmax(0, 1fr) 24%;
+  column-gap: 1.28em;
+  align-items: center;
+}
+.swap-scale { padding: .12em 0 .38em; border-bottom: 1px solid var(--rule); }
+.scale-ticks { display: flex; justify-content: space-between; position: relative; color: var(--quiet); font-size: .68em; white-space: nowrap; }
+.scale-ticks span:nth-child(2) { position: absolute; left: 50%; transform: translateX(-50%); font-weight: 700; }
+.swap-model { min-height: 2.8em; border-bottom: 1px solid var(--rule); }
+.swap-model-name { font-weight: 730; }
+.swap-track {
+  position: relative;
+  height: .36em;
+  background: linear-gradient(to right, #f0ddd1 50%, #cfe5d9 50%);
+  border-radius: 99px;
+}
+.swap-track::after { content: ""; position: absolute; inset-block: -.27em; left: 50%; border-left: 1px solid #72817a; }
+.swap-dot, .swap-previous {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: var(--score, 0%);
+  width: .9em;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+.swap-dot { background: var(--forest); border: 2px solid var(--paper); transition: left 480ms cubic-bezier(.25,.8,.3,1), background-color 220ms ease; }
+.swap-dot[data-tone="negativa"] { background: var(--negative); }
+.swap-dot[data-tone="positiva"] { background: var(--teal); }
+.swap-previous { width: .66em; background: var(--paper); border: 1px solid #89958c; }
+.swap-outcome { display: flex; align-items: center; flex-wrap: wrap; gap: .35em; font-variant-numeric: tabular-nums; }
+.swap-outcome strong { min-width: 3.55em; font-size: 1.04em; }
+.swap-outcome .class-label { font-size: .74em; }
+.swap-verdict { display: flex; justify-content: space-between; align-items: baseline; gap: .6em 1em; font-size: .77em; color: var(--quiet); }
+#swap-summary { color: var(--ink); font-weight: 680; text-align: right; }
+.contrast .lab-source { border-top: 1px solid var(--rule); padding-top: .45em; }
+
+@media (prefers-reduced-motion: reduce) {
+  .swap-dot { transition: none; }
+}
+@media (max-width: 720px) and (orientation: portrait) {
+  .stage:has(.contrast:not([hidden])) { aspect-ratio: auto; min-height: 0; }
+  .lab.contrast { position: relative; padding: 14px; gap: 10px; font-size: 15px; }
+  .contrast h1 { font-size: 23px; }
+  .swap-header { align-items: start; flex-wrap: wrap; }
+  .swap-clauses { grid-template-columns: 1fr; }
+  .conclusion { border-inline-start: 0; border-top: 1px solid #cbd9d4; border-radius: 0 0 .55em .55em; }
+  .swap-scale { grid-template-columns: 1fr; gap: .35em; }
+  .scale-outcome { display: none; }
+  .swap-model { grid-template-columns: minmax(0, 1fr) auto; gap: .55em; padding-block: .56em; }
+  .swap-track { grid-column: 1 / -1; grid-row: 2; }
+  .swap-verdict { flex-direction: column; gap: .35em; }
+  #swap-summary { text-align: left; }
+}

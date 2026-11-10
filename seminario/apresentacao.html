@@ -175,6 +175,51 @@
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/src/imdb_lab/models.py" target="_blank" rel="noopener">Implementação</a>
       </footer>
     </article>
+    <article id="contrast" class="lab contrast" hidden aria-labelledby="contrast-title">
+      <header class="lab-heading">
+        <p class="eyebrow">03 · Limites <span>Teste de contraste</span></p>
+        <h1 id="contrast-title">Dois adjetivos trocam de lugar</h1>
+      </header>
+
+      <div class="swap-header">
+        <div class="cnn-view swap-switch" role="group" aria-label="Frase em exibição">
+          <button type="button" data-swap="a" aria-pressed="true">A · Frase original</button>
+          <button type="button" data-swap="b" aria-pressed="false">B · Trocar adjetivos ⇄</button>
+        </div>
+        <span id="swap-note">Mesmas palavras, outra ordem.</span>
+      </div>
+
+      <div class="swap-clauses">
+        <div class="clause">
+          <p class="micro">Primeira impressão</p>
+          <p class="swap-quote" lang="en"><span id="swap-start"></span><span id="swap-first" class="swap-slot"></span>,</p>
+        </div>
+        <div class="clause conclusion">
+          <p class="micro">Conclusão</p>
+          <p class="swap-quote" lang="en"><span id="swap-connector"></span><span id="swap-last" class="swap-slot"></span>.</p>
+          <p class="swap-expectation">Leitura esperada <strong id="swap-expected" class="class-label"></strong></p>
+        </div>
+      </div>
+
+      <section class="swap-scores" aria-label="Predições das CNNs">
+        <div class="swap-scale">
+          <p class="micro">Escore positivo médio</p>
+          <div class="scale-ticks" aria-hidden="true">
+            <span>0% · Negativa</span><span>50%</span><span>Positiva · 100%</span>
+          </div>
+          <span class="micro scale-outcome">Classe prevista</span>
+        </div>
+        <div id="swap-models"></div>
+      </section>
+
+      <div class="swap-verdict">
+        <p id="swap-sample"></p>
+        <p id="swap-summary" aria-live="polite"></p>
+      </div>
+      <footer class="lab-source">Escores salvos para este par sintético.
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/pares_resultados.json" target="_blank" rel="noopener">Resultados por semente</a>
+      </footer>
+    </article>
   </main>
 
   <nav class="deck-nav" aria-label="Navegação dos slides">

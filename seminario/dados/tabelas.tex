@@ -13,6 +13,23 @@ Teste & BERT & 90,94\% & 0,9094 & 0,2433 \\}
 \newcommand{\LinhasTeste}{TF-IDF + logística & 90,14\% & 0,9014 & 0,2396 \\
 CNN & 86,78\% & 0,8678 & 0,3037 \\
 BERT & 90,94\% & 0,9094 & 0,2278 \\}
+\newcommand{\PontosTeste}{\officialpoint{31}{TF-IDF + logística}{90.144}{90,14\%}{0,9014}{0,2396}{Quiet}
+\officialpoint{20}{CNN}{86.78399999999999}{86,78\%}{0,8678}{0,3037}{Teal}
+\officialpoint{9}{BERT}{90.944}{90,94\%}{0,9094}{0,2278}{Quiet}}
+\newcommand{\RegimesVisuais}{\encoderrow{BERT-base}{84,52\%}{88,31\%}
+\encoderrow{DistilBERT}{83,35\%}{86,80\%}
+\encoderrow{ModernBERT-base}{81,30\%}{91,24\%}}
+\newcommand{\KernelsVisuais}{\labvalue{3}{100 filtros}{81,27\%}
+\labvalue{5}{100 filtros}{80,94\%}
+\labvalue{3/4/5}{300 filtros}{81,95\%}}
+\newcommand{\PassosVisuais}{\labvalue{1}{100,0\% das janelas}{82,00\%}
+\labvalue{2}{50,2\% das janelas}{81,45\%}
+\labvalue{3}{33,6\% das janelas}{80,97\%}}
+\newcommand{\RecorteVisual}{\cutrow{Primeiros 400 tokens}{71,7\%}{94,7\%}{Teal}
+\cutrow{Texto inteiro}{6,5\%}{12,1\%}{Rust}}
+\newcommand{\SemPosHumanos}{39,8\%}
+\newcommand{\ComPosHumanos}{39,1\%}
+\newcommand{\NParesHumanos}{344}
 \newcommand{\LinhasCusto}{TF-IDF + logística & CPU do Apple M1 & 13,1 & 0,15 \\
 CNN & Apple M1 (MPS) & 139,6 & 20,72 \\
 BERT & NVIDIA GB10 (CUDA) & 446,4 & 149,91 \\}
@@ -21,9 +38,6 @@ CNN + Adam & 81,95\% & 0,8194 & 0,4094 \\
 BERT-base ajuste completo & 88,31\% & 0,8831 & 0,3027 \\
 DistilBERT ajuste completo & 86,80\% & 0,8678 & 0,3382 \\
 ModernBERT-base ajuste completo & 91,24\% & 0,9124 & 0,2458 \\}
-\newcommand{\LinhasRegimes}{BERT-base & 84,52\% & 88,31\% \\
-DistilBERT & 83,35\% & 86,80\% \\
-ModernBERT-base & 81,30\% & 91,24\% \\}
 \newcommand{\LinhasBPE}{Palavras & 82,00\% & 0,8200 & 0,3964 & 3,27\% & 121,3 \\
 BPE 20 mil & 81,41\% & 0,8140 & 0,4052 & 0,00\% & 129,1 \\}
 \newcommand{\LinhasPares}{Contraste depois de but & Pos. / Neg. & 1,0\% & 89,9\% & 1,2\% & 83,7\% & 3/3 e 3/3 \\
@@ -32,22 +46,9 @@ Sentimento por aspecto & Mista / Mista & 29,9\% & 0,3\% & 20,0\% & 0,4\% & 0/3 e
 Troca de blocos com as mesmas janelas & Mista / Mista & 88,4\% & 88,4\% & 73,6\% & 73,6\% & 0/3 e 0/3 \\}
 \newcommand{\LinhasForaDominio}{Amazon & 68,10\% & 0,6664 & 0,6372 & 69,97\% & 0,6920 & 0,5900 \\
 Yelp & 69,43\% & 0,6828 & 0,6091 & 69,67\% & 0,6911 & 0,5946 \\}
-\newcommand{\LinhasYouTube}{\textcolor{Teal}{\scriptsize\bfseries Friday}\par \textit{AI could never do this} & Neg. (42,0\%) & Neg. (39,5\%) \\
-\textcolor{Teal}{\scriptsize\bfseries The Room}\par \textit{The trailer makes more sense than the actual film} & Pos. (67,4\%) & Neg. (45,5\%) \\
-\textcolor{Teal}{\scriptsize\bfseries The Room}\par \textit{"The best movie of the year" - No one} & Pos. (80,6\%) & Pos. (76,0\%) \\}
-\newcommand{\LinhasKernel}{3 & 100 & 81,27\% \\
-5 & 100 & 80,94\% \\
-3/4/5 & 300 & 81,95\% \\}
-\newcommand{\LinhasPasso}{1 & 100,0\% & 82,00\% \\
-2 & 50,2\% & 81,45\% \\
-3 & 33,6\% & 80,97\% \\}
-\newcommand{\LinhasRecorte}{Primeiros 400 tokens & 71,7\% & 94,7\% \\
-Texto inteiro & 6,5\% & 12,1\% \\}
 \newcommand{\SoTFIDF}{1.715}
 \newcommand{\SoCNN}{875}
 \newcommand{\Discordancias}{2.590}
-\newcommand{\TfidfCurta}{45,5\%}
-\newcommand{\CNNCurta}{96,6\%}
 \newcommand{\PassoUm}{82,00\%}
 \newcommand{\PassoDois}{81,45\%}
 \newcommand{\PassoTres}{80,97\%}

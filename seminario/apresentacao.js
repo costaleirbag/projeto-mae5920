@@ -1,7 +1,7 @@
 "use strict";
 
 const byId = (id) => document.getElementById(id);
-const { slides, evidence, architecture } = JSON.parse(byId("deck-data").textContent);
+const { slides, evidence, architecture, contrast } = JSON.parse(byId("deck-data").textContent);
 const number = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 function makeTransport(name, draw, nextView) {
@@ -251,12 +251,101 @@ strideButtons.forEach((button) => button.addEventListener("click", () => {
 }));
 setupScan();
 
+
+const swapButtons = [...document.querySelectorAll("[data-swap]")];
+const swapSlots = [byId("swap-first"), byId("swap-last")];
+const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+const percent = new Intl.NumberFormat("pt-BR", {
+  style: "percent", minimumFractionDigits: 1, maximumFractionDigits: 1,
+});
+const swapWords = contrast.adjectives.map((word, index) => {
+  const chip = document.createElement("strong");
+  chip.className = "swap-adjective";
+  chip.dataset.tone = contrast.expected[index === 0 ? "b" : "a"];
+  chip.textContent = word;
+  return chip;
+});
+byId("swap-start").textContent = contrast.start;
+byId("swap-connector").textContent = contrast.connector;
+
+const swapRows = contrast.models.map(({ name, predictions, seeds }) => {
+  const row = document.createElement("div");
+  row.className = "swap-model";
+  const label = document.createElement("span");
+  label.className = "swap-model-name";
+  label.textContent = name === "BPE" ? "CNN BPE" : "CNN por palavras";
+  const track = document.createElement("div");
+  track.className = "swap-track";
+  track.setAttribute("aria-hidden", "true");
+  const previous = document.createElement("span");
+  previous.className = "swap-previous";
+  previous.style.setProperty("--score", 100 * predictions.a.score + "%");
+  const dot = document.createElement("span");
+  dot.className = "swap-dot";
+  track.append(previous, dot);
+  const outcome = document.createElement("div");
+  outcome.className = "swap-outcome";
+  const score = document.createElement("strong");
+  const category = document.createElement("span");
+  category.className = "class-label";
+  outcome.append(score, category);
+  row.append(label, track, outcome);
+  byId("swap-models").append(row);
+  return { predictions, seeds, previous, dot, score, category };
+});
+
+const seeds = swapRows[0].seeds;
+const runs = swapRows.length * seeds.length;
+byId("swap-sample").textContent = swapRows.length + " tokenizadores × " + seeds.length
+  + " treinos (sementes " + seeds.join(", ") + ") = " + runs + " treinos";
+let swapState;
+function showContrast(state, animate = true) {
+  if (state === swapState) return false;
+  const shouldMove = animate && !reducedMotion.matches && !byId("contrast").hidden;
+  swapWords.forEach((chip) => chip.getAnimations().forEach((motion) => motion.cancel()));
+  const from = shouldMove ? swapWords.map((chip) => chip.getBoundingClientRect()) : [];
+  const order = state === "a" ? swapWords : [...swapWords].reverse();
+  swapSlots.forEach((slot, index) => slot.replaceChildren(order[index]));
+  if (shouldMove) {
+    swapWords.forEach((chip, index) => {
+      const to = chip.getBoundingClientRect();
+      chip.animate([{ transform: "translate(" + (from[index].left - to.left) + "px, "
+        + (from[index].top - to.top) + "px)" }, { transform: "translate(0, 0)" }],
+      { duration: 430, easing: "cubic-bezier(.25,.8,.3,1)" });
+    });
+  }
+  swapButtons.forEach((button) => button.setAttribute("aria-pressed", button.dataset.swap === state));
+  const expected = byId("swap-expected");
+  expected.dataset.tone = contrast.expected[state];
+  expected.textContent = expected.dataset.tone[0].toUpperCase() + expected.dataset.tone.slice(1);
+  for (const { predictions, seeds, previous, dot, score, category } of swapRows) {
+    const result = predictions[state];
+    previous.hidden = state === "a";
+    dot.style.setProperty("--score", 100 * result.score + "%");
+    dot.dataset.tone = result.label;
+    score.textContent = percent.format(result.score);
+    category.dataset.tone = result.label;
+    const label = result.label[0].toUpperCase() + result.label.slice(1);
+    category.textContent = label + (result.label === "dividida" ? "" : " · " + result.agreement + "/" + seeds.length);
+  }
+  byId("swap-note").textContent = state === "b"
+    ? "○ indica os escores de A." : "Mesmas palavras, outra ordem.";
+  byId("swap-summary").textContent = state === "b"
+    ? contrast.reversed + " de " + runs + " previram negativa em A e positiva em B."
+    : "Cada um dos " + runs + " treinos previu negativa para A.";
+  swapState = state;
+  return true;
+}
+swapButtons.forEach((button) => button.addEventListener("click", () => showContrast(button.dataset.swap)));
+showContrast("a", false);
+const contrastTransport = { move: (direction) => showContrast(direction > 0 ? "b" : "a") };
+
 const picker = byId("slide-picker");
 const previous = byId("previous");
 const next = byId("next");
 let slideIndex = -1;
 let cnnView = "build";
-const labs = { bpe: bpeTransport, cnn: cnnTransport };
+const labs = { bpe: bpeTransport, cnn: cnnTransport, contrast: contrastTransport };
 slides.forEach((slide, index) => picker.add(new Option((index + 1) + " · " + slide.title, index)));
 
 function showSlide(index, view = "build") {
@@ -271,6 +360,7 @@ function showSlide(index, view = "build") {
   byId("cnn-build").hidden = slide.interactive !== "cnn" || cnnView !== "build";
   byId("cnn").hidden = slide.interactive !== "cnn" || cnnView !== "scan";
   centerArchitectureStage();
+  byId("contrast").hidden = slide.interactive !== "contrast";
   byId("static-slide").hidden = Boolean(slide.interactive);
   if (!slide.interactive) {
     byId("slide-image").src = "data:image/png;base64," + slide.png;

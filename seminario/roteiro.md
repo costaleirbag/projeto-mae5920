@@ -16,8 +16,8 @@ curtas e passagens de fala. Os slides 4 e 8 são pontos naturais para trocar de 
 | 7 | 06:40–07:50 | Teste oficial |
 | 8 | 07:50–09:00 | Auditoria de palavras e BPE |
 | 9 | 09:00–10:10 | A predição do par inicial |
-| 10 | 10:10–11:30 | O limite do máximo global |
-| 11 | 11:30–12:00 | Fechamento |
+| 10 | 10:10–11:25 | O limite do máximo global |
+| 11 | 11:25–12:00 | O que muda se guardarmos posição? |
 | 12 | 12:00–13:30 | Comentários do YouTube ou demonstração |
 | 13 | 13:30–15:00 | Encoders e geração com o Qwen |
 
@@ -100,11 +100,11 @@ número de filtros e dropout. As grades completas estão no relatório.”
 
 ## 7 · Teste oficial do IMDb
 
-“Esta tabela pertence ao estudo original, com 25 mil resenhas de teste.
+“Este gráfico pertence ao estudo original, com 25 mil resenhas de teste.
 O baseline com bigramas chegou a 90,14 por cento. A CNN chegou a 86,78
 e o BERT a 90,94. Acurácia conta os acertos, F1 macro dá o mesmo peso às
 duas classes e a entropia cruzada mede a confiança no rótulo observado.
-A tabela usa probabilidades calibradas em uma divisão separada. CNN e
+A coluna de perda usa probabilidades calibradas em uma divisão separada. CNN e
 TF-IDF discordaram em 2.590 resenhas. Entre as que a CNN precisou recortar,
 foi mais comum só o TF-IDF acertar. No slide de apoio há um caso em que
 os dois modelos passam de positivo para negativo quando leem o texto inteiro.”
@@ -121,14 +121,18 @@ cinco palavras completas. E a taxa foi escolhida originalmente na CNN por
 palavras. Os números mostram o que ocorreu sob esse controle. Os escores
 dos pares ajudam a ver o que mudou em frases específicas.”
 
-## 9 · Predições no par de contraste
+## 9 · Dois adjetivos trocam de lugar
 
-“Voltem às duas frases do início. A acaba em *wonderful* e B acaba em *terrible*.
-Perguntamos duas coisas. A rede muda de classe quando trocamos a ordem? E
-muda na direção que o sentido da frase indica? Na CNN por palavras, o escore
-positivo médio vai de um por cento em A para quase 90 em B. O BPE vai de
-cerca de um para 84 por cento. As seis CNNs mudaram de classe, todas na
-direção oposta à leitura que propusemos.”
+Comece na frase **A** e aponte a conclusão. Depois clique em **B · Trocar
+adjetivos** ou pressione a seta direita. Volte a A se quiser refazer a troca.
+
+“É o mesmo par do início. Em A a conclusão diz que o filme foi maravilhoso.
+A CNN por palavras dá 1% de escore positivo e a de BPE, 1,2%. Os seis
+treinos deram negativa. São dois tokenizadores, cada um com três sementes.
+Agora vejam os dois adjetivos trocarem de lugar. A conclusão de B diz que
+o filme foi terrível. Os escores pulam para 89,9% e 83,7%. Todos os
+treinos passam para positiva. Neste par, a classe prevista coincidiu
+com o sentimento da primeira oração nas duas versões.”
 
 ## 10 · Limite do máximo global
 
@@ -142,20 +146,25 @@ fica só com o máximo, o valor que ele manda para a saída é igual. Foi o
 que encontramos numericamente nos seis checkpoints. Aqui a igualdade é
 uma consequência da arquitetura.”
 
-## 11 · Fechamento aos 12 minutos
+## 11 · Guardar a posição basta?
 
-“A CNN resume cada resenha pelos padrões locais que acionam seus filtros.
-Essa escolha explica tanto a reação ao primeiro par quanto a igualdade no
-segundo. Na extensão com o Qwen, passamos a observar a própria resenha que
-o modelo escreve quando alteramos uma ativação interna.”
+“Dividimos as janelas em duas metades e guardamos o pico de cada uma. Com
+os filtros congelados, treinamos duas saídas com os mesmos dois números.
+Uma recebe menor e maior. A outra recebe início e fim. Com posição, o
+par anterior ganha escores diferentes. Nos 344 pares editados por pessoas,
+porém, o acerto nas duas versões ficou perto de 40% nas duas saídas.”
+
+Se perguntarem sobre o teste sintético, há quatro moldes com veredito no
+começo ou no fim. Nenhuma das cabeças acertou as duas frases de qualquer
+par com veredito no fim. [Método e resultados por semente](diagnosticos.md#o-que-acontece-quando-guardamos-a-posição-dos-picos).
 
 ## 12 · Comentários fora do IMDb
 
-“Em *Friday*, a frase sobre IA pode soar como admiração ou ironia. As CNNs
-devolveram negativo. No primeiro comentário de *The Room*, a pessoa critica
-o filme comparando com o trailer. Na semente 17, a CNN por palavras dá
-positivo e a BPE dá negativo. No segundo, o elogio está entre aspas e é
-seguido de *No one*. Mesmo assim, todas as seis redes deram positivo.
+“Em *The Room*, o elogio está entre aspas e é seguido de *No one*. Mesmo
+assim, os seis treinos deram positiva. Em *Friday*, a frase sobre IA pode
+soar como admiração ou ironia. As CNNs devolveram negativo. Em outro
+comentário de *The Room*, a pessoa critica o filme comparando com o trailer.
+Na semente 17, a CNN por palavras dá positivo e a BPE dá negativo.
 Esses comentários são casos de leitura. Para medir acurácia fora do IMDb,
 usamos 2.000 frases rotuladas de Amazon e Yelp. A média fica entre 68 e 70
 por cento, conforme a fonte e o tokenizer.”
