@@ -42,5 +42,8 @@ congelados das três CNNs por palavras, a acurácia média foi
 conservou 50,2\% das janelas e o passo 3, 33,6\%.
 \fonteatual{seminario/dados/passo_resultados.json}{Resultados por passo}.
 
-Na \hyperref[sec:posicao]{página~\pageref*{sec:posicao}}, trocamos
-trechos preservando as janelas para isolar a perda de posição.
+Nos dois tokenizadores, a janela de cinco tokens já inclui
+\textit{terrible but it was wonderful}. Sete tokens ampliariam o contexto
+para incluir \textit{movie was}. A troca dos adjetivos muda as janelas.
+As previsões refletem a rede inteira. Para isolar o efeito de perder a posição,
+usamos o \hyperref[sec:posicao]{controle da página~\pageref*{sec:posicao}}.

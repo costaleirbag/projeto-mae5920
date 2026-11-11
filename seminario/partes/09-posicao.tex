@@ -1,7 +1,8 @@
-\subsection{Um controle que preserva as janelas}
+\subsection{Controle da posição com as mesmas janelas}
 \label{sec:posicao}
-Montamos os dois textos abaixo. O separador \(S\) é a frase
-\textit{I have a few thoughts about this movie.}
+Montamos dois textos de controle com o elogio e a crítica em ordens
+opostas. Repetimos \(S\), a frase ``\textit{I have a few thoughts about this
+movie.}'', antes, entre e depois das opiniões para manter os vizinhos de cada uma.
 
 \painel{\small\sffamily
   \textbf{A}\quad \tokenrel{S}\enspace
@@ -11,22 +12,23 @@ Montamos os dois textos abaixo. O separador \(S\) é a frase
     \tokenrel[SoftRust]{I hated the ending}\enspace\tokenrel{S}\enspace
     \tokenrel[SoftTeal]{I loved the acting}\enspace\tokenrel{S}}
 
-O separador impede que uma janela de até cinco tokens alcance os dois
-trechos. Verificamos que A e B contêm as mesmas janelas de IDs, com as
-mesmas multiplicidades, para \(k=3,4,5\) nas duas tokenizações. Cada
-filtro recebe o mesmo conjunto de ativações e devolve o mesmo máximo.
-Os dois logits coincidiram em cada checkpoint. As duas versões expressam opiniões mistas.
-\fonteatual{seminario/dados/pares_resultados.json}{Par e predições}.
+O separador de oito palavras mantém no máximo uma opinião em cada janela.
+Para \(k=3,4,5\), A e B contêm as mesmas janelas de IDs, com as mesmas
+multiplicidades, nas duas tokenizações. O máximo de cada filtro descarta
+a posição da resposta. Assim, os 300 máximos e os dois logits coincidiram
+nos seis treinos. Ambas as versões expressam opiniões mistas.
+\fonteatual{seminario/medir_pares.py}{Código}.
+\fonteatual{seminario/dados/pares_resultados.json}{Predições}.
 
-\subsection{Dois picos por filtro separam o par. Eles ajudam no contraste?}
-Congelamos embeddings e filtros das três CNNs por palavras. Para cada
-largura, dividimos as janelas válidas em duas metades (o excedente fica
-na primeira) e extraímos os máximos \(u\) e \(v\), com \(v=0\) se a segunda
-metade estiver vazia. Reajustamos regressões logísticas em 6.144 resenhas
-e escolhemos \(C\in\{10^{-3},10^{-2},10^{-1},1,10\}\) por CE na validação
-de 1.536 resenhas. As duas versões de
-600 valores usam os mesmos picos. Ordenar pelo valor, \((\min(u,v),\max(u,v))\),
-descarta a metade de origem. Ordenar pela posição, \((u,v)\), a preserva.
+\subsection{Teste com um pico por metade}
+Congelamos embeddings e filtros das três CNNs por palavras. Cada filtro
+entrega o máximo \(u\) da primeira metade e \(v\) da segunda. A primeira
+recebe a janela extra se a contagem for ímpar, e \(v=0\) se a segunda for vazia.
+A regressão logística recebe 600 valores. Ordenar os dois picos pelo valor
+descarta a metade de origem. Ao fornecer \((u,v)\), a primeira e a segunda
+entrada de cada par indicam as metades. Ajustamos a regressão em 6.144
+resenhas e escolhemos \(C\) por CE em 1.536 de validação.
+\fonteatual{seminario/medir_posicao.py}{Código e grade de \(C\)}.
 
 \begin{tabularx}{\linewidth}{@{}Xrrr@{}}
 \toprule
@@ -44,9 +46,9 @@ Os 256 pares sintéticos cruzam quatro moldes e dois conjuntos de oito
 adjetivos. Dos 488 pares editados do IMDb Contrast Set \cite{gardner},
 excluímos 144 com entrada de IDs já vista no treino ou na validação.
 Oito dos 344 pares restantes ficam idênticos após o recorte, com rótulos
-opostos. No par de controle, só a cabeça com posição deu margens
-diferentes para A e B nas três sementes. Nos pares editados, ela acertou
-39,15\%, ante 39,83\% com dois picos por valor. Nos dois moldes sintéticos
-com veredito depois do contraste, todas as cabeças ficaram em 0 de 128
+opostos. No controle, a ordem das metades produziu margens diferentes
+para A e B nas três sementes, com a mesma classe. Nos pares editados, o
+acerto foi 39,15\%, ante 39,83\% com os picos ordenados pelo valor. Nos
+moldes sintéticos com veredito no fim, todas as cabeças acertaram 0 de 128
 pares por semente.
 \href{\projetourl/blob/24672b7c4fb090899c3517947f0132d1f6d6296d/seminario/dados/posicao_resultados.json}{Métricas e margens por semente}.

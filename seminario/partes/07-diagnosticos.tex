@@ -1,6 +1,5 @@
-\section{Confiança, comprimento e custo}
+\subsection{Calibração e desempenho por comprimento}
 \label{sec:diagnosticos}
-\subsection{O escore muda. A classe fica.}
 Ajustamos uma temperatura \(\tau>0\) na amostra de calibração, minimizando
 a CE. Com margem \(\Delta=z_+-z_-\), o escore passa de
 \(\sigma(\Delta)\) a \(\sigma(\Delta/\tau)\). A transformação mantém o
@@ -20,11 +19,9 @@ permanecem iguais no limiar de 50\%.
 
 \medskip
 \includegraphics[width=\linewidth]{figuras/diagnostico_oficial.pdf}
-\legendinha{Figura 3. À esquerda, as faixas de comprimento têm 3.246,
-14.624, 5.285 e 1.845 resenhas. À direita, o eixo horizontal mostra a
-probabilidade média prevista e o vertical mostra a fração de positivos
-observada entre resenhas na mesma faixa de probabilidade. A diagonal
-indica coincidência entre as duas medidas.}
+\legendinha{Figura 3. As faixas de comprimento por contagem de palavras
+têm 3.246, 14.624, 5.285 e 1.845 resenhas. Na calibração, a diagonal
+indica coincidência entre o escore médio e a fração observada de positivos.}
 
 A temperatura mudou pouco a CE da CNN, de 0,3040 para 0,3037. A acurácia
 da CNN cai de 87,34\% nas resenhas de até cem palavras a 81,52\% acima
@@ -32,7 +29,7 @@ de 500. BERT também cai na faixa longa. O TF-IDF recebe o texto
 completo e varia menos. Comprimento, conteúdo e recorte variam juntos.
 \fonte{results/analysis/subgroup_metrics.csv}{Métricas por faixa}.
 
-\subsection{O custo das três receitas originais}
+\subsection{Custo computacional}
 \begin{tabularx}{\linewidth}{@{}Xlrr@{}}
 \toprule
 \tabelahead{Modelo} & \tabelahead{Dispositivo} & \tabelahead{Ajuste (s)} &
@@ -44,6 +41,15 @@ completo e varia menos. Comprimento, conteúdo e recorte variam juntos.
 \legendinha{Tabela 7. A inferência soma as quatro divisões. O ajuste
 do baseline inclui TF-IDF e seleção da regularização. Cada tempo vale para
 o dispositivo e o orçamento da receita medida.}
+
+\subsection{Avaliação fora do IMDb}
+Em 1.000 frases balanceadas por fonte, a acurácia média das CNNs por palavras
+e BPE foi 68,10\% e 69,97\% na Amazon e 69,43\% e 69,67\% no Yelp \cite{kotzias}.
+Em um dos cinco comentários do YouTube, o elogio seguido de \textit{No one}
+recebeu classe positiva dos seis treinos.
+\fonteatual{seminario/dados/fora_dominio_resultados.json}{Escores}.
+Em dois comentários, o mesmo Qwen gerou os mesmos rótulos diretamente e
+após um bloco de raciocínio. \fonteatual{seminario/medir_qwen_youtube.py}{Código}.
 
 \subsection{Ensaios complementares}
 Em 64 enredos, o Qwen3-8B recebeu uma intervenção no bloco 28, após o

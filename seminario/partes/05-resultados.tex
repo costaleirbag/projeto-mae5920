@@ -1,4 +1,4 @@
-\section{O teste oficial e as resenhas que dividem os modelos}
+\subsection{Resultados no teste oficial do IMDb}
 \label{sec:resultados}
 O baseline pondera as frequências de palavras e pares consecutivos
 (bigramas) na resenha inteira. Os pares captam ordem local. O vetor
@@ -20,14 +20,15 @@ BERT recebe até 192 WordPieces e tem pesos ajustados para a tarefa
 validação com 2.478 e teste oficial com 25.000.
 \fonte{results/comparison.csv}{Resultados originais}.}
 
-\subsection{Quem acertou quando o outro errou?}
+\subsection{Discordâncias entre TF-IDF e CNN e efeito do recorte}
 Cruzamos as previsões da CNN e do TF-IDF pelo ID das 25.000 resenhas.
 Apenas o TF-IDF acertou \SoTFIDF{} e apenas a CNN acertou \SoCNN{}.
-Ambos acertaram 20.821 e ambos erraram 1.589. A fração de acertos exclusivos
+Ambos acertaram 20.821 e ambos erraram 1.589. O recorte de 400 tokens
+afetou 3.118 resenhas (12,5\% do teste). A fração de acertos exclusivos
 do TF-IDF foi 10,87\% no grupo em que a CNN teve recorte, ante 6,29\% no
 grupo sem recorte. Para a CNN, as duas frações foram 3,53\% e 3,50\%.
-Esse cruzamento compara grupos de textos diferentes. Para ver o efeito da
-entrada em um mesmo caso, repetimos as previsões da resenha longa.
+O cruzamento compara grupos de textos diferentes. Para observar o efeito do
+recorte no mesmo texto, repetimos as previsões de uma resenha longa.
 
 \medskip
 \painel[SoftBlue]{\rotulo{Resenha longa / 780 tokens / rótulo negativo}\par\smallskip

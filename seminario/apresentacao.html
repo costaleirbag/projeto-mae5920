@@ -224,14 +224,14 @@
     <article id="pooling" class="lab readable pooling-slide" hidden aria-labelledby="pool-title">
       <header class="lab-heading">
         <p class="eyebrow">03 · Limites <span>Controle sintético</span></p>
-        <h1 id="pool-title">O pico muda de lugar. O máximo fica.</h1>
+        <h1 id="pool-title">O máximo global descarta a posição</h1>
       </header>
       <div class="pool-switch-row">
         <div class="cnn-view" role="group" aria-label="Ordem das opiniões">
           <button type="button" data-pool-case="A" aria-pressed="true">A · Elogio primeiro</button>
           <button type="button" data-pool-case="B" aria-pressed="false">B · Crítica primeiro ⇄</button>
         </div>
-        <p>A e B foram montados para trocar a ordem dos blocos.</p>
+        <p>Dois textos de controle com as opiniões em ordem trocada.</p>
       </div>
 
       <div class="lab-body pool-layout">
@@ -240,7 +240,7 @@
             <span>Separador</span><strong id="pool-first" lang="en"></strong><span>Separador</span>
             <strong id="pool-second" lang="en"></strong><span>Separador</span>
           </div>
-          <p class="pool-separator">Separador de oito palavras <span id="pool-separator-text" lang="en"></span></p>
+          <p class="pool-separator">A mesma frase nos três separadores <span id="pool-separator-text" lang="en"></span></p>
 
           <div class="plot pool-plot">
             <div class="pool-plot-heading">
@@ -272,11 +272,12 @@
       </div>
 
       <div class="pool-takeaway">
-        <p>A mesma frase cerca cada opinião. As mesmas janelas de 3, 4 e 5 tokens aparecem em outra ordem.</p>
-        <p><strong>Mesmos 300 máximos → mesmos escores finais em A e B.</strong></p>
+        <p>Os separadores preservam as janelas de 3, 4 e 5 tokens na troca.</p>
+        <p><strong>Os 300 máximos coincidem, e a CNN dá os mesmos escores.</strong></p>
       </div>
       <footer class="lab-source"><span id="pool-evidence"></span>
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/pares_resultados.json" target="_blank" rel="noopener">Controle nos seis treinos</a>
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/medir_pares.py" target="_blank" rel="noopener">Código</a>
       </footer>
     </article>
 
@@ -285,12 +286,12 @@
         <p class="eyebrow">03 · Limites <span>Dois picos por filtro</span></p>
         <h1 id="position-title">Guardar a posição ajudou a classificar?</h1>
       </header>
-      <p class="position-lead">Dividimos as janelas em duas metades e pegamos a maior resposta de cada uma.</p>
+      <p class="position-lead">Cada filtro entrega dois picos. Um vem da primeira metade das janelas e o outro, da segunda.</p>
       <section class="position-example" aria-label="Os dois picos do filtro do slide anterior">
         <p class="micro">Exemplo do slide anterior · mesmo filtro</p>
         <div class="position-cards">
           <section class="position-card" aria-labelledby="position-value-title">
-            <h2 id="position-value-title">Sem posição</h2>
+            <h2 id="position-value-title">Picos ordenados pelo valor</h2>
             <table data-position-order="value" aria-label="Os mesmos picos ordenados pelo valor">
               <thead><tr><th scope="col">Texto</th><th scope="col">Pico menor</th><th scope="col">Pico maior</th></tr></thead>
               <tbody>
@@ -298,10 +299,10 @@
                 <tr data-position-case="B"><th scope="row">B</th><td></td><td></td></tr>
               </tbody>
             </table>
-            <p>A e B chegam iguais à camada final.</p>
+            <p>A coluna indica apenas se o pico é menor ou maior.</p>
           </section>
           <section class="position-card" aria-labelledby="position-half-title">
-            <h2 id="position-half-title">Com posição</h2>
+            <h2 id="position-half-title">Picos na ordem do texto</h2>
             <table data-position-order="half" aria-label="Os picos na ordem das metades">
               <thead><tr><th scope="col">Texto</th><th scope="col">1ª metade</th><th scope="col">2ª metade</th></tr></thead>
               <tbody>
@@ -309,20 +310,22 @@
                 <tr data-position-case="B"><th scope="row">B</th><td></td><td></td></tr>
               </tbody>
             </table>
-            <p>A e B chegam em ordens diferentes.</p>
+            <p>A coluna indica de qual metade veio cada pico.</p>
           </section>
         </div>
+        <p class="position-lead">No controle, a ordem das metades separou os escores de A e B. As classes coincidiram.</p>
       </section>
       <section class="position-test" aria-label="Avaliação com resenhas editadas por pessoas">
         <p class="micro">Teste separado · <span id="position-pairs"></span> pares de resenhas</p>
         <div class="position-rates">
-          <div><strong id="position-rate-value"></strong><span>Sem posição</span></div>
-          <div><strong id="position-rate-half"></strong><span>Com posição</span></div>
+          <div><strong id="position-rate-value"></strong><span>Picos por valor</span></div>
+          <div><strong id="position-rate-half"></strong><span>Picos por metade</span></div>
         </div>
         <p>Cada par tem uma resenha e uma edição humana que inverte o rótulo. Contamos acerto só quando as duas versões estão certas.</p>
       </section>
-      <footer class="lab-source">CNN por palavras. Filtros fixos, 600 entradas em ambos os casos. Reajustamos só a camada final.
+      <footer class="lab-source">Cada regressão recebe 600 valores. Ajustamos a camada final com os filtros fixos.
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/diagnosticos.md#o-que-acontece-quando-guardamos-a-posi%C3%A7%C3%A3o-dos-picos" target="_blank" rel="noopener">Protocolo e três sementes</a>
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/medir_posicao.py" target="_blank" rel="noopener">Código</a>
       </footer>
     </article>
 
@@ -331,7 +334,7 @@
         <p class="eyebrow">Extensão <span class="youtube-brand"><span aria-hidden="true">▶</span> YouTube</span></p>
         <h1 id="youtube-title">CNN e Qwen leem o YouTube</h1>
       </header>
-      <p class="youtube-intro">Os dois modelos receberam só o texto de cada comentário.</p>
+      <p class="youtube-intro">O mesmo Qwen gera o rótulo direto ou depois de escrever um bloco de raciocínio.</p>
       <div class="youtube-cases">
         <section class="youtube-case" aria-labelledby="room-title">
           <div class="youtube-video">
@@ -384,9 +387,10 @@
           <p class="youtube-reading">A frase admite admiração ou ironia.</p>
         </section>
       </div>
-      <footer class="lab-source">CNN com dois tokenizadores e três treinos cada. Qwen gerou três respostas por modo. Casos sem rótulo de referência.
+      <footer class="lab-source">Entrada só de texto. Três respostas do Qwen por modo. Análise qualitativa de dois comentários.
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/fora_dominio_resultados.json" target="_blank" rel="noopener">Escores da CNN</a>
-        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/qwen_youtube_resultados.json" target="_blank" rel="noopener">Escores do Qwen</a>
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/qwen_youtube_resultados.json" target="_blank" rel="noopener">Resultados do Qwen</a>
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/medir_qwen_youtube.py" target="_blank" rel="noopener">Código</a>
       </footer>
     </article>
 

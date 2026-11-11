@@ -1,9 +1,9 @@
-\section{Da resenha aos dois logits}
+\section{Arquitetura da TextCNN}
 \label{sec:arquitetura}
-Imagine 300 detectores que percorrem a resenha. Cada um reage a um padrão
-local e entrega sua maior resposta. A camada final aprende quanto cada
-resposta conta a favor de cada classe. Essa é a TextCNN usada nos ensaios
-por palavras e por BPE \cite{kim,prince}.
+A TextCNN usada nos ensaios por palavras e por BPE reúne 300 filtros
+\cite{kim,prince}. Cada filtro entrega a maior resposta entre suas janelas.
+Filtros diferentes podem atingir o máximo em trechos diferentes. A camada
+final aprende quanto cada uma das 300 respostas conta para cada classe.
 
 \subsection{De palavras a IDs}
 O tokenizador por palavras preserva contrações, números e negações como

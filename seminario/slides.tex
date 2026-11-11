@@ -295,7 +295,7 @@ Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
 
 % 10:10–11:10
 % lab:pooling
-\begin{frame}{O pico muda de lugar. O máximo fica.}
+\begin{frame}{O máximo global descarta a posição}
 \slidecard{Wash}{\textbf{A}\enspace
   \pill{Paper}{Quiet}{\scriptsize Separador}\enspace
   \good{\small I loved the acting.}\enspace
@@ -310,7 +310,7 @@ Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
   \good{\small I loved the acting.}\enspace
   \pill{Paper}{Quiet}{\scriptsize Separador}}
 \par
-{\scriptsize\strong{Controle sintético} \enspace Separador de 8 palavras \enspace \textit{I have a few thoughts about this movie.}}
+{\scriptsize\strong{Textos de controle} \enspace A mesma frase nos três separadores \enspace \textit{I have a few thoughts about this movie.}}
 \par\vspace{2mm}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{.33\textwidth}
@@ -327,21 +327,21 @@ Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
 \end{column}
 \end{columns}
 \par\vfill
-{\small Os separadores preservam as janelas de 3, 4 e 5 tokens.}\par
-\strong{Mesmos 300 máximos \(\to\) mesmos escores finais em A e B.}
+{\small Os separadores preservam as janelas de 3, 4 e 5 tokens na troca.}\par
+\strong{Os 300 máximos coincidem, e a CNN dá os mesmos escores.}
 \smallsource{Filtro \FiltroControle{} de largura 3, CNN por palavras, semente 17.
-\liveversion{10}. \fonteatual{seminario/dados/pares_resultados.json}{Controle nos seis treinos}.}
+\liveversion{10}. \fonteatual{seminario/dados/pares_resultados.json}{Resultados}.
+\fonteatual{seminario/medir_pares.py}{Código}.}
 \end{frame}
 
 % 11:10–11:40
 % lab:position
 \begin{frame}{Guardar a posição ajudou a classificar?}
-\noindent{\small Dividimos as janelas em duas metades e guardamos a maior resposta de cada uma.}
+\noindent{\small Para o mesmo filtro do slide anterior, guardamos o pico de cada metade.}
 \par\vspace{.8mm}
-\eyebrow{Exemplo do slide anterior \(\cdot\) mesmo filtro}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{.48\textwidth}
-\slidecard{Wash}{\textbf{Sem posição}\par
+\slidecard{Wash}{\textbf{Picos ordenados pelo valor}\par
   {\small
   \begin{tabular*}{\linewidth}{@{}l@{\extracolsep{\fill}}rr@{}}
   Texto & Pico menor & Pico maior\\
@@ -350,7 +350,7 @@ Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
   \end{tabular*}}}
 \end{column}
 \begin{column}{.48\textwidth}
-\slidecard{Mint}{\textbf{Com posição}\par
+\slidecard{Mint}{\textbf{Picos na ordem do texto}\par
   {\small
   \begin{tabular*}{\linewidth}{@{}l@{\extracolsep{\fill}}rr@{}}
   Texto & 1ª metade & 2ª metade\\
@@ -359,17 +359,17 @@ Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
   \end{tabular*}}}
 \end{column}
 \end{columns}
+\par{\small No controle, a ordem das metades separou os escores de A e B. As classes coincidiram.}
 \par\vspace{1mm}
 \eyebrow{Teste separado \(\cdot\) \NParesHumanos{} pares de resenhas}
 \par
-{\large\strong{\SemPosHumanos{}}\enspace\small sem posição}
+{\large\strong{\SemPosHumanos{}}\enspace\small picos por valor}
 \hspace{7mm}
-{\large\strong{\ComPosHumanos{}}\enspace\small com posição}
+{\large\strong{\ComPosHumanos{}}\enspace\small picos por metade}
 \par
-{\small Cada par tem uma resenha e uma edição humana que inverte o rótulo.
-Só conta acerto nas duas versões.}
-\smallsource{Filtros congelados. Ajustamos só a camada final. 600 entradas por modelo.
-\fonteatual{seminario/diagnosticos.md}{Protocolo}.}
+{\small Um acerto exige classificar corretamente a resenha original e a edição.}
+\smallsource{Cada regressão recebe 600 valores. Ajustamos a camada final com os filtros fixos.
+\fonteatual{seminario/medir_posicao.py}{Código}.}
 \end{frame}
 
 % Bloco adicional, 11:40–13:10
@@ -381,7 +381,7 @@ Só conta acerto nas duas versões.}
 \color{white}
 \vfill
 \pill{ScreenRed}{white}{\(\triangleright\) YouTube}
-\enspace {\small\color{Lime} Os dois modelos receberam só o texto de cada comentário.}
+\enspace {\small\color{Lime} Com raciocínio, o Qwen gera texto antes do rótulo.}
 \par\vspace{1.3mm}
 {\Large\bfseries CNN e Qwen leem o YouTube\par}
 \vspace{2mm}
@@ -414,9 +414,10 @@ Só conta acerto nas duas versões.}
 \end{column}
 \end{columns}
 \vfill
-{\scriptsize\color{Lime}CNN com dois tokenizadores e três treinos cada. Qwen gerou três respostas por modo. Casos sem rótulo de referência.
+{\scriptsize\color{Lime}Só texto. Três gerações do Qwen por modo. Dois casos qualitativos.
 \fonteatual{seminario/dados/fora_dominio_resultados.json}{\textcolor{Lime}{CNN}} \(\cdot\)
-\fonteatual{seminario/dados/qwen_youtube_resultados.json}{\textcolor{Lime}{Qwen}}.\par}
+\fonteatual{seminario/dados/qwen_youtube_resultados.json}{\textcolor{Lime}{Qwen}} \(\cdot\)
+\fonteatual{seminario/medir_qwen_youtube.py}{\textcolor{Lime}{Código}}.\par}
 \vspace{2mm}
 \end{frame}
 }

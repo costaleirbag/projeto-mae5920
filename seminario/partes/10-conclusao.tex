@@ -1,11 +1,11 @@
-\subsection{Fora do IMDb}
-Em 1.000 frases de Amazon, palavras e BPE tiveram 68,10\% e 69,97\% de
-acurácia média. Nas 1.000 de Yelp, tiveram 69,43\% e 69,67\%.
-Cada fonte contém 500 exemplos por classe \cite{kotzias}. Aplicamos
-os mesmos seis checkpoints. Entre cinco comentários de trailers,
-o elogio entre aspas seguido de \textit{No one} recebeu classe positiva
-de todos os treinos. Os comentários servem de leitura qualitativa.
-\fonteatual{seminario/dados/fora_dominio_resultados.json}{F1, CE e escores por semente}.
+\subsection{Conclusão}
+O TF-IDF com regressão logística foi um baseline forte no teste oficial,
+com 90,14\% de acurácia, ante 86,78\% da CNN e 90,94\% do BERT. A CNN
+respondeu à troca de adjetivos, e o controle com janelas iguais mostrou
+que o máximo global perde a posição das respostas. Guardar a metade de
+origem distinguiu os escores do controle, com acerto semelhante nos pares
+editados. Uma extensão seria treinar a CNN de ponta a ponta com pooling
+por regiões e testar, em outro ensaio, larguras maiores com o mesmo recorte.
 
 \begin{thebibliography}{9}
 \footnotesize

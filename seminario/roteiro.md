@@ -136,28 +136,31 @@ o filme foi terrível. Os escores pulam para 89,9% e 83,7%. Todos os
 treinos passam para positiva. Neste par, a classe prevista coincidiu
 com o sentimento da primeira oração nas duas versões.”
 
-## 10 · O pico muda de lugar. O máximo fica.
+Se perguntarem sobre uma janela maior, em ambas as tokenizações a janela de
+cinco tokens já contém *terrible but it was wonderful*. Uma de sete incluiria
+também *movie was*. A troca muda as janelas, então esse teste mede a rede
+inteira. [Tokens e classes](dados/pares_resultados.json).
+
+## 10 · O máximo global descarta a posição
 
 Mostre A e depois pressione **B** ou a seta direita. No PDF, compare as duas
 linhas e aponte a posição e o valor do pico.
 
-“No slide anterior, trocar duas palavras mudava as janelas. Aqui trocamos
-dois blocos inteiros em textos montados para este controle. A frase de
-oito palavras separa as opiniões e mantém os vizinhos de cada uma.
-Reparem em *movie i loved*. *Movie* termina o separador. Quando o elogio
-vai para depois da crítica, essa janela passa do token 8 ao 20.
-Este filtro atinge o mesmo pico, 0,47, nos dois lugares. O máximo entrega
-0,47 à camada final e descarta a posição. Como todos os filtros continuam
-vendo as mesmas janelas, os 300 valores e os escores finais são iguais.”
+“Montamos dois textos de controle. A mesma frase vem antes, entre e depois
+das opiniões. Assim, cada opinião tem os mesmos vizinhos quando troca de
+lugar. A janela *movie i loved* começa no token 8 em A e no 20 em B. O
+filtro dá 0,47 nos dois casos. Cada um dos 300 filtros guarda seu próprio
+máximo. Como as janelas são as mesmas, os 300 valores e a saída coincidem.”
+[Código do controle](medir_pares.py).
 
 ## 11 · Guardar a posição ajudou a classificar?
 
-“Pegamos o máximo em cada metade. No filtro do slide anterior, A tem
-0,47 no início e 0,25 no fim. Em B, eles trocam de lugar. Se eu ordenar
-pelo valor, as duas entradas ficam iguais. Pela ordem das metades, ficam
-diferentes. Com os filtros fixos, treinamos só a última camada. Em 344
-pares de resenhas editadas por pessoas, o acerto ficou perto de 40%
-nas duas versões. Um par só conta quando acertamos as duas resenhas.”
+“Pegamos um pico por metade. Ordenados pelo valor, A e B dão 0,25 e
+0,47. Na ordem do texto, o primeiro número vem do início e o segundo vem
+do fim. Isso mudou os escores do controle, e a classe coincidiu. Cada
+regressão recebe 600 valores. Nos 344 pares editados por pessoas, o
+acerto ficou perto de 40% nas duas opções. O par conta quando acertamos
+as duas versões.” [Código do teste de posição](medir_posicao.py).
 
 Se perguntarem sobre o teste sintético, há quatro moldes com veredito no
 começo ou no fim. Nenhuma das cabeças acertou as duas frases de qualquer
@@ -169,15 +172,15 @@ Mostre os prints e aponte o destaque em *No one*. O modelo recebeu o
 texto de cada comentário. Os vídeos e a interface ajudam a plateia a
 interpretá-lo. [Trailer de The Room](https://www.youtube.com/watch?v=cG_e8k9PILM&t=2s) · [Friday](https://www.youtube.com/watch?v=kfVsfOSbJY0).
 
-“Em *The Room*, o elogio entre aspas é seguido de *No one*. A CNN e o
-Qwen deram positiva. Em *Friday*, a frase pode soar como admiração ou
-ironia. Os dois modelos deram negativa. Com o Qwen, geramos três
-respostas sem raciocínio e três com raciocínio para cada comentário.
-As classes se repetiram nos dois modos. Para medir acurácia fora do IMDb,
-usamos 2.000 frases rotuladas de Amazon e Yelp. As CNNs ficaram entre
-68 e 70 por cento, conforme a fonte e o tokenizer.”
+“Em *The Room*, *No one* faz a citação soar como crítica. A CNN e o Qwen
+previram positiva. Em *Friday*, a frase pode soar como admiração ou
+ironia. Os dois deram negativa. No mesmo Qwen, pedimos o rótulo direto
+ou deixamos o modelo gerar primeiro um bloco de raciocínio. Com o mesmo
+texto e a mesma instrução, fizemos três gerações por modo e por comentário.
+As classes coincidiram. A avaliação com rótulos fora do IMDb usa 2.000
+frases de Amazon e Yelp. As CNNs ficaram entre 68 e 70 por cento.”
 
-[Escores do Qwen e controle de ordem](dados/qwen_youtube_resultados.json).
+[Resultados das gerações](dados/qwen_youtube_resultados.json) · [Código](medir_qwen_youtube.py).
 
 Se optarem pela demonstração, abram o navegador antes da fala e usem até
 30 segundos para obter uma resenha curta em inglês da plateia. Mostrem a

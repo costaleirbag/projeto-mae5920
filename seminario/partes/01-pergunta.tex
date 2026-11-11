@@ -10,6 +10,16 @@
 \vspace{4mm}
 {\color{Rule}\rule{\linewidth}{.7pt}}\par
 
+\subsection*{Resumo}
+No teste oficial de 25.000 resenhas, TF-IDF, TextCNN e BERT ajustado atingiram
+90,14\%, 86,78\% e 90,94\% de acurácia. Em uma auditoria separada, BPE reduziu
+a taxa de tokens desconhecidos de 3,27\% para zero, com acurácia média de
+81,41\% ante 82,00\% com palavras. Em um par sintético que troca elogio e
+crítica, as seis CNNs seguiram a polaridade da primeira oração. Em outro par,
+as mesmas janelas em ordem diferente produziram logits iguais. Guardar dois
+picos na ordem do texto distinguiu os escores desse controle, com acerto
+semelhante nos pares editados por pessoas.
+
 \section{Introdução}
 \label{sec:ordem}
 Classificamos resenhas de filmes do IMDb como positivas ou negativas.
@@ -31,17 +41,6 @@ Cada palavra aparece o mesmo número de vezes. Um modelo que só conta palavras
 isoladas recebe a mesma entrada. O TF-IDF do estudo inclui bigramas, que podem
 mudar com a troca. A CNN também recebe informação de ordem dentro de cada
 janela. A Seção~\ref{sec:falhas} mostra o que cada treino fez com os dois finais.
-
-\subsection*{Resumo}
-No teste oficial de 25.000 resenhas, TF-IDF, TextCNN e BERT ajustado atingiram
-90,14\%, 86,78\% e 90,94\% de acurácia.
-Em uma auditoria pareada separada, BPE reduziu a taxa de tokens desconhecidos
-de 3,27\% para zero, com acurácia média de 81,41\% ante 82,00\% com palavras.
-Nas três sementes de cada tokenização, as CNNs deram negativa para A e
-positiva para B.
-Um segundo par preservou as janelas e produziu logits iguais.
-Guardar dois picos por filtro em ordem de posição separou esse segundo par
-sem melhorar o acerto nos pares editados por pessoas.
 
 \medskip
 \painel{\rotulo{Uso de ferramentas de IA}\par\smallskip

@@ -1,5 +1,6 @@
-\section{O que mudou durante o treino}
+\section{Experimentos e resultados}
 \label{sec:treino}
+\subsection{Otimização e seleção de época}
 Em cada minibatch, a rede produz dois logits por resenha e a entropia
 cruzada mede a perda frente ao rótulo. O \textit{backward} calcula os
 gradientes dos embeddings, filtros e saída. Limitamos sua norma global a
@@ -7,7 +8,6 @@ gradientes dos embeddings, filtros e saída. Limitamos sua norma global a
 desvio 0,1 e linha de padding zero. Os filtros usam inicialização de He
 e a saída, Xavier \cite{prince}.
 
-\subsection{Como escolhemos a taxa e a época}
 \begin{tabularx}{\linewidth}{@{}lXr@{}}
 \toprule
 \tabelahead{Otimizador} & \tabelahead{Taxas testadas} & \tabelahead{Escolhida}\\
