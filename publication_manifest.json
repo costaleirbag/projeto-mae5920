@@ -300,8 +300,8 @@
       "sha256": "67411fc666ffcb89209297b7afb98bd9e51d641a4c863297e84367c1350f1e3c"
     },
     "output/pdf/relatorio_seminario.pdf": {
-      "bytes": 782876,
-      "sha256": "8637423ba8bd65c2da5e7ddd316107179bc85e57d217db3ca4ff4ae59ecd5bdd"
+      "bytes": 783636,
+      "sha256": "dce093b96bf927b67bc87107f4ffc79eb9ce8887a329dcc1b97db1cf45ef8b1c"
     },
     "output/pdf/slides_15_min.pdf": {
       "bytes": 433147,
@@ -3240,8 +3240,8 @@
       "sha256": "9168ef07b2580802b4ec71d0d3b9a02e0ef85716df5cd1dfbed783676bf1402c"
     },
     "seminario/comparar_erros.py": {
-      "bytes": 7876,
-      "sha256": "caf8f3ea2bd97d50d3695b1bc9206ec8071bbd77e98a657a78cf51135598e89b"
+      "bytes": 8229,
+      "sha256": "4495bf2aaef3480516bcc908f4993437393273724445281591b11c7c808ccdcb"
     },
     "seminario/comum.tex": {
       "bytes": 777,
@@ -3252,12 +3252,12 @@
       "sha256": "81ceb765e5514cc0738c4fa708e124973c18e4a7a6ea104b3576e3acc4a460d8"
     },
     "seminario/dados/discordancias.json": {
-      "bytes": 7572,
-      "sha256": "c9da11725c92b2ce4f59c87eb00c63a197a951f935019e9605fede193678091d"
+      "bytes": 9400,
+      "sha256": "521e2f62cab2f4ab5f054e4fcd3e46a372f7b01830207657e82acf45dd602b8d"
     },
     "seminario/dados/fontes.json": {
       "bytes": 1905,
-      "sha256": "1ef2808da9fafebb77ed21219fef58eccc0e9e846d86f437be9a7ca1ac923900"
+      "sha256": "9d866e8395af07ef72b592e46673cda5a7515be911f29a4e766404108dbda345"
     },
     "seminario/dados/fora_dominio_predicoes.npz": {
       "bytes": 96099,
@@ -3292,8 +3292,8 @@
       "sha256": "ef15b8bbc22963dc85a2f9d20b7cb43b1adb713c6e6819a5def95777cdd61dc9"
     },
     "seminario/dados/relatorio.tex": {
-      "bytes": 960,
-      "sha256": "c1dbf7991ca918108357c874db963e10fb8cd0fc20c71e6f2f7501d473fbb830"
+      "bytes": 1038,
+      "sha256": "f5c6f8bfb838c17021ef7bbc27de2a8a2ba3a30e5997c5fa08a05972b6c7ed14"
     },
     "seminario/dados/tabelas.tex": {
       "bytes": 4473,
@@ -3308,8 +3308,8 @@
       "sha256": "dc5821ee75195a1478e924df5a67d22f414fee02cc96ee4bcf2254fd81464c38"
     },
     "seminario/diagnosticos.md": {
-      "bytes": 11165,
-      "sha256": "036b99b76bd9dac0e8b4ef319e0fc5ef1d120100a388e551c7e71d939fd0f389"
+      "bytes": 11624,
+      "sha256": "8c3068b95c8fceee677db5998cb2d0af8f3e10ccd33d0561aafc63a969eeabfd"
     },
     "seminario/figuras/bpe_pareado.pdf": {
       "bytes": 16473,
@@ -3372,16 +3372,16 @@
       "sha256": "6d45db8259561a8586f759484217c9d79ed8fa4bc3db007782bdf51469dd6fab"
     },
     "seminario/partes/03-arquitetura.tex": {
-      "bytes": 3175,
-      "sha256": "e9752ae49883a8772c7f9a27fb0de21e7eab2b50155e7498ad2876c584b8a8d3"
+      "bytes": 3238,
+      "sha256": "ab26192b771c2c4f2f43aff8f5bb0f452c732a15e98390db158d7c40c2eceb97"
     },
     "seminario/partes/04-treino.tex": {
-      "bytes": 2096,
-      "sha256": "9c89ad927a537449a9fe5479d2643566a1cc33c617ad67a6e5e63eba19bc39c4"
+      "bytes": 2153,
+      "sha256": "5604570b1f01c22d6aa3973bbbcb0a0dd202336799910ff83c9e573adf1cb473"
     },
     "seminario/partes/05-resultados.tex": {
-      "bytes": 3384,
-      "sha256": "c063f94328ecd2b6194d054e85c76ea7fc3fa4834dc8ef6610d2bfb4c4ccbbf0"
+      "bytes": 3680,
+      "sha256": "d09911fec80fdb4490b42cee6b6f2cc72e47ed3b56beea5e73eda2acb3804501"
     },
     "seminario/partes/06-tokenizacao.tex": {
       "bytes": 790,
@@ -3392,8 +3392,8 @@
       "sha256": "b051247ac80157a1d17537b279e8df4bb1fb18c031638435e42a4fa49c754f53"
     },
     "seminario/partes/08-falhas.tex": {
-      "bytes": 2100,
-      "sha256": "7512af05805cd13b6de505a02abef26dcd3c3ec8df8747bc5e53f154102c4f3d"
+      "bytes": 2383,
+      "sha256": "8f12a064491d92ec288b7e019275e46ba97e3fd5bff4b24b0b86e7e05609c429"
     },
     "seminario/partes/09-posicao.tex": {
       "bytes": 2836,
@@ -3428,8 +3428,8 @@
       "sha256": "07a10435b8bb08db1b360739546a74be41a52f3b9af9e5ffc231f5fd4c65faf3"
     },
     "seminario/preparar_relatorio.py": {
-      "bytes": 2738,
-      "sha256": "4b61539461f5824f712837b8cedc6ad3fa931ba189cbd8f504e481a31e44a7c5"
+      "bytes": 2933,
+      "sha256": "d9b22b75b7bc7b4118f6eda8b58862f5092b983d5aab0faa050566cb114350ef"
     },
     "seminario/relatorio.tex": {
       "bytes": 1838,

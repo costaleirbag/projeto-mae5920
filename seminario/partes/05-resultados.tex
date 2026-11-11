@@ -1,10 +1,12 @@
 \section{O teste oficial e as resenhas que dividem os modelos}
 \label{sec:resultados}
-O baseline usa TF-IDF de unigramas e bigramas, regressão logística e texto
-completo. A CNN original recebe até 400 tokens. BERT recebe até 192
-WordPieces e tem seus pesos ajustados para a tarefa \cite{devlin}.
-Cada linha mede o resultado da receita inteira, com seu recorte,
-representação e regime de treino.
+O baseline pondera as frequências de palavras e pares consecutivos
+(bigramas) na resenha inteira. Os pares captam ordem local. O vetor
+agrega as ocorrências sem registrar suas posições, e a regressão logística
+combina os valores de TF-IDF. A CNN original lê até 400 tokens do início.
+BERT recebe até 192 WordPieces e tem pesos ajustados para a tarefa
+\cite{devlin}. A tabela compara as receitas completas.
+\fonteatual{src/imdb_lab/baseline.py}{Código do baseline}.
 
 \begin{tabularx}{\linewidth}{@{}lXrrr@{}}
 \toprule
@@ -29,8 +31,9 @@ entrada em um mesmo caso, repetimos as previsões da resenha longa.
 
 \medskip
 \painel[SoftBlue]{\rotulo{Resenha longa / 780 tokens / rótulo negativo}\par\smallskip
-  \small A crítica explícita aparece depois do limite de 400 tokens. Mantivemos
-  os pesos e passamos o prefixo e o texto inteiro aos dois modelos.
+  \small A frase ``\textit{\TrechoFinal{}}'' aparece depois do limite de 400 tokens.
+  Passamos o prefixo e o texto inteiro aos mesmos modelos. Com a entrada
+  maior, a CNN percorre mais janelas com os mesmos filtros.
   \par\smallskip
   \newcommand{\cutrow}[4]{#1 & #2 & #3\\}
   \begin{tabularx}{\linewidth}{@{}Xrr@{}}
@@ -52,7 +55,8 @@ entrada em um mesmo caso, repetimos as previsões da resenha longa.
 contribuições acima são para as margens brutas, antes da temperatura. Na CNN,
 cada contribuição é o máximo de um filtro vezes o peso desse filtro na diferença
 entre os logits. No TF-IDF, é o valor da feature vezes o coeficiente da regressão.
-\fonteatual{seminario/diagnosticos.md}{Decomposição e contagens completas}.}
+\fonteatual{seminario/diagnosticos.md}{Decomposição e contagens completas}.
+\fonteatual{seminario/comparar_erros.py}{Código da comparação}.}
 
 \subsection{Encoders na auditoria sequencial}
 Com os mesmos prefixos de até 128 palavras em 2.048 resenhas, fazemos a média

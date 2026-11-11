@@ -56,6 +56,13 @@ termos e um viés. A ordem entra nos bigramas. A posição de cada ocorrência
 e a ordem entre trechos distantes ficam de fora da representação.
 [Código do baseline](../src/imdb_lab/baseline.py).
 
+No par em que trocamos *terrible* e *wonderful*, as contagens de palavras
+isoladas coincidem e o bigrama *terrible but* dá lugar a *wonderful but*.
+Ambos os bigramas estão no vocabulário salvo. Reaplicamos o baseline
+original e o escore positivo sem calibração foi de 47,93% em A e 47,86% em
+B, com classe negativa nas duas. [Frases do par](casos.json) ·
+[Escores do baseline](dados/discordancias.json) · [Código da comparação](comparar_erros.py).
+
 A TextCNN aprende embeddings e filtros sobre janelas ordenadas de 3, 4 e
 5 tokens. Cada filtro fornece sua maior ativação à camada linear. O
 limite de 400 pertence à entrada que usamos no teste original. Ao

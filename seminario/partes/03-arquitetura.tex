@@ -29,16 +29,17 @@ tensores. Os trechos abaixo levam às linhas da implementação.}
 
 \subsection{A mesma conta em cada janela}
 A sequência de IDs consulta vetores de 128 coordenadas aprendidas no treino.
-Após a transposição, os 128 canais entram na convolução. Para um filtro \(f\)
-de largura \(k\), a mesma matriz \(W_f\) e o mesmo viés \(b_f\) são usados
-em todas as posições. Se \(e_t\) é o embedding na posição \(t\), temos
+Após a transposição, os 128 canais entram na convolução. Cada filtro de
+largura \(k\) lê \(k\) tokens consecutivos em ordem. Usamos larguras 3, 4 e 5.
+O filtro \(f\) reaplica os pesos \(W_f\) e o viés \(b_f\) em cada janela.
+Se \(e_t\) é o embedding na posição \(t\), temos
 \[
   a_{f,t}=\max\!\left(0,\,\langle W_f,[e_t,\ldots,e_{t+k-1}]\rangle+b_f\right),
   \qquad m_f=\max_{t\in\mathcal V_k} a_{f,t}.
 \]
-A ReLU põe respostas negativas em zero. O máximo \(m_f\) guarda a força
-do melhor encaixe. Para uma sequência de \(L\) tokens, a máscara mantém
-\(\max(1,L-k+1)\) posições iniciais. Se \(L<k\), fica uma janela com
+A ReLU põe respostas negativas em zero. O máximo \(m_f\) guarda a altura
+do pico e descarta sua posição. Para uma sequência de \(L\) tokens, a
+máscara mantém \(\max(1,L-k+1)\) posições iniciais. Se \(L<k\), fica uma janela com
 padding. \codigoCNN{38-L45}{embedding}, \codigoCNN{47-L48}{conv},
 \codigoCNN{49-L52}{masked\_fill}.
 

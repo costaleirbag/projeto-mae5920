@@ -1,4 +1,4 @@
-"""Cruza previsões do teste oficial e reavalia dois casos com pesos congelados."""
+"""Cruza previsões do teste e avalia casos de recorte e ordem com pesos salvos."""
 
 from __future__ import annotations
 
@@ -129,6 +129,11 @@ def evaluate(test: Path, artifacts: Path) -> dict:
             result["tfidf_prefixo"] = tfidf_score(lower[:boundary], pipeline, temperature["tfidf"])
         examples.append(result)
 
+    pairs_path = HERE / "casos.json"
+    contrast = next(pair for pair in read_json(pairs_path)["pares"] if pair["id"] == "contraste")
+    tfidf_contrast = {side: tfidf_score(contrast[side], pipeline, temperature=1.0)
+                      for side in ("a", "b")}
+
     return {
         "protocolo": "Pareamento pelo ID do teste oficial. Casos escolhidos para ilustrar recorte e resenha mista.",
         "teste_sha256": dataset_sha, "fontes_sha256": sources,
@@ -136,6 +141,7 @@ def evaluate(test: Path, artifacts: Path) -> dict:
                             for path in (cnn_path, vocab_path, tfidf_path)},
         "limite_cnn_tokens": cap, "temperatura": temperature, "total": counts(data),
         "sem_recorte": counts(data.loc[~truncated]), "com_recorte": counts(data.loc[truncated]),
+        "contraste_tfidf": {"casos_sha256": file_sha256(pairs_path), **tfidf_contrast},
         "casos": examples,
     }
 

@@ -1,18 +1,24 @@
 \section{Quando o modelo de aprendizagem profunda falha?}
 \label{sec:falhas}
-\subsection{As duas frases e os seis votos}
+\subsection{A mesma troca no TF-IDF e na CNN}
 \FrasesContraste
 
-Cada linha é um checkpoint, os pesos salvos de um treino. Palavras e
-BPE têm três sementes cada (17, 29 e 43). O círculo marca o escore
-positivo de A, e o losango, o de B. Os seis treinos deram classe negativa
-a A e positiva a B. A leitura adotada segue a oração depois de \textit{but}.
+As contagens de palavras isoladas são iguais. O TF-IDF conta o bigrama
+\textit{terrible but} em A e \textit{wonderful but} em B. O escore positivo
+bruto passa de \TfidfContrasteA{} para \TfidfContrasteB{}, com classe negativa
+nas duas frases.
+\fonteatual{seminario/dados/discordancias.json}{Escores do baseline}.
+
+Cada linha da figura representa um treino de CNN. Nas três sementes por
+palavras e nas três com BPE, a CNN deu negativa a A e positiva a B. A
+leitura adotada segue a oração depois de \textit{but}.
 
 \input{partes/figura-votos-relatorio.tex}
 \legendinha{Figura 4. Escores sem calibração, por checkpoint. Da frase A para B,
 a média sobe de \PalavrasA{} para \PalavrasB{} com palavras, e de
 \BPEA{} para \BPEB{} com BPE.
-\fonteatual{seminario/dados/pares_resultados.json}{Escores e logits por treino}.}
+\fonteatual{seminario/dados/pares_resultados.json}{Escores e logits por treino}.
+\fonteatual{seminario/medir_pares.py}{Código dos pares}.}
 
 \subsection{O que o filtro 89 viu}
 Na CNN por palavras da semente 17, o filtro 89 lê três tokens por vez.

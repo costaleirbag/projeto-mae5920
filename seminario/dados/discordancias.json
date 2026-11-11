@@ -36,6 +36,77 @@
     "so_cnn_acerta": 110,
     "ambos_erram": 212
   },
+  "contraste_tfidf": {
+    "casos_sha256": "9168ef07b2580802b4ec71d0d3b9a02e0ef85716df5cd1dfbed783676bf1402c",
+    "a": {
+      "logit": -0.08271065120760396,
+      "p_positiva": 0.4793341172196251,
+      "termos": {
+        "a_favor_da_classe_negativa": [
+          {
+            "termo": "terrible",
+            "contribuicao": -1.8070485295576377
+          },
+          {
+            "termo": "was terrible",
+            "contribuicao": -0.650685145153356
+          },
+          {
+            "termo": "was",
+            "contribuicao": -0.5641353895078242
+          }
+        ],
+        "a_favor_da_classe_positiva": [
+          {
+            "termo": "wonderful",
+            "contribuicao": 1.6715524543135927
+          },
+          {
+            "termo": "thought",
+            "contribuicao": 0.3596712392811819
+          },
+          {
+            "termo": "was wonderful",
+            "contribuicao": 0.3127544372757212
+          }
+        ]
+      }
+    },
+    "b": {
+      "logit": -0.0856816907443772,
+      "p_positiva": 0.47859267227265995,
+      "termos": {
+        "a_favor_da_classe_negativa": [
+          {
+            "termo": "terrible",
+            "contribuicao": -1.756523851964647
+          },
+          {
+            "termo": "was terrible",
+            "contribuicao": -0.6324921322731377
+          },
+          {
+            "termo": "was",
+            "contribuicao": -0.5483622886710379
+          }
+        ],
+        "a_favor_da_classe_positiva": [
+          {
+            "termo": "wonderful",
+            "contribuicao": 1.624816217044613
+          },
+          {
+            "termo": "thought",
+            "contribuicao": 0.34961491090542895
+          },
+          {
+            "termo": "was wonderful",
+            "contribuicao": 0.30400989231709674
+          }
+        ]
+      }
+    }
+  },
   "casos": [
     {
       "id": "imdb_test_03531",
