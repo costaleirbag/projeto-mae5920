@@ -18,6 +18,37 @@ Os da CNN tiveram frequência semelhante nos dois grupos. Comprimento e
 conteúdo variam juntos nesse cruzamento. Abrimos dois casos para ver o que
 cada modelo fez. [Cruzamentos originais, incluindo BERT](../results/analysis/error_overlap.csv).
 
+### Efeito do recorte no teste oficial
+
+Os 400 tokens eram um parâmetro fixo da receita original. A validação
+escolheu a época do checkpoint. Um teto de entrada limita o custo das
+convoluções e do padding, que segue o maior comprimento do lote. No
+teste, 400 conservou 89,59% dos tokens e manteve inteiras 87,53% das
+resenhas. A mais longa tinha 2.247 tokens. [Configuração original](../config.json) ·
+[Cobertura do recorte](pooling_ordem.md#cobertura-do-recorte-e-embeddings).
+
+Reprocessamos as 3.118 resenhas recortadas com os mesmos pesos,
+vocabulário, temperatura e limiar. Conferimos as classes dos prefixos
+contra as predições publicadas e avaliamos as versões inteiras. Para o
+resultado no teste completo, reaproveitamos as predições das 21.882
+resenhas que já cabiam na entrada.
+
+| Amostra | Acurácia com 400 tokens | Acurácia com texto inteiro | Diferença |
+|---|---:|---:|---:|
+| 3.118 resenhas recortadas | 82,33% | 86,31% | +3,98 p.p. |
+| Teste oficial de 25.000 resenhas | 86,78% | 87,28% | +0,50 p.p. |
+
+A leitura integral corrigiu 209 classificações e fez 85 passarem a erro,
+para um saldo de 124 acertos. No teste inteiro, o F1 macro passou de
+0,8678 para 0,8728 e a CE calibrada de 0,3037 para 0,2940. A comparação
+mede a entrada na inferência para a CNN treinada com os prefixos.
+[Métricas e hashes](dados/recorte_teste/resumo.json) ·
+[Logits pareados](dados/recorte_teste/predicoes.npz) · [Código](medir_recorte.py).
+
+~~~bash
+python seminario/medir_recorte.py --test /caminho/para/test.parquet --artifacts /caminho/para/artefatos-originais --output tmp/recorte-teste
+~~~
+
 ### Só TF-IDF acertou na avaliação original
 
 `imdb_test_03531` tem 780 tokens e rótulo negativo. A resenha termina com

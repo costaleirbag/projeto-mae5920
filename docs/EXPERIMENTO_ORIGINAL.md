@@ -226,7 +226,7 @@ incerteza. Exemplos neutros de demonstração são sintéticos e identificados.
 - TF-IDF: 80 mil características no máximo, unigramas/bigramas, negações
   preservadas, busca de C = 0,5 / 2 / 8 na validação.
 - CNN: vocabulário do treino, embeddings aprendidos de 128 dimensões, filtros
-  3/4/5, pooling que exclui padding, dropout, até 400 palavras, até cinco épocas.
+  3/4/5, pooling que exclui padding, dropout, até 400 tokens, até cinco épocas.
 - BERT-base-uncased: até 192 WordPieces, ajuste integral por duas épocas,
   batch de 32, taxa inicial de 2e-5 e warmup de 10% dos passos.
   `train_last_n_layers=-1` habilita o ajuste integral; valores positivos permitem

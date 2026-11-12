@@ -1,0 +1,47 @@
+{
+  "teste_sha256": "491f3801523a42232e584bb2e732d08b2269e34e474161c153a73c2068fd887a",
+  "predicoes_originais_sha256": "4f6fe61ae61a8e7a4defc3ed6f5642d75d7a7b7ee3fc79b2131d30b760cde363",
+  "artefatos_sha256": {
+    "cnn/model.pt": "f6a0d306db8b417ea405f776ae427403d2ed7f9b956a1e6aaa636cd8cc39cc00",
+    "cnn/vocabulary.json": "993a16d268be680a19b8102270406f95c0e7b6bd05f9f55a6943698ddb0cd5c1"
+  },
+  "predicoes_pareadas_sha256": "33092a3ea85b9ee18edcdebe2646238fd534722a6c1da93f82a71ec0a9a70a7c",
+  "limite_original": 400,
+  "maior_resenha_em_tokens": 2247,
+  "temperatura_original": 1.0601125187358598,
+  "max_diferenca_replay_prefixo": 4.76837158203125e-06,
+  "teste": {
+    "n": 25000,
+    "corrigiu": 209,
+    "passou_a_errar": 85,
+    "prefixo": {
+      "accuracy": 0.86784,
+      "f1_macro": 0.8678166883626529,
+      "log_loss": 0.3037034063095721,
+      "acertos": 21696
+    },
+    "inteiro": {
+      "accuracy": 0.8728,
+      "f1_macro": 0.8727799305760562,
+      "log_loss": 0.29404976838001734,
+      "acertos": 21820
+    }
+  },
+  "resenhas_recortadas": {
+    "n": 3118,
+    "corrigiu": 209,
+    "passou_a_errar": 85,
+    "prefixo": {
+      "accuracy": 0.8232841565105837,
+      "f1_macro": 0.8230349800967941,
+      "log_loss": 0.39082884061680867,
+      "acertos": 2567
+    },
+    "inteiro": {
+      "accuracy": 0.8630532392559332,
+      "f1_macro": 0.8629150392761706,
+      "log_loss": 0.3134263556139645,
+      "acertos": 2691
+    }
+  }
+}

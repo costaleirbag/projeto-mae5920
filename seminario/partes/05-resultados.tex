@@ -25,11 +25,10 @@ Cruzamos as previsões da CNN e do TF-IDF pelo ID das 25.000 resenhas.
 Apenas o TF-IDF acertou \SoTFIDF{} e apenas a CNN acertou \SoCNN{}.
 Ambos acertaram 20.821 e ambos erraram 1.589. O recorte de 400 tokens
 afetou 3.118 resenhas (12,5\%) e descartou 10,4\% dos tokens do teste.
-A fração de acertos exclusivos
-do TF-IDF foi 10,87\% no grupo em que a CNN teve recorte, ante 6,29\% no
-grupo sem recorte. Para a CNN, as duas frações foram 3,53\% e 3,50\%.
-O cruzamento compara grupos de textos diferentes. Para observar o efeito do
-recorte no mesmo texto, repetimos as previsões de uma resenha longa.
+Entre as recortadas e as demais, os acertos exclusivos foram 10,87\% e
+6,29\% para o TF-IDF e 3,53\% e 3,50\% para a CNN. Com os mesmos pesos,
+ler o texto inteiro elevou a acurácia de 82,33\% a 86,31\% nas recortadas
+e de 86,78\% a 87,28\% no teste. \fonteatual{seminario/diagnosticos.md}{Comparação pareada}.
 
 \medskip
 \painel[SoftBlue]{\rotulo{Resenha longa / 780 tokens / rótulo negativo}\par\smallskip

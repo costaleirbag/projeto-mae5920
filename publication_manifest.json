@@ -104,8 +104,8 @@
       "sha256": "0b52593d2433d9b50fe8a16b69baab0e883d7f7fa74b7014084c952910c5f158"
     },
     "docs/EXPERIMENTO_ORIGINAL.md": {
-      "bytes": 17288,
-      "sha256": "bc3adf8dec312bef12fc2b01ad239ae764ee2f65160de3790b8e772cea05df39"
+      "bytes": 17286,
+      "sha256": "c790d40a38904e915e7ae8a12bdd6bc57019780250a9ce9bbd496299b781cbcd"
     },
     "docs/GUIA_COMPLETO.md": {
       "bytes": 14252,
@@ -300,8 +300,8 @@
       "sha256": "67411fc666ffcb89209297b7afb98bd9e51d641a4c863297e84367c1350f1e3c"
     },
     "output/pdf/relatorio_seminario.pdf": {
-      "bytes": 783522,
-      "sha256": "67b662c684b73506b6ac4a19e133a3a3d75b04be642fbd168380a04d0ec686c0"
+      "bytes": 783614,
+      "sha256": "005896624d46963462dace2ceca9b770fe45addb39545cd7bc99749ef26554ff"
     },
     "output/pdf/slides_15_min.pdf": {
       "bytes": 433420,
@@ -3307,6 +3307,14 @@
       "bytes": 7698,
       "sha256": "ef15b8bbc22963dc85a2f9d20b7cb43b1adb713c6e6819a5def95777cdd61dc9"
     },
+    "seminario/dados/recorte_teste/predicoes.npz": {
+      "bytes": 42112,
+      "sha256": "33092a3ea85b9ee18edcdebe2646238fd534722a6c1da93f82a71ec0a9a70a7c"
+    },
+    "seminario/dados/recorte_teste/resumo.json": {
+      "bytes": 1455,
+      "sha256": "dd3f2d64c34f7a5745297f64f8b54b9c502838e7ba476c0ea51c3b5ec11e5b02"
+    },
     "seminario/dados/relatorio.tex": {
       "bytes": 1038,
       "sha256": "f5c6f8bfb838c17021ef7bbc27de2a8a2ba3a30e5997c5fa08a05972b6c7ed14"
@@ -3324,8 +3332,8 @@
       "sha256": "dc5821ee75195a1478e924df5a67d22f414fee02cc96ee4bcf2254fd81464c38"
     },
     "seminario/diagnosticos.md": {
-      "bytes": 11654,
-      "sha256": "4cf7e00985da80cf73f3cc7c82e11e756e0acfdd33793a651c8788867ff3c346"
+      "bytes": 13273,
+      "sha256": "36538ae18c5b21ca0544b02726b7b674c9fb71c70c6a9ba920c69dc8caf1dfef"
     },
     "seminario/figuras/bpe_pareado.pdf": {
       "bytes": 16473,
@@ -3379,6 +3387,10 @@
       "bytes": 6805,
       "sha256": "269ff4acef65380430afd1c20d0fad0486fb242b0e6db5ff2b30c8b6de496139"
     },
+    "seminario/medir_recorte.py": {
+      "bytes": 5420,
+      "sha256": "9862887c08d4a1838e1ed3346dc5287dda057f21ec4d4792f20774df2c365a04"
+    },
     "seminario/partes/01-pergunta.tex": {
       "bytes": 2580,
       "sha256": "98090123ce560c4286993bab092fc374b0bb5d45b9477e56ab3ade5b8772b90b"
@@ -3396,8 +3408,8 @@
       "sha256": "3b32f22e08b4fc21a1850bc7b1991eba63e2fc3bc6a7fd209d7e35e1822b6e89"
     },
     "seminario/partes/05-resultados.tex": {
-      "bytes": 3784,
-      "sha256": "c30ede5377f9e7da77a83e31a379754cb1ca03929175141af2bcf0219594be8a"
+      "bytes": 3773,
+      "sha256": "cda90327b2f7e1207e7eb53523ea196fecad56d607fac6704ed3504011cac28e"
     },
     "seminario/partes/06-tokenizacao.tex": {
       "bytes": 790,
