@@ -190,8 +190,8 @@ deram margens diferentes entre A e B, preservando a classe em ambos.
 As cabeças por valor deram margens iguais. A posição fica disponível
 à camada final. Nesta rede congelada e com essa cabeça linear, o
 acerto nos pares editados ficou semelhante, com variação entre as
-sementes. Uma arquitetura treinada de ponta a ponta com outro
-pooling responderia a outra pergunta.
+sementes. Em um ensaio posterior, treinamos seis variantes de pooling
+de ponta a ponta. [Resultados do ensaio](pooling_ordem.md).
 
 Baixe test_original.tsv e test_contrast.tsv na revisão acima e passe a
 pasta ao script junto com os dados e checkpoints do estudo pareado.

@@ -15,6 +15,7 @@ de apoio. O relatório tem oito páginas, dentro da faixa do enunciado.
 | Avaliação fora do IMDb e exemplos do YouTube | [Protocolo](#avaliação-fora-do-imdb) · [Resultados por semente](dados/fora_dominio_resultados.json) |
 | Discordâncias, largura e passo | [Diagnósticos e exemplos](diagnosticos.md) |
 | Dois picos com e sem posição | [Protocolo e resultados](diagnosticos.md#o-que-acontece-quando-guardamos-a-posição-dos-picos) |
+| Pooling e robustez à ordem | [18 treinos, resultados e cobertura do recorte](pooling_ordem.md) |
 
 ## Apresentação interativa
 

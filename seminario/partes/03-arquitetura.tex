@@ -28,8 +28,9 @@ minibatch e \(T\) é o comprimento com padding. As dimensões representam
 tensores. Os trechos abaixo levam às linhas da implementação.}
 
 \subsection{A mesma conta em cada janela}
-A sequência de IDs consulta vetores de 128 coordenadas aprendidas no treino.
-Após a transposição, os 128 canais entram na convolução. Cada filtro de
+A tabela de embeddings tem \(20.000\times128\) valores. Um lote de \(B\times T\)
+IDs gera \(B\times T\times128\). A transposição põe os 128 canais antes de \(T\).
+Cada filtro de
 largura \(k\) lê \(k\) tokens consecutivos em ordem. Usamos larguras 3, 4 e 5.
 O filtro \(f\) reaplica os pesos \(W_f\) e o viés \(b_f\) em cada janela.
 Se \(e_t\) é o embedding na posição \(t\), temos

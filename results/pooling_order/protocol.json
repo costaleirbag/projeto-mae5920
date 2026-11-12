@@ -1,0 +1,46 @@
+{
+  "source_sha256": "353b1bbcb2d878e686ef9e45ea97fb1517cb75c35864c0f46bc3210127683629",
+  "manifest_sha256": "1c3bf145a13c1e7489b947740950f05eb87ccf22c0df7c4f0ee8fd1966744b44",
+  "vocabulary_sha256": "97859d718dc3c6ffdea63e1f265d07f1d5e886877321dcab26b12466d869615e",
+  "code_sha256": {
+    "seminario/treinar_pooling.py": "e80a9f18211cf3367d5b66c4a3a4b1f5347acad65c30728ab9adc00ca9901b5c",
+    "seminario/medir_posicao.py": "f44c25a591dbaab960a1dbf80daac295d6a593d8956851d6dcba2d49cb1fcd56",
+    "seminario/casos.json": "9168ef07b2580802b4ec71d0d3b9a02e0ef85716df5cd1dfbed783676bf1402c",
+    "bpe_config.json": "e472b09c23b4a2934ba541591ac4edccfc48c18aee28a71e8dcb62523fce3090",
+    "sequence_config.json": "81426103042256b04d825373246ffcdb250a9a02b3846e4545402927ace1daa3",
+    "src/imdb_lab/sequences.py": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+    "src/imdb_lab/models.py": "d3ea24b13bb09b9e3ae5385711852ccdbf3fe9923d54fd655c4cf52b966c8559"
+  },
+  "poolings": {
+    "max_global": 1,
+    "max_metades_valor": 2,
+    "max_metades_posicao": 2,
+    "media_global": 1,
+    "media_metades_posicao": 2,
+    "kmax2_ordem": 2
+  },
+  "seeds": [
+    17,
+    29,
+    43
+  ],
+  "cnn": {
+    "embedding_dim": 128,
+    "filters": 100,
+    "kernels": [
+      3,
+      4,
+      5
+    ],
+    "dropout": 0.5,
+    "optimizer": "adam",
+    "lr": 0.001,
+    "epochs": 12,
+    "batch_size": 64,
+    "gradient_clip_norm": 1.0
+  },
+  "whitespace_words": 128,
+  "token_cap": 256,
+  "primary": "Acerto nas duas versões dos pares sintéticos com veredito no fim",
+  "selection": "Menor CE de validação entre as épocas 1 a 12, por treino"
+}

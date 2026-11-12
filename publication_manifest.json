@@ -300,8 +300,8 @@
       "sha256": "67411fc666ffcb89209297b7afb98bd9e51d641a4c863297e84367c1350f1e3c"
     },
     "output/pdf/relatorio_seminario.pdf": {
-      "bytes": 783410,
-      "sha256": "5583af5bedc8da6250cce738ffe411ced1508500604ffaafcd4f5bb2f14e7c88"
+      "bytes": 783522,
+      "sha256": "67b662c684b73506b6ac4a19e133a3a3d75b04be642fbd168380a04d0ec686c0"
     },
     "output/pdf/slides_15_min.pdf": {
       "bytes": 433420,
@@ -1230,6 +1230,22 @@
     "results/findings.json": {
       "bytes": 871,
       "sha256": "85d23e85ce7afc03b96e39ca632ed58f022f851946d485645acc91a65d29e07b"
+    },
+    "results/pooling_order/predictions.npz": {
+      "bytes": 453548,
+      "sha256": "bd35c7819d9efd33e4413a7d24de1e28f8b6b1362649793fe45f055f8de69fa0"
+    },
+    "results/pooling_order/protocol.json": {
+      "bytes": 1649,
+      "sha256": "78b5d84fe3ace80e84e9e3264757e2a141056cf465a667f90579287b037676b8"
+    },
+    "results/pooling_order/selection.json": {
+      "bytes": 110991,
+      "sha256": "a22c262986954b51ac33d1a9c6cee51403f14335499b0557e434d8df39bfb68a"
+    },
+    "results/pooling_order/summary.json": {
+      "bytes": 41956,
+      "sha256": "4e7df35bc114806843df7edb1a7604f0b213a90ad56faa7a78db2df749a7dbd3"
     },
     "results/qwen/classification/metadata.json": {
       "bytes": 2265,
@@ -3212,8 +3228,8 @@
       "sha256": "e57297423f13b723cf32d6fdb5f3b2071ae81ca9d8e51ae9d1b0abe19f32c950"
     },
     "seminario/README.md": {
-      "bytes": 12876,
-      "sha256": "361cd27af5849a29ac6fe2c7fbed3e18b2fff5c7c22bc27e9ff1222cc8a91fc6"
+      "bytes": 12976,
+      "sha256": "7bbd21f8f028489d28381028a89a09cd6c89bcda6c4d0f213e75a58379c50f96"
     },
     "seminario/apresentacao.css": {
       "bytes": 27444,
@@ -3308,8 +3324,8 @@
       "sha256": "dc5821ee75195a1478e924df5a67d22f414fee02cc96ee4bcf2254fd81464c38"
     },
     "seminario/diagnosticos.md": {
-      "bytes": 11624,
-      "sha256": "8c3068b95c8fceee677db5998cb2d0af8f3e10ccd33d0561aafc63a969eeabfd"
+      "bytes": 11654,
+      "sha256": "4cf7e00985da80cf73f3cc7c82e11e756e0acfdd33793a651c8788867ff3c346"
     },
     "seminario/figuras/bpe_pareado.pdf": {
       "bytes": 16473,
@@ -3372,16 +3388,16 @@
       "sha256": "6d45db8259561a8586f759484217c9d79ed8fa4bc3db007782bdf51469dd6fab"
     },
     "seminario/partes/03-arquitetura.tex": {
-      "bytes": 3264,
-      "sha256": "ec1a64fccd3f4dd0d569d383333782580f0ac83c74710973fe04714b67e55039"
+      "bytes": 3290,
+      "sha256": "45802c8b61071fa7a4f769c6f2efe29a4691215e83e10a73957c38d723b7026e"
     },
     "seminario/partes/04-treino.tex": {
       "bytes": 2151,
       "sha256": "3b32f22e08b4fc21a1850bc7b1991eba63e2fc3bc6a7fd209d7e35e1822b6e89"
     },
     "seminario/partes/05-resultados.tex": {
-      "bytes": 3754,
-      "sha256": "9994a8b09052b8b38b626013e1c524cd74480f7accb6c4c2e0959f4213956a78"
+      "bytes": 3784,
+      "sha256": "c30ede5377f9e7da77a83e31a379754cb1ca03929175141af2bcf0219594be8a"
     },
     "seminario/partes/06-tokenizacao.tex": {
       "bytes": 790,
@@ -3400,8 +3416,8 @@
       "sha256": "f17d5e8fa61314adc4c4e6b4abdde9ad34bead432d965db692dd67f485ab8ddd"
     },
     "seminario/partes/10-conclusao.tex": {
-      "bytes": 2087,
-      "sha256": "32d4dd246142abfbdd2de1477f6c9bed61536880e8ef730adaee7acab50f314f"
+      "bytes": 2124,
+      "sha256": "5f0a3a89b6302987c47b5b44fb38ab5322c22f10f6ff92d101d41365d18512b6"
     },
     "seminario/partes/figura-cnn-relatorio.tex": {
       "bytes": 1733,
@@ -3418,6 +3434,10 @@
     "seminario/partes/visuais-relatorio.tex": {
       "bytes": 1488,
       "sha256": "4e209104a296bfd08b7eaa665e9523857841af7bae91211dd5ab44343cc35183"
+    },
+    "seminario/pooling_ordem.md": {
+      "bytes": 6769,
+      "sha256": "f525113dee07ad76ab33cc66b6c8f47ee66fa9c0817950ac4ba09e791749e8d1"
     },
     "seminario/preparar.py": {
       "bytes": 19690,
@@ -3442,6 +3462,10 @@
     "seminario/slides.tex": {
       "bytes": 22657,
       "sha256": "fff4c076bd62561ae3316b9edd236d23608715bcabae107e78c1bd141de849da"
+    },
+    "seminario/treinar_pooling.py": {
+      "bytes": 14969,
+      "sha256": "e80a9f18211cf3367d5b66c4a3a4b1f5347acad65c30728ab9adc00ca9901b5c"
     },
     "sequence_config.json": {
       "bytes": 3342,
