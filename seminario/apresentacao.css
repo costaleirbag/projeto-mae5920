@@ -681,27 +681,47 @@ p, h1 { margin: 0; }
 .position-rates span, .position-test > p:last-child { color: var(--quiet); font-size: .78em; }
 .position-slide .lab-source { border-top: 1px solid var(--rule); padding-top: .4em; }
 
-.tfidf-flow { display: grid; grid-template-columns: 1.28fr 1fr; gap: 2.1em; flex: 1; align-items: center; }
-.tfidf-example { background: #f1f2eb; border-radius: .55em; padding: .85em 1em; }
-.tfidf-toggle { width: fit-content; margin-block: .35em .65em; }
+.tfidf-tabs { align-self: flex-start; font-size: .85em; }
+.tfidf-body { flex: 1; display: grid; align-items: center; }
+.tfidf-panel { display: grid; grid-template-columns: minmax(0, 1.37fr) minmax(0, 1fr); gap: 1.6em; align-items: center; }
+.tfidf-example { background: #f1f2eb; border-radius: .55em; padding: .88em 1em; }
+.tfidf-example > .micro { margin-bottom: .35em; }
+.tfidf-slide .quote { margin-bottom: .52em; font-size: 1.12em; }
+.tfidf-toggle { width: fit-content; margin-block: .25em .45em; }
 .tfidf-toggle button, .tfidf-grams code { font-family: ui-monospace, monospace; }
-.tfidf-grams { display: grid; gap: .38em; margin: 0 0 .75em; }
-.tfidf-grams > div { display: flex; flex-wrap: wrap; align-items: baseline; gap: .15em .5em; justify-content: space-between; }
-.tfidf-grams dt { color: var(--quiet); font-size: .86em; }
+.tfidf-grams { display: grid; gap: .5em; margin: 0; }
+.tfidf-grams > div { display: flex; flex-wrap: wrap; align-items: baseline; gap: .2em .5em; justify-content: space-between; }
+.tfidf-grams dt { color: var(--quiet); font-size: .85em; }
 .tfidf-grams dd { display: flex; gap: .25em; margin: 0; }
-.tfidf-grams code { background: white; padding: .12em .38em; border-radius: .3em; }
-.tfidf-grams #tfidf-bigram { background: var(--mint); color: var(--forest); font-weight: bold; }
-.tfidf-example > p:last-child, .tfidf-steps p { font-size: .91em; }
-.tfidf-steps { display: grid; gap: .9em; }
-.tfidf-steps h2 { margin: 0 0 .1em; color: var(--teal); font-size: 1.1em; }
-.tfidf-steps div + div { border-top: 1px solid var(--rule); padding-top: .8em; }
-.tfidf-result { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .2em 1em; padding: .6em .9em; background: var(--mint); border-radius: .45em; }
-.tfidf-result strong { color: var(--forest); font-size: 1.14em; font-variant-numeric: tabular-nums; }
-.tfidf-result p + p { font-size: .78em; color: var(--quiet); }
+.tfidf-slide code { background: white; padding: .14em .36em; border-radius: .27em; white-space: nowrap; }
+.tfidf-slide .tfidf-highlight { background: var(--mint); color: var(--forest); font-weight: 670; }
+.tfidf-example > .tfidf-grams > div { display: grid; justify-content: start; }
+.tfidf-explain h2 { margin: 0 0 .22em; color: var(--teal); font-size: 1.12em; }
+.tfidf-explain p { font-size: .93em; }
+.tfidf-explain p + h2 { margin-top: .65em; }
+.tfidf-explain .tfidf-grams + p { margin-top: .47em; }
+.tfidf-note { color: var(--quiet); font-size: .78em; }
+.tfidf-explain .tfidf-note { margin-top: .7em; font-size: .8em; }
+.tfidf-table { width: 100%; border-collapse: collapse; font-size: .89em; font-variant-numeric: tabular-nums; }
+.tfidf-table th, .tfidf-table td { text-align: left; padding: .48em .5em .48em 0; }
+.tfidf-table thead { border-bottom: 1px solid var(--rule); color: var(--quiet); font-size: .82em; }
+.tfidf-table tr > :last-child { text-align: right; padding-right: 0; }
+.tfidf-sum { margin: 0; }
+.tfidf-sum > div { display: flex; justify-content: space-between; gap: .5em; border-top: 1px solid var(--rule); padding: .26em 0; }
+.tfidf-sum dd { margin: 0; font-variant-numeric: tabular-nums; font-weight: 650; }
+.tfidf-negative { color: var(--negative); }
+.tfidf-positive { color: var(--teal); }
+.tfidf-result { display: grid; gap: .16em; margin-top: .7em; padding: .56em .68em; background: var(--negative-bg); border-radius: .42em; }
+.tfidf-result strong { color: var(--negative); font-variant-numeric: tabular-nums; }
+.tfidf-navigation { display: flex; align-items: center; justify-content: space-between; gap: .5em; }
+.tfidf-navigation button { border: 1px solid var(--forest); border-radius: .45em; color: white; background: var(--forest); padding: .42em .68em; font-size: .87em; }
+.tfidf-slide .lab-source { border-top: 1px solid var(--rule); padding-top: .45em; }
+.tfidf-slide .lab-source a:first-child { margin-left: 0; }
 
 @media (max-width: 720px) and (orientation: portrait) {
   .position-cards { grid-template-columns: 1fr; gap: 7px; }
   .position-rates { gap: .8em; }
   .position-rates div { flex-direction: column; gap: 0; }
-  .tfidf-flow { grid-template-columns: 1fr; gap: .8em; }
+  .tfidf-panel { grid-template-columns: 1fr; gap: .8em; }
+  .tfidf-example .tfidf-grams dd { flex-wrap: wrap; }
 }

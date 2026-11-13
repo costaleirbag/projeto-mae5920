@@ -43,7 +43,7 @@ cedo, e um segundo pico ausente vale zero. [Código](treinar_pooling.py) ·
 - **Edições humanas.** São 344 pares do IMDb Contrast Sets. Oito ficaram
   idênticos após o recorte. As predições também permitem conferir o acerto
   nos 336 pares com entradas distintas.
-- **Auditoria.** Acurácia em 2.048 resenhas do IMDb. O controle do slide 10
+- **Auditoria.** Acurácia em 2.048 resenhas do IMDb. O controle do máximo global (slide 12)
   mede a mudança de margem em A e B, duas versões com as mesmas janelas.
 
 Os checkpoints são selecionados pela validação das resenhas comuns. Os pares
@@ -71,7 +71,7 @@ reproduziu exatamente os logits da referência publicada na auditoria.
 Cada um dos 18 treinos acertou zero dos 128 pares com veredito no fim. O
 K-max ordenado inverteu as duas classes na direção errada em 81,5% desses
 pares, em média. Nos demais, previu a mesma classe para as duas versões.
-No controle do slide 10, os máximos na ordem das metades diferenciaram
+No controle do máximo global, os máximos na ordem das metades diferenciaram
 os escores de A e B nas três sementes.
 
 Entre os 344 pares editados, os máximos na ordem das metades tiveram 39,24%

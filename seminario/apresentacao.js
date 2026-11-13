@@ -1,7 +1,7 @@
 "use strict";
 
 const byId = (id) => document.getElementById(id);
-const { slides, evidence, architecture, contrast, position, youtubeQwen, cut } = JSON.parse(byId("deck-data").textContent);
+const { slides, evidence, architecture, contrast, position, youtubeQwen, cut, tfidf } = JSON.parse(byId("deck-data").textContent);
 const number = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 function makeTransport(name, draw, nextView) {
@@ -469,7 +469,6 @@ const previous = byId("previous");
 const next = byId("next");
 let slideIndex = -1;
 let cnnView = "build";
-const labs = { bpe: bpeTransport, cnn: cnnTransport, contrast: contrastTransport, pooling: poolingTransport, cut: cutTransport };
 const tfidfOrders = document.querySelectorAll("[data-tfidf-order]");
 tfidfOrders.forEach((button) => {
   button.addEventListener("click", () => {
@@ -477,6 +476,44 @@ tfidfOrders.forEach((button) => {
     byId("tfidf-bigram").textContent = button.textContent;
   });
 });
+
+byId("tfidf-quote").textContent = "“" + tfidf.quote + "”";
+for (const { termo, contribuicao } of tfidf.contributions) {
+  const row = document.createElement("div");
+  const term = document.createElement("dt");
+  term.textContent = termo;
+  const value = document.createElement("dd");
+  value.textContent = (contribuicao > 0 ? "+" : "") + number.format(contribuicao);
+  value.className = contribuicao < 0 ? "tfidf-negative" : "tfidf-positive";
+  row.append(term, value);
+  byId("tfidf-sum").append(row);
+}
+byId("tfidf-logit").textContent = number.format(tfidf.logit);
+byId("tfidf-positive").textContent = percent.format(tfidf.positive);
+
+const tfidfStages = [...document.querySelectorAll("[data-tfidf-step]")];
+let tfidfStep = 0;
+function showTfidf(step) {
+  if (step < 0 || step >= tfidfStages.length) return false;
+  tfidfStep = step;
+  tfidfStages.forEach((button, index) => {
+    button.setAttribute("aria-pressed", index === step);
+    byId(button.getAttribute("aria-controls")).hidden = index !== step;
+  });
+  byId("tfidf-step-note").textContent = "Etapa " + (step + 1) + " de " + tfidfStages.length;
+  byId("tfidf-next").textContent = step === tfidfStages.length - 1 ? "Próximo slide →" : "Próxima etapa →";
+  return true;
+}
+const tfidfTransport = { move: (direction) => showTfidf(tfidfStep + direction) };
+tfidfStages.forEach((button, index) => button.addEventListener("click", () => showTfidf(index)));
+byId("tfidf-next").addEventListener("click", () => {
+  if (!tfidfTransport.move(1)) showSlide(slideIndex + 1);
+});
+
+const labs = {
+  bpe: bpeTransport, cnn: cnnTransport, tfidf: tfidfTransport,
+  contrast: contrastTransport, pooling: poolingTransport, cut: cutTransport,
+};
 const ending = slides.findIndex((slide) => slide.interactive === "closing");
 const mainGroup = document.createElement("optgroup");
 const supportGroup = document.createElement("optgroup");

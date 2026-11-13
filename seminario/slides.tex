@@ -20,9 +20,9 @@
 \setbeamersize{text margin left=8mm,text margin right=8mm}
 \newcommand{\actlabel}{%
   \ifnum\insertframenumber<6 01\enspace REPRESENTAÇÃO\else
-  \ifnum\insertframenumber<9 02\enspace TREINO E AVALIAÇÃO\else
-  \ifnum\insertframenumber<12 03\enspace LIMITES\else
-  \ifnum\insertframenumber<14 EXTENSÃO\else APOIO\fi\fi\fi\fi}
+  \ifnum\insertframenumber<11 02\enspace TREINO E AVALIAÇÃO\else
+  \ifnum\insertframenumber<14 03\enspace LIMITES\else
+  \ifnum\insertframenumber<16 EXTENSÃO\else APOIO\fi\fi\fi\fi}
 \setbeamertemplate{frametitle}{%
   \vspace{2.7mm}{\scriptsize\color{Teal}\bfseries\actlabel\par}%
   \vspace{1mm}\insertframetitle\par\vspace{2mm}%
@@ -83,7 +83,7 @@
 
 \begin{document}
 
-% 00:00–00:25
+% 00:00–00:20
 {
 \setbeamercolor{background canvas}{bg=Forest}
 \begin{frame}[plain]
@@ -124,7 +124,7 @@
 \end{frame}
 }
 
-% 00:25–01:35
+% 00:20–01:15
 \begin{frame}{Mesmas palavras. Outra conclusão.}
 \vfill
 \slidecard{Wash}{%
@@ -140,7 +140,7 @@
 \href{https://costaleirbag.github.io/projeto-mae5920/\#tf-idf}{Como o baseline lê a ordem}.}
 \end{frame}
 
-% 01:35–02:35
+% 01:15–02:00
 \begin{frame}{O que cada divisão decide}
 \vfill
 \begin{tikzpicture}[x=1mm,y=1mm,font=\sffamily\small]
@@ -170,7 +170,7 @@ formam o prefixo comum. O teto adicional de 256 tokens não cortou esses prefixo
 \fonte{docs/PROTOCOLO_SEQUENCIAS.md}{protocolo das extensões}.}
 \end{frame}
 
-% 02:35–03:45
+% 02:00–02:50
 % lab:bpe
 \begin{frame}{Como o BPE divide uma palavra rara}
 \caso{Entrada}{The \textbf{pallbearer} scene was unexpectedly moving.}
@@ -194,7 +194,7 @@ formam o prefixo comum. O teto adicional de 256 tokens não cortou esses prefixo
 \texttt{</w>} marca o fim da palavra. Sennrich et al. (2016). \liveversion{4}.}
 \end{frame}
 
-% 03:45–05:15
+% 02:50–04:15
 % lab:cnn
 \begin{frame}{Arquitetura da TextCNN}
 \includegraphics[width=\linewidth]{figuras/cnn_arquitetura.pdf}
@@ -214,7 +214,7 @@ formam o prefixo comum. O teto adicional de 256 tokens não cortou esses prefixo
 \href{https://costaleirbag.github.io/projeto-mae5920/\#slide-5-varredura}{Varredura}.}
 \end{frame}
 
-% 05:15–06:40
+% 04:15–05:25
 \begin{frame}{Quando guardar os pesos?}
 \centering
 \includegraphics[width=\linewidth,height=.50\textheight,keepaspectratio]{figuras/otimizacao.pdf}
@@ -225,11 +225,81 @@ Faixas de três sementes.
 \fonte{results/sequences/presentation_data.json}{Curvas}.}
 \end{frame}
 
-% 06:40–07:50
+% 05:25–06:40
+% lab:tfidf
+\begin{frame}{Da resenha à previsão com TF-IDF}
+\setlength{\parskip}{1pt}
+\vfill
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.315\textwidth}
+\textbf{1. Contar termos}\par
+\textit{The movie was awful.}\par
+\vspace{1mm}
+\eyebrow{Palavras}\par
+{\small\texttt{the, movie, was, awful}}\par
+\vspace{1mm}
+\eyebrow{Pares consecutivos}\par
+{\small\texttt{the movie}, \texttt{movie was},\par
+  \fused{was awful}}\par
+\vspace{.8mm}
+{\small O par guarda a ordem local. Contamos os termos no texto inteiro.}
+\end{column}
+\begin{column}{.315\textwidth}
+\textbf{2. Ponderar (TF-IDF)}\par
+{\small \textbf{TF} cresce quando o termo se repete na resenha.}\par
+\vspace{1mm}
+\eyebrow{Raridade no treino (IDF)}\par
+{\small\texttt{movie}\hfill 9 de 10 \(\to\) 1,10\par
+\texttt{awful}\hfill 2 de 10 \(\to\) 2,30}\par
+\vspace{.8mm}
+{\small Ambos ocorrem uma vez. Neste treino fictício, \textit{awful} tem IDF maior.}
+\end{column}
+\begin{column}{.315\textwidth}
+\textbf{3. Classificar (logística)}\par
+{\small Soma \textbf{TF-IDF \(\times\) coeficiente} de cada termo e o viés.}\par
+\vspace{1mm}
+\eyebrow{Resenha real}\par
+{\small\texttt{bad}\hfill\textcolor{Rust}{\(-0{,}40\)}\par
+\texttt{awful}\hfill\textcolor{Rust}{\(-0{,}25\)}\par
+\texttt{rules}\hfill\textcolor{Teal}{\(+0{,}12\)}\par
+Demais termos e viés\hfill\(-1{,}39\)}\par
+\vspace{1mm}
+\slidecard{Blush}{\small\textbf{\(-1{,}91\) \(\to\) 6,5\% de positivo}}
+\end{column}
+\end{columns}
+\smallsource{Valores arredondados. Aplicamos a sigmoide ao escore calibrado.
+\fonteatual{seminario/dados/discordancias.json}{Resenha e escores}.
+\href{https://costaleirbag.github.io/projeto-mae5920/\#tf-idf}{Versão interativa}.}
+\end{frame}
+
+% 06:40–07:20
+\begin{frame}{Por que o modelo ajusta até rótulos embaralhados?}
+\eyebrow{Mesmas 19.823 resenhas de treino, mesmos 80.000 atributos}
+\vfill
+{\footnotesize\color{Quiet}\makebox[.42\linewidth][l]{ACURÁCIA}%
+\makebox[.28\linewidth][c]{RÓTULOS REAIS}%
+\makebox[.30\linewidth][c]{RÓTULOS EMBARALHADOS}}\par
+{\color{Rule}\hrule}\vspace{1mm}
+\makebox[.42\linewidth][l]{\textbf{Treino} \enspace {\small rótulos do ajuste}}%
+\makebox[.28\linewidth][c]{\Large\bfseries 99,72\%}%
+\makebox[.30\linewidth][c]{\Large\strong{99,75\%}}\par
+\vspace{1.8mm}
+{\color{Rule}\hrule}\vspace{1mm}
+\makebox[.42\linewidth][l]{\textbf{Validação} \enspace {\small rótulos reais}}%
+\makebox[.28\linewidth][c]{\Large\bfseries 91,53\%}%
+\makebox[.30\linewidth][c]{\Large\bfseries\textcolor{Rust}{50,08\%}}\par
+\vfill
+\slidecard{Mint}{Com milhares de pesos, a regressão ajusta combinações de termos que
+distinguem as resenhas de treino. Com rótulos embaralhados, fica perto do acaso em textos novos.}
+\smallsource{Embaralhamos só os rótulos do treino. Regressão logística com L2 e \(C=8\) nas duas colunas.
+\fonteatual{results/tfidf_ablation/summary.json}{Controle}.}
+\end{frame}
+
+% 07:20–08:15
 \begin{frame}{A CNN ficou atrás no teste oficial}
 \eyebrow{25.000 resenhas \(\cdot\) estudo original}
 \vfill
-\begin{tikzpicture}[x=1mm,y=1mm,font=\sffamily\small]
+\begin{tikzpicture}[x=1mm,y=.9mm,font=\sffamily\small]
   \fill[Mint,rounded corners=1mm] (0,15) rectangle (144,25);
   \node[anchor=west,text=Quiet,font=\bfseries\scriptsize] at (2,42) {MODELO};
   \node[anchor=west,text=Quiet,font=\bfseries\scriptsize] at (48,42) {ACURÁCIA};
@@ -242,13 +312,13 @@ Faixas de três sementes.
   \PontosTeste
 \end{tikzpicture}
 \par\vfill
-{\small TF-IDF lê o texto inteiro. CNN lê até 400 tokens. BERT lê até 192 WordPieces.}
-\smallsource{No treino, lotes de 64 para CNN e 32 para BERT. A CE usa probabilidades calibradas.
-\fonte{results/comparison.csv}{Métricas}.
-\href{https://costaleirbag.github.io/projeto-mae5920/\#tf-idf}{Entenda o TF-IDF}.}
+{\small Com teto de 400 tokens, o TF-IDF reajustado ainda fez \strong{89,66\%}.}
+\smallsource{Entradas originais: texto inteiro no TF-IDF, 400 tokens na CNN e 192 WordPieces no BERT.
+\quad Lotes: CNN 64, BERT 32. \fonte{results/comparison.csv}{Métricas}.
+\fonteatual{results/tfidf_ablation/summary.json}{Controle de recorte}.}
 \end{frame}
 
-% 07:50–09:00
+% 08:15–09:05
 \begin{frame}{BPE cobriu mais do vocabulário}
 \vfill
 \begin{columns}[c,onlytextwidth]
@@ -268,7 +338,7 @@ Faixas de três sementes.
 Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
 \end{frame}
 
-% 09:00–10:10
+% 09:05–10:05
 % lab:contrast
 \begin{frame}{Dois adjetivos trocam de lugar}
 \vfill
@@ -298,7 +368,7 @@ Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
 \fonteatual{seminario/dados/pares_resultados.json}{Resultados por semente}.}
 \end{frame}
 
-% 10:10–11:10
+% 10:05–11:00
 % lab:pooling
 \begin{frame}{O máximo global descarta a posição}
 \slidecard{Wash}{\textbf{A}\enspace
@@ -339,7 +409,7 @@ Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
 \fonteatual{seminario/medir_pares.py}{Código}.}
 \end{frame}
 
-% 11:10–11:40
+% 11:00–11:35
 % lab:position
 \begin{frame}{Guardar a posição ajudou a classificar?}
 \noindent{\small Para o mesmo filtro do slide anterior, guardamos o pico de cada metade.}
@@ -377,7 +447,7 @@ Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
 \fonteatual{seminario/medir_posicao.py}{Código}.}
 \end{frame}
 
-% Bloco adicional, 11:40–13:10
+% Bloco adicional, 11:35–13:00
 {
 \setbeamercolor{background canvas}{bg=Forest}
 \setbeamertemplate{frametitle}{}
@@ -427,7 +497,7 @@ Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
 \end{frame}
 }
 
-% Bloco adicional, 13:10–14:35
+% Bloco adicional, 13:00–14:30
 \begin{frame}{Encoders em uma auditoria interna}
 \eyebrow{Acurácia média em 2.048 prefixos de até 128 palavras}\par\vspace{.8mm}
 \small
@@ -437,14 +507,14 @@ Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
 \RegimesVisuais
 {\color{Rule}\hrule}\vspace{1.5mm}
 Na primeira coluna, só a cabeça aprende. Na segunda, ajustamos também
-o encoder. O BERT do slide 7 foi avaliado no teste oficial.
+o encoder. O BERT do slide 9 foi avaliado no teste oficial.
 \par\vfill
 \slidecard{Mint}{\strong{Qwen3-8B} \quad 95,26\% no teste oficial, com pesos congelados e prompt.}
 \smallsource{Três sementes por receita interna. Lotes de 128 para a cabeça e 32 para o ajuste completo.
 \fonte{results/sequences/summary.json}{Encoders}. \fonte{QWEN_EXPERIMENTO.md}{Qwen}.}
 \end{frame}
 
-% 14:35–15:00 ou 11:40–12:00
+% 14:30–15:00 ou 11:35–12:00
 {
 \setbeamercolor{background canvas}{bg=Forest}
 \setbeamertemplate{frametitle}{}
@@ -550,34 +620,6 @@ O enredo e o prompt são os mesmos.
 O filtro \FiltroDemo{} cai de \MaximoDemo{} para \MaximoPassoDois{} ao usar passo 2.}
 \smallsource{Acurácias médias de três sementes em duas auditorias de 2.048 resenhas.
 \fonteatual{seminario/diagnosticos.md}{Protocolos e métricas}.}
-\end{frame}
-
-% lab:tfidf
-\begin{frame}{Como o TF-IDF lê uma resenha}
-\vspace{1mm}
-\begin{columns}[T,onlytextwidth]
-\begin{column}{.54\textwidth}
-\eyebrow{Unigramas e bigramas}\par\vspace{1mm}
-\slidecard{Wash}{\chip{not}\chip{good}\(\longrightarrow\)\enspace\chip{not}\chip{good}\fused{not good}}\par\vspace{1mm}
-\slidecard{Wash}{\chip{good}\chip{not}\(\longrightarrow\)\enspace\chip{not}\chip{good}\fused{good not}}
-\par\vspace{1.5mm}
-{\small As palavras são as mesmas. A ordem muda o bigrama. O vetor
-acumula ocorrências ao longo do texto e descarta a posição.}
-\end{column}
-\begin{column}{.42\textwidth}
-\eyebrow{Da frequência ao sentimento}\par\vspace{1mm}
-\textbf{TF-IDF}\par
-{\small Dá peso à frequência na resenha e à raridade no treino.}\par\vspace{2mm}
-\textbf{Regressão logística}\par
-{\small Aprende um coeficiente para cada termo. Soma as contribuições
-e aplica a sigmoide para obter \(p(+)\).}
-\end{column}
-\end{columns}
-\vfill
-\slidecard{Mint}{\strong{99,72\% no treino \(\to\) 90,14\% no teste}\enspace
-{\small 80.000 atributos e penalização L2.}}
-\smallsource{Exemplo ilustrativo de bigramas. O modelo lê a resenha inteira.
-\fonteatual{src/imdb_lab/baseline.py}{Implementação}.}
 \end{frame}
 
 \end{document}

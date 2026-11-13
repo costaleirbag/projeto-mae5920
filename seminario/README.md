@@ -2,7 +2,7 @@
 
 **O que a CNN lê em uma resenha?** O relatório acompanha a classificação do
 IMDb, da tokenização às falhas de ordem. Os slides usam a mesma sequência.
-A fala principal dura 12 minutos, com três minutos adicionais e cinco slides
+A fala principal dura 12 minutos, com três minutos adicionais e quatro slides
 de apoio. O relatório tem oito páginas, dentro da faixa do enunciado.
 
 | Material | Para ler ou editar |
@@ -23,7 +23,7 @@ de apoio. O relatório tem oito páginas, dentro da faixa do enunciado.
 
 Abra a apresentação pelo GitHub Pages. Nos slides 4 e 5, use **Anterior**
 e **Próxima etapa** ou as setas para passar uma etapa por vez. A barra pula
-para qualquer etapa. No slide 9, as setas ou os botões A e B trocam os
+para qualquer etapa. No slide 11, as setas ou os botões A e B trocam os
 adjetivos e atualizam a predição. Use `F` para tela cheia.
 [Abrir a apresentação](https://costaleirbag.github.io/projeto-mae5920/).
 
@@ -35,29 +35,31 @@ ou 5 e passos 1, 2 ou 3. Nela, o último quadro destaca a maior resposta
 entre as janelas visitadas. BPE e Varredura oferecem reprodução automática.
 [BPE](https://costaleirbag.github.io/projeto-mae5920/#slide-4) · [Montagem](https://costaleirbag.github.io/projeto-mae5920/#slide-5) · [Varredura](https://costaleirbag.github.io/projeto-mae5920/#slide-5-varredura).
 
-O slide 9 retoma as frases do início. Mostra as duas orações, a leitura
+O slide 7 mostra como o TF-IDF conta e pondera termos e como a regressão
+logística os combina em uma resenha real. Use **Próxima etapa** ou a seta
+direita para avançar. O controle com rótulos embaralhados vem no slide 8
+e o resultado no teste oficial, no 9.
+[TF-IDF e regressão logística](https://costaleirbag.github.io/projeto-mae5920/#tf-idf).
+
+O slide 11 retoma as frases do início. Mostra as duas orações, a leitura
 esperada da conclusão e o escore positivo de cada tokenizador. Cada linha
 resume três treinos, um por semente. A régua mantém o limiar de 50% e marca
-onde estava A quando você mostra B. [Par de contraste](https://costaleirbag.github.io/projeto-mae5920/#slide-9).
+onde estava A quando você mostra B. [Par de contraste](https://costaleirbag.github.io/projeto-mae5920/#slide-11).
 
-No slide 10, troque A por B e acompanhe um pico real da CNN. A mesma
+No slide 12, troque A por B e acompanhe um pico real da CNN. A mesma
 janela começa no token 8 em A e no 20 em B. O valor que o filtro entrega
-continua igual. [Controle do máximo global](https://costaleirbag.github.io/projeto-mae5920/#slide-10).
+continua igual. [Controle do máximo global](https://costaleirbag.github.io/projeto-mae5920/#slide-12).
 
-Os textos A e B do slide 10 são construídos. A frase separadora aparece
+Os textos A e B do slide 12 são construídos. A frase separadora aparece
 três vezes em cada um, preservando as janelas quando os blocos trocam de
-lugar. O slide 11 mostra os picos reais das duas metades desse mesmo
+lugar. O slide 13 mostra os picos reais das duas metades desse mesmo
 exemplo e separa esse controle do teste com pares de resenhas editadas.
-[Dois picos por filtro](https://costaleirbag.github.io/projeto-mae5920/#slide-11).
+[Dois picos por filtro](https://costaleirbag.github.io/projeto-mae5920/#slide-13).
 
 O primeiro slide de apoio alterna entre o recorte de 400 tokens e o texto
 inteiro de uma resenha do IMDb. **Conclusão** no topo vai ao encerramento.
 Ao chegar lá, o avanço normal para e os slides de apoio ficam disponíveis
 pelo link próprio. [Recorte](https://costaleirbag.github.io/projeto-mae5920/#recorte) · [Conclusão](https://costaleirbag.github.io/projeto-mae5920/#encerramento).
-
-O slide de teste oficial tem um link para o exemplo de TF-IDF. Troque a
-ordem de *not good* para ver o que muda no bigrama e volte à comparação.
-[TF-IDF e regressão logística](https://costaleirbag.github.io/projeto-mae5920/#tf-idf).
 
 Para apresentar offline, use **Download raw file** no arquivo do GitHub e
 abra a cópia no navegador. [HTML para baixar](../output/slides/slides_15_min_interativos.html).
@@ -128,7 +130,7 @@ O endpoint local `POST /predict` recebe JSON no formato
 `{"text":"The movie was wonderful."}`. Para usar o terminal, acrescente
 `--text 'The movie was wonderful.'`.
 
-No dia, carreguem a página antes da fala e façam um teste rápido. O slide 12
+No dia, carreguem a página antes da fala e façam um teste rápido. O slide 14
 traz os prints e as classes previstas para *Friday* e *The Room*. Esses
 casos podem ocupar o tempo da demonstração. As animações dos slides 4 e 5 já funcionam no HTML baixado.
 

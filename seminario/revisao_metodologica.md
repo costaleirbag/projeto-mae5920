@@ -108,14 +108,14 @@ e não audita eventual exposição ao IMDb no pré-treino.
 [Protocolo Qwen](../QWEN_EXPERIMENTO.md#1-classificação-do-teste-inteiro) ·
 [Cruzamento pelo ID](../results/tfidf_ablation/summary.json).
 
-## Por que os slides 7 e 13 têm números diferentes?
+## Por que o BERT tem dois resultados?
 
 | Slide | Treino e entrada | Avaliação | Minibatches de treino |
 |---|---|---|---|
-| 7 | Estudo original, 19.823 textos. TF-IDF lê o texto inteiro. CNN e BERT usam até 400 tokens por palavras e 192 WordPieces, respectivamente. | 25.000 resenhas do teste oficial. Uma execução por modelo. O BERT fez 90,94%. | CNN 64, BERT 32. A regressão logística usa LIBLINEAR. |
-| 13 | Extensão, 6.144 textos e o mesmo prefixo de 128 palavras para todos os encoders. | 2.048 resenhas da auditoria interna, média de três sementes. BERT com cabeça nova fez 84,52%. BERT ajustado por inteiro fez 88,31%. | 128 ao ajustar só a cabeça, 32 no ajuste completo. |
+| 9 | Estudo original, 19.823 textos. TF-IDF lê o texto inteiro. CNN e BERT usam até 400 tokens por palavras e 192 WordPieces, respectivamente. | 25.000 resenhas do teste oficial. Uma execução por modelo. O BERT fez 90,94%. | CNN 64, BERT 32. A regressão logística usa LIBLINEAR. |
+| 15 | Extensão, 6.144 textos e o mesmo prefixo de 128 palavras para todos os encoders. | 2.048 resenhas da auditoria interna, média de três sementes. BERT com cabeça nova fez 84,52%. BERT ajustado por inteiro fez 88,31%. | 128 ao ajustar só a cabeça, 32 no ajuste completo. |
 
-O quadro do Qwen no slide 13 cita separadamente seu resultado no teste oficial.
+O quadro do Qwen no slide 15 cita separadamente seu resultado no teste oficial.
 As duas tabelas de BERT mudam amostra, comprimento e protocolo. A diferença
 entre 90,94% e 88,31% não mede o efeito de trocar o tamanho do lote.
 [Configuração original](../config.json) · [Configuração da extensão](../sequence_config.json).

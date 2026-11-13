@@ -469,39 +469,79 @@
 
     <article id="tfidf" class="lab readable tfidf-slide" hidden aria-labelledby="tfidf-title">
       <header class="lab-heading">
-        <p class="eyebrow">Apoio <span>Baseline</span></p>
-        <h1 id="tfidf-title">Como o TF-IDF lê uma resenha</h1>
+        <p class="eyebrow">02 · Treino e avaliação</p>
+        <h1 id="tfidf-title">Da resenha à previsão com TF-IDF</h1>
       </header>
-      <div class="tfidf-flow">
-        <section class="tfidf-example" aria-label="Como a ordem muda um bigrama">
-          <p class="micro">Troque a ordem</p>
-          <div class="cnn-view tfidf-toggle" role="group" aria-label="Ordem das palavras">
-            <button type="button" data-tfidf-order="normal" aria-pressed="true" lang="en">not good</button>
-            <button type="button" data-tfidf-order="reverse" aria-pressed="false" lang="en">good not</button>
+      <div class="cnn-view tfidf-tabs" role="group" aria-label="Etapas do baseline">
+        <button type="button" data-tfidf-step="0" aria-pressed="true" aria-controls="tfidf-terms">1. Contar</button>
+        <button type="button" data-tfidf-step="1" aria-pressed="false" aria-controls="tfidf-weight">2. Ponderar</button>
+        <button type="button" data-tfidf-step="2" aria-pressed="false" aria-controls="tfidf-score">3. Classificar</button>
+      </div>
+      <div class="tfidf-body">
+        <section id="tfidf-terms" class="tfidf-panel" aria-label="Contagem de palavras e pares">
+          <div class="tfidf-example">
+            <p class="micro">Uma frase de exemplo</p>
+            <p class="quote" lang="en">The movie was awful.</p>
+            <dl class="tfidf-grams">
+              <div><dt>Palavras</dt><dd><code>the</code><code>movie</code><code>was</code><code>awful</code></dd></div>
+              <div><dt>Pares consecutivos</dt><dd><code>the movie</code><code>movie was</code><code class="tfidf-highlight">was awful</code></dd></div>
+            </dl>
           </div>
-          <dl class="tfidf-grams" aria-live="polite">
-            <div><dt>Palavras isoladas</dt><dd><code>not</code><code>good</code></dd></div>
-            <div><dt>Par consecutivo</dt><dd><code id="tfidf-bigram">not good</code></dd></div>
-          </dl>
-          <p>Os bigramas guardam a ordem dentro do par. O vetor agrega as ocorrências pela resenha inteira.</p>
+          <div class="tfidf-explain">
+            <h2>Onde entra a ordem?</h2>
+            <div class="cnn-view tfidf-toggle" role="group" aria-label="Ordem do par">
+              <button type="button" data-tfidf-order aria-pressed="true" lang="en">was awful</button>
+              <button type="button" data-tfidf-order aria-pressed="false" lang="en">awful was</button>
+            </div>
+            <dl class="tfidf-grams" aria-live="polite">
+              <div><dt>Palavras</dt><dd><code>was</code><code>awful</code></dd></div>
+              <div><dt>Bigrama</dt><dd><code id="tfidf-bigram" class="tfidf-highlight">was awful</code></dd></div>
+            </dl>
+            <p>O par guarda a ordem local. A contagem reúne as ocorrências da resenha inteira.</p>
+          </div>
         </section>
-        <section class="tfidf-steps" aria-label="Da representação à classificação">
-          <div>
-            <h2>TF-IDF</h2>
-            <p>Pondera cada termo pela frequência na resenha e pela raridade no treino.</p>
+        <section id="tfidf-weight" class="tfidf-panel" aria-label="Frequência na resenha e raridade no treino" hidden>
+          <div class="tfidf-example">
+            <p class="micro">Um treino fictício de 10 resenhas</p>
+            <table class="tfidf-table">
+              <thead><tr><th scope="col">Termo</th><th scope="col">Ocorrências na frase</th><th scope="col">Resenhas de treino com o termo</th><th scope="col">IDF</th></tr></thead>
+              <tbody>
+                <tr><th scope="row"><code>movie</code></th><td>1</td><td>9 de 10</td><td>1,10</td></tr>
+                <tr><th scope="row"><code class="tfidf-highlight">awful</code></th><td>1</td><td>2 de 10</td><td>2,30</td></tr>
+              </tbody>
+            </table>
           </div>
-          <div>
+          <div class="tfidf-explain">
+            <h2>TF · frequência na resenha</h2>
+            <p>Quanto mais vezes o termo aparece, maior o TF.</p>
+            <h2>IDF · raridade no treino</h2>
+            <p><i>Awful</i> aparece em menos resenhas, então tem IDF maior.</p>
+            <p class="tfidf-note">Multiplicamos TF e IDF e normalizamos o vetor.</p>
+          </div>
+        </section>
+        <section id="tfidf-score" class="tfidf-panel" aria-label="Contribuições reais na regressão logística" hidden>
+          <div class="tfidf-example">
+            <p class="micro">Uma resenha negativa do IMDb</p>
+            <p class="quote" id="tfidf-quote" lang="en"></p>
+            <dl class="tfidf-sum" id="tfidf-sum"></dl>
+          </div>
+          <div class="tfidf-explain">
             <h2>Regressão logística</h2>
-            <p>Soma as contribuições aprendidas para cada termo e aplica a sigmoide.</p>
+            <p>Para cada termo, multiplica seu TF-IDF pelo coeficiente aprendido. Soma as contribuições e o viés.</p>
+            <div id="tfidf-verdict" class="tfidf-result">
+              <p><strong id="tfidf-logit"></strong> de escore bruto</p>
+              <p><strong id="tfidf-positive"></strong> de positivo após calibração</p>
+              <p>Classe <strong>negativa</strong></p>
+            </div>
           </div>
         </section>
       </div>
-      <div class="tfidf-result">
-        <p><strong>99,72%</strong> no treino <span aria-hidden="true">→</span> <strong>90,14%</strong> no teste</p>
-        <p>80.000 atributos · penalização L2</p>
+      <div class="tfidf-navigation">
+        <p class="tfidf-note" id="tfidf-step-note" aria-live="polite">Etapa 1 de 3</p>
+        <button type="button" id="tfidf-next" class="step-next">Próxima etapa →</button>
       </div>
-      <footer class="lab-source">Exemplo ilustrativo dos atributos.
-        <a href="#slide-7">Voltar ao teste oficial</a>
+      <footer class="lab-source">
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/discordancias.json" target="_blank" rel="noopener">Contribuições e predições</a>
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/src/imdb_lab/baseline.py" target="_blank" rel="noopener">Código</a>
       </footer>
     </article>
