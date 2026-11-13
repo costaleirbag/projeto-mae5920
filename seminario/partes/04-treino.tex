@@ -1,12 +1,10 @@
 \section{Experimentos e resultados}
 \label{sec:treino}
 \subsection{Otimização e seleção de época}
-Em cada minibatch, a rede produz dois logits por resenha e a entropia
-cruzada mede a perda frente ao rótulo. O \textit{backward} calcula os
-gradientes dos embeddings, filtros e saída. Limitamos sua norma global a
-1 antes da atualização. Os embeddings começam com distribuição normal de
-desvio 0,1 e linha de padding zero. Os filtros usam inicialização de He
-e a saída, Xavier \cite{prince}.
+Usamos os gradientes da entropia cruzada para atualizar embeddings,
+filtros e saída, com norma global limitada a 1. Nos ensaios internos,
+inicializamos embeddings com desvio 0,1 e padding zero, filtros com He
+e saída com Xavier \cite{prince}.
 
 \begin{tabularx}{\linewidth}{@{}lXr@{}}
 \toprule
@@ -21,22 +19,24 @@ Adam & 0,0003 \quad 0,001 \quad 0,003 & 0,001\\
 64 e orçamento de 12 épocas. A CNN base tem larguras 3/4/5, cem filtros por
 largura e dropout de 0,5.}
 
-Na mesma semente, fixamos pesos iniciais e ordem dos minibatches. Salvamos
-a época de menor CE de validação de cada treino e escolhemos a taxa com a
-menor média dessa perda entre sementes. A época zero é a inicialização.
+Na mesma semente, fixamos pesos iniciais e ordem dos lotes. Guardamos a
+época de menor CE de validação e escolhemos a taxa pela média dessa perda.
+A época zero é a inicialização. Os ensaios de CNN usam dropout e seleção de
+época, com decaimento de pesos zero. A CNN original usa AdamW com
+\textit{weight decay} de 0,01, dropout de 0,5 e seleção por F1 macro de
+validação, com paciência de duas épocas. O clipping limita o passo causado
+por gradientes grandes.
 
 \medskip
-\noindent\makebox[\linewidth]{\includegraphics[width=.89\linewidth]{figuras/otimizacao.pdf}}
+\noindent\makebox[\linewidth]{\includegraphics[width=.84\linewidth]{figuras/otimizacao.pdf}}
 \legendinha{Figura 2. As linhas são médias e as faixas cobrem mínimo e máximo
 entre sementes. À esquerda, cada otimizador usa sua taxa escolhida. À direita,
 a perda de treino com Adam continua caindo depois da melhor região de
 validação. Os checkpoints de Adam vêm das épocas 5 e 6.}
 
 \subsection{Largura, número de filtros e dropout}
-Dos 42 treinos de CNN, nove variaram largura ou número de filtros e seis
-variaram dropout. Com o mesmo recorte e 100 filtros, as larguras 3 e 5
-deram 81,27\% e 80,94\% de acurácia na auditoria sequencial. Combinar
-3/4/5 também mudou o total de filtros, com 81,95\% usando 300 e 81,64\%
-usando 96. Com dropout de 0,8, a acurácia foi 80,44\%.
+Na auditoria, as larguras 3 e 5, com 100 filtros, deram 81,27\% e 80,94\%.
+Com 3/4/5, 300 filtros deram 81,95\% e 96 deram 81,64\%.
+Com dropout de 0,8, a acurácia foi 80,44\%.
 \fonte{results/sequences/summary.json}{Métricas por semente}.
 \fonteatual{src/imdb_lab/sequences.py}{Código dos treinos}.

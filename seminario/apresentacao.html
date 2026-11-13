@@ -47,7 +47,7 @@
             <p class="micro">Saída final do BPE</p>
             <div id="bpe-result" class="pieces compact"></div>
           </div>
-          <p>As fusões seguem a ordem aprendida no treino. <code>&lt;/w&gt;</code> marca o fim da palavra.</p>
+          <p>Escolhemos <strong>20.000 entradas</strong> em ambos os vocabulários para igualar as tabelas de embeddings. <code>&lt;/w&gt;</code> marca o fim da palavra.</p>
         </aside>
       </div>
       <div class="transport">
@@ -396,20 +396,20 @@
 
     <article id="closing" class="lab readable closing-slide" hidden aria-labelledby="closing-title">
       <p class="eyebrow">Conclusão</p>
-      <h1 id="closing-title">O que chega à decisão da CNN?</h1>
-      <p class="closing-lead">A camada final recebe <strong>300 máximos</strong> de padrões locais.</p>
+      <h1 id="closing-title">Onde a nossa CNN falhou?</h1>
+      <p class="closing-lead"><strong>86,78%</strong> com a CNN. <strong>90,14%</strong> com TF-IDF e regressão logística.</p>
       <div class="closing-points">
         <section>
-          <h2>Tokenização</h2>
-          <p>BPE zerou os tokens desconhecidos na auditoria. A acurácia ficou próxima.</p>
+          <h2>Recorte</h2>
+          <p>O texto inteiro recuperou 0,50 ponto no teste, com os mesmos pesos.</p>
         </section>
         <section>
-          <h2>Teste oficial</h2>
-          <p>A CNN fez 86,78%. TF-IDF e BERT ficaram à frente.</p>
+          <h2>Ordem</h2>
+          <p>O máximo global guarda a força do padrão e descarta onde ele apareceu.</p>
         </section>
         <section>
-          <h2>Posição</h2>
-          <p>O máximo descarta onde o filtro respondeu. Preservar a posição mudou escores, com acerto semelhante nos pares humanos.</p>
+          <h2>Pré-treino</h2>
+          <p>BERT e Qwen superaram o baseline neste teste, com outras receitas.</p>
         </section>
       </div>
       <footer class="closing-footer">
@@ -462,8 +462,47 @@
           <p id="cut-outcome"></p>
         </section>
       </div>
-      <footer class="lab-source">Contagem pelo tokenizer da CNN. Mesmos pesos e calibração nas duas entradas.
+      <footer class="lab-source">Mesmos pesos nas duas entradas. No teste oficial, 3.118 de 25.000 resenhas passaram de 400 tokens.
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/diagnosticos.md" target="_blank" rel="noopener">Trechos, escores e método</a>
+      </footer>
+    </article>
+
+    <article id="tfidf" class="lab readable tfidf-slide" hidden aria-labelledby="tfidf-title">
+      <header class="lab-heading">
+        <p class="eyebrow">Apoio <span>Baseline</span></p>
+        <h1 id="tfidf-title">Como o TF-IDF lê uma resenha</h1>
+      </header>
+      <div class="tfidf-flow">
+        <section class="tfidf-example" aria-label="Como a ordem muda um bigrama">
+          <p class="micro">Troque a ordem</p>
+          <div class="cnn-view tfidf-toggle" role="group" aria-label="Ordem das palavras">
+            <button type="button" data-tfidf-order="normal" aria-pressed="true" lang="en">not good</button>
+            <button type="button" data-tfidf-order="reverse" aria-pressed="false" lang="en">good not</button>
+          </div>
+          <dl class="tfidf-grams" aria-live="polite">
+            <div><dt>Palavras isoladas</dt><dd><code>not</code><code>good</code></dd></div>
+            <div><dt>Par consecutivo</dt><dd><code id="tfidf-bigram">not good</code></dd></div>
+          </dl>
+          <p>Os bigramas guardam a ordem dentro do par. O vetor agrega as ocorrências pela resenha inteira.</p>
+        </section>
+        <section class="tfidf-steps" aria-label="Da representação à classificação">
+          <div>
+            <h2>TF-IDF</h2>
+            <p>Pondera cada termo pela frequência na resenha e pela raridade no treino.</p>
+          </div>
+          <div>
+            <h2>Regressão logística</h2>
+            <p>Soma as contribuições aprendidas para cada termo e aplica a sigmoide.</p>
+          </div>
+        </section>
+      </div>
+      <div class="tfidf-result">
+        <p><strong>99,72%</strong> no treino <span aria-hidden="true">→</span> <strong>90,14%</strong> no teste</p>
+        <p>80.000 atributos · penalização L2</p>
+      </div>
+      <footer class="lab-source">Exemplo ilustrativo dos atributos.
+        <a href="#slide-7">Voltar ao teste oficial</a>
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/src/imdb_lab/baseline.py" target="_blank" rel="noopener">Código</a>
       </footer>
     </article>
   </main>

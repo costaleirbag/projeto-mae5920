@@ -2,7 +2,7 @@
 
 **O que a CNN lê em uma resenha?** O relatório acompanha a classificação do
 IMDb, da tokenização às falhas de ordem. Os slides usam a mesma sequência.
-A fala principal dura 12 minutos, com três minutos adicionais e quatro slides
+A fala principal dura 12 minutos, com três minutos adicionais e cinco slides
 de apoio. O relatório tem oito páginas, dentro da faixa do enunciado.
 
 | Material | Para ler ou editar |
@@ -16,6 +16,7 @@ de apoio. O relatório tem oito páginas, dentro da faixa do enunciado.
 | Discordâncias, largura e passo | [Diagnósticos e exemplos](diagnosticos.md) |
 | Dois picos com e sem posição | [Protocolo e resultados](diagnosticos.md#o-que-acontece-quando-guardamos-a-posição-dos-picos) |
 | Pooling e robustez à ordem | [18 treinos, resultados e cobertura do recorte](pooling_ordem.md) |
+| Dúvidas do grupo | [Vocabulário, TF-IDF, regularização, métricas e limites da CNN](revisao_metodologica.md) |
 
 ## Apresentação interativa
 
@@ -52,6 +53,10 @@ O primeiro slide de apoio alterna entre o recorte de 400 tokens e o texto
 inteiro de uma resenha do IMDb. **Conclusão** no topo vai ao encerramento.
 Ao chegar lá, o avanço normal para e os slides de apoio ficam disponíveis
 pelo link próprio. [Recorte](https://costaleirbag.github.io/projeto-mae5920/#recorte) · [Conclusão](https://costaleirbag.github.io/projeto-mae5920/#encerramento).
+
+O slide de teste oficial tem um link para o exemplo de TF-IDF. Troque a
+ordem de *not good* para ver o que muda no bigrama e volte à comparação.
+[TF-IDF e regressão logística](https://costaleirbag.github.io/projeto-mae5920/#tf-idf).
 
 Para apresentar offline, use **Download raw file** no arquivo do GitHub e
 abra a cópia no navegador. [HTML para baixar](../output/slides/slides_15_min_interativos.html).

@@ -21,9 +21,10 @@ Teste/auditoria & 25.000 & 2.048 & Avaliar a configuração já escolhida.\\
 distintas de 2.048 resenhas.}
 
 CNN/encoders e palavras/BPE partem do treino limpo e compartilham treino e
-validação. Recebem até 128 palavras e até 256 tokens. A auditoria BPE exclui
-também os papéis sequenciais. Cada auditoria foi aberta após congelar pesos e
-escolhas. Protocolos
+validação. O prefixo comum de 128 palavras abreviou 1.535 resenhas na
+auditoria BPE e preservou 51,24\% dos tokens por palavras. O teto de 256
+tokens não fez cortes adicionais nas auditorias. Abrimos cada auditoria
+após congelar pesos e escolhas. Protocolos
 \fonte{docs/PROTOCOLO_SEQUENCIAS.md}{sequencial} e
 \fonte{docs/PROTOCOLO_BPE.md}{BPE}.
 
@@ -57,14 +58,11 @@ exploratório.
 de preparação ou avaliação. \fonte{DATA_DICTIONARY.md}{Dicionário completo}.}
 
 \subsection{Métricas}
-A acurácia conta decisões corretas. O F1 macro dá o mesmo peso às duas
-classes, tomando a média de seus F1. A entropia cruzada binária (CE) usa o
-escore inteiro, antes de convertê-lo em classe. Se o rótulo é positivo,
-um escore de 90\% contribui com \(-\log(0{,}9)\). Um escore de 10\%
-contribui com \(-\log(0{,}1)\), uma perda maior. Para \(n\) resenhas,
+A acurácia é a fração de acertos. O F1 macro é a média do F1 das duas
+classes. A entropia cruzada (CE) penaliza probabilidades baixas para o
+rótulo verdadeiro. Uma resenha positiva recebe perda \(-\log(0{,}9)\)
+se \(p_i=0{,}9\), e \(-\log(0{,}1)\) se \(p_i=0{,}1\).
 \[
   \mathrm{CE}=-\frac{1}{n}\sum_i\left[y_i\log p_i+(1-y_i)\log(1-p_i)\right].
 \]
-Aqui \(p_i\) é o escore atribuído ao sentimento positivo. Na execução original, o cálculo salvo
-limita as probabilidades a \([10^{-7},1-10^{-7}]\). Os ensaios internos
-calculam CE diretamente dos logits.
+Aqui \(p_i\) é a probabilidade atribuída à classe positiva.

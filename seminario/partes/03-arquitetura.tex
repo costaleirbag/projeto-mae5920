@@ -6,12 +6,13 @@ Filtros diferentes podem atingir o máximo em trechos diferentes. A camada
 final aprende quanto cada uma das 300 respostas conta para cada classe.
 
 \subsection{De palavras a IDs}
-O tokenizador por palavras preserva contrações, números e negações como
-\textit{not}. O vocabulário reserva 19.998 lugares aos itens mais frequentes
-do treino, além de \texttt{<pad>} e \texttt{<unk>}. O BPE aprende fusões de
-pares de caracteres frequentes nos 6.144 textos de treino, com frequência
-mínima 2 e vocabulário de 20 mil itens. O marcador \texttt{</w>} indica o
-fim de palavra \cite{sennrich}.
+O tokenizador por palavras preserva contrações, números e negações. Retém
+as 19.998 palavras e números mais frequentes do treino, mais \texttt{<pad>}
+e \texttt{<unk>}. O BPE parte de caracteres e aprende fusões de pares
+frequentes nos 6.144 textos de treino, com frequência mínima 2. O alvo de
+20.000 entradas mantém o mesmo número de parâmetros no embedding das duas
+CNNs. Nesta amostra, o BPE atingiu o alvo. O marcador \texttt{</w>} indica
+o fim de palavra \cite{sennrich}.
 \fonte{docs/PROTOCOLO_BPE.md}{Normalização e vocabulários}.
 
 \painel[SoftBlue]{\rotulo{Quando uma palavra vira três peças}\enspace

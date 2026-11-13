@@ -136,7 +136,8 @@
   {\large I thought this movie was \good{wonderful}, but it was \bad{terrible}.}}
 \par\vspace{3mm}
 {\Large\strong{A CNN acompanha a troca?}}
-\smallsource{As duas frases têm as mesmas palavras. Mudamos a posição de \textit{terrible} e \textit{wonderful}.}
+\smallsource{As duas frases têm as mesmas palavras. Mudamos a posição de \textit{terrible} e \textit{wonderful}.
+\href{https://costaleirbag.github.io/projeto-mae5920/\#tf-idf}{Como o baseline lê a ordem}.}
 \end{frame}
 
 % 01:35–02:35
@@ -163,7 +164,8 @@
   \node[anchor=west,text=Forest,font=\scriptsize] at (114,5.6) {Auditoria interna};
 \end{tikzpicture}
 \par\vfill
-{\small Nas extensões, a entrada tem até 128 palavras e 256 tokens.}
+{\small A CNN original usa até 400 tokens. Nos ensaios internos, as primeiras 128 palavras
+formam o prefixo comum. O teto adicional de 256 tokens não cortou esses prefixos.}
 \smallsource{IMDb, Maas et al. (2011). \fonte{data/manifest.json}{Dados} e
 \fonte{docs/PROTOCOLO_SEQUENCIAS.md}{protocolo das extensões}.}
 \end{frame}
@@ -188,8 +190,8 @@
   {\small \textit{pallbearer} ficou fora do vocabulário.}}
 \end{column}
 \end{columns}
-\smallsource{O BPE aplica as fusões na ordem aprendida no treino. \texttt{</w>} marca o fim da palavra.
-Sennrich et al. (2016). \liveversion{4}.}
+\smallsource{Escolhemos 20.000 entradas em ambos para igualar a tabela de embeddings.
+\texttt{</w>} marca o fim da palavra. Sennrich et al. (2016). \liveversion{4}.}
 \end{frame}
 
 % 03:45–05:15
@@ -218,12 +220,14 @@ Sennrich et al. (2016). \liveversion{4}.}
 \includegraphics[width=\linewidth,height=.50\textheight,keepaspectratio]{figuras/otimizacao.pdf}
 \par\raggedright\vspace{1mm}
 {\large\strong{No Adam, guardamos os pesos das épocas 5 ou 6.}}
-\smallsource{Três taxas por método, 12 épocas. Faixas mostram mínimo e máximo de três sementes.
+\smallsource{CNN interna: dropout 0,5 e decaimento de pesos zero. Na original, AdamW usa decaimento de 0,01.
+Faixas de três sementes.
 \fonte{results/sequences/presentation_data.json}{Curvas}.}
 \end{frame}
 
 % 06:40–07:50
 \begin{frame}{A CNN ficou atrás no teste oficial}
+\eyebrow{25.000 resenhas \(\cdot\) estudo original}
 \vfill
 \begin{tikzpicture}[x=1mm,y=1mm,font=\sffamily\small]
   \fill[Mint,rounded corners=1mm] (0,15) rectangle (144,25);
@@ -238,9 +242,10 @@ Sennrich et al. (2016). \liveversion{4}.}
   \PontosTeste
 \end{tikzpicture}
 \par\vfill
-{\small A CNN e o TF-IDF deram classes diferentes em \strong{\Discordancias{} resenhas}.}
-\smallsource{25.000 resenhas. Temperatura ajustada em uma divisão separada.
-\fonte{results/comparison.csv}{Métricas}. \fonteatual{seminario/diagnosticos.md}{Discordâncias}.}
+{\small TF-IDF lê o texto inteiro. CNN lê até 400 tokens. BERT lê até 192 WordPieces.}
+\smallsource{Lotes de treino: CNN 64, BERT 32. A CE usa probabilidades calibradas.
+\fonte{results/comparison.csv}{Métricas}.
+\href{https://costaleirbag.github.io/projeto-mae5920/\#tf-idf}{Entenda o TF-IDF}.}
 \end{frame}
 
 % 07:50–09:00
@@ -423,21 +428,20 @@ Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
 }
 
 % Bloco adicional, 13:10–14:35
-\begin{frame}{O que muda com vetores contextuais?}
-\eyebrow{Acurácia na auditoria sequencial}\par\vspace{.8mm}
+\begin{frame}{Encoders em uma auditoria interna}
+\eyebrow{Acurácia média em 2.048 prefixos de 128 palavras}\par\vspace{.8mm}
 \small
 \makebox[.60\linewidth][r]{\eyebrow{Só a cabeça}}%
 \makebox[.40\linewidth][r]{\eyebrow{Ajuste completo}}\par
 {\color{Rule}\hrule}\vspace{.8mm}
 \RegimesVisuais
 {\color{Rule}\hrule}\vspace{1.5mm}
-Os encoders combinam informações entre tokens antes da média.
-No ajuste completo, o treino também altera os pesos do encoder.
+Na primeira coluna, só a cabeça aprende. Na segunda, ajustamos também
+o encoder. O BERT do slide 7 foi avaliado no teste oficial.
 \par\vfill
-\slidecard{Mint}{\strong{Qwen3-8B} \quad
-  Enredo \(\longrightarrow\) ativação interna \(\longrightarrow\) opinião gerada}
-\smallsource{2.048 resenhas, três sementes por receita.
-\fonte{results/sequences/summary.json}{Encoders}. \fonte{QWEN_EXPERIMENTO.md}{Geração com o Qwen}.}
+\slidecard{Mint}{\strong{Qwen3-8B} \quad 95,26\% no teste oficial, com pesos congelados e prompt.}
+\smallsource{Três sementes por receita interna. Lotes de treino: cabeça 128, ajuste completo 32.
+\fonte{results/sequences/summary.json}{Encoders}. \fonte{QWEN_EXPERIMENTO.md}{Qwen}.}
 \end{frame}
 
 % 14:35–15:00 ou 11:40–12:00
@@ -450,22 +454,22 @@ No ajuste completo, o treino também altera os pesos do encoder.
 \vfill
 {\scriptsize\bfseries\color{Lime} CONCLUSÃO\par}
 \vspace{2mm}
-{\fontsize{23}{25}\selectfont\bfseries O que chega à decisão da CNN?\par}
+{\fontsize{23}{25}\selectfont\bfseries Onde a nossa CNN falhou?\par}
 \vspace{2mm}
-{\large A camada final recebe 300 máximos de padrões locais.}
+{\large 86,78\% com a CNN. 90,14\% com TF-IDF e regressão logística.}
 \par\vspace{3mm}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{.30\textwidth}
-\textcolor{Lime}{\bfseries Tokenização}\par
-{\small BPE zerou os tokens desconhecidos na auditoria. A acurácia ficou próxima.}
+\textcolor{Lime}{\bfseries Recorte}\par
+{\small O texto inteiro recuperou 0,50 ponto no teste, com os mesmos pesos.}
 \end{column}
 \begin{column}{.30\textwidth}
-\textcolor{Lime}{\bfseries Teste oficial}\par
-{\small A CNN fez 86,78\%. TF-IDF e BERT ficaram à frente.}
+\textcolor{Lime}{\bfseries Ordem}\par
+{\small O máximo global guarda a força do padrão e descarta onde ele apareceu.}
 \end{column}
 \begin{column}{.30\textwidth}
-\textcolor{Lime}{\bfseries Posição}\par
-{\small O máximo descarta onde o filtro respondeu. Preservar a posição mudou escores, com acerto semelhante nos pares humanos.}
+\textcolor{Lime}{\bfseries Pré-treino}\par
+{\small BERT e Qwen superaram o baseline neste teste, com outras receitas.}
 \end{column}
 \end{columns}
 \vfill
@@ -500,7 +504,8 @@ No ajuste completo, o treino também altera os pesos do encoder.
 \par\vfill
 A CNN usou 400 tokens no teste original. O TF-IDF leu a resenha inteira.
 Os dois acertaram quando receberam o texto inteiro com os mesmos pesos.
-\smallsource{\texttt{imdb\_test\_03531}. \fonteatual{seminario/diagnosticos.md}{Trechos, escores e método}.}
+\smallsource{No teste oficial, 3.118 resenhas passaram de 400 tokens.
+\fonteatual{seminario/diagnosticos.md}{Trechos, escores e comparação}.}
 \end{frame}
 
 \begin{frame}{Confiança e acurácia respondem perguntas diferentes}
@@ -545,6 +550,34 @@ O enredo e o prompt são os mesmos.
 O filtro \FiltroDemo{} cai de \MaximoDemo{} para \MaximoPassoDois{} ao usar passo 2.}
 \smallsource{Acurácias médias de três sementes em duas auditorias de 2.048 resenhas.
 \fonteatual{seminario/diagnosticos.md}{Protocolos e métricas}.}
+\end{frame}
+
+% lab:tfidf
+\begin{frame}{Como o TF-IDF lê uma resenha}
+\vspace{1mm}
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.54\textwidth}
+\eyebrow{Unigramas e bigramas}\par\vspace{1mm}
+\slidecard{Wash}{\chip{not}\chip{good}\(\longrightarrow\)\enspace\chip{not}\chip{good}\fused{not good}}\par\vspace{1mm}
+\slidecard{Wash}{\chip{good}\chip{not}\(\longrightarrow\)\enspace\chip{not}\chip{good}\fused{good not}}
+\par\vspace{1.5mm}
+{\small As palavras são as mesmas. A ordem muda o bigrama. O vetor
+acumula ocorrências ao longo do texto e descarta a posição.}
+\end{column}
+\begin{column}{.42\textwidth}
+\eyebrow{Da frequência ao sentimento}\par\vspace{1mm}
+\textbf{TF-IDF}\par
+{\small Dá peso à frequência na resenha e à raridade no treino.}\par\vspace{2mm}
+\textbf{Regressão logística}\par
+{\small Aprende um coeficiente para cada termo. Soma as contribuições
+e aplica a sigmoide para obter \(p(+)\).}
+\end{column}
+\end{columns}
+\vfill
+\slidecard{Mint}{\strong{99,72\% no treino \(\to\) 90,14\% no teste}\enspace
+{\small 80.000 atributos e penalização L2.}}
+\smallsource{Exemplo ilustrativo de bigramas. O modelo lê a resenha inteira.
+\fonteatual{src/imdb_lab/baseline.py}{Implementação}.}
 \end{frame}
 
 \end{document}

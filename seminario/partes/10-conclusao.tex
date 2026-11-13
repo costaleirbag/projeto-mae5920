@@ -1,12 +1,13 @@
 \subsection{Conclusão}
-O TF-IDF com regressão logística foi um baseline forte no teste oficial,
-com 90,14\% de acurácia, ante 86,78\% da CNN e 90,94\% do BERT. A CNN
-respondeu à troca de adjetivos, e o controle com janelas iguais mostrou
-que o máximo global perde a posição das respostas. Guardar a metade de
-origem distinguiu os escores do controle, com acerto semelhante nos pares
-editados. No treino de ponta a ponta, os seis tipos de pooling acertaram
-0 de 128 pares com veredito no fim em cada semente.
-\fonteatual{seminario/pooling_ordem.md}{Resultados do ensaio}.
+O TF-IDF agrega sinais lexicais da resenha inteira e teve 90,14\% ante
+86,78\% da TextCNN. Ler o texto inteiro com os mesmos pesos recuperou
+0,50 dos 3,36 pontos de diferença. No controle com as mesmas janelas,
+o máximo global apaga a mudança de posição. No par com \textit{but},
+a troca altera as janelas. A decisão de seguir a primeira oração pode
+depender dos filtros aprendidos e dos pesos da saída. BERT ajustado
+(90,94\%) e Qwen congelado (95,26\%) superaram o baseline com pré-treinos
+e entradas distintos. As evidências localizam limites desta TextCNN.
+As causas da diferença restante seguem abertas.
 
 \begin{thebibliography}{9}
 \footnotesize

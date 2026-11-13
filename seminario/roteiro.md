@@ -48,10 +48,11 @@ os modelos fizeram depois de ver como eles foram treinados.”
 separamos treino, validação e calibração antes da avaliação nas 25 mil resenhas
 do teste oficial. Removemos do treino textos repetidos, incluindo os que
 coincidiam com o teste por hash. A validação serve para escolher a configuração.
-A calibração usa outra amostra. Para estudar as escolhas de arquitetura e
-tokenização, trabalhamos com subconjuntos do treino limpo. Cada comparação
-tem uma auditoria reservada de 2.048 resenhas. Os números para CNN mudam de uma
-tabela para outra porque o conjunto e o comprimento de entrada mudam.”
+A calibração usa outra amostra. Nos ensaios internos, todos recebem o
+mesmo prefixo de 128 palavras e cada comparação tem uma auditoria reservada
+de 2.048 resenhas. O teto adicional de 256 tokens não cortou nenhum desses
+prefixos. A CNN original usa 400 tokens, com os pesos ajustados em uma
+amostra de treino maior.”
 
 ## 4 · Fusões do BPE
 
@@ -66,7 +67,9 @@ fica com o índice de desconhecido. No BPE, aprendemos uniões de caracteres
 frequentes nos mesmos textos, sem consultar os rótulos. O tokenizer congelado
 reconhece *p*, *all* e *bearer* com marca de fim de palavra. Isso dá à rede
 uma representação específica para a palavra rara e aumenta o comprimento
-da sequência. Um filtro com a mesma largura passa a ver outro contexto.”
+da sequência. Um filtro com a mesma largura passa a ver outro contexto.
+Os dois vocabulários têm 20 mil entradas por escolha experimental. Assim
+as duas tabelas de embeddings têm 20 mil linhas de 128 valores.”
 
 ## 5 · Arquitetura da TextCNN
 
@@ -100,16 +103,30 @@ Isso dá um motivo concreto para guardar os pesos das épocas cinco ou seis
 no Adam, mesmo depois de executar as doze épocas. Também testamos larguras,
 número de filtros e dropout. As grades completas estão no relatório.”
 
+Se perguntarem sobre regularização, a CNN original usou AdamW com
+decaimento de pesos de 0,01 e dropout de 0,5. As CNNs deste slide usaram
+decaimento zero e guardaram o checkpoint escolhido na validação. O clipping
+de norma 1 protege a atualização contra gradientes grandes.
+
 ## 7 · Teste oficial do IMDb
 
-“Este gráfico pertence ao estudo original, com 25 mil resenhas de teste.
-O baseline com bigramas chegou a 90,14 por cento. A CNN chegou a 86,78
-e o BERT a 90,94. Acurácia conta os acertos, F1 macro dá o mesmo peso às
-duas classes e a entropia cruzada mede a confiança no rótulo observado.
-A coluna de perda usa probabilidades calibradas em uma divisão separada. CNN e
-TF-IDF discordaram em 2.590 resenhas. Entre as que a CNN precisou recortar,
-foi mais comum só o TF-IDF acertar. No slide de apoio há um caso em que
-os dois modelos passam de positivo para negativo quando leem o texto inteiro.”
+“O baseline conta palavras e pares consecutivos, como *not good*, na
+resenha inteira. O TF-IDF pesa essas ocorrências pela frequência na
+resenha e pela raridade no treino. A regressão logística aprende a somar
+contribuições positivas e negativas. O bigrama guarda a ordem dentro
+do par. O vetor perde a posição ao somar pela resenha toda.
+
+No teste oficial, com 25 mil resenhas, o baseline chegou a 90,14%, a
+CNN a 86,78% e o BERT a 90,94%. Acurácia e F1 usam a classe. A
+entropia cruzada usa a probabilidade, calibrada numa amostra separada.
+O ganho de 0,50 ponto ao dar o texto todo à mesma CNN explica parte da
+diferença para o baseline.”
+
+O link **Entenda o TF-IDF** abre um exemplo em que a troca de ordem muda
+o bigrama. Mostrem a troca em até 20 segundos e usem **Voltar ao teste
+oficial**. Se perguntarem sobre os 99,72% no treino, expliquem que o
+modelo tem 80.000 atributos para 19.823 textos e regularização L2 com
+\(C=8\) escolhido na validação. O teste mede a generalização.
 
 ## 8 · Auditoria de palavras e BPE
 
@@ -189,23 +206,24 @@ aos resultados salvos no slide.
 
 ## 13 · Encoders e geração com o Qwen
 
-“Testamos também BERT, DistilBERT e ModernBERT. Aqui o vetor de um token já
-incorpora seu contexto. Fazemos uma média mascarada desses vetores e
-colocamos uma camada linear de classificação. A tabela compara ajustar só
-essa cabeça com propagar gradientes por todo o encoder. Na auditoria
-sequencial, o ModernBERT passa de 81,30 para 91,24 por cento. O orçamento e
-o otimizador também mudam.
+“Aqui são 2.048 resenhas internas, cortadas em 128 palavras. Os vetores
+já trazem contexto dos outros tokens. Fazemos uma média mascarada e uma
+camada linear classifica. À esquerda, só essa camada aprende, com lote
+128. À direita, ajustamos o encoder também, com lote 32. O BERT original
+do slide 7 também usou lote 32, com mais dados e outro conjunto de teste.
 
-Com o Qwen, usamos os escores dos tokens de rótulo para classificar. Também
-usamos o modelo para escrever uma opinião token a token a partir da mesma
-fonte. Mantivemos o prompt e deslocamos uma ativação durante a geração.
-O slide de apoio mostra as três opiniões que saíram do mesmo enredo.”
+O quadro do Qwen remete ao teste oficial. Com pesos congelados e até 768
+tokens da resenha, usamos o prompt e a diferença dos logits dos dois
+rótulos. Ele atingiu 95,26%. Pré-treino, arquitetura e entrada mudam
+juntos. A geração com intervenção nas ativações fica no apoio.”
 
 ## 14 · Conclusão
 
-“A TextCNN resume cada resenha em 300 máximos de padrões locais. O BPE
-ampliou a cobertura. No teste oficial, TF-IDF e BERT ficaram à frente da
-CNN. Os testes de troca mostram o que se perde ao descartar posição.”
+“A nossa CNN ficou 3,36 pontos abaixo do TF-IDF. Cortar as resenhas explica
+meio ponto, com os pesos fixos. O máximo global perde a posição, como
+mostra a troca de blocos. No par com *but*, os filtros responderam à
+troca, mas a CNN seguiu a primeira opinião. BERT e Qwen mostram que outras
+receitas de deep learning superaram o baseline no mesmo teste.”
 Deixe o quadro de perguntas na tela.
 
 ## Cortes para o ensaio

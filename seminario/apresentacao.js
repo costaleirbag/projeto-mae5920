@@ -470,6 +470,13 @@ const next = byId("next");
 let slideIndex = -1;
 let cnnView = "build";
 const labs = { bpe: bpeTransport, cnn: cnnTransport, contrast: contrastTransport, pooling: poolingTransport, cut: cutTransport };
+const tfidfOrders = document.querySelectorAll("[data-tfidf-order]");
+tfidfOrders.forEach((button) => {
+  button.addEventListener("click", () => {
+    tfidfOrders.forEach((option) => option.setAttribute("aria-pressed", option === button));
+    byId("tfidf-bigram").textContent = button.textContent;
+  });
+});
 const ending = slides.findIndex((slide) => slide.interactive === "closing");
 const mainGroup = document.createElement("optgroup");
 const supportGroup = document.createElement("optgroup");
@@ -490,7 +497,7 @@ function showSlide(index, view = "build") {
   cnnView = view;
   bpeTransport.pause();
   cnnTransport.pause();
-  for (const id of ["bpe", "contrast", "pooling", "position", "youtube", "closing", "cut"]) byId(id).hidden = slide.interactive !== id;
+  for (const id of ["bpe", "contrast", "pooling", "position", "youtube", "closing", "cut", "tfidf"]) byId(id).hidden = slide.interactive !== id;
   byId("cnn-build").hidden = slide.interactive !== "cnn" || cnnView !== "build";
   byId("cnn").hidden = slide.interactive !== "cnn" || cnnView !== "scan";
   centerArchitectureStage();
@@ -502,8 +509,10 @@ function showSlide(index, view = "build") {
       const link = document.createElement("a");
       link.className = "slide-link";
       link.href = url;
-      link.target = "_blank";
-      link.rel = "noopener";
+      if (!url.startsWith("#")) {
+        link.target = "_blank";
+        link.rel = "noopener";
+      }
       link.setAttribute("aria-label", label);
       ["left", "top", "width", "height"].forEach((key, i) => {
         link.style[key] = rect[i] + "%";
@@ -564,7 +573,8 @@ window.addEventListener("keydown", (event) => {
 function openFromHash() {
   const match = location.hash.match(/^#slide-(\d+)(-varredura)?$/);
   const cutIndex = slides.findIndex((slide) => slide.interactive === "cut");
-  const shortcuts = { "#encerramento": ending, "#apoio": ending + 1, "#recorte": cutIndex };
+  const tfidfIndex = slides.findIndex((slide) => slide.interactive === "tfidf");
+  const shortcuts = { "#encerramento": ending, "#apoio": ending + 1, "#recorte": cutIndex, "#tf-idf": tfidfIndex };
   showSlide(match ? Number(match[1]) - 1 : (shortcuts[location.hash] ?? 0), match?.[2] ? "scan" : "build");
 }
 window.addEventListener("hashchange", openFromHash);

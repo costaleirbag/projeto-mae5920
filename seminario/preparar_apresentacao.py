@@ -16,7 +16,7 @@ from pypdf import PdfReader
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
-FRAME = re.compile(r"(?:^% lab:(?P<lab>bpe|cnn|contrast|pooling|position|youtube|closing|cut)\n)?\\begin{frame}(?:\[[^\]]+\])?(?:\{(?P<title>[^{}\n]+)\})?", re.M)
+FRAME = re.compile(r"(?:^% lab:(?P<lab>[a-z]+)\n)?\\begin{frame}(?:\[[^\]]+\])?(?:\{(?P<title>[^{}\n]+)\})?", re.M)
 MODEL = "src/imdb_lab/models.py"
 
 
@@ -106,6 +106,8 @@ def links(page) -> list[dict]:
         x0, y0, x1, y1 = map(float, annotation["/Rect"])
         rect = [x0 / width, 1 - y1 / height, (x1 - x0) / width, (y1 - y0) / height]
         label = unquote(parsed.path.rsplit("/", 1)[-1]) or parsed.netloc
+        if parsed.netloc == "costaleirbag.github.io" and parsed.path == "/projeto-mae5920/" and parsed.fragment == "tf-idf":
+            url, label = "#tf-idf", "slide sobre TF-IDF"
         result.append({"url": url, "label": "Abrir referência " + label,
                        "rect": [round(100 * v, 3) for v in rect]})
     return result
@@ -158,7 +160,9 @@ def build(pdf: Path, output: Path) -> None:
     reader = PdfReader(pdf)
     frames = list(FRAME.finditer((HERE / "slides.tex").read_text(encoding="utf-8")))
     assert len(frames) == len(reader.pages), "O PDF deve ter uma página por frame."
-    assert [frame["lab"] for frame in frames if frame["lab"]] == ["bpe", "cnn", "contrast", "pooling", "position", "youtube", "closing", "cut"]
+    assert [frame["lab"] for frame in frames if frame["lab"]] == [
+        "bpe", "cnn", "contrast", "pooling", "position", "youtube", "closing", "cut", "tfidf",
+    ]
 
     slides = []
     with TemporaryDirectory(prefix="mae5920-slides-") as directory:
