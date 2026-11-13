@@ -555,6 +555,26 @@
       "bytes": 1815635,
       "sha256": "4f6fe61ae61a8e7a4defc3ed6f5642d75d7a7b7ee3fc79b2131d30b760cde363"
     },
+    "results/cnn_embeddings/predictions.npz": {
+      "bytes": 1009146,
+      "sha256": "edbb155910eae178c3951f68a6609e8ff16a871a498fa75b0d9b4ff14416c847"
+    },
+    "results/cnn_embeddings/protocol.json": {
+      "bytes": 1345,
+      "sha256": "5bfc14ce70d97066649cfc96cc1d96d970636869345cb22c89df63431c1514c5"
+    },
+    "results/cnn_embeddings/selection.json": {
+      "bytes": 22358,
+      "sha256": "5ad3e0ad985df4b95683f93956981cd6c34c432d941df925b4995d52cc903963"
+    },
+    "results/cnn_embeddings/summary.json": {
+      "bytes": 7427,
+      "sha256": "31fb27baa9c4a8913bb19d75b3baa892e31ad1a25979457575b05f02d5fb7895"
+    },
+    "results/cnn_length/coverage_accuracy.png": {
+      "bytes": 76749,
+      "sha256": "9b49ccab0aab21a97a5c732d0918c1a8881c91f9e5181f501380f02583499f4e"
+    },
     "results/cnn_length/predictions.npz": {
       "bytes": 3490663,
       "sha256": "3c47d3ebb5761f7c06f3bb8116bf9b67646e8d272c1824e9b9330488fcf485fc"
@@ -3380,8 +3400,8 @@
       "sha256": "36538ae18c5b21ca0544b02726b7b674c9fb71c70c6a9ba920c69dc8caf1dfef"
     },
     "seminario/ensaios_cnn.md": {
-      "bytes": 6912,
-      "sha256": "908846e70fbc69ce2d488eb406267f19112d890bc3e90894d5cbf3c835d21da8"
+      "bytes": 8600,
+      "sha256": "8660917cf091a0d61353bf9cb89b2fe523501b23df92dba5fcdf0e55ab727ec8"
     },
     "seminario/figuras/bpe_pareado.pdf": {
       "bytes": 16473,
@@ -3494,6 +3514,10 @@
     "seminario/partes/visuais-relatorio.tex": {
       "bytes": 1488,
       "sha256": "4e209104a296bfd08b7eaa665e9523857841af7bae91211dd5ab44343cc35183"
+    },
+    "seminario/plotar_ensaios_cnn.py": {
+      "bytes": 3037,
+      "sha256": "b0eab905d295cf48b6ef46dd5de3f536d48484ed4532c32339725ae2484aa752"
     },
     "seminario/pooling_ordem.md": {
       "bytes": 6769,

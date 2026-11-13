@@ -1,0 +1,45 @@
+{
+  "recipes": [
+    "aleatorio",
+    "glove_embaralhado",
+    "glove"
+  ],
+  "seeds": [
+    17,
+    29,
+    42
+  ],
+  "epochs": 8,
+  "shared": {
+    "cap": null,
+    "kernels": [
+      3,
+      4,
+      5
+    ],
+    "dropout": 0.5,
+    "pooling": "max_global",
+    "dilations": [],
+    "weight_decay": 0.01,
+    "embedding_dim": 100,
+    "optimizer": "AdamW",
+    "lr": 0.001,
+    "trainable_embeddings": true
+  },
+  "glove_archive_sha256": "6471382cdd837544bf3ac72497a38715e845897d265b2b424b4761832009c837",
+  "glove_file": "glove.6B.100d.txt",
+  "glove_rows": 19243,
+  "vocabulary_entries": 20000,
+  "selection": "Menor entropia cruzada bruta na validação. Checkpoints congelados antes da calibração e teste.",
+  "sources_sha256": {
+    "seminario/treinar_cnn_embeddings.py": "131e10b1c7b29e70a22ecdc7215edcaa377e897fe25f6c884b7bc97fc57e3293",
+    "seminario/treinar_cnn_comprimento.py": "7545374d6b702458c109790a8cb7b47cb7a6155b320a4764bbbbea29f9792a5f",
+    "src/imdb_lab/models.py": "d3ea24b13bb09b9e3ae5385711852ccdbf3fe9923d54fd655c4cf52b966c8559",
+    "src/imdb_lab/sequences.py": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+    "data/manifest.json": "635f65abc3197e1afa723add073246fcfc51a69d785b04855a57b6e21457b133"
+  },
+  "runtime": {
+    "torch": "2.10.0a0+b4e4ee81d3.nv25.12",
+    "target": "cuda"
+  }
+}

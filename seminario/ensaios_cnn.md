@@ -24,10 +24,15 @@ seleção por F1 de validação e outro ambiente.
 | 768 tokens | 504 (2,02%) | 98,78% | 87,63% | 86,16% | 49,8 s |
 | Texto integral | 0 | 100% | 87,81% | 87,19% | 58,7 s |
 
+![Acurácia da CNN e porcentagem de resenhas cortadas para cada limite.](../results/cnn_length/coverage_accuracy.png)
+
+As faixas do gráfico vão do mínimo ao máximo das três sementes.
+
 O subconjunto longo tem as mesmas 3.118 resenhas nas quatro linhas. Entre
 400 e texto integral, o ganho foi de 0,71 ponto no teste todo e 4,90 nas
 longas. O teto de 768 chega a 98,78% dos tokens, a 0,19 ponto da acurácia
-integral. Os tempos somam as oito épocas e excluem a avaliação. A maior
+integral. As diferenças foram calculadas antes de arredondar. Os tempos
+somam as oito épocas e excluem a avaliação. A maior
 resenha do teste tem 2.247 tokens. A rede aceita comprimentos variáveis e
 o padding segue a maior sequência de cada lote. No treino, 400 recortou
 2.621 resenhas (13,22%). A versão integral requer mais cálculo.
@@ -103,6 +108,32 @@ sintéticos testa a ordem diretamente.
 [Predições](../results/cnn_order_full/predictions.npz) ·
 [Resultados por semente](../results/cnn_order_full/summary.json) ·
 [Protocolo](../results/cnn_order_full/protocol.json).
+
+## Embeddings pré-treinados
+
+Comparamos a mesma TextCNN de máximo global, texto integral e embeddings
+de 100 dimensões em três condições. Na primeira, a tabela começa
+aleatória. Na segunda, usamos os vetores GloVe para as palavras cobertas,
+com as correspondências embaralhadas. Na terceira, cada vetor GloVe vai
+para a palavra certa. Os vetores cobriram 19.243 das 19.998 entradas
+lexicais. As entradas sem vetor mantêm a inicialização aleatória pareada,
+e os embeddings são ajustados durante o treino em todos os casos.
+
+| Inicialização | Teste oficial | F1 macro | CE calibrada | Resenhas acima de 400 tokens |
+|---|---:|---:|---:|---:|
+| Aleatória | 87,49% | 0,8748 | 0,2967 | 85,94% |
+| GloVe embaralhado | 87,63% | 0,8762 | 0,2943 | 85,83% |
+| GloVe | 87,83% | 0,8783 | 0,2899 | 87,77% |
+
+O ganho do GloVe foi de 0,34 ponto sobre a inicialização aleatória e
+0,20 sobre os vetores embaralhados no teste inteiro. A ordem entre as
+condições variou por semente. O pré-treino testado é de vetores estáticos,
+com o mesmo vetor inicial para uma palavra em qualquer contexto. Os
+controles com 100 dimensões são a referência para medir o efeito do GloVe.
+[Vetores publicados por Stanford](https://huggingface.co/stanfordnlp/glove/blob/main/glove.6B.zip) ·
+[Artigo GloVe](https://aclanthology.org/D14-1162/) ·
+[Métricas](../results/cnn_embeddings/summary.json) ·
+[Protocolo](../results/cnn_embeddings/protocol.json).
 
 ## Reproduzir
 

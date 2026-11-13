@@ -1,0 +1,797 @@
+{
+  "records": [
+    {
+      "history": [
+        {
+          "epoch": 1,
+          "train_seconds": 7.032448764890432,
+          "validation": {
+            "ce": 0.48275159478354457,
+            "accuracy": 0.7711864406779662
+          }
+        },
+        {
+          "epoch": 2,
+          "train_seconds": 6.427004779689014,
+          "validation": {
+            "ce": 0.4176952815507556,
+            "accuracy": 0.8002421307506054
+          }
+        },
+        {
+          "epoch": 3,
+          "train_seconds": 6.405540766194463,
+          "validation": {
+            "ce": 0.3771614336171473,
+            "accuracy": 0.8264729620661824
+          }
+        },
+        {
+          "epoch": 4,
+          "train_seconds": 6.358830717392266,
+          "validation": {
+            "ce": 0.31067243201824657,
+            "accuracy": 0.8704600484261501
+          }
+        },
+        {
+          "epoch": 5,
+          "train_seconds": 6.430145018734038,
+          "validation": {
+            "ce": 0.30752252208895975,
+            "accuracy": 0.8716707021791767
+          }
+        },
+        {
+          "epoch": 6,
+          "train_seconds": 6.397066983394325,
+          "validation": {
+            "ce": 0.2879586557790945,
+            "accuracy": 0.8801452784503632
+          }
+        },
+        {
+          "epoch": 7,
+          "train_seconds": 6.419390215538442,
+          "validation": {
+            "ce": 0.29095935159202607,
+            "accuracy": 0.8886198547215496
+          }
+        },
+        {
+          "epoch": 8,
+          "train_seconds": 6.4003601763397455,
+          "validation": {
+            "ce": 0.32281489322919943,
+            "accuracy": 0.8821630347054076
+          }
+        }
+      ],
+      "best_epoch": 6,
+      "validation": {
+        "ce": 0.2879586557790945,
+        "accuracy": 0.8801452784503632
+      },
+      "train": {
+        "ce": 0.13643602000783217,
+        "accuracy": 0.9598446249306362
+      },
+      "batch_order_sha256": "5eebd090a2eb1abd5ad5e3712642737abd24231d2ce7073e9a5049da71706d05",
+      "parameters": 2120902,
+      "peak_cuda_bytes": 727367168,
+      "recipe": "aleatorio",
+      "seed": 17,
+      "run": "aleatorio__s17",
+      "initial": {
+        "convs": "5424d9a834a198cf5686cbb6321b3b18dd1d93ab31a15cc7def2407aa8ae2496",
+        "classifier": "c8ef72a147584b99e86a90c7c34174c20800f1dc67d25d3138df842081b00d5a"
+      },
+      "checkpoint_sha256": "264599c3d1074772d1480a680a2b30bdd3bb310b22da51531f67b668c6bbf4c5"
+    },
+    {
+      "history": [
+        {
+          "epoch": 1,
+          "train_seconds": 6.338370976038277,
+          "validation": {
+            "ce": 0.4883036057289837,
+            "accuracy": 0.7828894269572235
+          }
+        },
+        {
+          "epoch": 2,
+          "train_seconds": 6.421700995415449,
+          "validation": {
+            "ce": 0.36378424250120134,
+            "accuracy": 0.8357546408393866
+          }
+        },
+        {
+          "epoch": 3,
+          "train_seconds": 6.393234015442431,
+          "validation": {
+            "ce": 0.30850874025244246,
+            "accuracy": 0.8599677158999193
+          }
+        },
+        {
+          "epoch": 4,
+          "train_seconds": 6.372923415154219,
+          "validation": {
+            "ce": 0.29472564918661537,
+            "accuracy": 0.8769168684422922
+          }
+        },
+        {
+          "epoch": 5,
+          "train_seconds": 6.4259482976049185,
+          "validation": {
+            "ce": 0.282439250290654,
+            "accuracy": 0.8845843422114609
+          }
+        },
+        {
+          "epoch": 6,
+          "train_seconds": 6.405260623432696,
+          "validation": {
+            "ce": 0.3043775151598327,
+            "accuracy": 0.8825665859564165
+          }
+        },
+        {
+          "epoch": 7,
+          "train_seconds": 6.413839635439217,
+          "validation": {
+            "ce": 0.33668886210649196,
+            "accuracy": 0.8861985472154964
+          }
+        },
+        {
+          "epoch": 8,
+          "train_seconds": 6.411113633774221,
+          "validation": {
+            "ce": 0.39346578963299805,
+            "accuracy": 0.8837772397094431
+          }
+        }
+      ],
+      "best_epoch": 5,
+      "validation": {
+        "ce": 0.282439250290654,
+        "accuracy": 0.8845843422114609
+      },
+      "train": {
+        "ce": 0.05816941394453042,
+        "accuracy": 0.9879432981889724
+      },
+      "batch_order_sha256": "5eebd090a2eb1abd5ad5e3712642737abd24231d2ce7073e9a5049da71706d05",
+      "parameters": 2120902,
+      "peak_cuda_bytes": 727367168,
+      "recipe": "glove_embaralhado",
+      "seed": 17,
+      "run": "glove_embaralhado__s17",
+      "initial": {
+        "convs": "5424d9a834a198cf5686cbb6321b3b18dd1d93ab31a15cc7def2407aa8ae2496",
+        "classifier": "c8ef72a147584b99e86a90c7c34174c20800f1dc67d25d3138df842081b00d5a"
+      },
+      "checkpoint_sha256": "42294fbc6dd383afd9c921d1e8e68a0d8609b2fa50cea5c7af72fa3ca16d1dbf"
+    },
+    {
+      "history": [
+        {
+          "epoch": 1,
+          "train_seconds": 6.346205112524331,
+          "validation": {
+            "ce": 0.3417762254232017,
+            "accuracy": 0.8587570621468926
+          }
+        },
+        {
+          "epoch": 2,
+          "train_seconds": 6.412214037030935,
+          "validation": {
+            "ce": 0.29920162117126425,
+            "accuracy": 0.87409200968523
+          }
+        },
+        {
+          "epoch": 3,
+          "train_seconds": 6.4021094692870975,
+          "validation": {
+            "ce": 0.297687263146344,
+            "accuracy": 0.8785310734463276
+          }
+        },
+        {
+          "epoch": 4,
+          "train_seconds": 6.362738456577063,
+          "validation": {
+            "ce": 0.29823465734964966,
+            "accuracy": 0.8853914447134786
+          }
+        },
+        {
+          "epoch": 5,
+          "train_seconds": 6.4575188010931015,
+          "validation": {
+            "ce": 0.3430845998981711,
+            "accuracy": 0.8849878934624698
+          }
+        },
+        {
+          "epoch": 6,
+          "train_seconds": 6.38011731300503,
+          "validation": {
+            "ce": 0.3654195291996999,
+            "accuracy": 0.8894269572235673
+          }
+        },
+        {
+          "epoch": 7,
+          "train_seconds": 6.404784393496811,
+          "validation": {
+            "ce": 0.41707321373771034,
+            "accuracy": 0.8801452784503632
+          }
+        },
+        {
+          "epoch": 8,
+          "train_seconds": 6.415658405981958,
+          "validation": {
+            "ce": 0.4275150146537057,
+            "accuracy": 0.8878127522195319
+          }
+        }
+      ],
+      "best_epoch": 3,
+      "validation": {
+        "ce": 0.297687263146344,
+        "accuracy": 0.8785310734463276
+      },
+      "train": {
+        "ce": 0.13690040378513396,
+        "accuracy": 0.9550522120768804
+      },
+      "batch_order_sha256": "5eebd090a2eb1abd5ad5e3712642737abd24231d2ce7073e9a5049da71706d05",
+      "parameters": 2120902,
+      "peak_cuda_bytes": 727367168,
+      "recipe": "glove",
+      "seed": 17,
+      "run": "glove__s17",
+      "initial": {
+        "convs": "5424d9a834a198cf5686cbb6321b3b18dd1d93ab31a15cc7def2407aa8ae2496",
+        "classifier": "c8ef72a147584b99e86a90c7c34174c20800f1dc67d25d3138df842081b00d5a"
+      },
+      "checkpoint_sha256": "829232a3a319c972c1f7dd3d469299b6ba7232f64b7de847eb0578d68b001df5"
+    },
+    {
+      "history": [
+        {
+          "epoch": 1,
+          "train_seconds": 6.384052696637809,
+          "validation": {
+            "ce": 0.4685032779345713,
+            "accuracy": 0.7986279257465698
+          }
+        },
+        {
+          "epoch": 2,
+          "train_seconds": 6.454541811719537,
+          "validation": {
+            "ce": 0.39331360914462254,
+            "accuracy": 0.8297013720742534
+          }
+        },
+        {
+          "epoch": 3,
+          "train_seconds": 6.3428271589800715,
+          "validation": {
+            "ce": 0.33704175851766854,
+            "accuracy": 0.8627925746569814
+          }
+        },
+        {
+          "epoch": 4,
+          "train_seconds": 6.401795452460647,
+          "validation": {
+            "ce": 0.30275446619126634,
+            "accuracy": 0.8785310734463276
+          }
+        },
+        {
+          "epoch": 5,
+          "train_seconds": 6.382631034590304,
+          "validation": {
+            "ce": 0.29006071289054774,
+            "accuracy": 0.8781275221953188
+          }
+        },
+        {
+          "epoch": 6,
+          "train_seconds": 6.385301195085049,
+          "validation": {
+            "ce": 0.2781080594717605,
+            "accuracy": 0.8878127522195319
+          }
+        },
+        {
+          "epoch": 7,
+          "train_seconds": 6.39619189593941,
+          "validation": {
+            "ce": 0.2786286654396617,
+            "accuracy": 0.8898305084745762
+          }
+        },
+        {
+          "epoch": 8,
+          "train_seconds": 6.380511024035513,
+          "validation": {
+            "ce": 0.3240360550525783,
+            "accuracy": 0.8744955609362389
+          }
+        }
+      ],
+      "best_epoch": 6,
+      "validation": {
+        "ce": 0.2781080594717605,
+        "accuracy": 0.8878127522195319
+      },
+      "train": {
+        "ce": 0.12479927583359948,
+        "accuracy": 0.961912929425415
+      },
+      "batch_order_sha256": "86f0b185ffc6801c44f41ee2a4c4f5ec521700b32c4a4a13b68c8d0710431460",
+      "parameters": 2120902,
+      "peak_cuda_bytes": 727367168,
+      "recipe": "aleatorio",
+      "seed": 29,
+      "run": "aleatorio__s29",
+      "initial": {
+        "convs": "3852601d1c047f114a1e1db9c485773864e6670e43638d153a31434a7a615428",
+        "classifier": "8c11eb448ca6f0c587a39ccc2345da5f9d7d2be92b9f6c4fb9fcc61b1b67bd33"
+      },
+      "checkpoint_sha256": "63eaad01818b59f5f98cfa41f5ee996989ce3b407c7064ffc845a6f9100de81f"
+    },
+    {
+      "history": [
+        {
+          "epoch": 1,
+          "train_seconds": 6.411772954277694,
+          "validation": {
+            "ce": 0.4784793330612258,
+            "accuracy": 0.7897497982243745
+          }
+        },
+        {
+          "epoch": 2,
+          "train_seconds": 6.4568921169266105,
+          "validation": {
+            "ce": 0.3489117231904123,
+            "accuracy": 0.854317998385795
+          }
+        },
+        {
+          "epoch": 3,
+          "train_seconds": 6.343440275639296,
+          "validation": {
+            "ce": 0.29613244170361425,
+            "accuracy": 0.8728813559322034
+          }
+        },
+        {
+          "epoch": 4,
+          "train_seconds": 6.382939549162984,
+          "validation": {
+            "ce": 0.27142966249963185,
+            "accuracy": 0.8845843422114609
+          }
+        },
+        {
+          "epoch": 5,
+          "train_seconds": 6.3349719643592834,
+          "validation": {
+            "ce": 0.2741697277701208,
+            "accuracy": 0.8930589184826473
+          }
+        },
+        {
+          "epoch": 6,
+          "train_seconds": 6.316730011254549,
+          "validation": {
+            "ce": 0.3096160922509706,
+            "accuracy": 0.8882163034705408
+          }
+        },
+        {
+          "epoch": 7,
+          "train_seconds": 6.316877160221338,
+          "validation": {
+            "ce": 0.3228464673773564,
+            "accuracy": 0.8890234059725585
+          }
+        },
+        {
+          "epoch": 8,
+          "train_seconds": 6.308152710087597,
+          "validation": {
+            "ce": 0.37065865855899516,
+            "accuracy": 0.887409200968523
+          }
+        }
+      ],
+      "best_epoch": 4,
+      "validation": {
+        "ce": 0.27142966249963185,
+        "accuracy": 0.8845843422114609
+      },
+      "train": {
+        "ce": 0.12033683749568827,
+        "accuracy": 0.964082126822378
+      },
+      "batch_order_sha256": "86f0b185ffc6801c44f41ee2a4c4f5ec521700b32c4a4a13b68c8d0710431460",
+      "parameters": 2120902,
+      "peak_cuda_bytes": 727367168,
+      "recipe": "glove_embaralhado",
+      "seed": 29,
+      "run": "glove_embaralhado__s29",
+      "initial": {
+        "convs": "3852601d1c047f114a1e1db9c485773864e6670e43638d153a31434a7a615428",
+        "classifier": "8c11eb448ca6f0c587a39ccc2345da5f9d7d2be92b9f6c4fb9fcc61b1b67bd33"
+      },
+      "checkpoint_sha256": "41c5914b1c6563f8744310f1b09a80ec01109fd3921bbbf727f5fe89a407a0f8"
+    },
+    {
+      "history": [
+        {
+          "epoch": 1,
+          "train_seconds": 6.333829393610358,
+          "validation": {
+            "ce": 0.34481314780573574,
+            "accuracy": 0.8518966908797417
+          }
+        },
+        {
+          "epoch": 2,
+          "train_seconds": 6.387673816643655,
+          "validation": {
+            "ce": 0.29671031142238385,
+            "accuracy": 0.8753026634382567
+          }
+        },
+        {
+          "epoch": 3,
+          "train_seconds": 6.284451769664884,
+          "validation": {
+            "ce": 0.28530629473718716,
+            "accuracy": 0.8849878934624698
+          }
+        },
+        {
+          "epoch": 4,
+          "train_seconds": 6.34219651017338,
+          "validation": {
+            "ce": 0.30971092947460716,
+            "accuracy": 0.8890234059725585
+          }
+        },
+        {
+          "epoch": 5,
+          "train_seconds": 6.389436608180404,
+          "validation": {
+            "ce": 0.3205659334531224,
+            "accuracy": 0.8870056497175142
+          }
+        },
+        {
+          "epoch": 6,
+          "train_seconds": 6.391510768793523,
+          "validation": {
+            "ce": 0.3718587643019698,
+            "accuracy": 0.8886198547215496
+          }
+        },
+        {
+          "epoch": 7,
+          "train_seconds": 6.361810186877847,
+          "validation": {
+            "ce": 0.4046418877972766,
+            "accuracy": 0.8825665859564165
+          }
+        },
+        {
+          "epoch": 8,
+          "train_seconds": 6.379291200079024,
+          "validation": {
+            "ce": 0.4393226132861256,
+            "accuracy": 0.8857949959644875
+          }
+        }
+      ],
+      "best_epoch": 3,
+      "validation": {
+        "ce": 0.28530629473718716,
+        "accuracy": 0.8849878934624698
+      },
+      "train": {
+        "ce": 0.1279941036979224,
+        "accuracy": 0.9602986429904656
+      },
+      "batch_order_sha256": "86f0b185ffc6801c44f41ee2a4c4f5ec521700b32c4a4a13b68c8d0710431460",
+      "parameters": 2120902,
+      "peak_cuda_bytes": 727367168,
+      "recipe": "glove",
+      "seed": 29,
+      "run": "glove__s29",
+      "initial": {
+        "convs": "3852601d1c047f114a1e1db9c485773864e6670e43638d153a31434a7a615428",
+        "classifier": "8c11eb448ca6f0c587a39ccc2345da5f9d7d2be92b9f6c4fb9fcc61b1b67bd33"
+      },
+      "checkpoint_sha256": "9aaf75c4556e485dd8512768d4e4820dc0c4e1f52771d61101ed6589f745bb91"
+    },
+    {
+      "history": [
+        {
+          "epoch": 1,
+          "train_seconds": 6.399186345748603,
+          "validation": {
+            "ce": 0.47884073953019524,
+            "accuracy": 0.7877320419693301
+          }
+        },
+        {
+          "epoch": 2,
+          "train_seconds": 6.374058964662254,
+          "validation": {
+            "ce": 0.39050427022993417,
+            "accuracy": 0.8329297820823245
+          }
+        },
+        {
+          "epoch": 3,
+          "train_seconds": 6.348458623513579,
+          "validation": {
+            "ce": 0.3360530369919654,
+            "accuracy": 0.8603712671509282
+          }
+        },
+        {
+          "epoch": 4,
+          "train_seconds": 6.3661103043705225,
+          "validation": {
+            "ce": 0.30709827535197615,
+            "accuracy": 0.8757062146892656
+          }
+        },
+        {
+          "epoch": 5,
+          "train_seconds": 6.374447799287736,
+          "validation": {
+            "ce": 0.28969887610234957,
+            "accuracy": 0.8700564971751412
+          }
+        },
+        {
+          "epoch": 6,
+          "train_seconds": 6.398247582837939,
+          "validation": {
+            "ce": 0.2644551944185455,
+            "accuracy": 0.8902340597255851
+          }
+        },
+        {
+          "epoch": 7,
+          "train_seconds": 6.365066047757864,
+          "validation": {
+            "ce": 0.2945541445835505,
+            "accuracy": 0.8781275221953188
+          }
+        },
+        {
+          "epoch": 8,
+          "train_seconds": 6.409932587295771,
+          "validation": {
+            "ce": 0.2835355572789418,
+            "accuracy": 0.8898305084745762
+          }
+        }
+      ],
+      "best_epoch": 6,
+      "validation": {
+        "ce": 0.2644551944185455,
+        "accuracy": 0.8902340597255851
+      },
+      "train": {
+        "ce": 0.12653395314485305,
+        "accuracy": 0.9623165010341522
+      },
+      "batch_order_sha256": "cb0bef9f8548b46129f0e4940a1a6175bafa0fb373ab577d195d6cccc9c7f7ff",
+      "parameters": 2120902,
+      "peak_cuda_bytes": 727367168,
+      "recipe": "aleatorio",
+      "seed": 42,
+      "run": "aleatorio__s42",
+      "initial": {
+        "convs": "27d00c7684a45e4e117f9e57900c1a0150e37f9edd9253aced00cf189ff7c5ed",
+        "classifier": "602cd1eabf95799c4e59122626456308d5d4f84c6deeab96e7dc31b8385eb2d5"
+      },
+      "checkpoint_sha256": "31ee14d8f423c2fb322e8c504248f440c3913f47524572ad885545fde17f729c"
+    },
+    {
+      "history": [
+        {
+          "epoch": 1,
+          "train_seconds": 6.408899826928973,
+          "validation": {
+            "ce": 0.4835415293327323,
+            "accuracy": 0.79136400322841
+          }
+        },
+        {
+          "epoch": 2,
+          "train_seconds": 6.363871581852436,
+          "validation": {
+            "ce": 0.34703169184431226,
+            "accuracy": 0.8539144471347861
+          }
+        },
+        {
+          "epoch": 3,
+          "train_seconds": 6.368951883167028,
+          "validation": {
+            "ce": 0.27969794869924414,
+            "accuracy": 0.8821630347054076
+          }
+        },
+        {
+          "epoch": 4,
+          "train_seconds": 6.376574173569679,
+          "validation": {
+            "ce": 0.27194757506711187,
+            "accuracy": 0.8918482647296206
+          }
+        },
+        {
+          "epoch": 5,
+          "train_seconds": 6.369814917445183,
+          "validation": {
+            "ce": 0.2691559715185929,
+            "accuracy": 0.893866020984665
+          }
+        },
+        {
+          "epoch": 6,
+          "train_seconds": 6.389445325359702,
+          "validation": {
+            "ce": 0.30777794783361756,
+            "accuracy": 0.8878127522195319
+          }
+        },
+        {
+          "epoch": 7,
+          "train_seconds": 6.350182029418647,
+          "validation": {
+            "ce": 0.3179081727697494,
+            "accuracy": 0.8950766747376917
+          }
+        },
+        {
+          "epoch": 8,
+          "train_seconds": 6.405744729563594,
+          "validation": {
+            "ce": 0.35112788949582824,
+            "accuracy": 0.8962873284907183
+          }
+        }
+      ],
+      "best_epoch": 5,
+      "validation": {
+        "ce": 0.2691559715185929,
+        "accuracy": 0.893866020984665
+      },
+      "train": {
+        "ce": 0.056852417532233065,
+        "accuracy": 0.9874388336780507
+      },
+      "batch_order_sha256": "cb0bef9f8548b46129f0e4940a1a6175bafa0fb373ab577d195d6cccc9c7f7ff",
+      "parameters": 2120902,
+      "peak_cuda_bytes": 727367168,
+      "recipe": "glove_embaralhado",
+      "seed": 42,
+      "run": "glove_embaralhado__s42",
+      "initial": {
+        "convs": "27d00c7684a45e4e117f9e57900c1a0150e37f9edd9253aced00cf189ff7c5ed",
+        "classifier": "602cd1eabf95799c4e59122626456308d5d4f84c6deeab96e7dc31b8385eb2d5"
+      },
+      "checkpoint_sha256": "6a730f76466ceb8616b5dac6dad2c64959cc0ebc930dab5f32e487b7a22d4ecb"
+    },
+    {
+      "history": [
+        {
+          "epoch": 1,
+          "train_seconds": 6.383015005849302,
+          "validation": {
+            "ce": 0.3385820134440098,
+            "accuracy": 0.8518966908797417
+          }
+        },
+        {
+          "epoch": 2,
+          "train_seconds": 6.358685788698494,
+          "validation": {
+            "ce": 0.3005846298375526,
+            "accuracy": 0.87409200968523
+          }
+        },
+        {
+          "epoch": 3,
+          "train_seconds": 6.344164362177253,
+          "validation": {
+            "ce": 0.2855239010241146,
+            "accuracy": 0.8829701372074253
+          }
+        },
+        {
+          "epoch": 4,
+          "train_seconds": 6.3706168085336685,
+          "validation": {
+            "ce": 0.30113617843053647,
+            "accuracy": 0.8797417271993543
+          }
+        },
+        {
+          "epoch": 5,
+          "train_seconds": 6.374500402249396,
+          "validation": {
+            "ce": 0.35413376790821743,
+            "accuracy": 0.8785310734463276
+          }
+        },
+        {
+          "epoch": 6,
+          "train_seconds": 6.381384067237377,
+          "validation": {
+            "ce": 0.36022914874162526,
+            "accuracy": 0.8781275221953188
+          }
+        },
+        {
+          "epoch": 7,
+          "train_seconds": 6.3709527514874935,
+          "validation": {
+            "ce": 0.39172397275310855,
+            "accuracy": 0.8857949959644875
+          }
+        },
+        {
+          "epoch": 8,
+          "train_seconds": 6.407088573090732,
+          "validation": {
+            "ce": 0.4459086950483968,
+            "accuracy": 0.8785310734463276
+          }
+        }
+      ],
+      "best_epoch": 3,
+      "validation": {
+        "ce": 0.2855239010241146,
+        "accuracy": 0.8829701372074253
+      },
+      "train": {
+        "ce": 0.12877685301409356,
+        "accuracy": 0.9609544468546638
+      },
+      "batch_order_sha256": "cb0bef9f8548b46129f0e4940a1a6175bafa0fb373ab577d195d6cccc9c7f7ff",
+      "parameters": 2120902,
+      "peak_cuda_bytes": 727367168,
+      "recipe": "glove",
+      "seed": 42,
+      "run": "glove__s42",
+      "initial": {
+        "convs": "27d00c7684a45e4e117f9e57900c1a0150e37f9edd9253aced00cf189ff7c5ed",
+        "classifier": "602cd1eabf95799c4e59122626456308d5d4f84c6deeab96e7dc31b8385eb2d5"
+      },
+      "checkpoint_sha256": "5fd9d6b33bcbf99c3935248db4340cc20e04febd004abb7bc0f672af7abc8382"
+    }
+  ],
+  "protocol_sha256": "5bfc14ce70d97066649cfc96cc1d96d970636869345cb22c89df63431c1514c5"
+}
