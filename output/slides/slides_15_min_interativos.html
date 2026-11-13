@@ -686,6 +686,7 @@ p, h1 { margin: 0; }
 .position-rates span, .position-test > p:last-child { color: var(--quiet); font-size: .78em; }
 .position-slide .lab-source { border-top: 1px solid var(--rule); padding-top: .4em; }
 
+.tfidf-name { white-space: nowrap; }
 .tfidf-tabs { align-self: flex-start; font-size: .85em; }
 .tfidf-body { flex: 1; display: grid; align-items: center; }
 .tfidf-panel { display: grid; grid-template-columns: minmax(0, 1.37fr) minmax(0, 1fr); gap: 1.6em; align-items: center; }
@@ -1361,7 +1362,7 @@ p, h1 { margin: 0; }
     <article id="tfidf" class="lab readable tfidf-slide" hidden aria-labelledby="tfidf-title">
       <header class="lab-heading">
         <p class="eyebrow">02 · Treino e avaliação</p>
-        <h1 id="tfidf-title">Da resenha à previsão com TF-IDF</h1>
+        <h1 id="tfidf-title">Da resenha à previsão com <span class="tfidf-name">TF-IDF</span></h1>
       </header>
       <div class="cnn-view tfidf-tabs" role="group" aria-label="Etapas do baseline">
         <button type="button" data-tfidf-step="0" aria-pressed="true" aria-controls="tfidf-terms">1. Contar</button>
@@ -1928,17 +1929,18 @@ tfidfOrders.forEach((button) => {
 });
 
 byId("tfidf-quote").textContent = "“" + tfidf.quote + "”";
+const tfidfNumber = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 3, maximumFractionDigits: 3 });
 for (const { termo, contribuicao } of tfidf.contributions) {
   const row = document.createElement("div");
   const term = document.createElement("dt");
   term.textContent = termo;
   const value = document.createElement("dd");
-  value.textContent = (contribuicao > 0 ? "+" : "") + number.format(contribuicao);
+  value.textContent = (contribuicao > 0 ? "+" : "") + tfidfNumber.format(contribuicao);
   value.className = contribuicao < 0 ? "tfidf-negative" : "tfidf-positive";
   row.append(term, value);
   byId("tfidf-sum").append(row);
 }
-byId("tfidf-logit").textContent = number.format(tfidf.logit);
+byId("tfidf-logit").textContent = tfidfNumber.format(tfidf.logit);
 byId("tfidf-positive").textContent = percent.format(tfidf.positive);
 
 const tfidfStages = [...document.querySelectorAll("[data-tfidf-step]")];

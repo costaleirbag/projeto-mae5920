@@ -478,17 +478,18 @@ tfidfOrders.forEach((button) => {
 });
 
 byId("tfidf-quote").textContent = "“" + tfidf.quote + "”";
+const tfidfNumber = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 3, maximumFractionDigits: 3 });
 for (const { termo, contribuicao } of tfidf.contributions) {
   const row = document.createElement("div");
   const term = document.createElement("dt");
   term.textContent = termo;
   const value = document.createElement("dd");
-  value.textContent = (contribuicao > 0 ? "+" : "") + number.format(contribuicao);
+  value.textContent = (contribuicao > 0 ? "+" : "") + tfidfNumber.format(contribuicao);
   value.className = contribuicao < 0 ? "tfidf-negative" : "tfidf-positive";
   row.append(term, value);
   byId("tfidf-sum").append(row);
 }
-byId("tfidf-logit").textContent = number.format(tfidf.logit);
+byId("tfidf-logit").textContent = tfidfNumber.format(tfidf.logit);
 byId("tfidf-positive").textContent = percent.format(tfidf.positive);
 
 const tfidfStages = [...document.querySelectorAll("[data-tfidf-step]")];

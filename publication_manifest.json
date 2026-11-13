@@ -304,16 +304,16 @@
       "sha256": "eae66a249ebb0cfdbf4952c86b6a1deec9a95a80043ad63d2cebf7f8fb79a927"
     },
     "output/pdf/slides_15_min.pdf": {
-      "bytes": 462262,
-      "sha256": "342f18e8b32607de97f46063e7227edee1e4ae3a7a9ddd7f5330bd1edbebdb92"
+      "bytes": 462239,
+      "sha256": "5a0ee16f8a19a01a915fb0f37557ad0b63be8cd2ee050c260d45f82bf04983a5"
     },
     "output/slides/seminario_mae5920.pptx": {
       "bytes": 139325,
       "sha256": "c5eeff28fa6d0df9b53187f2465ac9c970885cf2660d54be9ff414d6e9e9006f"
     },
     "output/slides/slides_15_min_interativos.html": {
-      "bytes": 1758887,
-      "sha256": "aa3650971a80b7f1304f9c96762240a866a012f2ab262e09189e320fb4cd9f33"
+      "bytes": 1759074,
+      "sha256": "5b1d150634d878ff7671272e0ac6aae8abb7dd86259248eeba2d6fdff2e7e69b"
     },
     "plot_qwen_improve.py": {
       "bytes": 2970,
@@ -3308,16 +3308,16 @@
       "sha256": "4b6ff1a92eb1ab912f5ae25e6306460706ee1d74e3c1f95eac58109213afae1b"
     },
     "seminario/apresentacao.css": {
-      "bytes": 30387,
-      "sha256": "0fb1c0d69de4b9fc7fff6d4253c5046e03a01de0db6eff97023c21f3de78009b"
+      "bytes": 30424,
+      "sha256": "a1300679a523c247883bffc42964087bb18ac9bfd559e6139ca122d5ba03da34"
     },
     "seminario/apresentacao.html": {
-      "bytes": 30870,
-      "sha256": "88fcd46369985d13bfed3877038e5f2949c343941933956d752bfaab16110d9e"
+      "bytes": 30902,
+      "sha256": "1f2ada8de842f8070892c694350d8481e6af264179daa2b12e3d44fbe8d08310"
     },
     "seminario/apresentacao.js": {
-      "bytes": 27803,
-      "sha256": "26d5fee669552dd9b736ac4b5f0c59a7f6cb6c6465577094959648bb6a9b7e8a"
+      "bytes": 27921,
+      "sha256": "af5c854c93d94d6e1db5e05df44303cae74db5b504a96a31cfa1cd06680cf481"
     },
     "seminario/arquitetura.tex": {
       "bytes": 1166,
@@ -3564,8 +3564,8 @@
       "sha256": "918dcd92d587a0e40277e40c7d4dce7f16c95716b3bcedd2a944b0d60fa5a250"
     },
     "seminario/slides.tex": {
-      "bytes": 25915,
-      "sha256": "814fc814dc0ae1ebec98f7378b97a65bf9f333491bcf1881ba0f071aa3ddf382"
+      "bytes": 25917,
+      "sha256": "ecb4851fd74036a00b419d710570333f359ffa179533412a0f1455263fcd6fbd"
     },
     "seminario/treinar_cnn_comprimento.py": {
       "bytes": 18397,

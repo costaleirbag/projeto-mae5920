@@ -681,6 +681,7 @@ p, h1 { margin: 0; }
 .position-rates span, .position-test > p:last-child { color: var(--quiet); font-size: .78em; }
 .position-slide .lab-source { border-top: 1px solid var(--rule); padding-top: .4em; }
 
+.tfidf-name { white-space: nowrap; }
 .tfidf-tabs { align-self: flex-start; font-size: .85em; }
 .tfidf-body { flex: 1; display: grid; align-items: center; }
 .tfidf-panel { display: grid; grid-template-columns: minmax(0, 1.37fr) minmax(0, 1fr); gap: 1.6em; align-items: center; }
