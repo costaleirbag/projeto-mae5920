@@ -1,5 +1,10 @@
 # Novos ensaios da TextCNN
 
+São 69 treinos em quatro ensaios para discutir comprimento, arquitetura,
+representação e robustez à ordem. A melhor média no teste oficial foi
+88,18\%, com texto integral, máximo e média. Nos pares humanos, a melhor
+variante do ensaio de pooling foi a CNN com texto integral e máximo global.
+
 ## O efeito de treinar com mais texto
 
 Na receita original, os 400 tokens foram um teto de custo. A primeira
@@ -128,14 +133,43 @@ e os embeddings são ajustados durante o treino em todos os casos.
 | GloVe | 87,83% | 0,8783 | 0,2899 | 87,77% |
 
 O ganho do GloVe foi de 0,34 ponto sobre a inicialização aleatória e
-0,20 sobre os vetores embaralhados no teste inteiro. A ordem entre as
-condições variou por semente. O pré-treino testado é de vetores estáticos,
+0,20 sobre os vetores embaralhados no teste inteiro. O GloVe superou a
+inicialização aleatória nas três sementes, e o embaralhado o superou em
+uma. O pré-treino testado é de vetores estáticos,
 com o mesmo vetor inicial para uma palavra em qualquer contexto. Os
 controles com 100 dimensões são a referência para medir o efeito do GloVe.
 [Vetores publicados por Stanford](https://huggingface.co/stanfordnlp/glove/blob/main/glove.6B.zip) ·
 [Artigo GloVe](https://aclanthology.org/D14-1162/) ·
 [Métricas](../results/cnn_embeddings/summary.json) ·
 [Protocolo](../results/cnn_embeddings/protocol.json).
+
+## Treino com exemplos contrastivos
+
+A CNN pode aprender a seguir o veredito quando recebe exemplos em que a
+ordem faz diferença? Acrescentamos 768 frases sintéticas em 384 pares
+balanceados a 6.144 resenhas de treino. Em cada par, dois adjetivos
+trocam de lugar e o rótulo segue a oração que contém o veredito. Usamos
+seis moldes e 16 adjetivos diferentes dos da avaliação sintética. No
+controle, repetimos 768 resenhas do próprio treino, com as mesmas
+contagens de classe, número de passos e ordem dos índices. O vocabulário
+permanece o da divisão interna. A validação de resenhas comuns escolhe a
+época antes da avaliação. Cada linha é a média de três sementes.
+
+| Arquitetura e treino | Auditoria comum | Pares humanos | Veredito no fim | Veredito no início |
+|---|---:|---:|---:|---:|
+| Máximo global, repetição | 84,07% | 43,80% | 0,52% | 67,19% |
+| Máximo global, contrastes | 83,87% | 43,22% | 0,78% | 54,95% |
+| CNN dilatada, repetição | 84,20% | 41,86% | 5,47% | 30,21% |
+| CNN dilatada, contrastes | 83,79% | 41,28% | 1,30% | 32,29% |
+
+Com o máximo global, a variação no veredito no fim equivale a um par
+correto a mais somando as três sementes. Nos pares humanos, as duas
+arquiteturas perderam 0,58 ponto na média. O ensaio mede transferência
+destes exemplos para outros moldes e para edições humanas. As frases
+sintéticas e as resenhas repetidas diferem em comprimento e estilo.
+[Protocolo e moldes](../results/cnn_order_training/protocol.json) ·
+[Resultados por semente](../results/cnn_order_training/summary.json) ·
+[Margens](../results/cnn_order_training/predictions.npz).
 
 ## Reproduzir
 
@@ -149,4 +183,6 @@ python seminario/treinar_cnn_comprimento.py train --data data --output tmp/cnn_l
 python seminario/treinar_cnn_comprimento.py audit --data data --output tmp/cnn_length --contrast-dir /caminho/contrast
 python seminario/treinar_cnn_pares.py --data data --output tmp/cnn_pairs --contrast-dir /caminho/contrast
 python seminario/treinar_cnn_embeddings.py --data data --output tmp/cnn_embeddings --glove /caminho/glove.6B.zip
+python seminario/treinar_cnn_ordem_supervisionada.py --data data --output tmp/cnn_order --contrast-dir /caminho/contrast
+python seminario/plotar_ensaios_cnn.py
 ~~~

@@ -6,6 +6,7 @@ Nestor · Letícia · Gabriel
 
 - **[Ler o relatório do seminário (PDF)](output/pdf/relatorio_seminario.pdf)** · 8 páginas sobre a TextCNN e os testes no IMDb.
 - **[Abrir os slides interativos no navegador](https://costaleirbag.github.io/projeto-mae5920/)** · Apresentação de 15 minutos. [Slides em PDF](output/pdf/slides_15_min.pdf) · [Roteiro](seminario/roteiro.md).
+- [Revisão metodológica do grupo](seminario/revisao_metodologica.md) · [Novos ensaios da TextCNN](seminario/ensaios_cnn.md).
 
 <p align="center">
   <img src="docs/assets/capa.svg" alt="IMDb: CNN, BERT, DistilBERT, ModernBERT e intervenção nas ativações do Qwen3-8B" width="100%">

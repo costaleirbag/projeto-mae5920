@@ -28,8 +28,8 @@
       "sha256": "ff9317956cf2df02f12597d46be88db48d5502e360bf9e2c6ae1e532c38c364e"
     },
     "README.md": {
-      "bytes": 11150,
-      "sha256": "31bb589e47a7f568b25d89e2f7592dd7b0a5b37e3dc833bcf99fde342321f693"
+      "bytes": 11278,
+      "sha256": "69b41895e03e8b304845dc028c833c3414f1c3da35df585b00fed5b8a6a1f703"
     },
     "analyze_qwen_improve.py": {
       "bytes": 8833,
@@ -606,6 +606,22 @@
     "results/cnn_order_full/summary.json": {
       "bytes": 4516,
       "sha256": "cae1378d31ad9d2cda834d9a4a4d2835146c7dee2a91ab4433dc7477fe9c1b72"
+    },
+    "results/cnn_order_training/predictions.npz": {
+      "bytes": 164048,
+      "sha256": "2fc389d5ad233580bfbb0750ed8df177e016a2d0c8433e20a721501fbc6f1128"
+    },
+    "results/cnn_order_training/protocol.json": {
+      "bytes": 2988,
+      "sha256": "e8c814438feaf6c79e6951b2f317053736c73f0a8aca6a3ea58a3cd9ee0f4645"
+    },
+    "results/cnn_order_training/selection.json": {
+      "bytes": 28859,
+      "sha256": "da62098bbf7526125b420c55ff3e9da5e7ced2eec82187f2adbce2f69682a757"
+    },
+    "results/cnn_order_training/summary.json": {
+      "bytes": 4127,
+      "sha256": "77b968709a8e84422726231e912983554519c569aa1a10339cc0e900b0686da5"
     },
     "results/comparison.csv": {
       "bytes": 4755,
@@ -3400,8 +3416,8 @@
       "sha256": "36538ae18c5b21ca0544b02726b7b674c9fb71c70c6a9ba920c69dc8caf1dfef"
     },
     "seminario/ensaios_cnn.md": {
-      "bytes": 8721,
-      "sha256": "43d60bd6bb3e5ac7a4515b7acc9999a5e1433b20b26c7120d8b1a5d6c91a7214"
+      "bytes": 10862,
+      "sha256": "9b233d9cde8edf0c8ff9ff2f4ab79b0d68e0de0caeb1d4857b9e305ad11fa58c"
     },
     "seminario/figuras/bpe_pareado.pdf": {
       "bytes": 16473,
