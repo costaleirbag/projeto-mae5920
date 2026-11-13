@@ -156,6 +156,10 @@ conservou 51,24% dos tokens na contagem por palavras.
 [Efeito do recorte original](diagnosticos.md#efeito-do-recorte-no-teste-oficial) ·
 [Cobertura interna](pooling_ordem.md#cobertura-do-recorte-e-embeddings).
 
+Os [novos ensaios da TextCNN](ensaios_cnn.md) comparam treinar de ponta a
+ponta com tetos de 256, 400 e 768 tokens e com o texto inteiro. Os
+resultados também separam escolhas de pooling, largura e regularização.
+
 ### Reproduzir o controle de TF-IDF
 
 Com as quatro divisões preparadas do [protocolo de reprodução](../docs/REPRODUCAO.md),

@@ -1,0 +1,90 @@
+{
+  "recipes": {
+    "max_128_palavras": {
+      "cap": 400,
+      "kernels": [
+        3,
+        4,
+        5
+      ],
+      "dropout": 0.5,
+      "pooling": "max_global",
+      "dilations": [],
+      "weight_decay": 0.01
+    },
+    "max_integral": {
+      "cap": null,
+      "kernels": [
+        3,
+        4,
+        5
+      ],
+      "dropout": 0.5,
+      "pooling": "max_global",
+      "dilations": [],
+      "weight_decay": 0.01
+    },
+    "max_media_integral": {
+      "cap": null,
+      "kernels": [
+        3,
+        4,
+        5
+      ],
+      "dropout": 0.5,
+      "pooling": "max_media",
+      "dilations": [],
+      "weight_decay": 0.01
+    },
+    "max_metades_integral": {
+      "cap": null,
+      "kernels": [
+        3,
+        4,
+        5
+      ],
+      "dropout": 0.5,
+      "pooling": "max_metades_posicao",
+      "dilations": [],
+      "weight_decay": 0.01
+    },
+    "dilatada_integral": {
+      "cap": null,
+      "kernels": [
+        3,
+        4,
+        5
+      ],
+      "dropout": 0.5,
+      "pooling": "max_media",
+      "dilations": [
+        1,
+        3
+      ],
+      "weight_decay": 0.01
+    }
+  },
+  "seeds": [
+    17,
+    29,
+    42
+  ],
+  "epochs": 8,
+  "selection": "Menor CE de validação por semente. Contrastes avaliados após a seleção.",
+  "scope": "Divisões internas do BPE e as mesmas 344 edições do ensaio de posição. Teste oficial fora deste ensaio.",
+  "sources_sha256": {
+    "seminario/treinar_cnn_pares.py": "f3cd745bfb4c5bb58bb78826dcc1da5f9462e6a2b44bb3fd419bbd53bf010349",
+    "seminario/treinar_cnn_comprimento.py": "7545374d6b702458c109790a8cb7b47cb7a6155b320a4764bbbbea29f9792a5f",
+    "seminario/medir_posicao.py": "f44c25a591dbaab960a1dbf80daac295d6a593d8956851d6dcba2d49cb1fcd56",
+    "seminario/treinar_pooling.py": "e80a9f18211cf3367d5b66c4a3a4b1f5347acad65c30728ab9adc00ca9901b5c",
+    "src/imdb_lab/models.py": "d3ea24b13bb09b9e3ae5385711852ccdbf3fe9923d54fd655c4cf52b966c8559",
+    "src/imdb_lab/sequences.py": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+    "results/bpe/data_manifest.json": "1c3bf145a13c1e7489b947740950f05eb87ccf22c0df7c4f0ee8fd1966744b44",
+    "results/sequences/vocabulary.json": "97859d718dc3c6ffdea63e1f265d07f1d5e886877321dcab26b12466d869615e"
+  },
+  "contrast_sha256": {
+    "test_original.tsv": "9dc78ddeb5cb6ff6060d24df33a83b6d29f9828994f4b1a5e0086f7e774713bd",
+    "test_contrast.tsv": "3bcb3bd41218b6a5d7bef7fe020a243919f3df0f12f55291b25ef8bbdbe04173"
+  },
+  "torch": "2.10.0a0+b4e4ee81d3.nv25.12"
+}

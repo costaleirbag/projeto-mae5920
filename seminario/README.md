@@ -17,6 +17,7 @@ de apoio. O relatório tem oito páginas, dentro da faixa do enunciado.
 | Dois picos com e sem posição | [Protocolo e resultados](diagnosticos.md#o-que-acontece-quando-guardamos-a-posição-dos-picos) |
 | Pooling e robustez à ordem | [18 treinos, resultados e cobertura do recorte](pooling_ordem.md) |
 | Dúvidas do grupo | [Vocabulário, TF-IDF, regularização, métricas e limites da CNN](revisao_metodologica.md) |
+| Novos treinos para discussão | [Comprimento, arquitetura e generalização](ensaios_cnn.md) |
 
 ## Apresentação interativa
 
