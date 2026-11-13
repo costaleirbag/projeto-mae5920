@@ -59,7 +59,9 @@ ordem das janelas. A rede dilatada amplia o campo receptivo antes de
 resumir. A variante 3/5/7 mantém cem filtros por largura e aumenta o
 número de pesos nas convoluções. Reduzir dropout de 0,5 a 0,2 acrescentou
 0,60 ponto com limite de 400. Tirar o decaimento de 0,01 mudou −0,02 ponto.
-São mudanças pequenas frente aos 90,14% do TF-IDF original.
+O texto integral, máximo + média e dropout de 0,2 ganharam nas três
+sementes de suas respectivas comparações. A melhor média ficou em 88,18%,
+ante os 90,14% do TF-IDF original.
 
 Avaliamos também 128 pares sintéticos com veredito no fim e 128 com
 veredito no início. O máximo global a 400 acertou 0% e 80,47% dos pares,

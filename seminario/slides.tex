@@ -243,7 +243,7 @@ Faixas de três sementes.
 \end{tikzpicture}
 \par\vfill
 {\small TF-IDF lê o texto inteiro. CNN lê até 400 tokens. BERT lê até 192 WordPieces.}
-\smallsource{Lotes de treino: CNN 64, BERT 32. A CE usa probabilidades calibradas.
+\smallsource{No treino, lotes de 64 para CNN e 32 para BERT. A CE usa probabilidades calibradas.
 \fonte{results/comparison.csv}{Métricas}.
 \href{https://costaleirbag.github.io/projeto-mae5920/\#tf-idf}{Entenda o TF-IDF}.}
 \end{frame}
@@ -429,7 +429,7 @@ Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
 
 % Bloco adicional, 13:10–14:35
 \begin{frame}{Encoders em uma auditoria interna}
-\eyebrow{Acurácia média em 2.048 prefixos de 128 palavras}\par\vspace{.8mm}
+\eyebrow{Acurácia média em 2.048 prefixos de até 128 palavras}\par\vspace{.8mm}
 \small
 \makebox[.60\linewidth][r]{\eyebrow{Só a cabeça}}%
 \makebox[.40\linewidth][r]{\eyebrow{Ajuste completo}}\par
@@ -440,7 +440,7 @@ Na primeira coluna, só a cabeça aprende. Na segunda, ajustamos também
 o encoder. O BERT do slide 7 foi avaliado no teste oficial.
 \par\vfill
 \slidecard{Mint}{\strong{Qwen3-8B} \quad 95,26\% no teste oficial, com pesos congelados e prompt.}
-\smallsource{Três sementes por receita interna. Lotes de treino: cabeça 128, ajuste completo 32.
+\smallsource{Três sementes por receita interna. Lotes de 128 para a cabeça e 32 para o ajuste completo.
 \fonte{results/sequences/summary.json}{Encoders}. \fonte{QWEN_EXPERIMENTO.md}{Qwen}.}
 \end{frame}
 
