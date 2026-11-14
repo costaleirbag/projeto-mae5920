@@ -4,8 +4,9 @@ Os primeiros 93 treinos comparam comprimento, arquitetura, representação,
 regularização e robustez à ordem. A variante de pooling escolhida na
 validação daquele ensaio fez 88,13% no teste com 768 tokens e máximo
 suave. Nos pares humanos, a maior média foi de uma CNN com texto
-integral e máximo global. A comparação seguinte estuda uma [CNN maior
-com orçamento de treino ampliado](#uma-cnn-maior-e-mais-épocas-ajudam).
+integral e máximo global. As rodadas de capacidade estudam uma [CNN
+residual com mais épocas](#uma-cnn-maior-e-mais-épocas-ajudam) e [a própria
+TextCNN com mais filtros](#ampliar-a-própria-textcnn-ajudou).
 
 ## O efeito de treinar com mais texto
 
@@ -300,6 +301,58 @@ uma curva com diferentes quantidades de resenhas de treino.
 [Métricas](../results/cnn_maior/summary.json) ·
 [Margens e rótulos](../results/cnn_maior/predictions.npz).
 
+## Ampliar a própria TextCNN ajudou?
+
+Aumentamos a largura da mesma TextCNN que aparece nos slides. Os três
+ramos continuam em paralelo, com janelas de 3, 4 e 5 tokens. Cada filtro
+passa por ReLU e entrega seu máximo global à camada linear. Com 100
+filtros por largura, a camada linear recebe 300 valores. Com 1.024 por
+largura, recebe 3.072. Na terceira configuração, cada token também passa
+de 128 para 384 dimensões no embedding. [Código da TextCNN](../src/imdb_lab/models.py) ·
+[Treinador](treinar_textcnn_larga.py).
+
+Treinamos as três configurações do zero na DGX Spark com as resenhas
+inteiras, o mesmo vocabulário por palavras de 20.000 IDs e as mesmas
+divisões do ensaio residual. Mantivemos os lotes e sua ordem por semente,
+AdamW com taxa inicial 0,001 e dropout 0,3. Usamos a mesma redução de taxa
+no platô e a mesma parada por validação, com teto de 30 épocas. A perda
+bruta de validação escolheu a época de cada configuração antes de abrir
+calibração e teste. As duas sementes da TextCNN de referência reproduziram
+as predições da rodada anterior.
+
+| Filtros por largura | Embedding | Parâmetros | Épocas escolhidas / rodadas (17, 29) | Tempo médio por treino | Acurácia | F1 macro | CE calibrada | Acurácia acima de 400 tokens |
+|---:|---:|---:|---|---:|---:|---:|---:|---:|
+| 100 | 128 | 2.714.502 | 3/9, 3/9 | 24,2 s | 89,60% | 0,8960 | 0,2529 | 88,28% |
+| 1.024 | 128 | 4.142.082 | 2/8, 3/9 | 62,2 s | 89,62% | 0,8961 | 0,2514 | 88,61% |
+| 1.024 | 384 | 12.407.810 | 2/8, 2/8 | 92,1 s | 89,78% | 0,8977 | 0,2519 | 89,37% |
+
+As métricas são médias de dois treinos sobre o mesmo teste de 25.000
+resenhas. A última coluna considera as 3.118 acima de 400 tokens por
+regex. Os seis treinos somaram **5 min 57 s**, incluindo validação e
+gravação dos checkpoints por época. A avaliação final foi medida à parte.
+
+![Curvas de treino e validação para as três larguras da TextCNN. Cada ponto marca a época escolhida pela entropia cruzada de validação.](../results/textcnn_larga/curvas.png)
+
+A maior TextCNN ficou **0,18 ponto percentual** acima da referência na
+média do teste. A diferença mudou de sinal entre sementes, de −0,04 ponto
+na 17 a +0,39 na 29. Nas resenhas acima de 400 tokens, a média subiu
+**1,09 ponto**, com ganho nas duas sementes. Como já usamos o teste
+oficial em outras rodadas, esses resultados são exploratórios. O TF-IDF
+original fez **90,14%** de acurácia no mesmo teste.
+
+As seis execuções escolheram a segunda ou terceira época. Na maior CNN,
+a CE de validação média passou de **0,225** na época escolhida a **0,388**
+na última, enquanto a acurácia nos lotes de treino chegou a **99,94%**.
+Aumentar filtros custou mais tempo por época e o sobreajuste apareceu cedo
+com essa receita. Mantivemos o máximo global e o mesmo tamanho de janela,
+portanto cada filtro continua descartando a posição do pico ao resumir a
+resenha.
+
+[Protocolo](../results/textcnn_larga/protocol.json) ·
+[Curvas e seleção por semente](../results/textcnn_larga/selection.json) ·
+[Métricas](../results/textcnn_larga/summary.json) ·
+[Margens e rótulos](../results/textcnn_larga/predictions.npz).
+
 ## Reproduzir
 
 Prepare as divisões originais conforme o [guia de reprodução](../docs/REPRODUCAO.md).
@@ -318,5 +371,8 @@ python seminario/medir_pooling_regularizacao.py baseline --data data --output tm
 python seminario/plotar_ensaios_cnn.py
 python seminario/treinar_cnn_maior.py train --data data --output tmp/cnn_maior
 python seminario/treinar_cnn_maior.py audit --data data --output tmp/cnn_maior
-python seminario/plotar_cnn_maior.py
+python seminario/plotar_cnn_maior.py --dados tmp/cnn_maior
+python seminario/treinar_textcnn_larga.py train --data data --output tmp/textcnn_larga
+python seminario/treinar_textcnn_larga.py audit --data data --output tmp/textcnn_larga
+python seminario/plotar_cnn_maior.py --estudo textcnn_larga --dados tmp/textcnn_larga
 ~~~

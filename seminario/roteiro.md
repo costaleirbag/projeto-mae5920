@@ -8,7 +8,7 @@ naturais para trocar de pessoa.
 
 | Slide | Relógio | Assunto |
 |---:|---|---|
-| 1 | 00:00–00:20 | Pergunta do seminário |
+| 1 | 00:00–00:20 | Pergunta do seminário e roteiro da apresentação |
 | 2 | 00:20–01:15 | Duas frases e a hipótese de ordem |
 | 3 | 01:15–02:00 | Amostras e comprimentos de resenha e frase |
 | 4 | 02:00–02:50 | Palavras e BPE |
@@ -28,10 +28,12 @@ naturais para trocar de pessoa.
 
 ## 1 · Pergunta do seminário
 
+Os tópicos da capa levam ao primeiro slide de cada bloco.
+
 “A tarefa do nosso projeto é classificar resenhas de filmes do IMDb em positivas
-ou negativas. Vamos usar uma CNN para acompanhar o que acontece entre ler uma
-frase e devolver uma classe. A pergunta é quanto da ordem da frase chega
-à decisão.”
+ou negativas. Primeiro vamos ver como o texto entra na CNN. Depois comparamos
+os resultados dos modelos e voltamos a exemplos em que a ordem muda a leitura.
+A pergunta é quanto dessa ordem chega à decisão.”
 
 ## 2 · O contraste na resenha
 

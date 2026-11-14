@@ -1,0 +1,64 @@
+{
+  "source_sha256": {
+    "data/manifest.json": "635f65abc3197e1afa723add073246fcfc51a69d785b04855a57b6e21457b133",
+    "sequence_config.json": "81426103042256b04d825373246ffcdb250a9a02b3846e4545402927ace1daa3",
+    "seminario/treinar_cnn_maior.py": "39fdeb58350dc7a0ae15b534ddee62b15086ed27ffcc780ed977613e95e9c6d8",
+    "seminario/treinar_cnn_comprimento.py": "7545374d6b702458c109790a8cb7b47cb7a6155b320a4764bbbbea29f9792a5f",
+    "seminario/treinar_pooling.py": "e80a9f18211cf3367d5b66c4a3a4b1f5347acad65c30728ab9adc00ca9901b5c",
+    "src/imdb_lab/models.py": "d3ea24b13bb09b9e3ae5385711852ccdbf3fe9923d54fd655c4cf52b966c8559",
+    "src/imdb_lab/sequences.py": "6b82d98238aaac35f99ceafa9ff3b5c249aa38e926809e42916d69566814e427",
+    "src/imdb_lab/metrics.py": "32dd22c0a15b07c8b90864dd5843405d202aa33772a8b371e08354bf4316f87c",
+    "seminario/treinar_textcnn_larga.py": "921ac9c53a499044b7e6b19a823dfb1c1e42455a2fa8e8723340ffb07844f31c"
+  },
+  "seeds": [
+    17,
+    29
+  ],
+  "recipes": {
+    "textcnn": {
+      "embedding_dim": 128,
+      "filters": 100,
+      "lr": 0.001
+    },
+    "mais_filtros": {
+      "embedding_dim": 128,
+      "filters": 1024,
+      "lr": 0.001
+    },
+    "mais_filtros_embedding": {
+      "embedding_dim": 384,
+      "filters": 1024,
+      "lr": 0.001
+    }
+  },
+  "vocabulary_size": 20000,
+  "token_cap": null,
+  "batch_size": 64,
+  "batching": "Grupos de 16 lotes ordenados por comprimento e sorteados por época.",
+  "optimizer": "AdamW",
+  "weight_decay": 0.01,
+  "clip_norm": 1,
+  "dropout": 0.3,
+  "max_epochs": 30,
+  "max_seconds_per_run": 660,
+  "plateau": {
+    "factor": 0.5,
+    "patience": 2,
+    "min_lr": 5e-05
+  },
+  "early_stop": {
+    "patience": 6,
+    "min_delta": 0.001,
+    "min_epochs": 8
+  },
+  "selection": "Menor CE bruta de validação entre as primeiras 5 épocas e em todo o treino.",
+  "precision": "BF16 autocast em CUDA, pesos e otimizador FP32, TF32 desligado.",
+  "audit": "Calibração e teste lidos após congelar todos os checkpoints. Teste oficial já consultado.",
+  "kernels": [
+    3,
+    4,
+    5
+  ],
+  "pooling": "Máximo global por filtro com máscara.",
+  "initialization": "Embedding normal (std 0,1), convoluções He normal, camada linear Xavier uniforme."
+}

@@ -1,0 +1,332 @@
+{
+  "selection_sha256": "44e4c937e1dc77fc7a28b6020a23bf0cc1ee8e1e65a7440143e833fe40c77f90",
+  "predictions_sha256": "8908844225e8bfcbd0f060b895c6dee12ee94c71f6fce9ae0e79a3cdc21fdbbc",
+  "groups": {
+    "textcnn_ate_5": {
+      "test": {
+        "n": 25000,
+        "accuracy": 0.89604,
+        "f1_macro": 0.896039953034276,
+        "log_loss": 0.2529449846979809
+      },
+      "test_long": {
+        "n": 3118,
+        "accuracy": 0.8827774214239896,
+        "f1_macro": 0.8827217615247414,
+        "log_loss": 0.2715317771243167
+      }
+    },
+    "textcnn_melhor": {
+      "test": {
+        "n": 25000,
+        "accuracy": 0.89604,
+        "f1_macro": 0.896039953034276,
+        "log_loss": 0.2529449846979809
+      },
+      "test_long": {
+        "n": 3118,
+        "accuracy": 0.8827774214239896,
+        "f1_macro": 0.8827217615247414,
+        "log_loss": 0.2715317771243167
+      }
+    },
+    "mais_filtros_ate_5": {
+      "test": {
+        "n": 25000,
+        "accuracy": 0.89618,
+        "f1_macro": 0.8961399544942112,
+        "log_loss": 0.2514156794588801
+      },
+      "test_long": {
+        "n": 3118,
+        "accuracy": 0.8861449647209749,
+        "f1_macro": 0.8859394526232034,
+        "log_loss": 0.2693747802367164
+      }
+    },
+    "mais_filtros_melhor": {
+      "test": {
+        "n": 25000,
+        "accuracy": 0.89618,
+        "f1_macro": 0.8961399544942112,
+        "log_loss": 0.2514156794588801
+      },
+      "test_long": {
+        "n": 3118,
+        "accuracy": 0.8861449647209749,
+        "f1_macro": 0.8859394526232034,
+        "log_loss": 0.2693747802367164
+      }
+    },
+    "mais_filtros_embedding_ate_5": {
+      "test": {
+        "n": 25000,
+        "accuracy": 0.8978200000000001,
+        "f1_macro": 0.897713110336939,
+        "log_loss": 0.2519281378124135
+      },
+      "test_long": {
+        "n": 3118,
+        "accuracy": 0.8936818473380372,
+        "f1_macro": 0.8929908544045619,
+        "log_loss": 0.2640056413231001
+      }
+    },
+    "mais_filtros_embedding_melhor": {
+      "test": {
+        "n": 25000,
+        "accuracy": 0.8978200000000001,
+        "f1_macro": 0.897713110336939,
+        "log_loss": 0.2519281378124135
+      },
+      "test_long": {
+        "n": 3118,
+        "accuracy": 0.8936818473380372,
+        "f1_macro": 0.8929908544045619,
+        "log_loss": 0.2640056413231001
+      }
+    }
+  },
+  "runs": [
+    {
+      "model": "textcnn",
+      "seed": 17,
+      "budget": "ate_5",
+      "epoch": 3,
+      "temperature": 1.0507634259386733,
+      "test_raw_ce": 0.25238912939067576,
+      "test": {
+        "n": 25000,
+        "accuracy": 0.89516,
+        "f1_macro": 0.8951599260248437,
+        "log_loss": 0.25229682846061013
+      },
+      "test_long": {
+        "n": 3118,
+        "accuracy": 0.8816549069916613,
+        "f1_macro": 0.881562697677818,
+        "log_loss": 0.26897456105570344
+      }
+    },
+    {
+      "model": "textcnn",
+      "seed": 17,
+      "budget": "melhor",
+      "epoch": 3,
+      "temperature": 1.0507634259386733,
+      "test_raw_ce": 0.25238912939067576,
+      "test": {
+        "n": 25000,
+        "accuracy": 0.89516,
+        "f1_macro": 0.8951599260248437,
+        "log_loss": 0.25229682846061013
+      },
+      "test_long": {
+        "n": 3118,
+        "accuracy": 0.8816549069916613,
+        "f1_macro": 0.881562697677818,
+        "log_loss": 0.26897456105570344
+      }
+    },
+    {
+      "model": "mais_filtros",
+      "seed": 17,
+      "budget": "ate_5",
+      "epoch": 2,
+      "temperature": 1.076157222346233,
+      "test_raw_ce": 0.24731567926182846,
+      "test": {
+        "n": 25000,
+        "accuracy": 0.89816,
+        "f1_macro": 0.8981486421884255,
+        "log_loss": 0.24700601078079315
+      },
+      "test_long": {
+        "n": 3118,
+        "accuracy": 0.8899935856318153,
+        "f1_macro": 0.8896049515989297,
+        "log_loss": 0.2613413060916419
+      }
+    },
+    {
+      "model": "mais_filtros",
+      "seed": 17,
+      "budget": "melhor",
+      "epoch": 2,
+      "temperature": 1.076157222346233,
+      "test_raw_ce": 0.24731567926182846,
+      "test": {
+        "n": 25000,
+        "accuracy": 0.89816,
+        "f1_macro": 0.8981486421884255,
+        "log_loss": 0.24700601078079315
+      },
+      "test_long": {
+        "n": 3118,
+        "accuracy": 0.8899935856318153,
+        "f1_macro": 0.8896049515989297,
+        "log_loss": 0.2613413060916419
+      }
+    },
+    {
+      "model": "mais_filtros_embedding",
+      "seed": 17,
+      "budget": "ate_5",
+      "epoch": 2,
+      "temperature": 1.2531645499121151,
+      "test_raw_ce": 0.2650203933496182,
+      "test": {
+        "n": 25000,
+        "accuracy": 0.8948,
+        "f1_macro": 0.8946420433055782,
+        "log_loss": 0.25909877314886776
+      },
+      "test_long": {
+        "n": 3118,
+        "accuracy": 0.8880692751763951,
+        "f1_macro": 0.8869735424180811,
+        "log_loss": 0.2758399887547711
+      }
+    },
+    {
+      "model": "mais_filtros_embedding",
+      "seed": 17,
+      "budget": "melhor",
+      "epoch": 2,
+      "temperature": 1.2531645499121151,
+      "test_raw_ce": 0.2650203933496182,
+      "test": {
+        "n": 25000,
+        "accuracy": 0.8948,
+        "f1_macro": 0.8946420433055782,
+        "log_loss": 0.25909877314886776
+      },
+      "test_long": {
+        "n": 3118,
+        "accuracy": 0.8880692751763951,
+        "f1_macro": 0.8869735424180811,
+        "log_loss": 0.2758399887547711
+      }
+    },
+    {
+      "model": "textcnn",
+      "seed": 29,
+      "budget": "ate_5",
+      "epoch": 3,
+      "temperature": 1.0445525256364045,
+      "test_raw_ce": 0.253720517438918,
+      "test": {
+        "n": 25000,
+        "accuracy": 0.89692,
+        "f1_macro": 0.8969199800437082,
+        "log_loss": 0.25359314093535157
+      },
+      "test_long": {
+        "n": 3118,
+        "accuracy": 0.8838999358563181,
+        "f1_macro": 0.8838808253716646,
+        "log_loss": 0.27408899319292995
+      }
+    },
+    {
+      "model": "textcnn",
+      "seed": 29,
+      "budget": "melhor",
+      "epoch": 3,
+      "temperature": 1.0445525256364045,
+      "test_raw_ce": 0.253720517438918,
+      "test": {
+        "n": 25000,
+        "accuracy": 0.89692,
+        "f1_macro": 0.8969199800437082,
+        "log_loss": 0.25359314093535157
+      },
+      "test_long": {
+        "n": 3118,
+        "accuracy": 0.8838999358563181,
+        "f1_macro": 0.8838808253716646,
+        "log_loss": 0.27408899319292995
+      }
+    },
+    {
+      "model": "mais_filtros",
+      "seed": 29,
+      "budget": "ate_5",
+      "epoch": 3,
+      "temperature": 1.5000441207006445,
+      "test_raw_ce": 0.2758649853229768,
+      "test": {
+        "n": 25000,
+        "accuracy": 0.8942,
+        "f1_macro": 0.8941312667999971,
+        "log_loss": 0.2558253481369671
+      },
+      "test_long": {
+        "n": 3118,
+        "accuracy": 0.8822963438101347,
+        "f1_macro": 0.882273953647477,
+        "log_loss": 0.2774082543817909
+      }
+    },
+    {
+      "model": "mais_filtros",
+      "seed": 29,
+      "budget": "melhor",
+      "epoch": 3,
+      "temperature": 1.5000441207006445,
+      "test_raw_ce": 0.2758649853229768,
+      "test": {
+        "n": 25000,
+        "accuracy": 0.8942,
+        "f1_macro": 0.8941312667999971,
+        "log_loss": 0.2558253481369671
+      },
+      "test_long": {
+        "n": 3118,
+        "accuracy": 0.8822963438101347,
+        "f1_macro": 0.882273953647477,
+        "log_loss": 0.2774082543817909
+      }
+    },
+    {
+      "model": "mais_filtros_embedding",
+      "seed": 29,
+      "budget": "ate_5",
+      "epoch": 2,
+      "temperature": 1.338905482931717,
+      "test_raw_ce": 0.25350490893428407,
+      "test": {
+        "n": 25000,
+        "accuracy": 0.90084,
+        "f1_macro": 0.9007841773682999,
+        "log_loss": 0.2447575024759593
+      },
+      "test_long": {
+        "n": 3118,
+        "accuracy": 0.8992944194996793,
+        "f1_macro": 0.8990081663910428,
+        "log_loss": 0.25217129389142917
+      }
+    },
+    {
+      "model": "mais_filtros_embedding",
+      "seed": 29,
+      "budget": "melhor",
+      "epoch": 2,
+      "temperature": 1.338905482931717,
+      "test_raw_ce": 0.25350490893428407,
+      "test": {
+        "n": 25000,
+        "accuracy": 0.90084,
+        "f1_macro": 0.9007841773682999,
+        "log_loss": 0.2447575024759593
+      },
+      "test_long": {
+        "n": 3118,
+        "accuracy": 0.8992944194996793,
+        "f1_macro": 0.8990081663910428,
+        "log_loss": 0.25217129389142917
+      }
+    }
+  ]
+}

@@ -1,4 +1,5 @@
 """Plota a perda por época a partir do registro do ensaio de capacidade."""
+import argparse
 from pathlib import Path
 import json
 
@@ -7,16 +8,28 @@ from matplotlib.ticker import FuncFormatter, MaxNLocator
 
 
 ROOT = Path(__file__).resolve().parents[1]
-LABELS = {
-    "textcnn": ("TextCNN · 2,71 mi", "#176c69"),
-    "residual": ("CNN residual · taxa 0,001", "#a34d34"),
-    "residual_lr_menor": ("CNN residual · taxa 0,0003", "#355e94"),
+STUDIES = {
+    "cnn_maior": {
+        "textcnn": ("TextCNN · 2,71 mi", "#176c69"),
+        "residual": ("CNN residual · taxa 0,001", "#a34d34"),
+        "residual_lr_menor": ("CNN residual · taxa 0,0003", "#355e94"),
+    },
+    "textcnn_larga": {
+        "textcnn": ("100 por largura · emb. 128", "#176c69"),
+        "mais_filtros": ("1.024 por largura · emb. 128", "#a34d34"),
+        "mais_filtros_embedding": ("1.024 por largura · emb. 384", "#355e94"),
+    },
 }
 PAPER, INK, GRID = "#faf9f4", "#142637", "#d6e0e9"
 
 
 def main():
-    folder = ROOT / "results/cnn_maior"
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--estudo", choices=STUDIES, default="cnn_maior")
+    parser.add_argument("--dados", type=Path, help="Pasta com selection.json e destino de curvas.png.")
+    args = parser.parse_args()
+    folder = args.dados or ROOT / "results" / args.estudo
+    labels = STUDIES[args.estudo]
     results = json.loads((folder / "selection.json").read_text())["records"]
     fig, axes = plt.subplots(1, 2, figsize=(10.6, 4.3), sharex=True, facecolor=PAPER)
     fig.subplots_adjust(left=.10, right=.98, top=.76, bottom=.22, wspace=.25)
@@ -36,7 +49,7 @@ def main():
         axis.set_xlabel("Época", color=INK)
         axis.set_title(title, color=INK, loc="left", fontsize=12, weight="bold", pad=10)
         for record in results:
-            label, color = LABELS[record["model"]]
+            label, color = labels[record["model"]]
             epochs = record["history"]
             line = "-" if record["seed"] == 17 else "--"
             axis.plot([row["epoch"] for row in epochs], [row[key]["ce"] for row in epochs],
@@ -47,7 +60,7 @@ def main():
                 axis.scatter(best, epochs[best - 1][key]["ce"], s=33, color=color, zorder=4)
     fig.legend(*axes[0].get_legend_handles_labels(), loc="upper center", ncols=3,
                frameon=False, labelcolor=INK, bbox_to_anchor=(.53, .93), fontsize=10)
-    fig.text(.10, .036, "Linha contínua: semente 17   ·   Tracejada: 29   ·   Ponto: checkpoint escolhido   ·   Pontilhado vertical: época 5",
+    fig.text(.10, .036, "Traço contínuo (17) e tracejado (29). Os pontos marcam os checkpoints. A linha vertical indica a época 5.",
              color=INK, fontsize=8.7)
     fig.savefig(folder / "curvas.png", dpi=180, facecolor=PAPER)
     plt.close(fig)

@@ -75,6 +75,7 @@ antes de calcular a métrica. [Receitas e contagens](../docs/PROTOCOLO_SEQUENCIA
 | **Seis poolings de ponta a ponta** | 18 treinos, três sementes por pooling. Máximo global, máximos por metade ordenados por valor ou posição, média global, médias por metade e K-max ordenado. | Ver se o aprendizado dos filtros passa a aproveitar a posição. |
 | **Outros 93 treinos de CNN** | 33 de comprimento/arquitetura/regularização, 15 de comprimento e ordem em pares, nove de embeddings aleatórios ou GloVe, 12 de treino contrastivo e 24 de pooling com cabeça do mesmo tamanho. | Investigar a diferença para TF-IDF e o caso em que a opinião final muda. Resultados exploratórios. |
 | **CNN maior e mais épocas** | Texto inteiro, duas sementes, TextCNN de 2,71 mi e CNN residual piramidal de 11,13 mi com duas taxas iniciais. | Comparar a melhor época até a quinta com a melhor de toda a execução. |
+| **TextCNN mais larga** | Mesma TextCNN com até 1.024 filtros por largura e embedding de 384 dimensões, chegando a 12,41 mi de parâmetros. | Medir o efeito de ampliar a capacidade mantendo janelas e máximo global. |
 | **MLPs do suplemento** | 51 treinos sobre TF-IDF reduzido por SVD a 128 dimensões e padronizado. 27 de otimização, 15 de profundidade/resíduos e nove de regularização. | Isolar mecanismos do curso em redes densas. São experimentos próprios, com outra auditoria interna. |
 | **Inicialização e double descent sintéticos** | Uma rede ReLU de 32 camadas para inspecionar escalas antes do treino. Na regressão sintética, camada aleatória congelada e ajuste só da saída, por mínimos quadrados ou ridge, em 880 condições. | Observar escala de ativações e gradientes, e explorar erro perto da interpolação. |
 | **MiniLM + K-means** | MiniLM pré-treinado e congelado para extrair vetores. K-means ajustado em 2.500 resenhas de treino, gerando oito grupos exploratórios. | Organizar a análise de erros por grupos de texto. MiniLM também fornece uma medida auxiliar de similaridade na geração. |
@@ -682,6 +683,12 @@ de **8 a 10**. Mais épocas serviram para observar o sobreajuste.
 A quantidade de dados ficou fixa, então a hipótese de que ela
 é o gargalo precisa de outro controle.
 [Ensaio com a CNN maior](ensaios_cnn.md#uma-cnn-maior-e-mais-épocas-ajudam)
+
+**E se ampliarmos a própria TextCNN dos slides?** A variante de 12,41 milhões
+fez **89,78%** ante **89,60%** da referência, ambas com texto inteiro. O ganho
+geral mudou de sinal entre as duas sementes. A maior ficou com a época 2 nas
+duas sementes e encerrou na 8. A arquitetura continua resumindo cada filtro
+pelo máximo global. [Comparação com as três larguras](ensaios_cnn.md#ampliar-a-própria-textcnn-ajudou)
 
 </details>
 

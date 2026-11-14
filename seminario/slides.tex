@@ -10,8 +10,9 @@
 \definecolor{Wash}{HTML}{F1F2EB}
 \definecolor{ScreenBlack}{HTML}{111111}
 \definecolor{ScreenRed}{HTML}{B62930}
-\hypersetup{colorlinks=true,linkcolor=Teal,urlcolor=Teal,
-  pdftitle={O que a CNN lê em uma resenha?},pdfauthor={Nestor, Letícia e Gabriel}}
+\title{O que a CNN lê em uma resenha?}
+\author{Nestor, Letícia e Gabriel}
+\hypersetup{colorlinks=true,linkcolor=Teal,urlcolor=Teal}
 \setbeamertemplate{navigation symbols}{}
 \setbeamercolor{normal text}{fg=Ink,bg=Paper}
 \setbeamercolor{structure}{fg=Teal}
@@ -88,6 +89,9 @@
 % 00:00–00:20
 {
 \setbeamercolor{background canvas}{bg=Forest}
+\newcommand{\coverentry}[3]{%
+  \noindent\hyperlink{Navigation#1}{\makebox[\linewidth][l]{%
+    \textcolor{white}{\strut #2}\hfill\textcolor{Lime}{\scriptsize #3}}}\par\vspace{1mm}}
 \begin{frame}[plain]
 \vfill
 \begin{columns}[c,onlytextwidth]
@@ -99,29 +103,24 @@
 \vspace{3mm}
 {\normalsize Sentimento e tokenização no IMDb\par}
 \vspace{5mm}
-{\small\color{Lime} Nestor, Letícia e Gabriel\par}
+{\small\color{Lime} \insertauthor\par}
 \end{column}
 \begin{column}{.39\textwidth}
-\begin{tikzpicture}[x=1mm,y=1mm,font=\sffamily\scriptsize]
-  \node[Lime,anchor=west,font=\bfseries\scriptsize] at (0,42) {UMA JANELA DESLIZA PELO TEXTO};
-  \foreach \x/\word in {0/movie,13/was,26/terrible,39/but} {
-    \fill[Forest!83!Lime,rounded corners=1mm] (\x,28) rectangle ++(12,7);
-    \node[white,font=\ttfamily\tiny] at (\x+6,31.5) {\word};
-  }
-  \draw[Lime,line width=.9pt,rounded corners=1.6mm] (-.8,27) rectangle (38.6,36);
-  \draw[Lime!45!Forest] (0,5) -- (51,5);
-  \foreach \x/\h in {4/2,11/4,18/13,25/3,32/1.5,39/2.5,46/3.4} {
-    \pgfmathsetmacro{\shade}{100-5*(13-\h)}
-    \fill[Lime!\shade!Forest,rounded corners=.4mm] (\x,5) rectangle ++(3,\h);
-  }
-  \draw[Lime!75!Forest,-{Latex[length=1.6mm]}] (19.5,25) -- (19.5,19.5);
-  \node[Lime,anchor=west] at (24,17) {Pico do filtro};
-\end{tikzpicture}
+{\scriptsize\bfseries\color{Lime} ROTEIRO DA APRESENTAÇÃO\par}
+{\color{Lime!45!Forest}\hrule height .5pt}
+\vspace{1.5mm}
+\small
+\coverentry{2}{IMDb e a tarefa}{2--3}
+\coverentry{4}{Tokenização e arquitetura}{4--5}
+\coverentry{6}{Treino e avaliação}{6--11}
+\coverentry{12}{Onde a CNN falha}{12--14}
+\coverentry{15}{YouTube e custo de treino}{15--16}
+\coverentry{17}{Conclusão}{17}
 \end{column}
 \end{columns}
 \vfill
 {\color{Lime!62!Forest}\rule{\linewidth}{.5pt}\par}
-{\color{white!78!Forest}\scriptsize CLASSIFICAÇÃO DE SENTIMENTO\hfill 15 MINUTOS\par}
+{\color{white!78!Forest}\scriptsize\hfill 15 MINUTOS\par}
 \vspace{2mm}
 \end{frame}
 }

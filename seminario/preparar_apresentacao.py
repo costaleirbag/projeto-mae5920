@@ -100,18 +100,24 @@ def links(page) -> list[dict]:
     result = []
     for reference in page.get("/Annots", []):
         annotation = reference.get_object()
-        url = str(annotation.get("/A", {}).get("/URI", ""))
-        parsed = urlsplit(url)
-        if parsed.scheme not in {"http", "https"}:
-            continue
+        action = annotation.get("/A", {})
+        destination = annotation.get("/Dest", action.get("/D", ""))
+        internal = re.fullmatch(r"Navigation(\d+)", str(destination))
+        if internal:
+            number = internal[1]
+            url, label = f"#slide-{number}", f"Ir ao slide {number}"
+        else:
+            url = str(action.get("/URI", ""))
+            parsed = urlsplit(url)
+            if parsed.scheme not in {"http", "https"}:
+                continue
+            label = "Abrir referência " + (unquote(parsed.path.rsplit("/", 1)[-1]) or parsed.netloc)
+            if (parsed.netloc == "costaleirbag.github.io" and parsed.path == "/projeto-mae5920/"
+                    and parsed.fragment in SHORTCUT_LABELS):
+                url, label = "#" + parsed.fragment, "Abrir referência " + SHORTCUT_LABELS[parsed.fragment]
         x0, y0, x1, y1 = map(float, annotation["/Rect"])
         rect = [x0 / width, 1 - y1 / height, (x1 - x0) / width, (y1 - y0) / height]
-        label = unquote(parsed.path.rsplit("/", 1)[-1]) or parsed.netloc
-        if (parsed.netloc == "costaleirbag.github.io" and parsed.path == "/projeto-mae5920/"
-                and parsed.fragment in SHORTCUT_LABELS):
-            url, label = "#" + parsed.fragment, SHORTCUT_LABELS[parsed.fragment]
-        result.append({"url": url, "label": "Abrir referência " + label,
-                       "rect": [round(100 * v, 3) for v in rect]})
+        result.append({"url": url, "label": label, "rect": [round(100 * v, 3) for v in rect]})
     return result
 
 
