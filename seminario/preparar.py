@@ -328,6 +328,8 @@ def tables() -> str:
         "NParesHumanos": str(position["n"]["contrast"] // 2),
     }
     disagreements = read_json("seminario/dados/discordancias.json")
+    tfidf_contrast = disagreements["contraste_tfidf"]
+    assert tfidf_contrast["casos_sha256"] == cases["casos_sha256"]
     tfidf_slide = read_json("seminario/dados/tfidf_slide.json")
     awful = next(term for term in tfidf_slide["terms"] if term["term"] == "awful")
     tfidf_ablation = read_json("results/tfidf_ablation/summary.json")["recipes"]
@@ -393,6 +395,8 @@ def tables() -> str:
         "PalavrasB": pct(main_pair["resultados"]["Palavras"]["media_p_b"], 1),
         "BPEA": pct(main_pair["resultados"]["BPE"]["media_p_a"], 1),
         "BPEB": pct(main_pair["resultados"]["BPE"]["media_p_b"], 1),
+        "TfidfContrasteA": pct(tfidf_contrast["a"]["p_positiva"]),
+        "TfidfContrasteB": pct(tfidf_contrast["b"]["p_positiva"]),
         "NegacaoPalavrasA": pct(negation_scores["Palavras"], 1),
         "NegacaoBPEA": pct(negation_scores["BPE"], 1),
         **bpe_steps,

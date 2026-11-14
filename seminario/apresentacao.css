@@ -491,6 +491,7 @@ p, h1 { margin: 0; }
 .scale-ticks span:nth-child(2) { position: absolute; left: 50%; transform: translateX(-50%); font-weight: 700; }
 .swap-model { min-height: 2.8em; border-bottom: 1px solid var(--rule); }
 .swap-model-name { font-weight: 730; }
+.swap-model-baseline .swap-previous { width: 1.12em; }
 .swap-track {
   position: relative;
   height: .36em;

@@ -383,7 +383,8 @@ Auditoria com 2.048 entradas. \fonte{results/bpe/audit_metrics.json}{Resultados}
   {\small Leitura esperada \enspace \strong{positiva}}}
 \par\vspace{2mm}
 {\small\textcolor{Rust}{\bfseries Os seis treinos previram negativa.}}\par
-{\small CNN palavras \strong{\PalavrasA}\quad CNN BPE \strong{\BPEA}}
+{\small CNN palavras \strong{\PalavrasA}\quad CNN BPE \strong{\BPEA}\par
+\vspace{.5mm}\textbf{TF-IDF + logística} \enspace \TfidfContrasteA{} \enspace \textcolor{Rust}{\bfseries negativa}}
 \end{column}
 \begin{column}{.485\textwidth}
 \slidecard{Mint}{\eyebrow{Frase B}\par
@@ -392,14 +393,16 @@ Auditoria com 2.048 entradas. \fonte{results/bpe/audit_metrics.json}{Resultados}
   {\small Leitura esperada \enspace \textcolor{Rust}{\bfseries negativa}}}
 \par\vspace{2mm}
 {\small\strong{Os seis treinos previram positiva.}}\par
-{\small CNN palavras \strong{\PalavrasB}\quad CNN BPE \strong{\BPEB}}
+{\small CNN palavras \strong{\PalavrasB}\quad CNN BPE \strong{\BPEB}\par
+\vspace{.5mm}\textbf{TF-IDF + logística} \enspace \TfidfContrasteB{} \enspace \textcolor{Rust}{\bfseries negativa}}
 \end{column}
 \end{columns}
 \par\vfill
-{\large\bfseries Dois tokenizadores \(\times\) três treinos cada \(=\) seis treinos.}
-\smallsource{Escores positivos médios, sementes 17, 29 e 43 em cada tokenizador.
+{\large\bfseries O TF-IDF prevê negativa nas duas frases e acerta B.}
+\smallsource{Escores positivos sem calibração. Cada CNN resume três treinos (17, 29 e 43).
 \href{https://costaleirbag.github.io/projeto-mae5920/\#contraste}{Abrir animação}.
-\fonteatual{seminario/dados/pares_resultados.json}{Resultados por semente}.}
+\fonteatual{seminario/dados/pares_resultados.json}{CNNs}.
+\fonteatual{seminario/dados/discordancias.json\#L39}{TF-IDF}.}
 \end{frame}
 
 % 10:05–11:00

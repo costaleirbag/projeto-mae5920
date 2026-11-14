@@ -280,6 +280,9 @@ const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
 const percent = new Intl.NumberFormat("pt-BR", {
   style: "percent", minimumFractionDigits: 1, maximumFractionDigits: 1,
 });
+const baselinePercent = new Intl.NumberFormat("pt-BR", {
+  style: "percent", minimumFractionDigits: 2, maximumFractionDigits: 2,
+});
 const swapWords = contrast.adjectives.map((word, index) => {
   const chip = document.createElement("strong");
   chip.className = "swap-adjective";
@@ -293,9 +296,10 @@ byId("swap-connector").textContent = contrast.connector;
 const swapRows = contrast.models.map(({ name, predictions, seeds }) => {
   const row = document.createElement("div");
   row.className = "swap-model";
+  row.classList.toggle("swap-model-baseline", !seeds);
   const label = document.createElement("span");
   label.className = "swap-model-name";
-  label.textContent = name === "BPE" ? "CNN BPE" : "CNN por palavras";
+  label.textContent = name;
   const track = document.createElement("div");
   track.className = "swap-track";
   track.setAttribute("aria-hidden", "true");
@@ -316,10 +320,12 @@ const swapRows = contrast.models.map(({ name, predictions, seeds }) => {
   return { predictions, seeds, previous, dot, score, category };
 });
 
-const seeds = swapRows[0].seeds;
-const runs = swapRows.length * seeds.length;
-byId("swap-sample").textContent = swapRows.length + " tokenizadores × " + seeds.length
-  + " treinos (sementes " + seeds.join(", ") + ") = " + runs + " treinos";
+const cnnRows = swapRows.filter((row) => row.seeds);
+const seeds = cnnRows[0].seeds;
+const runs = cnnRows.length * seeds.length;
+const baseline = swapRows.find((row) => !row.seeds).predictions;
+byId("swap-sample").textContent = "CNNs · médias de " + seeds.length
+  + " treinos por tokenizador (sementes " + seeds.join(", ") + ")";
 let swapState;
 function showContrast(state, animate = true) {
   if (state === swapState) return false;
@@ -345,16 +351,20 @@ function showContrast(state, animate = true) {
     previous.hidden = state === "a";
     dot.style.setProperty("--score", 100 * result.score + "%");
     dot.dataset.tone = result.label;
-    score.textContent = percent.format(result.score);
+    score.textContent = (seeds ? percent : baselinePercent).format(result.score);
     category.dataset.tone = result.label;
     const label = result.label[0].toUpperCase() + result.label.slice(1);
-    category.textContent = label + (result.label === "dividida" ? "" : " · " + result.agreement + "/" + seeds.length);
+    category.textContent = label + (seeds && result.label !== "dividida"
+      ? " · " + result.agreement + "/" + seeds.length : "");
   }
   byId("swap-note").textContent = state === "b"
     ? "○ indica os escores de A." : "Mesmas palavras, outra ordem.";
-  byId("swap-summary").textContent = state === "b"
-    ? contrast.reversed + " de " + runs + " previram negativa em A e positiva em B."
-    : "Cada um dos " + runs + " treinos previu negativa para A.";
+  const baselineCorrect = baseline[state].label === contrast.expected[state];
+  const baselineResult = "O TF-IDF " + (baselineCorrect ? "acertou " : "errou ") + state.toUpperCase() + ".";
+  const cnnResult = state === "b"
+    ? contrast.reversed + " de " + runs + " CNNs inverteram a leitura esperada."
+    : "As " + runs + " CNNs previram negativa.";
+  byId("swap-summary").textContent = cnnResult + " " + baselineResult;
   swapState = state;
   return true;
 }

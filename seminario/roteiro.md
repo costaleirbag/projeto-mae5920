@@ -267,8 +267,12 @@ A CNN por palavras dá 1% de escore positivo e a de BPE, 1,2%. Os seis
 treinos deram negativa. São dois tokenizadores, cada um com três sementes.
 Agora vejam os dois adjetivos trocarem de lugar. A conclusão de B diz que
 o filme foi terrível. Os escores pulam para 89,9% e 83,7%. Todos os
-treinos passam para positiva. Neste par, a classe prevista coincidiu
-com o sentimento da primeira oração nas duas versões.”
+treinos passam para positiva. Já o TF-IDF quase não se mexe, de 47,93%
+para 47,86% de positivo. Ele prevê negativa nas duas versões e acerta B.”
+
+No TF-IDF, as palavras e quase todos os bigramas são os mesmos. Sai
+*terrible but* e entra *wonderful but*. *Was wonderful* e *was terrible*
+estão presentes nas duas frases. [Saídas do baseline original](dados/discordancias.json#L39).
 
 Se perguntarem sobre uma janela maior, em ambas as tokenizações a janela de
 cinco tokens já contém *terrible but it was wonderful*. Uma de sete incluiria

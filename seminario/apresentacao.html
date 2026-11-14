@@ -243,9 +243,9 @@
         </div>
       </div>
 
-      <section class="swap-scores" aria-label="Predições das CNNs">
+      <section class="swap-scores" aria-label="Predições das CNNs e do baseline">
         <div class="swap-scale">
-          <p class="micro">Escore positivo médio</p>
+          <p class="micro">Escore positivo</p>
           <div class="scale-ticks" aria-hidden="true">
             <span>0% · Negativa</span><span>50%</span><span>Positiva · 100%</span>
           </div>
@@ -258,8 +258,9 @@
         <p id="swap-sample"></p>
         <p id="swap-summary" aria-live="polite"></p>
       </div>
-      <footer class="lab-source">Escores salvos para este par sintético.
-        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/pares_resultados.json" target="_blank" rel="noopener">Resultados por semente</a>
+      <footer class="lab-source">Escores sem calibração.
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/pares_resultados.json" target="_blank" rel="noopener">CNNs por semente</a>
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/discordancias.json#L39" target="_blank" rel="noopener">Baseline original</a>
       </footer>
     </article>
     <article id="pooling" class="lab readable pooling-slide" hidden aria-labelledby="pool-title">

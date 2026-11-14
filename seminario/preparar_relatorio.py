@@ -98,7 +98,6 @@ def main() -> None:
 
     errors = json.loads((data / "discordancias.json").read_text(encoding="utf-8"))
     short_review = next(case for case in errors["casos"] if case["id"] == "imdb_test_22831")
-    tfidf_contrast = errors["contraste_tfidf"]
     lines = [
         "% Gerado por preparar_relatorio.py a partir das predições e ativações salvas.",
         macro("VotosPalavras", "%\n  ".join(scores[:3])),
@@ -106,8 +105,6 @@ def main() -> None:
         macro("LinhasPosicao", position_rows(position)),
         macro("CurtaCNN", pct(short_review["cnn_prefixo"]["p_positiva"], 1)),
         macro("CurtaTFIDF", pct(short_review["tfidf_inteiro"]["p_positiva"], 1)),
-        macro("TfidfContrasteA", pct(tfidf_contrast["a"]["p_positiva"])),
-        macro("TfidfContrasteB", pct(tfidf_contrast["b"]["p_positiva"])),
     ]
     for case in ("A", "B"):
         scan = trace["casos"][case]["janelas"]["3"]

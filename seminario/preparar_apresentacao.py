@@ -129,7 +129,9 @@ def contrast_example() -> dict:
     first_a, impression, last_a, verdict = re.fullmatch(pattern, case["a"]).groups()
     first_b, second_b, last_b, fourth_b = re.fullmatch(pattern, case["b"]).groups()
     assert (first_a, verdict, last_a, impression) == (first_b, second_b, last_b, fourth_b)
+    expected = dict(zip(("a", "b"), case["leitura"], strict=True))
     models = []
+    labels = {"Palavras": "CNN por palavras", "BPE": "CNN BPE"}
     for name, result in case["resultados"].items():
         runs = result["predicoes"]
         seeds = [run["semente"] for run in runs]
@@ -140,15 +142,22 @@ def contrast_example() -> dict:
             predictions[key] = {"score": result[f"media_p_{key}"],
                                 "label": classes[0] if positive in (0, len(seeds)) else "dividida",
                                 "agreement": max(positive, len(seeds) - positive)}
-        models.append({"name": name, "seeds": seeds, "predictions": predictions})
+        models.append({"name": labels[name], "seeds": seeds, "predictions": predictions})
     assert models[0]["seeds"] == models[1]["seeds"]
+    errors = json.loads((HERE / "dados/discordancias.json").read_text(encoding="utf-8"))
+    baseline = errors["contraste_tfidf"]
+    assert baseline["casos_sha256"] == cases["casos_sha256"]
+    models.append({"name": "TF-IDF + logística", "predictions": {
+        key: {"score": baseline[key]["p_positiva"],
+              "label": "positiva" if baseline[key]["logit"] >= 0 else "negativa"}
+        for key in expected
+    }})
     reversed_runs = sum(
         run["a"]["classe"] == case["leitura"][1] and run["b"]["classe"] == case["leitura"][0]
         for result in case["resultados"].values() for run in result["predicoes"]
     )
     return {"start": first_a, "connector": last_a, "adjectives": [impression, verdict],
-            "expected": dict(zip(("a", "b"), case["leitura"], strict=True)), "models": models,
-            "reversed": reversed_runs}
+            "expected": expected, "models": models, "reversed": reversed_runs}
 
 
 def cut_example() -> dict:

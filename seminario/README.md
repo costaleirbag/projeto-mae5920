@@ -58,9 +58,11 @@ O slide 11 compara regex e BPE no mesmo prefixo de texto.
 [Desempenho por comprimento](https://costaleirbag.github.io/projeto-mae5920/#comprimento).
 
 O slide 12 retoma as frases do início. Mostra as duas orações, a leitura
-esperada da conclusão e o escore positivo de cada tokenizador. Cada linha
-resume três treinos, um por semente. A régua mantém o limiar de 50% e marca
-onde estava A quando você mostra B. [Par de contraste](https://costaleirbag.github.io/projeto-mae5920/#contraste).
+esperada da conclusão e os escores positivos das CNNs e do TF-IDF. Cada
+linha da CNN resume três treinos, um por semente. A linha do TF-IDF usa
+o baseline original. A régua mantém o limiar de 50% e marca onde estava
+A quando você mostra B. [Par de contraste](https://costaleirbag.github.io/projeto-mae5920/#contraste).
+[Saídas do baseline para A e B](dados/discordancias.json#L39) · [Código da comparação](comparar_erros.py).
 
 No slide 13, troque A por B e acompanhe um pico real da CNN. A mesma
 janela começa no token 8 em A e no 20 em B. O valor que o filtro entrega
