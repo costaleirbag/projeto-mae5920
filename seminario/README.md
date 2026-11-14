@@ -149,7 +149,7 @@ O endpoint local `POST /predict` recebe JSON no formato
 `--text 'The movie was wonderful.'`.
 
 No dia, carreguem a página antes da fala e façam um teste rápido. O slide 15
-traz os prints e as classes previstas para *Friday* e *The Room*. Esses
+traz os prints e as classes previstas para *Suicide Squad* e *The Room*. Esses
 casos podem ocupar o tempo da demonstração. As animações dos slides 4 e 5 já funcionam no HTML baixado.
 
 Para reproduzir os quatro pares com as três sementes, a pasta de artefatos
@@ -176,18 +176,20 @@ tokenizadores, pesos e limiar originais e usamos escores sem calibração.
 Acurácia, F1 macro e entropia cruzada são calculadas por execução e depois
 agregadas pela média das três sementes de cada representação.
 
-Os cinco comentários são casos qualitativos sem rótulos de referência.
+Os seis comentários são casos qualitativos sem rótulos de referência.
 Em *Baby*, os autores comentam a repercussão do artista e a reação do
 público. Em *Friday*, “AI could never do this” admite admiração e ironia.
 Os dois de *The Room* criticam o filme por comparação com o trailer ou
 com um elogio citado. O comentário com “No one” recebeu classe positiva
-nos seis checkpoints. [Tokens e escores por execução](dados/fora_dominio_resultados.json).
+nos seis checkpoints. Em *Suicide Squad*, “the joke was on me” sugere que
+o espectador se sentiu enganado. Deram positiva os três checkpoints por
+palavras e dois dos três com BPE.
+[Tokens e escores por execução](dados/fora_dominio_resultados.json).
 
 O Qwen3-8B recebeu o mesmo texto de cada print, com o prompt binário de
 resenhas do projeto. No protocolo padrão, deu positiva para o comentário
-de *The Room* e negativa para o de *Friday*. Inverter a ordem dos rótulos
-no prompt manteve as classes. Em *Friday*, o escore positivo entre os dois
-rótulos foi de 1,10% para 22,27%. O escore bruto é restrito aos rótulos
+de *The Room* e negativa para o de *Suicide Squad*. Inverter a ordem dos
+rótulos no prompt manteve as duas classes. O escore bruto é restrito aos rótulos
 `negative` e `positive`. Os comentários seguem sem rótulo de referência.
 [Qwen, logits e dois controles de sanidade](dados/qwen_youtube_resultados.json).
 
@@ -196,7 +198,7 @@ Também geramos três respostas por comentário com raciocínio desativado
 e três com raciocínio ativado. Usamos a mesma instrução e a mesma
 amostragem nos dois modos, com temperatura 0,6, top-p 0,95, top-k 20,
 semente 20261020 e limite de 1.536 tokens novos. Os seis rótulos de
-*The Room* foram positivos e os seis de *Friday* foram negativos.
+*The Room* foram positivos e os seis de *Suicide Squad* foram negativos.
 As respostas com raciocínio chegaram ao rótulo final depois do bloco
 de raciocínio. O arquivo guarda as classes e as contagens de tokens.
 [Configuração recomendada pelo Qwen](https://huggingface.co/Qwen/Qwen3-8B#switching-between-thinking-and-non-thinking-mode).

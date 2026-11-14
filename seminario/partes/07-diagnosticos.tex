@@ -41,30 +41,33 @@ até \BertTetoMaior{} tokens. O F1 macro subiu de \FUmLongasBert{} a
 \fonteatual{seminario/dados/recorte_bert/resumo.json}{Controle do BERT}.
 
 \subsection{Custo computacional}
-\begin{tabularx}{\linewidth}{@{}Xlrr@{}}
+\begin{tabularx}{\linewidth}{@{}Xlrrr@{}}
 \toprule
-\tabelahead{Modelo} & \tabelahead{Dispositivo} & \tabelahead{Ajuste (s)} &
+\tabelahead{Modelo} & \tabelahead{Dispositivo} & \tabelahead{Épocas} & \tabelahead{Ajuste (s)} &
 \tabelahead{Inferência (s)}\\
 \midrule
 \LinhasCusto
 \bottomrule
 \end{tabularx}
-\legendinha{Tabela 9. A inferência soma as quatro divisões. O ajuste
-do baseline inclui TF-IDF e seleção da regularização. Cada tempo vale para
-o dispositivo e o orçamento da receita medida.}
+\legendinha{Tabela 9. Inferência sobre entradas já representadas, somando as quatro
+divisões. O ajuste do baseline inclui vetorização e busca de \(C\). O das
+redes inclui validação por época.}
 
 \subsection{Avaliação fora do IMDb}
 Em 1.000 frases por fonte, as CNNs por palavras e BPE atingiram 68,10\% e
 69,97\% na Amazon, e 69,43\% e 69,67\% no Yelp \cite{kotzias}.
 No YouTube, o elogio seguido de \textit{No one} recebeu classe positiva
-das seis CNNs e do Qwen, com e sem raciocínio.
-\fonteatual{seminario/dados/fora_dominio_resultados.json}{Escores}.
+das seis CNNs e do Qwen. Em \textit{Suicide Squad}, cinco CNNs deram
+positiva e o Qwen deu negativa nos dois modos de geração.
+\fonteatual{seminario/dados/fora_dominio_resultados.json}{CNN}.
+\fonteatual{seminario/dados/qwen_youtube_resultados.json}{Qwen}.
 
 \subsection{Encoders e Qwen em dois protocolos}
-Em 2.048 prefixos, BERT, DistilBERT e ModernBERT ajustados obtiveram
-88,31\%, 86,80\% e 91,24\% na média de três sementes. CNN e TF-IDF
-tiveram 81,95\% e 83,30\%. Os ajustes completos usaram lote 32, como
-o BERT original. As cabeças sobre vetores congelados usaram lote 128.
+Em 2.048 prefixos, treinar só a camada linear do BERT deu \AcuraciaCabecaBert{}
+em \AjusteCabecaBert{} s com extração dos vetores. Ajustar todo o BERT deu
+\AcuraciaCompletoBert{} em \AjusteCompletoBert{} s. São três sementes por
+receita, com tempos sem as rodadas de avaliação. No mesmo protocolo,
+CNN, TF-IDF, DistilBERT e ModernBERT fizeram 81,95\%, 83,30\%, 86,80\% e 91,24\%.
 \fonte{results/sequences/summary.json}{Métricas e receitas}.
 
 O Qwen3-8B congelado atingiu 95,26\% e F1 macro de 0,9526 no teste oficial,

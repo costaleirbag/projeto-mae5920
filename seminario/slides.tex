@@ -62,12 +62,6 @@
   \node[anchor=east,font=\small] at (123,#1) {#5};
   \node[anchor=east,font=\small] at (143,#1) {#6};
 }
-\newcommand{\encoderrow}[3]{%
-  \makebox[.37\linewidth][l]{\bfseries #1}%
-  \makebox[.23\linewidth][r]{#2}%
-  \makebox[.17\linewidth][c]{\textcolor{Teal}{\(\longrightarrow\)}}%
-  \makebox[.23\linewidth][r]{\strong{#3}}\par
-}
 \newcommand{\cutrow}[4]{%
   \noindent\makebox[.50\linewidth][l]{\bfseries #1}%
   \makebox[.25\linewidth][r]{\textcolor{#4}{\bfseries #2}}%
@@ -320,10 +314,11 @@ distinguem as resenhas de treino. Com rótulos embaralhados, fica perto do acaso
 \slidecard{Wash}{\small \textbf{Controle de recorte do TF-IDF.}
 Reajuste com texto inteiro \strong{\TfidfControleIntegral}.
 Com os primeiros 400 tokens por regex \strong{\TfidfControleCorte}.}
-\smallsource{CNN e BERT usam AdamW. O teto do BERT inclui tokens especiais.
+\smallsource{AdamW nas redes. 192 tokens com especiais.
 \fonteatual{seminario/roteiro.md\#configuracao-original}{Hiperparâmetros}.
-\fonte{results/comparison.csv}{Métricas originais}.
-\fonteatual{results/tfidf_ablation/summary.json}{Controle}.}
+\fonte{results/comparison.csv}{Métricas}.
+\fonteatual{results/tfidf_ablation/summary.json}{Controle}.
+\href{https://costaleirbag.github.io/projeto-mae5920/\#custo}{Computação}.}
 \end{frame}
 
 % 07:50–08:30
@@ -493,7 +488,7 @@ Três sementes, 2.048 entradas de auditoria. \fonte{results/bpe/audit_metrics.js
 \color{white}
 \vfill
 \pill{ScreenRed}{white}{\(\triangleright\) YouTube}
-\enspace {\small\color{Lime} Com raciocínio, o Qwen gera texto antes do rótulo.}
+\enspace {\small\color{Lime} Os modelos recebem só o comentário.}
 \par\vspace{1.3mm}
 {\Large\bfseries CNN e Qwen leem o YouTube\par}
 \vspace{2mm}
@@ -502,7 +497,7 @@ Três sementes, 2.048 entradas de auditoria. \fonte{results/bpe/audit_metrics.js
 \textbf{The Room}\hfill
 \href{https://www.youtube.com/watch?v=cG_e8k9PILM&t=2s}{\textcolor{Lime}{\small Trailer \(\nearrow\)}}\par
 \youtubeprint{the-room}\par\vspace{.7mm}
-{\scriptsize\bfseries\color{Lime} CNN}\enspace\good{Positiva}\enspace{\small 6/6}\par\vspace{.4mm}
+{\scriptsize\bfseries\color{Lime} CNN}\enspace\CnnRoom\par\vspace{.4mm}
 {\scriptsize\bfseries\color{Lime} Qwen3-8B}\par
 \makebox[.50\linewidth][l]{\scriptsize Sem raciocínio}
 \makebox[.48\linewidth][l]{\scriptsize Com raciocínio}\par
@@ -512,21 +507,21 @@ Três sementes, 2.048 entradas de auditoria. \fonte{results/bpe/audit_metrics.js
 {\small “No one” transforma o elogio em crítica.}
 \end{column}
 \begin{column}{.485\textwidth}
-\textbf{Friday}\hfill
-\href{https://www.youtube.com/watch?v=kfVsfOSbJY0}{\textcolor{Lime}{\small Clipe de Rebecca Black \(\nearrow\)}}\par
-\youtubeprint{friday}\par\vspace{.7mm}
-{\scriptsize\bfseries\color{Lime} CNN}\enspace\bad{Negativa}\enspace{\small 6/6}\par\vspace{.4mm}
+\textbf{Suicide Squad}\hfill
+\href{https://www.youtube.com/watch?v=PLLQK9la6Go}{\textcolor{Lime}{\small Trailer \(\nearrow\)}}\par
+\youtubeprint{suicide-squad}\par\vspace{.7mm}
+{\scriptsize\bfseries\color{Lime} CNN}\enspace\CnnSquad\par\vspace{.4mm}
 {\scriptsize\bfseries\color{Lime} Qwen3-8B}\par
 \makebox[.50\linewidth][l]{\scriptsize Sem raciocínio}
 \makebox[.48\linewidth][l]{\scriptsize Com raciocínio}\par
-\makebox[.50\linewidth][l]{\scriptsize\QwenFridaySem}
-\makebox[.48\linewidth][l]{\scriptsize\QwenFridayCom}
+\makebox[.50\linewidth][l]{\scriptsize\QwenSquadSem}
+\makebox[.48\linewidth][l]{\scriptsize\QwenSquadCom}
 \par\vspace{.6mm}
-{\small A frase admite admiração ou ironia.}
+{\small “The joke was on me” sugere frustração e ecoa a música do trailer.}
 \end{column}
 \end{columns}
 \vfill
-{\scriptsize\color{Lime}Só texto. Três gerações do Qwen por modo. Dois casos qualitativos.
+{\scriptsize\color{Lime}Seis CNNs. Três gerações do Qwen por modo. Dois casos sem rótulo de referência.
 \fonteatual{seminario/dados/fora_dominio_resultados.json}{\textcolor{Lime}{CNN}} \(\cdot\)
 \fonteatual{seminario/dados/qwen_youtube_resultados.json}{\textcolor{Lime}{Qwen}} \(\cdot\)
 \fonteatual{seminario/medir_qwen_youtube.py}{\textcolor{Lime}{Código}}.\par}
@@ -535,20 +530,47 @@ Três sementes, 2.048 entradas de auditoria. \fonte{results/bpe/audit_metrics.js
 }
 
 % Bloco adicional, 13:00–14:30
-\begin{frame}{Encoders em uma auditoria interna}
-\eyebrow{Acurácia média em 2.048 prefixos de até 128 palavras}\par\vspace{.8mm}
-\small
-\makebox[.60\linewidth][r]{\eyebrow{Só a cabeça}}%
-\makebox[.40\linewidth][r]{\eyebrow{Ajuste completo}}\par
-{\color{Rule}\hrule}\vspace{.8mm}
-\RegimesVisuais
-{\color{Rule}\hrule}\vspace{1.5mm}
-Na primeira coluna, só a cabeça aprende. Na segunda, ajustamos também
-o encoder. O BERT do slide 9 foi avaliado no teste oficial.
-\par\vfill
-\slidecard{Mint}{\strong{Qwen3-8B} \quad 95,26\% no teste oficial, com pesos congelados e prompt.}
-\smallsource{Três sementes por receita interna. Lotes de 128 para a cabeça e 32 para o ajuste completo.
-\fonte{results/sequences/summary.json}{Encoders}. \fonte{QWEN_EXPERIMENTO.md}{Qwen}.}
+% lab:cost
+\begin{frame}{Quanto custa treinar e adaptar?}
+\vfill
+\begin{columns}[T,onlytextwidth]
+\begin{column}{.48\textwidth}
+\eyebrow{IMDb \(\cdot\) estudo original}\par\vspace{1.1mm}
+{\scriptsize
+\begin{tabularx}{\linewidth}{@{}Xlrr@{}}
+\toprule
+\textbf{Modelo} & \textbf{Dispositivo} & \textbf{Épocas} & \textbf{Ajuste (s)}\\
+\midrule
+\LinhasCustoSlide
+\bottomrule
+\end{tabularx}\par}
+\vspace{1mm}
+{\small O TF-IDF levou cerca de um décimo do tempo da CNN no mesmo Mac.
+O BERT rodou na DGX Spark.}\par
+\end{column}
+\begin{column}{.48\textwidth}
+\eyebrow{BERT \(\cdot\) auditoria interna na GB10}\par\vspace{1.1mm}
+{\scriptsize
+\begin{tabularx}{\linewidth}{@{}Xrr@{}}
+\toprule
+\textbf{O que aprende} & \textbf{Ajuste (s)} & \textbf{Acurácia}\\
+\midrule
+Só a camada linear & \AjusteCabecaBert & \AcuraciaCabecaBert\\
+Encoder e camada linear & \AjusteCompletoBert & \AcuraciaCompletoBert\\
+\bottomrule
+\end{tabularx}\par}
+\vspace{1mm}
+{\small Mesmos 2.048 prefixos, três sementes. O tempo da cabeça inclui
+a extração dos vetores.}\par
+\end{column}
+\end{columns}
+\vfill
+\slidecard{Mint}{\small \strong{Pré-treino publicado.} O BERT-base aprendeu com livros
+e Wikipédia, prevendo tokens mascarados e identificando trechos consecutivos.
+Foram quatro dias em 16 chips TPU no artigo. Partimos desses pesos.}
+\smallsource{\fonteatual{seminario/roteiro.md\#como-os-tempos-foram-medidos}{Como medimos}.
+\href{https://aclanthology.org/N19-1423.pdf}{Devlin et al.}.
+\href{https://costaleirbag.github.io/projeto-mae5920/\#custo}{Ver as duas etapas no HTML}.}
 \end{frame}
 
 % 14:30–15:00 ou 11:35–12:00

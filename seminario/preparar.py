@@ -202,7 +202,7 @@ def cnn_scan() -> None:
     save(fig, "cnn_varredura.pdf")
 
 
-def qwen_vote_badge(outputs: list[dict]) -> str:
+def vote_badge(outputs: list[dict]) -> str:
     counts = Counter(output["classe"] for output in outputs)
     total = len(outputs)
     for kind, command in (("positiva", r"\good"), ("negativa", r"\bad")):
@@ -228,7 +228,7 @@ def tables() -> str:
             split_rows.append(row(split_label, name, pct(float(r["accuracy"])),
                                   pt(float(r["f1_macro"]), 4), pt(float(r["log_loss"]), 4)))
     calibrated_rows, chart_rows = [], []
-    cost_rows = []
+    cost_rows, slide_cost_rows = [], []
     for y, (key, name) in zip((33, 20, 7), baseline_names.items(), strict=True):
         r = next(x for x in comparisons if x["model"] == key and x["split"] == "test"
                  and x["probabilities"] == "calibrated")
@@ -251,8 +251,12 @@ def tables() -> str:
                                    entry, recipe))
         device = {"tfidf": "CPU do Apple M1", "cnn": "Apple M1 (MPS)",
                   "bert": "NVIDIA GB10 (CUDA)"}[key]
-        cost_rows.append(row(name, device, pt(meta["training_seconds"], 1),
+        epochs = len(meta["history"]) if "history" in meta else "—"
+        cost_rows.append(row(name, device, epochs, pt(meta["training_seconds"], 1),
                              pt(meta["all_splits_inference_seconds"], 2)))
+        slide_cost_rows.append(row("TF-IDF" if key == "tfidf" else name,
+                                   {"tfidf": "M1 CPU", "cnn": "M1 GPU", "bert": "GB10 GPU"}[key],
+                                   epochs, pt(meta["training_seconds"], 1)))
     sequences = read_json("results/sequences/summary.json")
     by_key = {r["key"]: r for r in sequences["groups"]}
     sequence_rows = [
@@ -263,12 +267,6 @@ def tables() -> str:
     sequence_rows[0] = sequence_rows[0].replace("Adam", "CNN + Adam", 1)
     sequence_rows.insert(0, row("TF-IDF + logística", pct(baseline["accuracy"]),
                                 pt(baseline["f1_macro"], 4), pt(baseline["ce"], 4)))
-    regime_chart = [
-        tex_call("encoderrow", label, pct(by_key[family + "_probe"]["accuracy_mean"]),
-                 pct(by_key[family + "_full"]["accuracy_mean"]))
-        for family, label in [("bert", "BERT-base"), ("distilbert", "DistilBERT"),
-                              ("modernbert", "ModernBERT-base")]
-    ]
     bpe = read_json("results/bpe/summary.json")
     bpe_rows = []
     for r in bpe["groups"]:
@@ -305,6 +303,8 @@ def tables() -> str:
     pool = demo["pooling"]
     qwen = read_json("seminario/dados/qwen_youtube_resultados.json")
     qwen_labels = {case["id"]: case["geracao"] for case in qwen["comentarios"]}
+    youtube_cnn = {case["id"]: case["predicoes"] for case in
+                   read_json("seminario/dados/fora_dominio_resultados.json")["comentarios_youtube"]}
     early, late = pool["casos"]["A"]["picos_por_metade"]
     steps = demo["bpe"]["etapas"]
     trace = demo["cnn"]["casos"]["A"]["janelas"]["3"]
@@ -354,13 +354,17 @@ def tables() -> str:
         "LinhasOriginal": "\n".join(split_rows),
         "LinhasTeste": "\n".join(calibrated_rows),
         "PontosTeste": "\n".join(chart_rows),
-        "RegimesVisuais": "\n".join(regime_chart),
         "KernelsVisuais": "\n".join(kernel_cards),
         "PassosVisuais": "\n".join(stride_cards),
         "RecorteVisual": "\n".join(cut_cards),
         **excerpts,
         **position_values,
         "LinhasCusto": "\n".join(cost_rows),
+        "LinhasCustoSlide": "\n".join(slide_cost_rows),
+        "AjusteCabecaBert": pt(by_key["bert_probe"]["fit_plus_features_seconds"], 1),
+        "AjusteCompletoBert": pt(by_key["bert_full"]["fit_plus_features_seconds"], 1),
+        "AcuraciaCabecaBert": pct(by_key["bert_probe"]["accuracy_mean"]),
+        "AcuraciaCompletoBert": pct(by_key["bert_full"]["accuracy_mean"]),
         "LinhasSeq": "\n".join(sequence_rows),
         "LinhasBPE": "\n".join(bpe_rows),
         "ExemploTFIDF": tfidf_slide["text"],
@@ -402,10 +406,12 @@ def tables() -> str:
         "FiltroControle": str(pool["filtro"]),
         "PicoPrimeiraMetade": pt(early),
         "PicoSegundaMetade": pt(late),
-        "QwenRoomSem": qwen_vote_badge(qwen_labels["E"]["sem_raciocinio"]),
-        "QwenRoomCom": qwen_vote_badge(qwen_labels["E"]["com_raciocinio"]),
-        "QwenFridaySem": qwen_vote_badge(qwen_labels["C"]["sem_raciocinio"]),
-        "QwenFridayCom": qwen_vote_badge(qwen_labels["C"]["com_raciocinio"]),
+        "CnnRoom": vote_badge(youtube_cnn["E"]),
+        "CnnSquad": vote_badge(youtube_cnn["F"]),
+        "QwenRoomSem": vote_badge(qwen_labels["E"]["sem_raciocinio"]),
+        "QwenRoomCom": vote_badge(qwen_labels["E"]["com_raciocinio"]),
+        "QwenSquadSem": vote_badge(qwen_labels["F"]["sem_raciocinio"]),
+        "QwenSquadCom": vote_badge(qwen_labels["F"]["com_raciocinio"]),
     }
     return "% Gerado por preparar.py a partir das evidências publicadas.\n" + "".join(
         macro(name, value) for name, value in props.items()

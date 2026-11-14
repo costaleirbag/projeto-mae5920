@@ -19,7 +19,7 @@
     "negative": 42224,
     "positive": 30487
   },
-  "entrada_sha256": "8b1a8397de367408989b855d6fe768a527a87ddec914326aedd64375ff0a8190",
+  "entrada_sha256": "d4c2c3382ca720bf0b149a98b2c04e46f81ee153575d81c354aaa4ae7de38c22",
   "configuracao_sha256": "79badf23f46fb5d5c0ea3004b9fff8c1dfbebdfc94111a240b03693aa2fbef63",
   "codigo_qwen_sha256": "324316003993c57c7704513a503186cb2c1e41ff78116b10b6a36fc18a7594fb",
   "comentarios": [
@@ -31,10 +31,10 @@
       "testes": {
         "padrao": {
           "classe": "positiva",
-          "escore_positivo_restrito": 0.9933071490757153,
+          "escore_positivo_restrito": 0.9947798743064417,
           "massa_dos_rotulos_no_vocabulario": 1.0,
           "logits": {
-            "negative": 51.0,
+            "negative": 50.75,
             "positive": 56.0
           },
           "prompt_sha256": "27c6a296f628c03096b4bef1ce5d2aac0b64a804bf6440bf3d42556d14b52225",
@@ -42,11 +42,11 @@
         },
         "ordem_invertida": {
           "classe": "positiva",
-          "escore_positivo_restrito": 0.9999785550515792,
+          "escore_positivo_restrito": 0.9999869928715335,
           "massa_dos_rotulos_no_vocabulario": 1.0,
           "logits": {
-            "negative": 47.25,
-            "positive": 58.0
+            "negative": 47.0,
+            "positive": 58.25
           },
           "prompt_sha256": "414b7f82dd334862386fc0a421abdb15434f41e44d2956e206e5eb526920dafd",
           "tokens_da_entrada": 10
@@ -79,22 +79,22 @@
         "com_raciocinio": [
           {
             "classe": "positiva",
-            "tokens_gerados": 806,
-            "tokens_ate_fim_do_raciocinio": 804,
+            "tokens_gerados": 761,
+            "tokens_ate_fim_do_raciocinio": 759,
             "fim_do_raciocinio": true,
             "encerrou_com_eos": true
           },
           {
             "classe": "positiva",
-            "tokens_gerados": 221,
-            "tokens_ate_fim_do_raciocinio": 219,
+            "tokens_gerados": 241,
+            "tokens_ate_fim_do_raciocinio": 239,
             "fim_do_raciocinio": true,
             "encerrou_com_eos": true
           },
           {
             "classe": "positiva",
-            "tokens_gerados": 1302,
-            "tokens_ate_fim_do_raciocinio": 1300,
+            "tokens_gerados": 725,
+            "tokens_ate_fim_do_raciocinio": 723,
             "fim_do_raciocinio": true,
             "encerrou_com_eos": true
           }
@@ -102,32 +102,32 @@
       }
     },
     {
-      "id": "C",
-      "origem": "Friday",
-      "texto": "AI could never do this",
+      "id": "F",
+      "origem": "Suicide Squad",
+      "texto": "I saw the movie and now I see that the joke was on me",
       "rotulo_referencia": null,
       "testes": {
         "padrao": {
           "classe": "negativa",
-          "escore_positivo_restrito": 0.01098694263059318,
-          "massa_dos_rotulos_no_vocabulario": 0.9999237060546875,
+          "escore_positivo_restrito": 1.0129990980873921e-05,
+          "massa_dos_rotulos_no_vocabulario": 1.0,
           "logits": {
-            "negative": 46.5,
-            "positive": 42.0
+            "negative": 57.5,
+            "positive": 46.0
           },
-          "prompt_sha256": "4ecbc4826dedad7f7af92352a6d5c60d74a8b558fb00020e55572ced29fbf48e",
-          "tokens_da_entrada": 5
+          "prompt_sha256": "9e9814ca33a736a9ee8e48bc36b79c325274fcff5b9f0ac6ad89349a28cb9884",
+          "tokens_da_entrada": 14
         },
         "ordem_invertida": {
           "classe": "negativa",
-          "escore_positivo_restrito": 0.2227001388253088,
-          "massa_dos_rotulos_no_vocabulario": 0.9990925192832947,
+          "escore_positivo_restrito": 0.005220125693558398,
+          "massa_dos_rotulos_no_vocabulario": 1.0,
           "logits": {
-            "negative": 44.75,
-            "positive": 43.5
+            "negative": 55.0,
+            "positive": 49.75
           },
-          "prompt_sha256": "87c5ae89ed4206616329e18b9f6b54ba05098d43b2b857eb9c57c05ba214b2fa",
-          "tokens_da_entrada": 5
+          "prompt_sha256": "744aaa3357c94684f02d0b7805d615a36980ef506e2c50f747a4c13e6208f3ae",
+          "tokens_da_entrada": 14
         }
       },
       "geracao": {
@@ -157,22 +157,22 @@
         "com_raciocinio": [
           {
             "classe": "negativa",
-            "tokens_gerados": 802,
-            "tokens_ate_fim_do_raciocinio": 800,
+            "tokens_gerados": 224,
+            "tokens_ate_fim_do_raciocinio": 222,
             "fim_do_raciocinio": true,
             "encerrou_com_eos": true
           },
           {
             "classe": "negativa",
-            "tokens_gerados": 1374,
-            "tokens_ate_fim_do_raciocinio": 1372,
+            "tokens_gerados": 182,
+            "tokens_ate_fim_do_raciocinio": 180,
             "fim_do_raciocinio": true,
             "encerrou_com_eos": true
           },
           {
             "classe": "negativa",
-            "tokens_gerados": 300,
-            "tokens_ate_fim_do_raciocinio": 298,
+            "tokens_gerados": 197,
+            "tokens_ate_fim_do_raciocinio": 195,
             "fim_do_raciocinio": true,
             "encerrou_com_eos": true
           }
@@ -187,22 +187,22 @@
       "testes": {
         "padrao": {
           "classe": "positiva",
-          "escore_positivo_restrito": 0.9999999468421502,
+          "escore_positivo_restrito": 0.999999931743971,
           "massa_dos_rotulos_no_vocabulario": 1.0,
           "logits": {
             "negative": 43.75,
-            "positive": 60.5
+            "positive": 60.25
           },
           "prompt_sha256": "215eb8a4cf7b8b6675894d2bc69304218afee14182bc29a765fea1a26d2d0849",
           "tokens_da_entrada": 12
         },
         "ordem_invertida": {
           "classe": "positiva",
-          "escore_positivo_restrito": 0.999999998394772,
+          "escore_positivo_restrito": 0.9999999973534264,
           "massa_dos_rotulos_no_vocabulario": 1.0,
           "logits": {
-            "negative": 41.0,
-            "positive": 61.25
+            "negative": 41.75,
+            "positive": 61.5
           },
           "prompt_sha256": "8b303b8a964df0d4bb6a896724e287f833307ab904390de911f012fe91cf5b17",
           "tokens_da_entrada": 12
@@ -226,11 +226,11 @@
         },
         "ordem_invertida": {
           "classe": "negativa",
-          "escore_positivo_restrito": 8.764247451323235e-08,
+          "escore_positivo_restrito": 6.825602910446288e-08,
           "massa_dos_rotulos_no_vocabulario": 1.0,
           "logits": {
             "negative": 61.25,
-            "positive": 45.0
+            "positive": 44.75
           },
           "prompt_sha256": "177755ccf64c30bfda36e1146ed0aa90f5c1fa73ae99ca611d6c5f1c27319e25",
           "tokens_da_entrada": 12

@@ -27,8 +27,17 @@ COMMENTS = {
     "C": ("Friday", "AI could never do this"),
     "D": ("The Room", "The trailer makes more sense than the actual film"),
     "E": ("The Room", '"The best movie of the year" - No one'),
+    "F": ("Suicide Squad", "I saw the movie and now I see that the joke was on me"),
 }
 SEEDS = (17, 29, 43)
+
+
+def youtube_comments(models: list) -> list[dict]:
+    return [
+        {"id": name, "origem": source, "texto": review, "rotulo_referencia": None,
+         "predicoes": [model.predict(review) for model in models]}
+        for name, (source, review) in COMMENTS.items()
+    ]
 
 
 def evaluate(dataset: Path, artifacts: Path, output: Path) -> dict:
@@ -86,11 +95,7 @@ def evaluate(dataset: Path, artifacts: Path, output: Path) -> dict:
         "checkpoint_sha256": {f"{model.label}_s{model.seed}": model.checkpoint_sha256 for model in models},
         "predicoes_sha256": file_sha256(predictions),
         "dominios_rotulados": domains,
-        "comentarios_youtube": [
-            {"id": name, "origem": source, "texto": review, "rotulo_referencia": None,
-             "predicoes": [model.predict(review) for model in models]}
-            for name, (source, review) in COMMENTS.items()
-        ],
+        "comentarios_youtube": youtube_comments(models),
     }
 
 

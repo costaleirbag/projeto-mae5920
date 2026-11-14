@@ -18,6 +18,7 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 FRAME = re.compile(r"(?:^% lab:(?P<lab>[a-z]+)\n)?\\begin{frame}(?:\[[^\]]+\])?(?:\{(?P<title>[^{}\n]+)\})?", re.M)
 MODEL = "src/imdb_lab/models.py"
+SHORTCUT_LABELS = {"tf-idf": "slide sobre TF-IDF", "custo": "slide sobre custo computacional"}
 
 
 def code_excerpt(path: str, *anchors: str, context: str = "") -> dict:
@@ -106,8 +107,9 @@ def links(page) -> list[dict]:
         x0, y0, x1, y1 = map(float, annotation["/Rect"])
         rect = [x0 / width, 1 - y1 / height, (x1 - x0) / width, (y1 - y0) / height]
         label = unquote(parsed.path.rsplit("/", 1)[-1]) or parsed.netloc
-        if parsed.netloc == "costaleirbag.github.io" and parsed.path == "/projeto-mae5920/" and parsed.fragment == "tf-idf":
-            url, label = "#tf-idf", "slide sobre TF-IDF"
+        if (parsed.netloc == "costaleirbag.github.io" and parsed.path == "/projeto-mae5920/"
+                and parsed.fragment in SHORTCUT_LABELS):
+            url, label = "#" + parsed.fragment, SHORTCUT_LABELS[parsed.fragment]
         result.append({"url": url, "label": "Abrir referência " + label,
                        "rect": [round(100 * v, 3) for v in rect]})
     return result
@@ -156,12 +158,39 @@ def cut_example() -> dict:
     }
 
 
+def cost_evidence() -> dict:
+    original = []
+    for key, label, device in (
+        ("tfidf", "TF-IDF + logística", "Apple M1 · CPU"),
+        ("cnn", "TextCNN", "Apple M1 · GPU"),
+        ("bert", "BERT-base", "DGX Spark · NVIDIA GB10"),
+    ):
+        meta = json.loads((ROOT / f"results/{key}/metadata.json").read_text(encoding="utf-8"))
+        metrics = json.loads((ROOT / f"results/{key}/metrics.json").read_text(encoding="utf-8"))
+        original.append({"label": label, "device": device, "epochs": len(meta.get("history", [])),
+                         "seconds": meta["training_seconds"], "accuracy": metrics["test"]["raw"]["accuracy"]})
+    sequences = json.loads((ROOT / "results/sequences/summary.json").read_text(encoding="utf-8"))
+    bert = {
+        policy: next(group for group in sequences["groups"] if group["key"] == "bert_" + policy)
+        for policy in ("probe", "full")
+    }
+    return {
+        "original": original,
+        "bert": {
+            policy: {"epochs": sequences["config"]["encoders"][policy]["epochs"], **{
+                key: group[key] for key in ("accuracy_mean", "trainable_parameters", "fit_plus_features_seconds")
+            }}
+            for policy, group in bert.items()
+        },
+    }
+
+
 def build(pdf: Path, output: Path) -> None:
     reader = PdfReader(pdf)
     frames = list(FRAME.finditer((HERE / "slides.tex").read_text(encoding="utf-8")))
     assert len(frames) == len(reader.pages), "O PDF deve ter uma página por frame."
     assert [frame["lab"] for frame in frames if frame["lab"]] == [
-        "bpe", "cnn", "tfidf", "lengths", "contrast", "pooling", "position", "youtube", "closing", "cut",
+        "bpe", "cnn", "tfidf", "lengths", "contrast", "pooling", "position", "youtube", "cost", "closing", "cut",
     ]
 
     slides = []
@@ -188,21 +217,25 @@ def build(pdf: Path, output: Path) -> None:
         },
     }
     youtube_results = json.loads((HERE / "dados/qwen_youtube_resultados.json").read_text(encoding="utf-8"))
-    youtube_qwen = {
+    youtube = {
         case["id"]: {mode: [answer["classe"] for answer in answers] for mode, answers in case["geracao"].items()}
         for case in youtube_results["comentarios"]
     }
+    cnn_youtube = json.loads((HERE / "dados/fora_dominio_resultados.json").read_text(encoding="utf-8"))
+    for case in cnn_youtube["comentarios_youtube"]:
+        if case["id"] in youtube:
+            youtube[case["id"]]["cnn"] = [answer["classe"] for answer in case["predicoes"]]
     lengths = json.loads((HERE / "dados/comprimentos.json").read_text(encoding="utf-8"))
     bert_cut = json.loads((HERE / "dados/recorte_bert/resumo.json").read_text(encoding="utf-8"))
     tfidf = json.loads((HERE / "dados/tfidf_slide.json").read_text(encoding="utf-8"))
     data = json.dumps({
         "slides": slides, "evidence": evidence, "architecture": architecture_steps(),
-        "contrast": contrast_example(), "position": position, "youtubeQwen": youtube_qwen,
+        "contrast": contrast_example(), "position": position, "youtube": youtube, "cost": cost_evidence(),
         "cut": cut_example(), "tfidf": tfidf, "lengthBands": lengths["bands"],
         "bertCut": {key: bert_cut[key] for key in ("caps_including_specials", "replay", "extended")},
     }, ensure_ascii=False, separators=(",", ":"))
     template = (HERE / "apresentacao.html").read_text(encoding="utf-8")
-    for marker, file in (("ROOM", "the-room"), ("FRIDAY", "friday")):
+    for marker, file in (("ROOM", "the-room"), ("SQUAD", "suicide-squad")):
         asset = (HERE / "figuras" / f"youtube-{file}.png").read_bytes()
         template = template.replace(f"/* YOUTUBE_{marker} */", b64encode(asset).decode("ascii"))
     output.parent.mkdir(parents=True, exist_ok=True)

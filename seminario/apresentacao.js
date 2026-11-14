@@ -1,7 +1,7 @@
 "use strict";
 
 const byId = (id) => document.getElementById(id);
-const { slides, evidence, architecture, contrast, position, youtubeQwen, cut, tfidf, lengthBands, bertCut } =
+const { slides, evidence, architecture, contrast, position, youtube, cost, cut, tfidf, lengthBands, bertCut } =
   JSON.parse(byId("deck-data").textContent);
 const number = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
@@ -422,23 +422,25 @@ document.querySelectorAll("[data-position-order]").forEach((table) => {
 byId("position-pairs").textContent = position.pairs;
 for (const order of ["value", "half"]) byId("position-rate-" + order).textContent = percent.format(position.rates[order]);
 
-document.querySelectorAll("[data-youtube-qwen]").forEach((row) => {
-  const modes = youtubeQwen[row.dataset.youtubeQwen];
-  row.querySelectorAll("[data-mode]").forEach((result) => {
-    const votes = modes[result.dataset.mode];
-    const badge = result.querySelector(".class-label");
-    const [first] = votes;
-    if (first && votes.every((vote) => vote === first)) {
-      badge.dataset.tone = first;
-      badge.textContent = first[0].toUpperCase() + first.slice(1) + " " + votes.length + "/" + votes.length;
-    } else {
-      badge.textContent = [[ "positiva", "pos." ], [ "negativa", "neg." ], [ null, "sem rótulo" ]]
-        .map(([kind, label]) => [votes.filter((vote) => vote === kind).length, label])
-        .filter(([count]) => count > 0)
-        .map(([count, label]) => count + " " + label)
-        .join(" · ");
-    }
-  });
+function showVotes(badge, votes) {
+  const [first] = votes;
+  if (first && votes.every((vote) => vote === first)) {
+    badge.dataset.tone = first;
+    badge.textContent = first[0].toUpperCase() + first.slice(1) + " " + votes.length + "/" + votes.length;
+    return;
+  }
+  badge.textContent = [["positiva", "pos."], ["negativa", "neg."], [null, "sem rótulo"]]
+    .map(([kind, label]) => [votes.filter((vote) => vote === kind).length, label])
+    .filter(([count]) => count > 0)
+    .map(([count, label]) => count + " " + label)
+    .join(" · ");
+}
+document.querySelectorAll("[data-youtube-cnn]").forEach((row) => {
+  showVotes(row.querySelector(".class-label"), youtube[row.dataset.youtubeCnn].cnn);
+});
+document.querySelectorAll("[data-youtube-qwen] [data-mode]").forEach((row) => {
+  const id = row.closest("[data-youtube-qwen]").dataset.youtubeQwen;
+  showVotes(row.querySelector(".class-label"), youtube[id][row.dataset.mode]);
 });
 
 const cutButtons = [...document.querySelectorAll("[data-cut]")];
@@ -537,6 +539,54 @@ lengthControls.forEach((button) => button.addEventListener("click", () => {
 lengthReplay.addEventListener("change", drawLengths);
 drawLengths();
 
+const costButtons = [...document.querySelectorAll("[data-cost-view]")];
+const costSeconds = new Intl.NumberFormat("pt-BR", {
+  minimumFractionDigits: 1, maximumFractionDigits: 1,
+});
+const seconds = (value) => costSeconds.format(value) + " s";
+for (const entry of cost.original) {
+  const row = byId("cost-rows").insertRow();
+  const label = document.createElement("th");
+  label.scope = "row";
+  const device = document.createElement("small");
+  device.textContent = entry.device;
+  label.append(entry.label, device);
+  row.append(label);
+  row.insertCell().textContent = entry.epochs || "—";
+  row.insertCell().textContent = seconds(entry.seconds);
+  row.insertCell().textContent = lengthPercent.format(entry.accuracy);
+}
+const [tfidfCost, cnnCost] = cost.original;
+byId("cost-speedup").textContent = "O TF-IDF levou " +
+  new Intl.NumberFormat("pt-BR", { style: "percent" }).format(tfidfCost.seconds / cnnCost.seconds) + " do tempo";
+for (const [policy, entry] of Object.entries(cost.bert)) {
+  byId("cost-" + policy + "-time").textContent = seconds(entry.fit_plus_features_seconds);
+  byId("cost-" + policy + "-accuracy").textContent = lengthPercent.format(entry.accuracy_mean);
+  const parameters = policy === "probe" ? lengthCount.format(entry.trainable_parameters) :
+    costSeconds.format(entry.trainable_parameters / 1e6) + " milhões de";
+  byId("cost-" + policy + "-detail").textContent = entry.epochs + " épocas · " + parameters + " parâmetros treináveis";
+}
+byId("cost-bert-gain").textContent = "+" + number.format(100 *
+  (cost.bert.full.accuracy_mean - cost.bert.probe.accuracy_mean)) + " p.p.";
+
+let costView;
+function showCost(view) {
+  if (view === costView) return false;
+  costView = view;
+  costButtons.forEach((button) => {
+    const active = button.dataset.costView === view;
+    button.setAttribute("aria-pressed", active);
+    byId(button.getAttribute("aria-controls")).hidden = !active;
+  });
+  byId("cost-method-note").hidden = view === "original";
+  byId("cost-scope").textContent = view === "original" ?
+    "Acurácia no teste oficial · 25.000 resenhas" : "Auditoria interna · 2.048 prefixos · NVIDIA GB10";
+  return true;
+}
+costButtons.forEach((button) => button.addEventListener("click", () => showCost(button.dataset.costView)));
+showCost("original");
+const costTransport = { move: (direction) => showCost(direction > 0 ? "bert" : "original") };
+
 const picker = byId("slide-picker");
 const previous = byId("previous");
 const next = byId("next");
@@ -600,7 +650,7 @@ byId("tfidf-next").addEventListener("click", () => {
 
 const labs = {
   bpe: bpeTransport, cnn: cnnTransport, tfidf: tfidfTransport,
-  contrast: contrastTransport, pooling: poolingTransport, cut: cutTransport,
+  contrast: contrastTransport, pooling: poolingTransport, cut: cutTransport, cost: costTransport,
 };
 const ending = slides.findIndex((slide) => slide.interactive === "closing");
 const mainGroup = document.createElement("optgroup");
@@ -622,7 +672,8 @@ function showSlide(index, view = "build") {
   cnnView = view;
   bpeTransport.pause();
   cnnTransport.pause();
-  for (const id of ["bpe", "lengths", "contrast", "pooling", "position", "youtube", "closing", "cut", "tfidf"]) {
+  if (slide.interactive === "cost") showCost("original");
+  for (const id of ["bpe", "lengths", "contrast", "pooling", "position", "youtube", "cost", "closing", "cut", "tfidf"]) {
     byId(id).hidden = slide.interactive !== id;
   }
   byId("cnn-build").hidden = slide.interactive !== "cnn" || cnnView !== "build";
@@ -699,7 +750,7 @@ window.addEventListener("keydown", (event) => {
 });
 function openFromHash() {
   const match = location.hash.match(/^#slide-(\d+)(-varredura)?$/);
-  const shortcuts = { "#encerramento": "closing", "#recorte": "cut", "#tf-idf": "tfidf",
+  const shortcuts = { "#encerramento": "closing", "#recorte": "cut", "#tf-idf": "tfidf", "#custo": "cost",
     "#comprimento": "lengths", "#contraste": "contrast", "#maximo-global": "pooling", "#posicao": "position" };
   const named = slides.findIndex((slide) => slide.interactive && slide.interactive === shortcuts[location.hash]);
   const index = location.hash === "#apoio" ? ending + 1 : Math.max(0, named);

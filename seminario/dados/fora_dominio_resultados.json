@@ -1258,6 +1258,278 @@
           "palavras_no_prefixo": 9
         }
       ]
+    },
+    {
+      "id": "F",
+      "origem": "Suicide Squad",
+      "texto": "I saw the movie and now I see that the joke was on me",
+      "rotulo_referencia": null,
+      "predicoes": [
+        {
+          "modelo": "Palavras",
+          "semente": 17,
+          "epoca": 5,
+          "classe": "positiva",
+          "p_positiva": 0.6471306085586548,
+          "logits": [
+            -0.3838985562324524,
+            0.22255165874958038
+          ],
+          "tokens": [
+            "i",
+            "saw",
+            "the",
+            "movie",
+            "and",
+            "now",
+            "i",
+            "see",
+            "that",
+            "the",
+            "joke",
+            "was",
+            "on",
+            "me"
+          ],
+          "ids": [
+            8,
+            148,
+            2,
+            14,
+            4,
+            157,
+            8,
+            65,
+            12,
+            2,
+            926,
+            13,
+            20,
+            62
+          ],
+          "palavras_no_prefixo": 14
+        },
+        {
+          "modelo": "BPE",
+          "semente": 17,
+          "epoca": 5,
+          "classe": "positiva",
+          "p_positiva": 0.6933732032775879,
+          "logits": [
+            -0.37055474519729614,
+            0.44538238644599915
+          ],
+          "tokens": [
+            "i</w>",
+            "saw</w>",
+            "the</w>",
+            "movie</w>",
+            "and</w>",
+            "now</w>",
+            "i</w>",
+            "see</w>",
+            "that</w>",
+            "the</w>",
+            "joke</w>",
+            "was</w>",
+            "on</w>",
+            "me</w>"
+          ],
+          "ids": [
+            60,
+            603,
+            78,
+            137,
+            86,
+            362,
+            60,
+            341,
+            121,
+            78,
+            2451,
+            131,
+            104,
+            178
+          ],
+          "palavras_no_prefixo": 14
+        },
+        {
+          "modelo": "Palavras",
+          "semente": 29,
+          "epoca": 6,
+          "classe": "positiva",
+          "p_positiva": 0.7263959646224976,
+          "logits": [
+            -0.35079658031463623,
+            0.6256166696548462
+          ],
+          "tokens": [
+            "i",
+            "saw",
+            "the",
+            "movie",
+            "and",
+            "now",
+            "i",
+            "see",
+            "that",
+            "the",
+            "joke",
+            "was",
+            "on",
+            "me"
+          ],
+          "ids": [
+            8,
+            148,
+            2,
+            14,
+            4,
+            157,
+            8,
+            65,
+            12,
+            2,
+            926,
+            13,
+            20,
+            62
+          ],
+          "palavras_no_prefixo": 14
+        },
+        {
+          "modelo": "BPE",
+          "semente": 29,
+          "epoca": 5,
+          "classe": "positiva",
+          "p_positiva": 0.7177274823188782,
+          "logits": [
+            -0.3845292031764984,
+            0.5486879348754883
+          ],
+          "tokens": [
+            "i</w>",
+            "saw</w>",
+            "the</w>",
+            "movie</w>",
+            "and</w>",
+            "now</w>",
+            "i</w>",
+            "see</w>",
+            "that</w>",
+            "the</w>",
+            "joke</w>",
+            "was</w>",
+            "on</w>",
+            "me</w>"
+          ],
+          "ids": [
+            60,
+            603,
+            78,
+            137,
+            86,
+            362,
+            60,
+            341,
+            121,
+            78,
+            2451,
+            131,
+            104,
+            178
+          ],
+          "palavras_no_prefixo": 14
+        },
+        {
+          "modelo": "Palavras",
+          "semente": 43,
+          "epoca": 6,
+          "classe": "positiva",
+          "p_positiva": 0.6257688999176025,
+          "logits": [
+            -0.16806890070438385,
+            0.34603869915008545
+          ],
+          "tokens": [
+            "i",
+            "saw",
+            "the",
+            "movie",
+            "and",
+            "now",
+            "i",
+            "see",
+            "that",
+            "the",
+            "joke",
+            "was",
+            "on",
+            "me"
+          ],
+          "ids": [
+            8,
+            148,
+            2,
+            14,
+            4,
+            157,
+            8,
+            65,
+            12,
+            2,
+            926,
+            13,
+            20,
+            62
+          ],
+          "palavras_no_prefixo": 14
+        },
+        {
+          "modelo": "BPE",
+          "semente": 43,
+          "epoca": 6,
+          "classe": "negativa",
+          "p_positiva": 0.278606653213501,
+          "logits": [
+            0.5971431136131287,
+            -0.35424044728279114
+          ],
+          "tokens": [
+            "i</w>",
+            "saw</w>",
+            "the</w>",
+            "movie</w>",
+            "and</w>",
+            "now</w>",
+            "i</w>",
+            "see</w>",
+            "that</w>",
+            "the</w>",
+            "joke</w>",
+            "was</w>",
+            "on</w>",
+            "me</w>"
+          ],
+          "ids": [
+            60,
+            603,
+            78,
+            137,
+            86,
+            362,
+            60,
+            341,
+            121,
+            78,
+            2451,
+            131,
+            104,
+            178
+          ],
+          "palavras_no_prefixo": 14
+        }
+      ]
     }
   ]
 }

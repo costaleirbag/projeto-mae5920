@@ -23,7 +23,7 @@ naturais para trocar de pessoa.
 | 13 | 10:05–11:00 | O limite do máximo global |
 | 14 | 11:00–11:35 | Dois picos por filtro e acerto em pares |
 | 15 | 11:35–13:00 | Comentários do YouTube ou demonstração |
-| 16 | 13:00–14:30 | Encoders e geração com o Qwen |
+| 16 | 13:00–14:30 | Custo de treino e adaptação do BERT |
 | 17 | 14:30–15:00 ou 11:35–12:00 | Conclusão e perguntas |
 
 ## 1 · Pergunta do seminário
@@ -194,6 +194,9 @@ a CNN original fica atrás.”
 Acurácia e F1 macro usam as classes previstas. A CE usa as probabilidades
 calibradas numa amostra separada.
 
+Na versão curta, cabe uma frase sobre custo aqui. “No Mac M1, o TF-IDF
+levou 13 s na CPU e a CNN levou 140 s na GPU.” [Slide de computação](https://costaleirbag.github.io/projeto-mae5920/#custo).
+
 <a id="configuracao-original"></a>
 
 ### Configuração do estudo original
@@ -296,15 +299,15 @@ par com veredito no fim. [Método e resultados por semente](diagnosticos.md#o-qu
 
 Mostre os prints e aponte o destaque em *No one*. O modelo recebeu o
 texto de cada comentário. Os vídeos e a interface ajudam a plateia a
-interpretá-lo. [Trailer de The Room](https://www.youtube.com/watch?v=cG_e8k9PILM&t=2s) · [Friday](https://www.youtube.com/watch?v=kfVsfOSbJY0).
+interpretá-lo. [Trailer de The Room](https://www.youtube.com/watch?v=cG_e8k9PILM&t=2s) · [Trailer de Suicide Squad](https://www.youtube.com/watch?v=PLLQK9la6Go).
 
 “Em *The Room*, *No one* faz a citação soar como crítica. A CNN e o Qwen
-previram positiva. Em *Friday*, a frase pode soar como admiração ou
-ironia. Os dois deram negativa. No mesmo Qwen, pedimos o rótulo direto
-ou deixamos o modelo gerar primeiro um bloco de raciocínio. Com o mesmo
-texto e a mesma instrução, fizemos três gerações por modo e por comentário.
-As classes coincidiram. A avaliação com rótulos fora do IMDb usa 2.000
-frases de Amazon e Yelp. As CNNs ficaram entre 68 e 70 por cento.”
+previram positiva. Em *Suicide Squad*, o comentário sugere que o espectador
+se sentiu enganado e faz uma alusão à letra da música do trailer. Cinco
+dos seis checkpoints da CNN previram positiva. O Qwen respondeu negativa
+nas três gerações sem raciocínio e nas três com raciocínio. Aqui a leitura
+é nossa. A avaliação com rótulos fora do IMDb usa 2.000 frases de Amazon e
+Yelp. As CNNs ficaram entre 68 e 70 por cento.”
 
 [Resultados das gerações](dados/qwen_youtube_resultados.json) · [Código](medir_qwen_youtube.py).
 
@@ -313,18 +316,73 @@ Se optarem pela demonstração, abram o navegador antes da fala e usem até
 classe, o escore e os tokens das duas CNNs. Se a resposta demorar, voltem
 aos resultados salvos no slide.
 
-## 16 · Encoders e geração com o Qwen
+## 16 · Custo de treino e adaptação do BERT
 
-“Aqui são 2.048 resenhas internas, cortadas em 128 palavras. Os vetores
-já trazem contexto dos outros tokens. Fazemos uma média mascarada e uma
-camada linear classifica. À esquerda, só essa camada aprende, com lote
-128. À direita, ajustamos o encoder também, com lote 32. O BERT original
-do slide 9 também usou lote 32, com mais dados e outro conjunto de teste.
+Comece em **Estudo original**. Avance com a seta direita para **Ajuste
+do BERT**. No PDF, leia a coluna da esquerda e depois a da direita.
 
-O quadro do Qwen remete ao teste oficial. Com pesos congelados e até 768
-tokens da resenha, usamos o prompt e a diferença dos logits dos dois
-rótulos. Ele atingiu 95,26%. Pré-treino, arquitetura e entrada mudam
-juntos. A geração com intervenção nas ativações fica no apoio.”
+“No Mac M1, a regressão logística com TF-IDF levou 13 segundos na CPU.
+A CNN treinada do zero levou 140 segundos em cinco épocas na GPU. O
+baseline também acertou mais. O BERT partiu de pesos públicos e foi
+ajustado inteiro em duas épocas, pouco mais de sete minutos na DGX Spark.
+No teste oficial ele ficou 0,80 ponto acima do baseline.”
+
+“No pré-treino publicado, BERT aprendeu com livros e Wikipédia tentando
+recuperar tokens ocultados e identificar se dois trechos eram
+consecutivos. Os autores reportaram quatro dias em 16 chips TPU para o
+BERT-base. Nós reutilizamos esses pesos para aprender a tarefa de
+sentimento em minutos.” [Devlin et al., seção 3.1 e apêndice A.2](https://aclanthology.org/N19-1423.pdf).
+
+“Numa auditoria separada, congelamos os 12 blocos e aprendemos a
+classificar com uma única camada linear sobre os vetores do BERT.
+Incluindo extração, deu 17,6 segundos e 84,52%. Ajustar todos os pesos
+deu 88,31% em 148,9 segundos. Isso mostra que os vetores já traziam
+informação útil para sentimento e que o ajuste completo aproveitou
+melhor os rótulos nesse ensaio.”
+
+### Como os tempos foram medidos
+
+- **Estudo original.** O cronômetro do TF-IDF inclui vetorização,
+  transformação das quatro divisões, busca de três valores de \(C\) e
+  seleção com a validação. Vetorizar consumiu 11,6 s dos 13,1 s. A
+  regressão ajusta 80 mil coeficientes e um viés. A CNN ajusta 2,71 milhões
+  de parâmetros e o BERT 109,48 milhões. Os tempos das redes incluem
+  validação e gravação dos pesos por época quando melhora. Eles começam
+  com os textos já tokenizados. São tempos dos dispositivos e receitas
+  usados no trabalho. [TF-IDF](../results/tfidf/metadata.json) ·
+  [CNN](../results/cnn/metadata.json) · [BERT](../results/bert/metadata.json).
+- **Inferência original, para perguntas.** Foram 0,15 s para a
+  regressão, 20,72 s para a CNN e 149,91 s para o BERT, somando as
+  quatro divisões com as entradas já vetorizadas ou tokenizadas.
+  Para o TF-IDF, cada novo texto ainda precisa virar um vetor.
+  [Cronômetros do TF-IDF](../src/imdb_lab/baseline.py) ·
+  [Cronômetros das redes](../src/imdb_lab/training.py).
+- **Comparação interna do BERT.** Usamos os mesmos 6.144 trechos no
+  treino, 1.536 na validação e 2.048 na auditoria. Cada trecho tem
+  até 128 palavras e 256 tokens. Na mesma NVIDIA GB10, o regime congelado
+  extraiu os vetores de treino e validação em 15,2 s e treinou a camada
+  linear em 2,35 s. O tempo do ajuste completo cobre os lotes de treino.
+  Ambos os tempos excluem as avaliações ao longo das épocas. A camada
+  linear teve 40 épocas com lote 128. O ajuste completo teve 3 épocas
+  com lote 32. A diferença de tempo e acurácia vale para essas duas
+  receitas. Para classificar os 2.048 trechos
+  já tokenizados, ambos ainda passaram pelo encoder. Foram cerca de 4,3
+  e 4,0 s, respectivamente. [Receitas e tempos](../results/sequences/summary.json) ·
+  [Laço de treino e extração](../src/imdb_lab/sequences.py).
+- **O que mede o pré-treino.** A cabeça isolada mostra até onde podemos
+  aproveitar os pesos publicados com um classificador linear. Para
+  medir o ganho causado pelo pré-treino, seria preciso comparar o mesmo
+  BERT inicializado aleatoriamente e pré-treinado. O ajuste de apenas
+  alguns blocos finais seria uma medição intermediária.
+  [Políticas implementadas](../src/imdb_lab/training.py).
+- **Qwen3-8B.** Classificou com prompt e pesos congelados na NVIDIA GB10.
+  Foram 95,26% no teste oficial. O tempo registrado foi 63,3 min para
+  o processo de classificação que cobre as 29.956 resenhas da
+  validação, calibração e teste, com entrada de até 768 tokens da
+  resenha. O cronômetro inclui carregamento, preparação dos prompts,
+  inferência e escrita de resultados. A temperatura foi ajustada em
+  uma amostra separada. [Metadados](../results/qwen/classification/metadata.json) ·
+  [Código de classificação](../src/imdb_lab/qwen_experiment.py).
 
 ## 17 · Conclusão
 
@@ -340,7 +398,7 @@ Deixe o quadro de perguntas na tela.
 - Na versão de 12 minutos, vá do slide 14 à conclusão pelo link no topo.
 - Para 10 minutos, apresente só a última linha no slide 10 e resuma a auditoria BPE em uma frase. Mostre uma troca de posição no slide 13.
 - Na seção de apoio, usem o primeiro slide para mostrar o recorte da resenha, o segundo para calibração e o quarto para largura e passo.
-- Se quiserem mostrar a geração do Qwen nos 15 minutos, reservem os últimos 30 segundos do slide 16 para o terceiro slide de apoio e depois voltem à conclusão.
+- A geração do Qwen com intervenção nas ativações fica no terceiro slide de apoio, para perguntas.
 
 As tabelas de treino, validação e teste, os controles e os casos completos
 estão no relatório. [Relatório do seminário](../output/pdf/relatorio_seminario.pdf).

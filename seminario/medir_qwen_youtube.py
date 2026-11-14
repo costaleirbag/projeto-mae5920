@@ -73,7 +73,7 @@ def evaluate(source: Path) -> dict:
     comments = {item["id"]: item for item in read_json(source)["comentarios_youtube"]}
     cases = [
         {key: comments[case_id][key] for key in ("id", "origem", "texto", "rotulo_referencia")}
-        for case_id in ("E", "C")
+        for case_id in ("E", "F")
     ]
     controls = [
         {"texto": "This film is wonderful. I loved every minute of it.", "rotulo_referencia": "positiva"},

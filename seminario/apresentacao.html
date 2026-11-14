@@ -375,7 +375,7 @@
         <p class="eyebrow">Extensão <span class="youtube-brand"><span aria-hidden="true">▶</span> YouTube</span></p>
         <h1 id="youtube-title">CNN e Qwen leem o YouTube</h1>
       </header>
-      <p class="youtube-intro">O mesmo Qwen gera o rótulo direto ou depois de escrever um bloco de raciocínio.</p>
+      <p class="youtube-intro">Os modelos recebem só o comentário. O trailer dá contexto à plateia.</p>
       <div class="youtube-cases">
         <section class="youtube-case" aria-labelledby="room-title">
           <div class="youtube-video">
@@ -387,10 +387,9 @@
                  alt="“The best movie of the year” - No one.">
           </figure>
           <div class="youtube-prediction">
-            <div>
+            <div data-youtube-cnn="E">
               <span class="micro">CNN</span>
-              <strong class="class-label" data-tone="positiva">Positiva</strong>
-              <span>6/6 treinos</span>
+              <strong class="class-label"></strong>
             </div>
             <div class="youtube-qwen" data-youtube-qwen="E">
               <p class="micro">Qwen3-8B</p>
@@ -402,22 +401,21 @@
           </div>
           <p class="youtube-reading">“No one” transforma o elogio em crítica.</p>
         </section>
-        <section class="youtube-case" aria-labelledby="friday-title">
+        <section class="youtube-case youtube-squad" aria-labelledby="squad-title">
           <div class="youtube-video">
-            <h2 id="friday-title">Friday</h2>
-            <a href="https://www.youtube.com/watch?v=kfVsfOSbJY0" target="_blank" rel="noopener">Clipe de Rebecca Black ↗</a>
+            <h2 id="squad-title">Suicide Squad</h2>
+            <a href="https://www.youtube.com/watch?v=PLLQK9la6Go" target="_blank" rel="noopener">Trailer ↗</a>
           </div>
           <figure class="youtube-print">
-            <img width="275" height="141" src="data:image/png;base64,/* YOUTUBE_FRIDAY */" lang="en"
-                 alt="AI could never do this.">
+            <img width="423" height="138" src="data:image/png;base64,/* YOUTUBE_SQUAD */" lang="en"
+                 alt="I saw the movie and now I see that the joke was on me">
           </figure>
           <div class="youtube-prediction">
-            <div>
+            <div data-youtube-cnn="F">
               <span class="micro">CNN</span>
-              <strong class="class-label" data-tone="negativa">Negativa</strong>
-              <span>6/6 treinos</span>
+              <strong class="class-label"></strong>
             </div>
-            <div class="youtube-qwen" data-youtube-qwen="C">
+            <div class="youtube-qwen" data-youtube-qwen="F">
               <p class="micro">Qwen3-8B</p>
               <div class="youtube-modes">
                 <div data-mode="sem_raciocinio"><span>Sem raciocínio</span><strong class="class-label"></strong></div>
@@ -425,13 +423,74 @@
               </div>
             </div>
           </div>
-          <p class="youtube-reading">A frase admite admiração ou ironia.</p>
+          <p class="youtube-reading">“The joke was on me” sugere frustração e ecoa a música do trailer.</p>
         </section>
       </div>
-      <footer class="lab-source">Entrada só de texto. Três respostas do Qwen por modo. Análise qualitativa de dois comentários.
+      <footer class="lab-source">Seis CNNs. Três respostas do Qwen por modo. Dois comentários sem rótulo de referência.
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/fora_dominio_resultados.json" target="_blank" rel="noopener">Escores da CNN</a>
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/qwen_youtube_resultados.json" target="_blank" rel="noopener">Resultados do Qwen</a>
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/medir_qwen_youtube.py" target="_blank" rel="noopener">Código</a>
+      </footer>
+    </article>
+
+    <article id="cost" class="lab readable cost-slide" hidden aria-labelledby="cost-title">
+      <header class="lab-heading">
+        <p class="eyebrow">Custo computacional</p>
+        <h1 id="cost-title">Quanto custa treinar e adaptar?</h1>
+      </header>
+      <div class="cost-switches">
+        <div class="cnn-view" role="group" aria-label="Experimento de custo">
+          <button type="button" aria-controls="cost-original" aria-pressed="true" data-cost-view="original">Estudo original</button>
+          <button type="button" aria-controls="cost-bert" aria-pressed="false" data-cost-view="bert">Ajuste do BERT</button>
+        </div>
+        <small id="cost-scope"></small>
+      </div>
+      <section id="cost-original" class="cost-view" aria-label="Tempos do estudo original">
+        <table class="cost-table">
+          <caption class="sr-only">Ajuste e acurácia no estudo original</caption>
+          <thead>
+            <tr><th scope="col">Modelo e máquina</th><th scope="col">Épocas</th><th scope="col">Ajuste</th><th scope="col">Acurácia</th></tr>
+          </thead>
+          <tbody id="cost-rows"></tbody>
+        </table>
+        <div class="cost-summary">
+          <p><strong id="cost-speedup"></strong> do ajuste da CNN, no mesmo Mac.</p>
+          <p>TF-IDF inclui vetorização e busca de <i>C</i>. CNN e BERT incluem validação por época.</p>
+        </div>
+        <p class="cost-annotation">Qwen3-8B · 95,26% com prompt e pesos congelados na DGX Spark.</p>
+      </section>
+      <section id="cost-bert" class="cost-view" hidden aria-label="Duas formas de ajustar o BERT">
+        <div class="cost-pretraining">
+          <p><strong>Pré-treino publicado</strong> · BERT-base aprendeu com livros e Wikipédia, recuperando tokens ocultados e identificando trechos consecutivos.</p>
+          <p><strong>4 dias</strong> em 16 chips TPU no artigo. Partimos desses pesos.</p>
+        </div>
+        <div class="cost-regimes">
+          <section class="cost-card" aria-labelledby="cost-probe-title">
+            <h2 id="cost-probe-title">Só a cabeça</h2>
+            <p>Encoder congelado. Só a camada linear aprende.</p>
+            <div class="cost-figures">
+              <div><strong id="cost-probe-time"></strong><span>Extração + ajuste</span></div>
+              <div><strong id="cost-probe-accuracy"></strong><span>Acurácia</span></div>
+            </div>
+            <p class="cost-detail" id="cost-probe-detail"></p>
+          </section>
+          <section class="cost-card cost-card-accent" aria-labelledby="cost-full-title">
+            <h2 id="cost-full-title">Ajuste completo</h2>
+            <p>Atualiza embeddings, 12 blocos e a cabeça.</p>
+            <div class="cost-figures">
+              <div><strong id="cost-full-time"></strong><span>Ajuste</span></div>
+              <div><strong id="cost-full-accuracy"></strong><span>Acurácia</span></div>
+            </div>
+            <p class="cost-detail" id="cost-full-detail"></p>
+          </section>
+        </div>
+        <p class="cost-annotation"><strong id="cost-bert-gain"></strong> com ajuste completo. Na inferência, ambos executam o encoder.</p>
+      </section>
+      <footer class="lab-source">
+        <span id="cost-method-note" hidden>Tempos sem as rodadas de avaliação. </span>
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/roteiro.md#como-os-tempos-foram-medidos" target="_blank" rel="noopener">Como medimos</a>
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/results/sequences/summary.json" target="_blank" rel="noopener">Resultados da auditoria</a>
+        <a href="https://aclanthology.org/N19-1423.pdf" target="_blank" rel="noopener">Artigo do BERT</a>
       </footer>
     </article>
 
