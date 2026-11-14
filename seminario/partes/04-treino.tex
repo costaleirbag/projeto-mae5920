@@ -3,8 +3,9 @@
 \subsection{Otimização e seleção de época}
 Usamos os gradientes da entropia cruzada para atualizar embeddings,
 filtros e saída, com norma global limitada a 1. Nos ensaios internos,
-inicializamos embeddings com desvio 0,1 e padding zero, filtros com He
-e saída com Xavier \cite{prince}.
+usamos normal com média zero e desvio 0,1 nos embeddings, He normal nos
+filtros e Xavier uniforme na saída. Os vieses e o vetor de padding começam
+zerados \cite{prince}.
 
 \begin{tabularx}{\linewidth}{@{}lXr@{}}
 \toprule
@@ -19,17 +20,19 @@ Adam & 0,0003 \quad 0,001 \quad 0,003 & 0,001\\
 64 e orçamento de 12 épocas. A CNN base tem larguras 3/4/5, cem filtros por
 largura e dropout de 0,5.}
 
-Na mesma semente, fixamos pesos iniciais e ordem dos lotes. Guardamos a
-época de menor CE de validação e escolhemos a taxa pela média dessa perda.
-A época zero é a inicialização. Os ensaios de CNN usam dropout e seleção de
-época, com decaimento de pesos zero. A CNN original usa AdamW com
-\textit{weight decay} de 0,01, dropout de 0,5 e seleção por F1 macro de
-validação, com paciência de duas épocas. O clipping limita o passo causado
-por gradientes grandes.
+Cada semente (17, 29 ou 43) define os pesos iniciais, a ordem dos
+exemplos nos lotes a cada época e o sorteio das ativações zeradas
+pelo dropout.
+Ao comparar otimizadores, repetimos os três sorteios dentro da mesma
+semente e mantemos a divisão dos dados. Guardamos a época de menor CE
+de validação e escolhemos a taxa pela média dessa perda. Os ensaios usam
+decaimento de pesos zero. A CNN original usa AdamW com decaimento de
+0,01, dropout de 0,5 e seleção pelo F1 macro de validação, com paciência
+de duas épocas.
 
 \medskip
 \noindent\makebox[\linewidth]{\includegraphics[width=.84\linewidth]{figuras/otimizacao.pdf}}
-\legendinha{Figura 2. As linhas são médias e as faixas cobrem mínimo e máximo
+\legendinha{Figura 2. A época zero mostra a inicialização. As linhas são médias e as faixas cobrem mínimo e máximo
 entre sementes. À esquerda, cada otimizador usa sua taxa escolhida. À direita,
 a perda de treino com Adam continua caindo depois da melhor região de
 validação. Os checkpoints de Adam vêm das épocas 5 e 6.}

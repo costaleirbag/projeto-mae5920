@@ -1,9 +1,11 @@
 \subsection{Regex e BPE no mesmo experimento}
 \label{sec:bpe}
-As duas CNNs recebem o mesmo prefixo de até 128 palavras. Usam Adam a
-0,001, as mesmas dimensões, dropout, minibatches e orçamento. Escolhemos
-a época na validação. Na mesma semente, a matriz inicial é igual, e suas
-linhas representam unidades diferentes.
+Para cada semente, treinamos a mesma arquitetura por palavras e com BPE.
+Cada par recebe os mesmos prefixos de até 128 palavras e repete os
+três sorteios do treino. Os embeddings partem dos mesmos valores, com
+IDs definidos por cada tokenizador. Usamos Adam a 0,001, com o mesmo
+orçamento e seleção de época pela validação. Na avaliação, cada uma
+das seis CNNs faz uma previsão por texto com dropout desligado.
 
 \begin{tabularx}{\linewidth}{@{}Xrrrrr@{}}
 \toprule

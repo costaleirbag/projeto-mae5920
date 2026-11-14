@@ -224,11 +224,13 @@ Treinos separados, 20.000 IDs por vocabulário. \texttt{</w>} marca o fim da pal
 % 04:15–05:25
 \begin{frame}{Quando guardar os pesos?}
 \centering
-\includegraphics[width=\linewidth,height=.50\textheight,keepaspectratio]{figuras/otimizacao.pdf}
+\includegraphics[width=\linewidth,height=.45\textheight,keepaspectratio]{figuras/otimizacao.pdf}
 \par\raggedright\vspace{1mm}
 {\large\strong{No Adam, guardamos os pesos das épocas 5 ou 6.}}
-\smallsource{Taxas escolhidas na validação: SGD 0,3 \(\cdot\) SGD com momentum 0,1 \(\cdot\) Adam 0,001.\\
-CNN interna: 128 palavras, lote 64, 12 épocas. Faixas de mínimo e máximo em três sementes.
+\par
+{\small A semente define os pesos iniciais, a ordem dos lotes e quais ativações o dropout zera.}
+\smallsource{Taxas da validação. SGD 0,3 \(\cdot\) momentum 0,1 \(\cdot\) Adam 0,001. Lote 64, 12 épocas, até 128 palavras.\\
+As faixas vão do mínimo ao máximo nas sementes 17, 29 e 43.
 \fonteatual{seminario/roteiro.md\#como-ler-as-curvas}{Como ler as curvas}.}
 \end{frame}
 
@@ -364,8 +366,10 @@ BERT com \BertTetoMaior{} tokens \strong{\FUmLongasBert{} \(\to\) \FUmLongasBert
 \end{column}
 \end{columns}
 \vfill
+\noindent{\small Cada linha compara palavras e BPE na mesma semente. O par repete
+os valores iniciais, a ordem dos lotes e as máscaras do dropout.}\par
 \smallsource{Regex por palavras \(\to\) BPE. Até 128 palavras, teto de 256 tokens. Mesma CNN e Adam a 0,001.
-Três sementes, 2.048 entradas de auditoria. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
+Auditoria com 2.048 entradas. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
 \end{frame}
 
 % 09:05–10:05
@@ -488,7 +492,7 @@ Três sementes, 2.048 entradas de auditoria. \fonte{results/bpe/audit_metrics.js
 \color{white}
 \vfill
 \pill{ScreenRed}{white}{\(\triangleright\) YouTube}
-\enspace {\small\color{Lime} Os modelos recebem só o comentário.}
+\enspace {\small\color{Lime} Palavras e BPE, três sementes cada. Uma previsão por CNN treinada.}
 \par\vspace{1.3mm}
 {\Large\bfseries CNN e Qwen leem o YouTube\par}
 \vspace{2mm}
@@ -521,7 +525,7 @@ Três sementes, 2.048 entradas de auditoria. \fonte{results/bpe/audit_metrics.js
 \end{column}
 \end{columns}
 \vfill
-{\scriptsize\color{Lime}Seis CNNs. Três gerações do Qwen por modo. Dois casos sem rótulo de referência.
+{\scriptsize\color{Lime}Só texto. Três gerações do Qwen por modo. Comentários sem rótulo de referência.
 \fonteatual{seminario/dados/fora_dominio_resultados.json}{\textcolor{Lime}{CNN}} \(\cdot\)
 \fonteatual{seminario/dados/qwen_youtube_resultados.json}{\textcolor{Lime}{Qwen}} \(\cdot\)
 \fonteatual{seminario/medir_qwen_youtube.py}{\textcolor{Lime}{Código}}.\par}

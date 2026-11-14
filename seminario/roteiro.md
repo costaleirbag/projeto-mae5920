@@ -106,7 +106,9 @@ Somados todos os filtros e o viés, a frase A ficou com classe negativa.
 ## 6 · Escolha da taxa e da época
 
 “Com a arquitetura fixa, variamos SGD, momentum e Adam. Cada método teve três
-taxas candidatas. Para cada semente, repetimos a partida e a ordem dos minibatches.
+taxas candidatas. Em cada semente, repetimos os pesos iniciais, a ordem dos
+lotes a cada época e os sorteios do dropout. Assim cada método enfrenta
+os mesmos sorteios.
 Primeiro escolhemos a época de menor perda de validação de cada treino.
 Depois escolhemos a taxa pela média desse critério nas três sementes.
 À esquerda estão as curvas das taxas escolhidas. À direita vemos uma
@@ -241,10 +243,11 @@ Se faltar tempo, leia só a última linha e a comparação em destaque.
 
 ## 11 · Auditoria de regex e BPE
 
-“Aqui os dois tokenizadores enfrentam a mesma auditoria interna. Usamos
-a mesma arquitetura, orçamento e taxa de Adam, com três sementes pareadas.
-A figura liga a versão por palavras à BPE dentro de cada semente. BPE
-reduziu de 3,27 por cento para zero a fração de tokens desconhecidos.
+“Aqui os dois tokenizadores enfrentam a mesma auditoria interna. Cada linha
+liga o treino por palavras ao treino com BPE da mesma semente. Os dois
+repetem os três sorteios do treino e usam a mesma arquitetura, orçamento
+e taxa de Adam. O BPE reduziu de 3,27 por cento para zero a fração de
+tokens desconhecidos.
 No mesmo texto, a entrada passou de 121 para 129 tokens em média.
 Na mesma comparação, a acurácia média foi de 82 por cento para 81,41.
 Uma janela de cinco subpalavras pode cobrir menos palavras do que a de
@@ -300,6 +303,9 @@ par com veredito no fim. [Método e resultados por semente](diagnosticos.md#o-qu
 Mostre os prints e aponte o destaque em *No one*. O modelo recebeu o
 texto de cada comentário. Os vídeos e a interface ajudam a plateia a
 interpretá-lo. [Trailer de The Room](https://www.youtube.com/watch?v=cG_e8k9PILM&t=2s) · [Trailer de Suicide Squad](https://www.youtube.com/watch?v=PLLQK9la6Go).
+
+Cada comentário recebeu uma previsão de cada CNN já treinada, três por
+palavras e três com BPE, usando as sementes 17, 29 e 43 em cada grupo.
 
 “Em *The Room*, *No one* faz a citação soar como crítica. A CNN e o Qwen
 previram positiva. Em *Suicide Squad*, o comentário sugere que o espectador
