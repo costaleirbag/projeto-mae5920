@@ -74,6 +74,7 @@ antes de calcular a métrica. [Receitas e contagens](../docs/PROTOCOLO_SEQUENCIA
 | **Cabeças logísticas de posição** | Com os filtros congelados, reajustamos a cabeça global de 300 entradas e duas cabeças de 600 entradas para os mesmos picos ordenados pelo valor ou pela metade do texto. | Controlar a quantidade de parâmetros da cabeça ao testar posição. |
 | **Seis poolings de ponta a ponta** | 18 treinos, três sementes por pooling. Máximo global, máximos por metade ordenados por valor ou posição, média global, médias por metade e K-max ordenado. | Ver se o aprendizado dos filtros passa a aproveitar a posição. |
 | **Outros 93 treinos de CNN** | 33 de comprimento/arquitetura/regularização, 15 de comprimento e ordem em pares, nove de embeddings aleatórios ou GloVe, 12 de treino contrastivo e 24 de pooling com cabeça do mesmo tamanho. | Investigar a diferença para TF-IDF e o caso em que a opinião final muda. Resultados exploratórios. |
+| **CNN maior e mais épocas** | Texto inteiro, duas sementes, TextCNN de 2,71 mi e CNN residual piramidal de 11,13 mi com duas taxas iniciais. | Comparar a melhor época até a quinta com a melhor de toda a execução. |
 | **MLPs do suplemento** | 51 treinos sobre TF-IDF reduzido por SVD a 128 dimensões e padronizado. 27 de otimização, 15 de profundidade/resíduos e nove de regularização. | Isolar mecanismos do curso em redes densas. São experimentos próprios, com outra auditoria interna. |
 | **Inicialização e double descent sintéticos** | Uma rede ReLU de 32 camadas para inspecionar escalas antes do treino. Na regressão sintética, camada aleatória congelada e ajuste só da saída, por mínimos quadrados ou ridge, em 880 condições. | Observar escala de ativações e gradientes, e explorar erro perto da interpolação. |
 | **MiniLM + K-means** | MiniLM pré-treinado e congelado para extrair vetores. K-means ajustado em 2.500 resenhas de treino, gerando oito grupos exploratórios. | Organizar a análise de erros por grupos de texto. MiniLM também fornece uma medida auxiliar de similaridade na geração. |
@@ -663,7 +664,7 @@ com veredito no fim. São os mesmos 128 pares avaliados nas três sementes.
 A versão com peso maior no fim teve 4/384. A melhora média em resenhas
 comuns mede outra coisa.
 
-**Se perguntarem qual foi a melhor CNN nova.** Na bateria de comprimento,
+**Se perguntarem pelo ensaio anterior de comprimento.** Na bateria de comprimento,
 o máximo global fez **85,89%** com 256 tokens, **87,11%** com 400,
 **87,63%** com 768 e **87,81%** com texto inteiro. Máximo + média com
 texto inteiro chegou a **88,18%** naquela bateria. Na bateria posterior,
@@ -672,6 +673,15 @@ Dar peso extra ao fim chegou a **88,28%**, mas teve CE de validação
 ligeiramente maior: 0,258514 ante 0,258467. Isso explica qual receita
 selecionamos em vez de escolher pela coluna do teste.
 [Poolings de ponta a ponta](pooling_ordem.md) · [Texto integral e pooling com cabeça fixa](ensaios_cnn.md)
+
+**E uma CNN maior treinada por mais tempo?** No ensaio novo, a
+TextCNN com texto inteiro chegou a **89,60%** e a melhor receita da
+residual de 11,13 milhões a **88,37%**. Todos os seis checkpoints
+foram escolhidos entre as épocas **2 e 4**, mesmo após treinar
+de **8 a 10**. Mais épocas serviram para observar o sobreajuste.
+A quantidade de dados ficou fixa, então a hipótese de que ela
+é o gargalo precisa de outro controle.
+[Ensaio com a CNN maior](ensaios_cnn.md#uma-cnn-maior-e-mais-épocas-ajudam)
 
 </details>
 

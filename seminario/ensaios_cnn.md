@@ -1,10 +1,11 @@
 # Novos ensaios da TextCNN
 
-São 93 treinos que comparam comprimento, arquitetura, representação,
-regularização e robustez à ordem. A variante escolhida na validação do
-ensaio mais recente fez 88,13% no teste, com 768 tokens e máximo suave.
-Nos pares humanos, a maior média no ensaio de ordem foi de uma CNN com
-texto integral e máximo global.
+Os primeiros 93 treinos comparam comprimento, arquitetura, representação,
+regularização e robustez à ordem. A variante de pooling escolhida na
+validação daquele ensaio fez 88,13% no teste com 768 tokens e máximo
+suave. Nos pares humanos, a maior média foi de uma CNN com texto
+integral e máximo global. A comparação seguinte estuda uma [CNN maior
+com orçamento de treino ampliado](#uma-cnn-maior-e-mais-épocas-ajudam).
 
 ## O efeito de treinar com mais texto
 
@@ -227,6 +228,78 @@ entre treino e teste, por si só, não indica qual dos dois ajustes ajuda.
 [Métricas por semente](../results/cnn_pooling_matched/summary.json) ·
 [Margens](../results/cnn_pooling_matched/predictions.npz).
 
+## Uma CNN maior e mais épocas ajudam?
+
+Treinamos uma TextCNN de **2.714.502 parâmetros** e uma CNN residual
+piramidal de **11.126.914**, ambas do zero, com o mesmo vocabulário por
+palavras e o texto inteiro. A residual tem embedding de 256 dimensões,
+384 canais, seis blocos com duas convoluções cada e conexões residuais.
+A cada bloco, um máximo local com passo 2 encurta a sequência. A
+camada final usa máximo e média globais com máscara. O maior tamanho
+vem tanto dos embeddings quanto das convoluções. O desenho piramidal
+aproveita a ideia de ampliar o contexto com convoluções empilhadas e
+reduzir o custo das camadas posteriores. [Johnson e Zhang, 2017](https://aclanthology.org/P17-1052/)
+
+Usamos os 19.823 exemplos de treino e os 2.478 de validação do estudo
+original, sementes 17 e 29, lote 64, AdamW e a NVIDIA GB10 da DGX Spark.
+A ordem dos lotes foi pareada entre as receitas. Agrupamos
+comprimentos parecidos para reduzir padding. Os pesos e o otimizador
+ficam em FP32. As passagens usam BF16 em CUDA. Na rodada inicial, as
+duas arquiteturas começaram com taxa 0,001. Em uma segunda rodada,
+repetimos essas duas e adicionamos a residual a 0,0003, motivados pela
+trajetória da perda de validação da residual inicial. Dentro de cada
+semente, as duas taxas da residual partem dos mesmos pesos.
+
+A taxa cai pela metade após o platô de validação definido no protocolo.
+O orçamento permite até 30 épocas e cerca de 11 minutos por treino.
+Paramos após seis épocas sem melhora de pelo menos 0,001 na entropia
+cruzada de validação, a partir da oitava. Guardamos a menor perda de
+validação até a quinta época e ao longo do treino completo. Depois de
+congelar esses checkpoints, ajustamos a temperatura e abrimos o teste.
+O teste oficial já foi consultado durante o projeto, então o resultado
+da nova rodada é exploratório.
+
+| Receita com texto inteiro | Parâmetros | Épocas escolhidas / rodadas (17, 29) | Tempo médio por treino | Acurácia | F1 macro | CE calibrada | Acurácia acima de 400 tokens |
+|---|---:|---|---:|---:|---:|---:|---:|
+| TextCNN, taxa 0,001 | 2,71 mi | 3/9, 3/9 | 24,4 s | 89,60% | 0,8960 | 0,2529 | 88,28% |
+| CNN residual, taxa 0,001 | 11,13 mi | 3/9, 2/8 | 72,1 s | 88,07% | 0,8803 | 0,2831 | 86,23% |
+| CNN residual, taxa 0,0003 | 11,13 mi | 4/10, 3/9 | 77,4 s | 88,37% | 0,8836 | 0,2777 | 87,65% |
+
+Acurácia, F1 e CE são médias das métricas de dois modelos, um por
+semente, nas mesmas 25.000 resenhas. A última coluna usa as mesmas
+3.118 resenhas que seriam cortadas a 400 tokens. O tempo inclui
+treino, validação e gravação dos pesos ao longo das épocas rodadas.
+Os seis treinos da segunda rodada somaram **5 min 48 s**, sem contar
+a preparação de dados e o teste. As duas receitas repetidas
+reproduziram exatamente as métricas da primeira rodada.
+
+![Entropia cruzada de treino e validação por época. Os seis checkpoints escolhidos ficam antes da quinta época.](../results/cnn_maior/curvas.png)
+
+Os seis treinos pararam por falta de progresso na validação entre
+as épocas 8 e 10. Em todos, o melhor checkpoint até a quinta época
+é o mesmo de toda a execução. Na semente 29 da residual a 0,001, a
+CE de validação vai de **0,250** na melhor época a **1,145** no fim,
+quando o modelo acerta quase todos os exemplos durante os lotes de
+treino. Isso é evidência de sobreajuste nessa receita. Reduzir a taxa
+da residual melhorou a média do teste em **0,30 ponto percentual**,
+com ganho na semente 17 e perda na 29. A TextCNN ficou à frente
+das duas receitas residuais nas duas sementes.
+
+A TextCNN com texto inteiro chegou a **89,60%**, a **0,54 ponto**
+do TF-IDF original (**90,14%**). Em relação à CNN original de
+**86,78%**, mudaram juntos comprimento, inicialização, dropout,
+ordem dos lotes, precisão e regra de seleção do checkpoint. A
+comparação que isola duração é dentro de cada treino. A comparação
+entre arquiteturas a 0,001 mantém dados, lotes e receita, e testa
+o conjunto de mudanças da residual, incluindo profundidade e
+pooling. A hipótese de limitação pelo tamanho do corpus exigiria
+uma curva com diferentes quantidades de resenhas de treino.
+
+[Protocolo](../results/cnn_maior/protocol.json) ·
+[Curvas e épocas por semente](../results/cnn_maior/selection.json) ·
+[Métricas](../results/cnn_maior/summary.json) ·
+[Margens e rótulos](../results/cnn_maior/predictions.npz).
+
 ## Reproduzir
 
 Prepare as divisões originais conforme o [guia de reprodução](../docs/REPRODUCAO.md).
@@ -243,4 +316,7 @@ python seminario/treinar_cnn_ordem_supervisionada.py --data data --output tmp/cn
 python seminario/medir_pooling_regularizacao.py cnn --data data --output tmp/cnn_pooling_matched
 python seminario/medir_pooling_regularizacao.py baseline --data data --output tmp/tfidf_regularization
 python seminario/plotar_ensaios_cnn.py
+python seminario/treinar_cnn_maior.py train --data data --output tmp/cnn_maior
+python seminario/treinar_cnn_maior.py audit --data data --output tmp/cnn_maior
+python seminario/plotar_cnn_maior.py
 ~~~

@@ -591,6 +591,30 @@
       "bytes": 34414,
       "sha256": "9bc823f2aa2ddc7d81fcf65149fbcfea7f824d307379346819ea5b7ae6209e65"
     },
+    "results/cnn_maior/curvas.png": {
+      "bytes": 153839,
+      "sha256": "363a3d0a9e0421bb1da1a081ace3a78776b63299318bb575602fca0e94ef882b"
+    },
+    "results/cnn_maior/predictions.npz": {
+      "bytes": 853646,
+      "sha256": "188f80d8df87fad265f1a419e6301778c1071a6fda8f346e49336ba0e129758b"
+    },
+    "results/cnn_maior/protocol.json": {
+      "bytes": 2279,
+      "sha256": "cea2d78b5442dc846f63d56794187eb8154582e420a35067ab3d154e9b326189"
+    },
+    "results/cnn_maior/selection.json": {
+      "bytes": 31157,
+      "sha256": "3281671225b6a46c12d3c51a8c80aae465040c6da2559960e7ffb48fe5b7dc58"
+    },
+    "results/cnn_maior/summary.json": {
+      "bytes": 10261,
+      "sha256": "fb8cbb2ac884fb5b2f18b2c55892ebf7ab3d37852d24000389c9232c81729f77"
+    },
+    "results/cnn_maior/vocabulary.json": {
+      "bytes": 388058,
+      "sha256": "993a16d268be680a19b8102270406f95c0e7b6bd05f9f55a6943698ddb0cd5c1"
+    },
     "results/cnn_order_full/predictions.npz": {
       "bytes": 201987,
       "sha256": "8544daad98afffcc0be5b7a561152dfadc3889c01a77333b72eef346e7fb8435"
@@ -3368,8 +3392,8 @@
       "sha256": "9168ef07b2580802b4ec71d0d3b9a02e0ef85716df5cd1dfbed783676bf1402c"
     },
     "seminario/colinha.md": {
-      "bytes": 61642,
-      "sha256": "a9e7a098e3befffe9f8785374f1a55b497b016de7a81e0d9c4559c520c25e444"
+      "bytes": 62384,
+      "sha256": "faea3133428d5468f400e1b2ce0bd2292c32f8193d4f53e182b70efc51e16e52"
     },
     "seminario/comparar_erros.py": {
       "bytes": 8229,
@@ -3472,8 +3496,8 @@
       "sha256": "36538ae18c5b21ca0544b02726b7b674c9fb71c70c6a9ba920c69dc8caf1dfef"
     },
     "seminario/ensaios_cnn.md": {
-      "bytes": 14370,
-      "sha256": "84c02b77bb6dcba30f32c3c303089179e52b0127957519f1470323a151e51045"
+      "bytes": 19089,
+      "sha256": "2f6f84ab3771e9ca86dbc45699f06aa55f9b49572dbff2fea63e55c3ff09a097"
     },
     "seminario/figuras/bpe_pareado.pdf": {
       "bytes": 16473,
@@ -3607,6 +3631,10 @@
       "bytes": 1488,
       "sha256": "4e209104a296bfd08b7eaa665e9523857841af7bae91211dd5ab44343cc35183"
     },
+    "seminario/plotar_cnn_maior.py": {
+      "bytes": 2734,
+      "sha256": "92503a5d572b9d3f41bcc724bcc0447ceeeccac8feb3f764e6fe46f2a04b1622"
+    },
     "seminario/plotar_ensaios_cnn.py": {
       "bytes": 3037,
       "sha256": "b0eab905d295cf48b6ef46dd5de3f536d48484ed4532c32339725ae2484aa752"
@@ -3650,6 +3678,10 @@
     "seminario/treinar_cnn_embeddings.py": {
       "bytes": 7144,
       "sha256": "131e10b1c7b29e70a22ecdc7215edcaa377e897fe25f6c884b7bc97fc57e3293"
+    },
+    "seminario/treinar_cnn_maior.py": {
+      "bytes": 15837,
+      "sha256": "39fdeb58350dc7a0ae15b534ddee62b15086ed27ffcc780ed977613e95e9c6d8"
     },
     "seminario/treinar_cnn_ordem_supervisionada.py": {
       "bytes": 8785,
@@ -3778,6 +3810,10 @@
     "tests/test_cnn_comprimento.py": {
       "bytes": 1578,
       "sha256": "ac44f93609dbd62e8070767b10f246570af954014f950e17362e327137fccebb"
+    },
+    "tests/test_cnn_maior.py": {
+      "bytes": 1188,
+      "sha256": "1d2403e53fc0f1c4953590c2409c75eb7ba70a95b80e63e35bc33d820bb67ea8"
     },
     "tests/test_didactic.py": {
       "bytes": 3643,
