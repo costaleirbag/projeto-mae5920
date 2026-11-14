@@ -2241,7 +2241,7 @@
     },
     "results/resumo_metricas_proveniencia.json": {
       "bytes": 1072,
-      "sha256": "5c78e822fcd72b8f12d544f23d14fc994de33ec5dd14e808c18adabedfd7e7af"
+      "sha256": "491638db297059b9903d509f514dc1850e44074a3f7f68d05a2cc5f54eea8933"
     },
     "results/rewrite/examples.csv": {
       "bytes": 30711,
@@ -3336,8 +3336,8 @@
       "sha256": "e57297423f13b723cf32d6fdb5f3b2071ae81ca9d8e51ae9d1b0abe19f32c950"
     },
     "seminario/README.md": {
-      "bytes": 14965,
-      "sha256": "484860ca7524c1a1f18df7f95b21486200ecbeade8906fb3c171d0fa94933d0d"
+      "bytes": 15062,
+      "sha256": "fde967e0b30eac4295f4479dafe1c867d67a3c81601c34f09d66e93dfb7b1ac0"
     },
     "seminario/apresentacao.css": {
       "bytes": 36280,
@@ -3366,6 +3366,10 @@
     "seminario/casos.json": {
       "bytes": 1268,
       "sha256": "9168ef07b2580802b4ec71d0d3b9a02e0ef85716df5cd1dfbed783676bf1402c"
+    },
+    "seminario/colinha.md": {
+      "bytes": 61642,
+      "sha256": "a9e7a098e3befffe9f8785374f1a55b497b016de7a81e0d9c4559c520c25e444"
     },
     "seminario/comparar_erros.py": {
       "bytes": 8229,

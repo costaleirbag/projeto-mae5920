@@ -10,6 +10,7 @@ de apoio. O relatório tem oito páginas, dentro da faixa do enunciado.
 | Relatório | [PDF](../output/pdf/relatorio_seminario.pdf) · [LaTeX](relatorio.tex) · [seções](partes/) |
 | Apresentação | [Abrir no navegador](https://costaleirbag.github.io/projeto-mae5920/) · [HTML para baixar](../output/slides/slides_15_min_interativos.html) · [PDF 16:9](../output/pdf/slides_15_min.pdf) · [Beamer](slides.tex) |
 | Fala, tempos e cortes | [Roteiro](roteiro.md) |
+| Ensaio para a banca | [Colinha com mapa dos modelos e 48 perguntas com gabarito](colinha.md) |
 | Comprimento das resenhas e métricas por faixa | [Gráfico interativo](https://costaleirbag.github.io/projeto-mae5920/#comprimento) · [Estatísticas e métricas](dados/comprimentos.json) · [Código](medir_comprimentos.py) |
 | Experimentos e código explicado | [Notebook único](../notebooks/seminario_completo.ipynb) |
 | Predições dos quatro pares e teste de cobertura | [Entradas](casos.json) · [Resultados por semente](dados/pares_resultados.json) |
