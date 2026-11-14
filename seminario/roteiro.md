@@ -60,13 +60,14 @@ No HTML, use **Próxima etapa** ou a seta direita para mostrar a primeira
 fusão, `r + e → re`. Avance no ritmo da fala ou arraste até a última etapa
 ao falar das três peças. No PDF, aponte as três linhas da sequência.
 
-“A mesma expressão regular separa palavras, contrações e números nas duas
-versões. A versão por palavras guarda os termos mais frequentes do treino.
-*Pallbearer* ficou fora e vira desconhecido. Para o BPE, partimos dos caracteres
-de cada palavra e aprendemos fusões pelos pares frequentes no treino, sem os
-rótulos. Aqui saem *p*, *all* e *bearer*. O BPE pode segmentar a palavra rara
-em peças conhecidas. Uma janela de largura três pode cobrir só essa palavra.
-Fixamos 20 mil IDs em ambos para igualar o tamanho das tabelas de embeddings.”
+“Treinamos a mesma arquitetura duas vezes por semente, com tokenizações
+diferentes. As duas passam pela mesma expressão regular para separar
+palavras, contrações e números. Na primeira, buscamos a palavra inteira no
+vocabulário. *Pallbearer* ficou de fora e vira desconhecido. Na outra, o BPE
+recebe *pallbearer* escrita, parte dos caracteres e aplica fusões aprendidas
+no treino. Saem *p*, *all* e *bearer*. Uma janela de largura três pode cobrir
+só essa palavra. Fixamos 20 mil IDs para igualar o tamanho dos embeddings.”
+[Pré-processamento e treino do BPE](../src/imdb_lab/bpe_study.py#L31-L43).
 
 ## 5 · Arquitetura da TextCNN
 
@@ -88,6 +89,20 @@ pela barra até *movie was terrible*. O filtro chega a 0,98. Troque para
 passo 2 e vá ao máximo. A janela do pico fica de fora e o valor cai para
 0,40. No PDF, use o diagrama completo e o gráfico do mesmo filtro.
 
+Se perguntarem por que o pico acompanha *terrible*, cada posição da
+janela tem seu próprio vetor de pesos. O filtro 89 responde 0,98 a
+`movie was terrible`, 0,40 a `was terrible but` e zero a `terrible but it`.
+A janela inteira entra na conta. Ao mudar a largura, o slide também
+troca de filtro. O padrão na frase inteira pode aparecer em qualquer
+posição desde que a janela chegue até ele.
+
+Use **Ver o filtro 6 com wonderful** para mostrar o pico de 0,45 em
+`it was wonderful`. Esse filtro favorece a classe positiva na frase A.
+Nos três ramos, 57 filtros atingiram um pico positivo na última janela
+da frase A. Cada pico ainda é multiplicado pelo peso da camada linear.
+Somados todos os filtros e o viés, a frase A ficou com classe negativa.
+[Ativações medidas](dados/animacoes.json).
+
 ## 6 · Escolha da taxa e da época
 
 “Com a arquitetura fixa, variamos SGD, momentum e Adam. Cada método teve três
@@ -105,24 +120,51 @@ decaimento de pesos de 0,01 e dropout de 0,5. As CNNs deste slide usaram
 decaimento zero e guardaram o checkpoint escolhido na validação. O clipping
 de norma 1 protege a atualização contra gradientes grandes.
 
+### Como ler as curvas
+
+- **Pico inicial do SGD.** A época 0 mostra os pesos da inicialização.
+  A CE média sobe de 0,74 para 0,84 na validação.
+  No treino, também sobe de 0,74 para 0,83, com acurácia em 50%. A taxa
+  0,3 é a maior da grade do SGD. No controle com 0,03, a CE de validação
+  cai para 0,70 na primeira época e termina em 0,68, ante 0,46 com 0,3.
+  Isso é compatível com passos iniciais grandes em gradientes de
+  minibatches. As curvas são médias por época e descrevem o resultado
+  desses passos.
+- **Momentum e Adam.** O momentum 0,9 acumula a direção de passos recentes.
+  Isso pode reduzir o zigue-zague, e a direção acumulada também pode levar
+  a ultrapassar um mínimo. A faixa sombreada é a variação entre sementes.
+  Adam também usa uma média dos gradientes e ajusta a escala de cada
+  parâmetro pela média dos gradientes ao quadrado. A trajetória mais
+  suave vale para a taxa usada. Com Adam a 0,003, a melhor época foi a
+  2 ou a 3, e a CE média de validação terminou em 0,85.
+- **Escolha da época.** No Adam a 0,001, a CE média de treino cai de 0,054
+  na época 6 para 0,003 na 12. A de validação sobe de 0,377 para 0,510.
+  A CE penaliza especialmente erros cometidos com alta confiança. Como
+  selecionamos pela menor CE de validação, guardamos a época 5 ou 6 de
+  cada semente, mesmo tendo executado as 12. Isso ilustra a seleção de
+  *checkpoint* pelo princípio do *early stopping*.
+  [Curvas](../results/sequences/presentation_data.json) ·
+  [Prince, cap. 6](https://github.com/udlbook/udlbook/tree/main/Notebooks/Chap06) ·
+  [Livro, seções 6.2–6.4 e 9.3.1](https://udlbook.github.io/udlbook/).
+
 ## 7 · Da resenha à previsão com TF-IDF
 
 No HTML, comece em **Contar** e avance com **Próxima etapa** ou a seta
 direita. No PDF, leia as colunas da esquerda para a direita.
 
-“Em *The movie was awful*, contamos as quatro palavras e os três pares
-consecutivos. Ao inverter *was awful*, o par muda, mas as contagens das
-palavras ficam iguais. Depois a gente agrega todas as ocorrências da
-resenha, sem guardar onde caíram.
+“Em *Movie was awful*, são três palavras e dois pares consecutivos.
+Cada um ocupa uma coluna. Todos aparecem uma vez, então o TF é 1.
+*Awful* aparece em bem menos resenhas de treino que *movie*, por isso
+o IDF dele é maior. Multiplicamos TF por IDF em cada coluna e dividimos
+os cinco produtos pelo comprimento do vetor, a norma L2. Isso gera
+os cinco valores de entrada da logística.
 
-Aqui *movie* e *awful* aparecem uma vez. No exemplo fictício, *movie*
-aparece em nove das dez resenhas de treino. *Awful* aparece em duas.
-O IDF reduz a influência de *movie*, que é uma pista pouco distintiva
-quando aparece em quase todo texto. O sinal positivo ou negativo vem da
-regressão. Ela aprende um coeficiente para cada termo usando os rótulos
-das resenhas, multiplica pelo peso TF-IDF e soma.
-Nessa resenha real, *bad* contribuiu com menos 0,40. Somados os outros
-termos e o viés, o escore ficou negativo.”
+A logística tem um peso aprendido para cada coluna. O TF-IDF de *awful*,
+0,451, vezes o peso −10,744 contribui com −4,846. Fazemos o mesmo para as
+outras quatro colunas, somamos os cinco produtos e adicionamos o viés.
+Dá −7,302. A sigmoide transforma esse escore em cerca de 0,067% de
+positivo. A frase foi escrita para o slide e todas as contas usam o
+modelo original.” [As cinco contribuições](dados/tfidf_slide.json).
 
 ## 8 · Ajuste com rótulos embaralhados
 
@@ -142,16 +184,39 @@ ambiente. [Busca de regularização](../results/tfidf_regularization/summary.jso
 
 ## 9 · Teste oficial do IMDb
 
-“Nas 25 mil resenhas do teste, o baseline fez 90,14%, a CNN 86,78% e
-o BERT 90,94%. A CNN tinha um teto de 400 tokens. Dar a ela o texto
-todo com os mesmos pesos recuperou meio ponto. Mesmo quando reajustamos
-o TF-IDF com o teto de 400, ele fez 89,66%. A logística pode somar
-muitas pistas explícitas. A nossa CNN aprende filtros e só usa o
-maior valor de cada um. Vamos ver o que isso muda nos testes de ordem.”
+“No estudo original, o TF-IDF leu resenhas inteiras e fez 90,14%. A
+CNN leu até 400 tokens por regex e fez 86,78%. O BERT leu até 192
+WordPieces e fez 90,94%. Depois fizemos um controle à parte. Na repetição,
+o TF-IDF fez 90,15% com texto inteiro e 89,66% quando cortamos o texto aos
+400 tokens da CNN e reajustamos o modelo. Mesmo com o prefixo comum,
+a CNN original fica atrás.”
 
 Acurácia e F1 macro usam as classes previstas. A CE usa as probabilidades
-calibradas numa amostra separada. Na receita original, a CNN treinou com
-lote 64 e o BERT com lote 32.
+calibradas numa amostra separada.
+
+<a id="configuracao-original"></a>
+
+### Configuração do estudo original
+
+| Modelo | Entrada | Ajuste |
+|---|---|---|
+| TF-IDF + logística | Resenha limpa inteira. Até 80 mil atributos, palavras e pares consecutivos. | L2, \(C=8\) escolhido na validação entre 0,5, 2 e 8. |
+| CNN por regex | Até 400 tokens. Vocabulário de 20 mil IDs, embedding de 128, 100 filtros por largura 3, 4 e 5, máximo global. | AdamW, taxa 0,001, decaimento 0,01, dropout 0,5, lote 64. Cinco épocas, escolhida a quinta. |
+| BERT-base ajustado | Até 192 WordPieces, incluindo tokens especiais. | AdamW, taxa 0,00002 com aquecimento e decaimento linear, decaimento de pesos 0,01, lote 32. Duas épocas, escolhida a segunda. |
+
+O controle de 400 recorta o texto com a regex da CNN e depois aplica o
+analisador de unigramas e bigramas do TF-IDF ao prefixo. Reajustamos o
+vetorizador e a regressão no treino e escolhemos \(C\) na validação.
+As duas receitas desse controle escolheram \(C=8\). No teste, as
+acurácias foram 90,148% com texto inteiro e 89,664% com recorte. A
+repetição integral acertou uma resenha a mais que a versão original.
+
+Nos ensaios internos dos slides 6 e 11, usamos o prefixo comum de até
+128 palavras e um teto de 256 tokens por tokenizador. Os prefixos da
+auditoria BPE já cabiam nesse teto adicional. Esse protocolo usa outras
+divisões, separadas do teste oficial.
+[Configuração original](../config.json) ·
+[Controle de recorte](../results/tfidf_ablation/summary.json).
 
 ## 10 · Desempenho por tamanho
 

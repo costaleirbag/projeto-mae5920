@@ -21,6 +21,7 @@ INK, TEAL, RUST, BLUE, GRID = "#142637", "#176C69", "#9C4028", "#355E94", "#D6E0
 SOURCES = (
     "results/comparison.csv",
     "results/tfidf/metadata.json",
+    "results/tfidf_ablation/summary.json",
     "results/cnn/metadata.json",
     "results/bert/metadata.json",
     "results/cnn/metrics.json",
@@ -35,6 +36,7 @@ SOURCES = (
     "seminario/dados/qwen_youtube_resultados.json",
     "seminario/dados/animacoes.json",
     "seminario/dados/discordancias.json",
+    "seminario/dados/tfidf_slide.json",
     "seminario/dados/passo_resultados.json",
     "seminario/dados/posicao_resultados.json",
 )
@@ -227,15 +229,26 @@ def tables() -> str:
                                   pt(float(r["f1_macro"]), 4), pt(float(r["log_loss"]), 4)))
     calibrated_rows, chart_rows = [], []
     cost_rows = []
-    for y, (key, name) in zip((31, 20, 9), baseline_names.items(), strict=True):
+    for y, (key, name) in zip((33, 20, 7), baseline_names.items(), strict=True):
         r = next(x for x in comparisons if x["model"] == key and x["split"] == "test"
                  and x["probabilities"] == "calibrated")
         calibrated_rows.append(row(name, pct(float(r["accuracy"])), pt(float(r["f1_macro"]), 4),
                                    pt(float(r["log_loss"]), 4)))
+        meta = read_json(f"results/{key}/metadata.json")
+        if key == "tfidf":
+            entry = "Resenha inteira"
+            recipe = rf"L2, \(C={meta['selected_C']:g}\)"
+        else:
+            cfg = meta["config"]
+            unit = "tokens por regex" if key == "cnn" else "WordPieces"
+            digits = 3 if key == "cnn" else 5
+            entry = f"{cfg['max_length']} {unit}"
+            recipe = (rf"{pt(cfg['lr'], digits)} \(\cdot\) lote {cfg['batch_size']}"
+                      rf" \(\cdot\) {cfg['epochs']} épocas")
         chart_rows.append(tex_call("officialpoint", y, name, float(r["accuracy"]) * 100,
                                    pct(float(r["accuracy"])), pt(float(r["f1_macro"]), 4),
-                                   pt(float(r["log_loss"]), 4), "Teal" if key == "cnn" else "Quiet"))
-        meta = read_json(f"results/{key}/metadata.json")
+                                   pt(float(r["log_loss"]), 4), "Teal" if key == "cnn" else "Quiet",
+                                   entry, recipe))
         device = {"tfidf": "CPU do Apple M1", "cnn": "Apple M1 (MPS)",
                   "bert": "NVIDIA GB10 (CUDA)"}[key]
         cost_rows.append(row(name, device, pt(meta["training_seconds"], 1),
@@ -315,6 +328,11 @@ def tables() -> str:
         "NParesHumanos": str(position["n"]["contrast"] // 2),
     }
     disagreements = read_json("seminario/dados/discordancias.json")
+    tfidf_slide = read_json("seminario/dados/tfidf_slide.json")
+    awful = next(term for term in tfidf_slide["terms"] if term["term"] == "awful")
+    tfidf_ablation = read_json("results/tfidf_ablation/summary.json")["recipes"]
+    tfidf_by_scope = {r["scope"]: pct(r["test"]["accuracy"]) for r in tfidf_ablation
+                      if r["ngrams"] == "unigramas_bigramas"}
     long = disagreements["casos"][0]
     excerpts = {}
     for source, name in (("prefixo", "Prefixo"), ("final", "Final")):
@@ -345,6 +363,18 @@ def tables() -> str:
         "LinhasCusto": "\n".join(cost_rows),
         "LinhasSeq": "\n".join(sequence_rows),
         "LinhasBPE": "\n".join(bpe_rows),
+        "ExemploTFIDF": tfidf_slide["text"],
+        "NormaExemploTFIDF": pt(tfidf_slide["normalization"], 3),
+        "IDFAwful": pt(awful["idf"], 3),
+        "TFIDFAwful": pt(awful["tfidf"], 3),
+        "LinhasExemploTFIDF": "\n".join(row(r"\texttt{" + term["term"] + "}",
+                                             *(pt(term[key], 3) for key in ("tfidf", "coefficient", "contribution")))
+                                        for term in tfidf_slide["terms"]),
+        "ViesExemploTFIDF": "+" + pt(tfidf_slide["bias"], 3),
+        "EscoreExemploTFIDF": pt(tfidf_slide["logit"], 3),
+        "PositivaExemploTFIDF": pct(tfidf_slide["positive_raw"], 3),
+        "TfidfControleIntegral": tfidf_by_scope["integral"],
+        "TfidfControleCorte": tfidf_by_scope["400"],
         "LinhasPares": "\n".join(pair_rows),
         "LinhasForaDominio": "\n".join(external_rows),
         "SoTFIDF": f"{only_tfidf:,}".replace(",", "."),

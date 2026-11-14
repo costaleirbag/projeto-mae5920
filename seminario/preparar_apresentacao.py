@@ -156,20 +156,6 @@ def cut_example() -> dict:
     }
 
 
-def tfidf_example() -> dict:
-    results = json.loads((HERE / "dados/discordancias.json").read_text(encoding="utf-8"))
-    case = next(case for case in results["casos"] if case["id"] == "imdb_test_03531")
-    prediction = case["tfidf_inteiro"]
-    terms = prediction["termos"]
-    contributions = [*terms["a_favor_da_classe_negativa"][:2], terms["a_favor_da_classe_positiva"][0]]
-    residual = prediction["logit"] - sum(row["contribuicao"] for row in contributions)
-    return {
-        "quote": case["trechos"]["final"]["texto"],
-        "contributions": [*contributions, {"termo": "Demais termos e viés", "contribuicao": residual}],
-        "logit": prediction["logit"], "positive": prediction["p_positiva"],
-    }
-
-
 def build(pdf: Path, output: Path) -> None:
     reader = PdfReader(pdf)
     frames = list(FRAME.finditer((HERE / "slides.tex").read_text(encoding="utf-8")))
@@ -207,10 +193,11 @@ def build(pdf: Path, output: Path) -> None:
         for case in youtube_results["comentarios"]
     }
     lengths = json.loads((HERE / "dados/comprimentos.json").read_text(encoding="utf-8"))
+    tfidf = json.loads((HERE / "dados/tfidf_slide.json").read_text(encoding="utf-8"))
     data = json.dumps({
         "slides": slides, "evidence": evidence, "architecture": architecture_steps(),
         "contrast": contrast_example(), "position": position, "youtubeQwen": youtube_qwen,
-        "cut": cut_example(), "tfidf": tfidf_example(), "lengthBands": lengths["bands"],
+        "cut": cut_example(), "tfidf": tfidf, "lengthBands": lengths["bands"],
     }, ensure_ascii=False, separators=(",", ":"))
     template = (HERE / "apresentacao.html").read_text(encoding="utf-8")
     for marker, file in (("ROOM", "the-room"), ("FRIDAY", "friday")):

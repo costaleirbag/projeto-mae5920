@@ -1,0 +1,63 @@
+{
+  "text": "Movie was awful.",
+  "train_documents": 19823,
+  "normalization": 8.524695588906665,
+  "terms": [
+    {
+      "term": "movie",
+      "count": 1,
+      "document_frequency": 12153,
+      "tf": 1.0,
+      "idf": 1.4892349911736231,
+      "tfidf": 0.1746965596181042,
+      "coefficient": -1.5422556492224488,
+      "contribution": -0.26942675597074756
+    },
+    {
+      "term": "was",
+      "count": 1,
+      "document_frequency": 12834,
+      "tf": 1.0,
+      "idf": 1.434717510563683,
+      "tfidf": 0.16830131886828967,
+      "coefficient": -3.7238223827899595,
+      "contribution": -0.6267242182548072
+    },
+    {
+      "term": "awful",
+      "count": 1,
+      "document_frequency": 1151,
+      "tf": 1.0,
+      "idf": 3.845393762613087,
+      "tfidf": 0.451088689620444,
+      "coefficient": -10.743535491395278,
+      "contribution": -4.846287346704229
+    },
+    {
+      "term": "movie was",
+      "count": 1,
+      "document_frequency": 1523,
+      "tf": 1.0,
+      "idf": 3.5655548676223323,
+      "tfidf": 0.41826184060604477,
+      "coefficient": -0.6780354557156302,
+      "contribution": -0.28359635770377783
+    },
+    {
+      "term": "was awful",
+      "count": 1,
+      "document_frequency": 89,
+      "tf": 1.0,
+      "idf": 6.394838933538659,
+      "tfidf": 0.7501545206916683,
+      "coefficient": -1.9821380087879015,
+      "contribution": -1.486909787927026
+    }
+  ],
+  "bias": 0.21142979500870196,
+  "logit": -7.301514671551885,
+  "positive_raw": 0.0006740616647578447,
+  "class": "negativa",
+  "checkpoint_sha256": "e7419eec4a319a54d0b11efc48b28d4dd149143240421cc70d4008eee8a0ace3",
+  "source_sha256": "2b1330b0ba73b66d7377eb03470bf04826e9cd876693d2a91c2bad9124390345"
+}

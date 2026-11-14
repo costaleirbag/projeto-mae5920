@@ -1,6 +1,7 @@
 {
   "results/comparison.csv": "7256f63f77c84e6457611235505c09494bb00929f5633e224f5908d543294570",
   "results/tfidf/metadata.json": "8931e7673996d69f51485cbda54ab176d2296d3470e23b6e3b57233acef4d475",
+  "results/tfidf_ablation/summary.json": "51bc53156a1b430ed0bc11da4e7ec0a390f882891f7441b260a08844f8383e31",
   "results/cnn/metadata.json": "39902562bc942a944acb0007bc33e800dfa08981c6a874943998a53df0d3a4f4",
   "results/bert/metadata.json": "c5403c307b0fa332d2f55b35c8ae11760b5b216136505fd38ef4f7ba9f92b58b",
   "results/cnn/metrics.json": "86a63c369b0b2e3bc6902c2a7b6026a247ca32a4f25340fc5fd2ddf4353722d1",
@@ -13,8 +14,9 @@
   "seminario/dados/pares_resultados.json": "37d1a33a0da97e7f1a4d713d50c24ae5dc3ce98f5a8013d2bde81e6aba43af1e",
   "seminario/dados/fora_dominio_resultados.json": "8b1a8397de367408989b855d6fe768a527a87ddec914326aedd64375ff0a8190",
   "seminario/dados/qwen_youtube_resultados.json": "ef15b8bbc22963dc85a2f9d20b7cb43b1adb713c6e6819a5def95777cdd61dc9",
-  "seminario/dados/animacoes.json": "81ceb765e5514cc0738c4fa708e124973c18e4a7a6ea104b3576e3acc4a460d8",
+  "seminario/dados/animacoes.json": "8fc2afcaca1093d9629415866181aa60fb03d6f32890e4750f3bebc7c77ef871",
   "seminario/dados/discordancias.json": "521e2f62cab2f4ab5f054e4fcd3e46a372f7b01830207657e82acf45dd602b8d",
+  "seminario/dados/tfidf_slide.json": "3bd70d2ad66a85f25d818eb612fdc823889bb27911a7941b940866e1dc0ae777",
   "seminario/dados/passo_resultados.json": "e16ff11c4632d7442f07187ef2eaea41278b4faa3d136b9153734f226769d7fe",
   "seminario/dados/posicao_resultados.json": "311c402f409e06764b2c699ca7b5137b6d04f0a0f125ab57fd8dc70ecda490d2"
 }

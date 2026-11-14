@@ -69,10 +69,10 @@ function makeTransport(name, draw, nextView) {
   return {
     move,
     pause,
-    reset(max) {
+    reset(max, step = 0) {
       pause();
       slider.max = max;
-      render(0);
+      render(step);
     },
   };
 }
@@ -180,7 +180,7 @@ architectureTransport.reset(architecture.length - 1);
 window.addEventListener("resize", centerArchitectureStage);
 
 const cnn = evidence.cnn.casos;
-const scan = { name: "A", width: 3, stride: 1, tokens: [], bars: [], trace: null,
+const scan = { name: "A", width: 3, stride: 1, alternate: false, tokens: [], bars: [], trace: null,
   scale: 1, edges: [], visited: [], winner: 0 };
 const scanWindow = byId("cnn-window");
 const cnnTransport = makeTransport("cnn", (step) => {
@@ -207,13 +207,17 @@ const cnnTransport = makeTransport("cnn", (step) => {
   return atMax ? "Máximo global" : (step + 1) + " / " + visited.length + " janelas";
 });
 
-function setupScan() {
+function traceFor(name) {
+  return scan.alternate ? evidence.cnn.filtro_fim_a[name] : cnn[name].janelas[scan.width];
+}
+
+function setupScan(showPeak = false) {
   const current = cnn[scan.name];
-  scan.trace = current.janelas[scan.width];
+  scan.trace = traceFor(scan.name);
   scan.visited = scan.trace.ativacoes.map((_, i) => i).filter((i) => i % scan.stride === 0);
   scan.winner = scan.visited.reduce((best, i) =>
     scan.trace.ativacoes[i] > scan.trace.ativacoes[best] ? i : best, 0);
-  scan.scale = 1.12 * Math.max(...Object.values(cnn).flatMap((sample) => sample.janelas[scan.width].ativacoes), 0.01);
+  scan.scale = 1.12 * Math.max(...Object.keys(cnn).flatMap((name) => traceFor(name).ativacoes), 0.01);
   scan.tokens = current.tokens.map((text) => token(text));
   const weights = current.tokens.map((text) => Math.max(4, text.length));
   const total = weights.reduce((sum, weight) => sum + weight, 0);
@@ -229,7 +233,13 @@ function setupScan() {
   byId("cnn-tokens").replaceChildren(scanWindow, ...scan.tokens);
   byId("cnn-bars").replaceChildren(...scan.bars);
   byId("cnn-filter").textContent = "Filtro " + scan.trace.filtro + " · k = " + scan.width;
-  cnnTransport.reset(scan.visited.length);
+  byId("cnn-other-filter").setAttribute("aria-pressed", scan.alternate);
+  byId("cnn-other-filter").textContent = scan.alternate ? "Voltar aos filtros do exemplo" : "Ver o filtro 6 com wonderful";
+  const finalPeaks = Object.values(evidence.cnn.picos_fim_a).reduce((total, count) => total + count, 0);
+  byId("cnn-selection-note").textContent = scan.alternate
+    ? "Na frase A, " + finalPeaks + " dos 300 filtros têm pico positivo na última janela."
+    : "Um filtro por largura, escolhido pela maior variação na frase A.";
+  cnnTransport.reset(scan.visited.length, showPeak ? scan.visited.length : 0);
 }
 
 const caseButtons = [...document.querySelectorAll("[data-case]")];
@@ -238,10 +248,11 @@ const strideButtons = [...document.querySelectorAll("[data-stride]")];
 caseButtons.forEach((button) => button.addEventListener("click", () => {
   scan.name = button.dataset.case;
   caseButtons.forEach((option) => option.setAttribute("aria-pressed", option === button));
-  setupScan();
+  setupScan(scan.alternate);
 }));
 widthButtons.forEach((button) => button.addEventListener("click", () => {
   scan.width = Number(button.dataset.width);
+  scan.alternate = false;
   widthButtons.forEach((option) => option.setAttribute("aria-pressed", option === button));
   setupScan();
 }));
@@ -250,6 +261,16 @@ strideButtons.forEach((button) => button.addEventListener("click", () => {
   strideButtons.forEach((option) => option.setAttribute("aria-pressed", option === button));
   setupScan();
 }));
+byId("cnn-other-filter").addEventListener("click", () => {
+  scan.alternate = !scan.alternate;
+  if (scan.alternate) {
+    scan.width = 3;
+    scan.stride = 1;
+    widthButtons.forEach((button) => button.setAttribute("aria-pressed", Number(button.dataset.width) === 3));
+    strideButtons.forEach((button) => button.setAttribute("aria-pressed", Number(button.dataset.stride) === 1));
+  }
+  setupScan(scan.alternate);
+});
 setupScan();
 
 
@@ -524,20 +545,34 @@ tfidfOrders.forEach((button) => {
   });
 });
 
-byId("tfidf-quote").textContent = "“" + tfidf.quote + "”";
+byId("tfidf-quote").textContent = "“" + tfidf.text + "”";
 const tfidfNumber = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 3, maximumFractionDigits: 3 });
-for (const { termo, contribuicao } of tfidf.contributions) {
-  const row = document.createElement("div");
-  const term = document.createElement("dt");
-  term.textContent = termo;
-  const value = document.createElement("dd");
-  value.textContent = (contribuicao > 0 ? "+" : "") + tfidfNumber.format(contribuicao);
-  value.className = contribuicao < 0 ? "tfidf-negative" : "tfidf-positive";
-  row.append(term, value);
-  byId("tfidf-sum").append(row);
+const tfidfCount = new Intl.NumberFormat("pt-BR");
+const tfidfPercent = new Intl.NumberFormat("pt-BR", { style: "percent", minimumFractionDigits: 3, maximumFractionDigits: 3 });
+
+function tfidfRow(table, label, values, tone = "") {
+  const row = byId(table).insertRow();
+  const title = document.createElement("th");
+  title.scope = "row";
+  title.append(label);
+  row.append(title);
+  values.forEach((value) => { row.insertCell().textContent = value; });
+  row.lastElementChild.className = tone;
 }
+for (const { term, tf, document_frequency, idf, tfidf: feature, coefficient, contribution } of tfidf.terms) {
+  tfidfRow("tfidf-weight-rows", token(term), [tfidfCount.format(tf), tfidfCount.format(document_frequency),
+    tfidfNumber.format(idf), tfidfNumber.format(feature)]);
+  tfidfRow("tfidf-sum", token(term), [tfidfNumber.format(feature), tfidfNumber.format(coefficient),
+    tfidfNumber.format(contribution)], contribution < 0 ? "tfidf-negative" : "tfidf-positive");
+}
+tfidfRow("tfidf-sum", "Viés", ["", "", "+" + tfidfNumber.format(tfidf.bias)], "tfidf-positive");
+const awful = tfidf.terms.find(({ term }) => term === "awful");
+byId("tfidf-training").textContent = tfidfCount.format(tfidf.train_documents) + " resenhas no treino";
+const tfidfExample = token("1 × " + tfidfNumber.format(awful.idf) + " ÷ " + tfidfNumber.format(tfidf.normalization) +
+  " ≈ " + tfidfNumber.format(awful.tfidf));
+byId("tfidf-worked").append("Para awful, ", tfidfExample, ". O divisor é a norma L2 dos cinco produtos TF × IDF.");
 byId("tfidf-logit").textContent = tfidfNumber.format(tfidf.logit);
-byId("tfidf-positive").textContent = percent.format(tfidf.positive);
+byId("tfidf-positive").textContent = tfidfPercent.format(tfidf.positive_raw);
 
 const tfidfStages = [...document.querySelectorAll("[data-tfidf-step]")];
 let tfidfStep = 0;

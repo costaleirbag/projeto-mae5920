@@ -52,8 +52,10 @@
 \newcommand{\good}[1]{\pill{Mint}{Forest}{#1}}
 \newcommand{\bad}[1]{\pill{Blush}{Rust}{#1}}
 \newcommand{\liveversion}[1]{\href{https://costaleirbag.github.io/projeto-mae5920/\#slide-#1}{Abrir animação}}
-\newcommand{\officialpoint}[7]{%
-  \node[anchor=west,text=#7,font=\bfseries\small] at (2,#1) {#2};
+\newcommand{\officialpoint}[9]{%
+  \node[anchor=west,text=#7,font=\bfseries\small] at (2,{#1+3.9}) {#2};
+  \node[anchor=west,text=Ink,font=\bfseries\scriptsize] at (2,{#1-.5}) {#8};
+  \node[anchor=west,text=Quiet,font=\scriptsize] at (2,{#1-4.35}) {#9};
   \draw[#7!30, line width=.7pt] (48,#1) -- (88,#1);
   \fill[#7] ({48+5*(#3-84)},#1) circle (1.15mm);
   \node[anchor=east,text=#7,font=\bfseries\small] at (105,#1) {#4};
@@ -184,6 +186,7 @@
 % lab:bpe
 \begin{frame}{Como o BPE divide uma palavra rara}
 \caso{Entrada}{The \textbf{pallbearer} scene was unexpectedly moving.}
+{\small Nas duas versões, a mesma regex normaliza e separa as palavras.}\par
 \vspace{1.5mm}
 \begin{columns}[c,onlytextwidth]
 \begin{column}{.67\textwidth}
@@ -195,13 +198,13 @@
 \BPEFim
 \end{column}
 \begin{column}{.29\textwidth}
-\slidecard{Mint}{\eyebrow{Regex + vocabulário}\par
+\slidecard{Mint}{\eyebrow{CNN por palavras}\par
   {\Large\bfseries\texttt{<unk>}}\par
   {\small \textit{pallbearer} ficou fora do vocabulário.}}
 \end{column}
 \end{columns}
-\smallsource{Ambas começam com regex. BPE aplica fusões aprendidas no treino.
-Os 20.000 IDs igualam os embeddings. \texttt{</w>} marca o fim da palavra. \liveversion{4}.}
+\smallsource{O BPE recebe a palavra escrita e aplica fusões aprendidas no treino.
+Treinos separados, 20.000 IDs por vocabulário. \texttt{</w>} marca o fim da palavra. \liveversion{4}.}
 \end{frame}
 
 % 02:50–04:15
@@ -219,7 +222,7 @@ Os 20.000 IDs igualam os embeddings. \texttt{</w>} marca o fim da palavra. \live
 {\small O passo 2 pula a janela com o maior pico.}
 \end{column}
 \end{columns}
-\smallsource{Frase A, semente 17. Mapas esquemáticos.
+\smallsource{Frase A, semente 17.
 \href{https://costaleirbag.github.io/projeto-mae5920/\#slide-5}{Montagem com código}.
 \href{https://costaleirbag.github.io/projeto-mae5920/\#slide-5-varredura}{Varredura}.}
 \end{frame}
@@ -230,55 +233,47 @@ Os 20.000 IDs igualam os embeddings. \texttt{</w>} marca o fim da palavra. \live
 \includegraphics[width=\linewidth,height=.50\textheight,keepaspectratio]{figuras/otimizacao.pdf}
 \par\raggedright\vspace{1mm}
 {\large\strong{No Adam, guardamos os pesos das épocas 5 ou 6.}}
-\smallsource{CNN interna: dropout 0,5 e decaimento de pesos zero. Na original, AdamW usa decaimento de 0,01.
-Faixas de três sementes.
-\fonte{results/sequences/presentation_data.json}{Curvas}.}
+\smallsource{Taxas escolhidas na validação: SGD 0,3 \(\cdot\) SGD com momentum 0,1 \(\cdot\) Adam 0,001.\\
+CNN interna: 128 palavras, lote 64, 12 épocas. Faixas de mínimo e máximo em três sementes.
+\fonteatual{seminario/roteiro.md\#como-ler-as-curvas}{Como ler as curvas}.}
 \end{frame}
 
 % 05:25–06:40
 % lab:tfidf
 \begin{frame}{Da resenha à previsão com TF-IDF}
-\setlength{\parskip}{1pt}
 \vfill
 \begin{columns}[T,onlytextwidth]
-\begin{column}{.315\textwidth}
+\begin{column}{.41\textwidth}
+\eyebrow{Frase de exemplo}\par
+{\large\textit{\ExemploTFIDF}}\par
+\vspace{1mm}
 \textbf{1. Contar termos}\par
-\textit{The movie was awful.}\par
+{\small Três palavras e dois pares consecutivos. Cada termo aparece uma vez.}\par
 \vspace{1mm}
-\eyebrow{Palavras}\par
-{\small\texttt{the, movie, was, awful}}\par
+\textbf{2. Ponderar cada termo}\par
+{\small TF vale 1 aqui. O IDF reflete em quantas resenhas de treino aparece. Multiplicamos e dividimos todos os produtos pela mesma norma L2.}\par
 \vspace{1mm}
-\eyebrow{Pares consecutivos}\par
-{\small\texttt{the movie}, \texttt{movie was},\par
-  \fused{was awful}}\par
-\vspace{.8mm}
-{\small O par guarda a ordem local. Contamos os termos no texto inteiro.}
+\slidecard{Mint}{\small \texttt{awful}\enspace
+  \(1 \times \text{\IDFAwful} \div \text{\NormaExemploTFIDF}\simeq \text{\TFIDFAwful}\)}
 \end{column}
-\begin{column}{.315\textwidth}
-\textbf{2. Ponderar (TF-IDF)}\par
-{\small \textbf{TF} cresce quando o termo se repete na resenha.}\par
+\begin{column}{.55\textwidth}
+\textbf{3. Pesar, somar e aplicar a sigmoide}\par
+{\small
+\begin{tabularx}{\linewidth}{@{}Xrrr@{}}
+\textbf{Termo} & \textbf{TF-IDF} & \textbf{Peso} & \textbf{Produto}\\
+\midrule
+\LinhasExemploTFIDF
+\midrule
+Viés & & & \ViesExemploTFIDF\\
+\end{tabularx}}
+\par
 \vspace{1mm}
-\eyebrow{Raridade no treino (IDF)}\par
-{\small\texttt{movie}\hfill 9 de 10 \(\to\) 1,10\par
-\texttt{awful}\hfill 2 de 10 \(\to\) 2,30}\par
-\vspace{.8mm}
-{\small Ambos ocorrem uma vez. O IDF reduz o peso de \textit{movie}, que aparece na maioria das resenhas.}
-\end{column}
-\begin{column}{.315\textwidth}
-\textbf{3. Classificar (logística)}\par
-{\small Soma \textbf{TF-IDF \(\times\) coeficiente} de cada termo e o viés.}\par
-\vspace{1mm}
-\eyebrow{Resenha real}\par
-{\small\texttt{bad}\hfill\textcolor{Rust}{\(-0{,}400\)}\par
-\texttt{awful}\hfill\textcolor{Rust}{\(-0{,}247\)}\par
-\texttt{rules}\hfill\textcolor{Teal}{\(+0{,}125\)}\par
-Demais termos e viés\hfill\(-1{,}386\)}\par
-\vspace{1mm}
-\slidecard{Blush}{\small\textbf{\(-1{,}908\) \(\to\) 6,5\% positivo}}
+\slidecard{Blush}{\small \textbf{\EscoreExemploTFIDF{} \(\to\) \PositivaExemploTFIDF{} de positivo}
+  \enspace Classe negativa}
 \end{column}
 \end{columns}
-\smallsource{Valores arredondados. Aplicamos a sigmoide ao escore calibrado.
-\fonteatual{seminario/dados/discordancias.json}{Resenha e escores}.
+\smallsource{Frase ilustrativa. Valores do modelo treinado, arredondados. Probabilidade bruta.
+\fonteatual{seminario/dados/tfidf_slide.json}{Conta completa}.
 \href{https://costaleirbag.github.io/projeto-mae5920/\#tf-idf}{Versão interativa}.}
 \end{frame}
 
@@ -307,25 +302,28 @@ distinguem as resenhas de treino. Com rótulos embaralhados, fica perto do acaso
 
 % 07:10–07:50
 \begin{frame}{A CNN ficou atrás no teste oficial}
-\eyebrow{25.000 resenhas \(\cdot\) estudo original}
+\eyebrow{Estudo original \(\cdot\) mesmas 25.000 resenhas do teste}
 \vfill
-\begin{tikzpicture}[x=1mm,y=.9mm,font=\sffamily\small]
-  \fill[Mint,rounded corners=1mm] (0,15) rectangle (144,25);
-  \node[anchor=west,text=Quiet,font=\bfseries\scriptsize] at (2,42) {MODELO};
-  \node[anchor=west,text=Quiet,font=\bfseries\scriptsize] at (48,42) {ACURÁCIA};
-  \node[anchor=east,text=Quiet,font=\bfseries\scriptsize] at (123,42) {F1 MACRO};
-  \node[anchor=east,text=Quiet,font=\bfseries\scriptsize] at (143,42) {CE CAL.};
+\begin{tikzpicture}[x=1mm,y=.78mm,font=\sffamily\small]
+  \fill[Mint,rounded corners=1mm] (0,14) rectangle (144,26);
+  \node[anchor=west,text=Quiet,font=\bfseries\scriptsize] at (2,44) {MODELO E ENTRADA};
+  \node[anchor=west,text=Quiet,font=\bfseries\scriptsize] at (48,44) {ACURÁCIA};
+  \node[anchor=east,text=Quiet,font=\bfseries\scriptsize] at (123,44) {F1 MACRO};
+  \node[anchor=east,text=Quiet,font=\bfseries\scriptsize] at (143,44) {CE CAL.};
   \foreach \pct/\x in {84/48,88/68,92/88} {
-    \draw[Quiet!25,line width=.35pt] (\x,4) -- (\x,36);
+    \draw[Quiet!25,line width=.35pt] (\x,4) -- (\x,38);
     \node[text=Quiet,font=\scriptsize] at (\x,1) {\pct\%};
   }
   \PontosTeste
 \end{tikzpicture}
 \par\vfill
-{\small Com teto de 400 tokens, o TF-IDF reajustado ainda fez \strong{89,66\%}.}
-\smallsource{Entradas originais: texto inteiro no TF-IDF, 400 tokens na CNN e 192 WordPieces no BERT.
-\quad Lotes: CNN 64, BERT 32. \fonte{results/comparison.csv}{Métricas}.
-\fonteatual{results/tfidf_ablation/summary.json}{Controle de recorte}.}
+\slidecard{Wash}{\small \textbf{Controle de recorte do TF-IDF.}
+Reajuste com texto inteiro \strong{\TfidfControleIntegral}.
+Com os primeiros 400 tokens por regex \strong{\TfidfControleCorte}.}
+\smallsource{CNN e BERT usam AdamW. O teto do BERT inclui tokens especiais.
+\fonteatual{seminario/roteiro.md\#configuracao-original}{Hiperparâmetros}.
+\fonte{results/comparison.csv}{Métricas originais}.
+\fonteatual{results/tfidf_ablation/summary.json}{Controle}.}
 \end{frame}
 
 % 07:50–08:30
@@ -370,8 +368,8 @@ Com o texto inteiro, a mesma CNN sobe de \strong{\AcuraciaLongasCNN{} a \Acuraci
 \end{column}
 \end{columns}
 \vfill
-\smallsource{Regex por palavras \(\to\) BPE. Mesmo prefixo de até 128 palavras, CNN e Adam a 0,001.
-Três sementes na auditoria de 2.048 resenhas. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
+\smallsource{Regex por palavras \(\to\) BPE. Até 128 palavras, teto de 256 tokens. Mesma CNN e Adam a 0,001.
+Três sementes, 2.048 entradas de auditoria. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
 \end{frame}
 
 % 09:05–10:05

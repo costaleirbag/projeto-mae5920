@@ -30,6 +30,7 @@
       <div class="lab-body bpe-layout">
         <section class="panel token-panel" aria-label="Etapa da tokenização">
           <p class="quote" id="bpe-sentence"></p>
+          <p class="bpe-clean">Nas duas versões, a mesma regex normaliza e separa as palavras.</p>
           <div id="bpe-before" class="prior-step" hidden>
             <p class="micro">Antes da fusão</p>
             <div id="bpe-before-pieces" class="pieces" aria-label="Par de origem destacado"></div>
@@ -40,14 +41,16 @@
         </section>
         <aside class="rail bpe-rail">
           <div>
-            <p class="micro">Regex + vocabulário por palavras</p>
+            <p class="micro">CNN por palavras</p>
             <p class="readout"><code>&lt;unk&gt;</code></p>
+            <p class="bpe-option-note"><i>Pallbearer</i> ficou fora do vocabulário.</p>
           </div>
           <div>
-            <p class="micro">Saída final do BPE</p>
+            <p class="micro">CNN com BPE</p>
             <div id="bpe-result" class="pieces compact"></div>
+            <p class="bpe-option-note">O BPE recebe a palavra escrita e a divide em peças.</p>
           </div>
-          <p>Ambas começam com a mesma regex. O BPE ainda funde caracteres conforme regras aprendidas no treino. Fixamos <strong>20.000 entradas</strong> nas duas. <code>&lt;/w&gt;</code> marca o fim da palavra.</p>
+          <p>Mesma arquitetura, treinos separados. Cada vocabulário tem <strong>20.000 entradas</strong>. <code>&lt;/w&gt;</code> marca o fim da palavra.</p>
         </aside>
       </div>
       <div class="transport">
@@ -60,7 +63,8 @@
         <output id="bpe-count" for="bpe-step"></output>
         <button type="button" id="bpe-play" class="play"></button>
       </div>
-      <footer class="lab-source">Fusões do tokenizer treinado no IMDb.
+      <footer class="lab-source">Fusões aprendidas no treino do IMDb.
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/src/imdb_lab/bpe_study.py#L31-L43" target="_blank" rel="noopener">Pré-processamento e BPE</a>
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/animacoes.json" target="_blank" rel="noopener">Etapas registradas</a>
       </footer>
     </article>
@@ -160,6 +164,10 @@
             <div><p class="micro">Após a ReLU</p><p class="readout" id="cnn-relu"></p></div>
           </div>
           <p class="observation" id="cnn-reading" aria-live="polite"></p>
+          <div class="scan-choice">
+            <button type="button" id="cnn-other-filter" aria-pressed="false">Ver o filtro 6</button>
+            <p id="cnn-selection-note"></p>
+          </div>
         </aside>
       </div>
       <div class="transport">
@@ -507,14 +515,13 @@
         <button type="button" data-tfidf-step="1" aria-pressed="false" aria-controls="tfidf-weight">2. Ponderar</button>
         <button type="button" data-tfidf-step="2" aria-pressed="false" aria-controls="tfidf-score">3. Classificar</button>
       </div>
+      <p class="quote tfidf-input" id="tfidf-quote" lang="en"></p>
       <div class="tfidf-body">
         <section id="tfidf-terms" class="tfidf-panel" aria-label="Contagem de palavras e pares">
           <div class="tfidf-example">
-            <p class="micro">Uma frase de exemplo</p>
-            <p class="quote" lang="en">The movie was awful.</p>
             <dl class="tfidf-grams">
-              <div><dt>Palavras</dt><dd><code>the</code><code>movie</code><code>was</code><code>awful</code></dd></div>
-              <div><dt>Pares consecutivos</dt><dd><code>the movie</code><code>movie was</code><code class="tfidf-highlight">was awful</code></dd></div>
+              <div><dt>3 palavras</dt><dd><code>movie</code><code>was</code><code>awful</code></dd></div>
+              <div><dt>2 pares consecutivos</dt><dd><code>movie was</code><code class="tfidf-highlight">was awful</code></dd></div>
             </dl>
           </div>
           <div class="tfidf-explain">
@@ -527,40 +534,38 @@
               <div><dt>Palavras</dt><dd><code>was</code><code>awful</code></dd></div>
               <div><dt>Bigrama</dt><dd><code id="tfidf-bigram" class="tfidf-highlight">was awful</code></dd></div>
             </dl>
-            <p>O par guarda a ordem local. A contagem reúne as ocorrências da resenha inteira.</p>
+            <p>Cada palavra e cada par tem sua própria coluna. O par guarda a ordem local.</p>
           </div>
         </section>
         <section id="tfidf-weight" class="tfidf-panel" aria-label="Frequência na resenha e raridade no treino" hidden>
           <div class="tfidf-example">
-            <p class="micro">Um treino fictício de 10 resenhas</p>
+            <p class="micro" id="tfidf-training"></p>
             <table class="tfidf-table">
-              <thead><tr><th scope="col">Termo</th><th scope="col">Ocorrências na frase</th><th scope="col">Resenhas de treino com o termo</th><th scope="col">IDF</th></tr></thead>
-              <tbody>
-                <tr><th scope="row"><code>movie</code></th><td>1</td><td>9 de 10</td><td>1,10</td></tr>
-                <tr><th scope="row"><code class="tfidf-highlight">awful</code></th><td>1</td><td>2 de 10</td><td>2,30</td></tr>
-              </tbody>
+              <thead><tr><th scope="col">Termo</th><th scope="col">TF</th><th scope="col">Resenhas com o termo</th><th scope="col">IDF</th><th scope="col">TF-IDF</th></tr></thead>
+              <tbody id="tfidf-weight-rows"></tbody>
             </table>
           </div>
           <div class="tfidf-explain">
             <h2>TF · frequência na resenha</h2>
-            <p>Quanto mais vezes o termo aparece, maior o TF.</p>
+            <p><code>1 + ln(contagem)</code> se o termo aparece. Aqui, é 1 para os cinco termos.</p>
             <h2>IDF · raridade no treino</h2>
-            <p><i>Movie</i> aparece em quase toda resenha. O IDF reduz seu peso para dar mais espaço aos termos que distinguem os textos.</p>
-            <p class="tfidf-note">Multiplicamos TF e IDF e normalizamos. O sinal de sentimento vem do coeficiente aprendido com os rótulos.</p>
+            <p><code>1 + ln((1 + N) / (1 + DF))</code><br>N é o total de resenhas. DF conta em quantas o termo aparece.</p>
+            <p class="tfidf-note" id="tfidf-worked"></p>
           </div>
         </section>
         <section id="tfidf-score" class="tfidf-panel" aria-label="Contribuições reais na regressão logística" hidden>
           <div class="tfidf-example">
-            <p class="micro">Uma resenha negativa do IMDb</p>
-            <p class="quote" id="tfidf-quote" lang="en"></p>
-            <dl class="tfidf-sum" id="tfidf-sum"></dl>
+            <table class="tfidf-table">
+              <thead><tr><th scope="col">Termo</th><th scope="col">TF-IDF</th><th scope="col">Peso</th><th scope="col">Produto</th></tr></thead>
+              <tbody id="tfidf-sum"></tbody>
+            </table>
           </div>
           <div class="tfidf-explain">
             <h2>Regressão logística</h2>
-            <p>Para cada termo, multiplica seu TF-IDF pelo coeficiente aprendido. Soma as contribuições e o viés.</p>
+            <p>A logística multiplica cada TF-IDF pelo peso aprendido com os rótulos. Soma os cinco produtos e o viés.</p>
             <div id="tfidf-verdict" class="tfidf-result">
               <p><strong id="tfidf-logit"></strong> de escore bruto</p>
-              <p><strong id="tfidf-positive"></strong> de positivo após calibração</p>
+              <p>Sigmoide → <strong id="tfidf-positive"></strong> de positivo</p>
               <p>Classe <strong>negativa</strong></p>
             </div>
           </div>
@@ -571,7 +576,8 @@
         <button type="button" id="tfidf-next" class="step-next">Próxima etapa →</button>
       </div>
       <footer class="lab-source">
-        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/discordancias.json" target="_blank" rel="noopener">Contribuições e predições</a>
+        Frase ilustrativa com valores reais do modelo.
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/tfidf_slide.json" target="_blank" rel="noopener">Conta completa</a>
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/src/imdb_lab/baseline.py" target="_blank" rel="noopener">Código</a>
       </footer>
     </article>

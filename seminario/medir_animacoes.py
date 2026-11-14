@@ -60,8 +60,27 @@ def cnn_trace(frozen, texts: dict[str, str]) -> dict:
             activated = raw.relu()
             case["janelas"][str(width)] = {"filtro": index, "pre_relu": raw.tolist(),
                                           "ativacoes": activated.tolist(), "max_indice": int(activated.argmax())}
+    # Registra a passagem de um mesmo filtro de k=3 cujo pico em A
+    # ocorre em "it was wonderful" e favorece a classe positiva.
+    margin_weights = frozen.model.classifier.weight.detach().diff(dim=0)[0]
+    peaks_at_end, alternate = {}, {}
+    for branch, (width, raw) in enumerate(responses["A"].items()):
+        n_filters = raw.shape[0]
+        peaks, positions = raw.relu().max(dim=1)
+        last = (positions == raw.shape[1] - 1) & (peaks > 0)
+        contributions = peaks * margin_weights[branch * n_filters:(branch + 1) * n_filters]
+        peaks_at_end[str(width)] = int(last.sum())
+        if width == 3:
+            index = int(contributions.masked_fill(~last, -torch.inf).argmax())
+            assert contributions[index] > 0
+            for name in texts:
+                values = responses[name][width][index]
+                alternate[name] = {"filtro": index, "pre_relu": values.tolist(),
+                                   "ativacoes": values.relu().tolist(), "max_indice": int(values.relu().argmax())}
+            alternate["contribuicao_a"] = float(contributions[index])
     return {"semente": frozen.seed, "checkpoint_sha256": frozen.checkpoint_sha256,
-            "larguras": list(frozen.model.kernels), "casos": cases}
+            "larguras": list(frozen.model.kernels), "casos": cases, "picos_fim_a": peaks_at_end,
+            "filtro_fim_a": alternate}
 
 
 def pooling_trace(frozen, pair: dict) -> dict:

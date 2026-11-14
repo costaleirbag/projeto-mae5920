@@ -33,14 +33,20 @@ No slide 4, percorra as sete fusões de *pallbearer*. No slide 5, a
 das escolhas e links para as linhas do código. A última etapa abre a
 **Varredura**, que acompanha um filtro nas frases A e B com larguras 3, 4
 ou 5 e passos 1, 2 ou 3. Nela, o último quadro destaca a maior resposta
-entre as janelas visitadas. BPE e Varredura oferecem reprodução automática.
+entre as janelas visitadas. **Ver o filtro 6 com wonderful** abre um
+segundo exemplo de largura 3, cujo pico na frase A está na última janela.
+BPE e Varredura oferecem reprodução automática.
 [BPE](https://costaleirbag.github.io/projeto-mae5920/#slide-4) · [Montagem](https://costaleirbag.github.io/projeto-mae5920/#slide-5) · [Varredura](https://costaleirbag.github.io/projeto-mae5920/#slide-5-varredura).
 
-O slide 7 mostra como o TF-IDF conta e pondera termos e como a regressão
-logística os combina em uma resenha real. Use **Próxima etapa** ou a seta
+O slide 7 usa a mesma frase nas três etapas. Os cinco termos são
+ponderados pelo TF-IDF e somados pela regressão com os pesos treinados
+no IMDb. Use **Próxima etapa** ou a seta
 direita para avançar. O controle com rótulos embaralhados vem no slide 8
 e o resultado no teste oficial, no 9.
 [TF-IDF e regressão logística](https://costaleirbag.github.io/projeto-mae5920/#tf-idf).
+Para repetir a conta do slide 7, passe o `model.joblib` original para
+`PYTHONPATH=src python seminario/medir_tfidf_slide.py --checkpoint /caminho/model.joblib`.
+[Restauração do checkpoint](../docs/REPRODUCAO.md#6-restaurar-pesos-históricos-ou-auditar-checkpoints-completos).
 
 O slide 3 resume o tamanho das resenhas e das frases. No slide 10,
 alterne **Acurácia** e **F1 macro** para as quatro faixas de comprimento.
