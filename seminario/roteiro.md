@@ -134,6 +134,12 @@ rótulos reais, fez 50,08%. Com rótulos reais no treino, a mesma receita
 fez 91,53% na validação. A primeira coluna mostra que havia um sinal
 que se repetia em textos novos.”
 
+Se perguntarem se a gente devia regularizar mais, \(C\) menor significa
+penalização L2 mais forte. Isso baixou acurácia no treino e F1 de
+validação. Na busca ampliada, \(C=16\) venceu por pouco na validação e
+ficou em 90,04% no teste. O controle com \(C=8\) fez 90,15% no mesmo
+ambiente. [Busca de regularização](../results/tfidf_regularization/summary.json).
+
 ## 9 · Teste oficial do IMDb
 
 “Nas 25 mil resenhas do teste, o baseline fez 90,14%, a CNN 86,78% e

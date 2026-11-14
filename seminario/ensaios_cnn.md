@@ -1,9 +1,10 @@
 # Novos ensaios da TextCNN
 
-São 69 treinos em quatro ensaios para discutir comprimento, arquitetura,
-representação e robustez à ordem. A melhor média no teste oficial foi
-88,18\%, com texto integral, máximo e média. Nos pares humanos, a melhor
-variante do ensaio de pooling foi a CNN com texto integral e máximo global.
+São 93 treinos que comparam comprimento, arquitetura, representação,
+regularização e robustez à ordem. A variante escolhida na validação do
+ensaio mais recente fez 88,13% no teste, com 768 tokens e máximo suave.
+Nos pares humanos, a maior média no ensaio de ordem foi de uma CNN com
+texto integral e máximo global.
 
 ## O efeito de treinar com mais texto
 
@@ -171,6 +172,61 @@ sintéticas e as resenhas repetidas diferem em comprimento e estilo.
 [Resultados por semente](../results/cnn_order_training/summary.json) ·
 [Margens](../results/cnn_order_training/predictions.npz).
 
+## O que muda ao trocar só o pooling?
+
+Em 24 treinos, mantivemos as convoluções de larguras 3, 4 e 5, os mesmos
+IDs, os mesmos 300 valores na entrada da camada final e 2.714.502
+parâmetros em cada execução. Cada receita usa as sementes 17, 29 e 42
+com inicialização e minibatches pareados. Rodamos oito épocas com AdamW,
+taxa 0,001, lote 64, dropout 0,5 e decaimento 0,01, exceto nas linhas
+que alteram a regularização. As épocas e a receita foram escolhidas pela
+menor entropia cruzada bruta de validação, antes da nova avaliação no
+teste oficial e nos pares sintéticos. Ambos os conjuntos já tinham
+sido usados no projeto.
+
+O máximo suave guarda um valor por filtro e dá mais peso às ativações
+altas. Calculamos \(s=\tau\log(\sum_t w_t\exp(a_t/\tau)/\sum_t w_t)\),
+com \(\tau=0{,}5\) e soma só nas janelas válidas. Com \(w_t=1\), a
+ordem das janelas fica descartada. Para testar posição com o mesmo
+número de valores, aumentamos \(w_t\) de 1 no início a 3 no fim.
+
+| Receita | CE de validação | Acurácia no teste | F1 macro | Pares com veredito no fim |
+|---|---:|---:|---:|---:|
+| Máximo, 400 tokens | 0,2858 | 87,11% | 0,8710 | 0/384 |
+| Máximo suave, 400 tokens | 0,2692 | 87,71% | 0,8769 | 0/384 |
+| Máximo, 768 tokens | 0,2703 | 87,63% | 0,8763 | 2/384 |
+| Máximo suave, 768 tokens | **0,2585** | **88,13%** | **0,8812** | 1/384 |
+| Média, 768 tokens | 0,2690 | 87,45% | 0,8745 | 0/384 |
+| Máximo suave com peso no fim, 768 tokens | 0,2585 | 88,28% | 0,8826 | 4/384 |
+| Máximo, 768 tokens, dropout 0,2 | 0,2632 | 87,53% | 0,8752 | 1/384 |
+| Máximo, 768 tokens, decaimento 0,1 | 0,2622 | 87,90% | 0,8789 | 0/384 |
+
+As métricas do IMDb são médias das três sementes. A última coluna soma
+os acertos nas três avaliações dos mesmos 128 pares. Para um par contar,
+ambos os textos precisam ser classificados corretamente. Na validação,
+a CE média sem peso posicional foi 0,258467 e a com peso no fim 0,258514.
+A diferença arredonda para zero na tabela.
+
+Com 400 tokens, o máximo suave ganhou 0,60 ponto no teste. Com 768,
+ganhou 0,51. As duas diferenças tiveram o mesmo sinal nas três sementes.
+Isso mede o efeito de mudar a agregação mantendo a capacidade da cabeça.
+O ganho ficou bem aquém da diferença para o TF-IDF. Dar mais peso ao fim
+levou o acerto de dois a quatro em 384 avaliações de pares com veredito
+no fim e reduziu de 79,69% para 72,66% o acerto com veredito no início,
+em ambos os casos comparado ao máximo em 768.
+O ganho médio em resenhas comuns coexistiu com baixa robustez à ordem
+nesses moldes. O ensaio não estima uma parcela única do erro atribuível
+ao pooling, pois o efeito depende da agregação e do comprimento escolhidos.
+
+Aumentar o decaimento de 0,01 para 0,1 acrescentou 0,27 ponto para a
+CNN de máximo no teste. Reduzir dropout para 0,2 elevou a acurácia de
+treino de 95,87% para 97,38% e variou −0,09 ponto no teste. A diferença
+entre treino e teste, por si só, não indica qual dos dois ajustes ajuda.
+[Protocolo](../results/cnn_pooling_matched/protocol.json) ·
+[Seleção na validação](../results/cnn_pooling_matched/selection.json) ·
+[Métricas por semente](../results/cnn_pooling_matched/summary.json) ·
+[Margens](../results/cnn_pooling_matched/predictions.npz).
+
 ## Reproduzir
 
 Prepare as divisões originais conforme o [guia de reprodução](../docs/REPRODUCAO.md).
@@ -184,5 +240,7 @@ python seminario/treinar_cnn_comprimento.py audit --data data --output tmp/cnn_l
 python seminario/treinar_cnn_pares.py --data data --output tmp/cnn_pairs --contrast-dir /caminho/contrast
 python seminario/treinar_cnn_embeddings.py --data data --output tmp/cnn_embeddings --glove /caminho/glove.6B.zip
 python seminario/treinar_cnn_ordem_supervisionada.py --data data --output tmp/cnn_order --contrast-dir /caminho/contrast
+python seminario/medir_pooling_regularizacao.py cnn --data data --output tmp/cnn_pooling_matched
+python seminario/medir_pooling_regularizacao.py baseline --data data --output tmp/tfidf_regularization
 python seminario/plotar_ensaios_cnn.py
 ~~~

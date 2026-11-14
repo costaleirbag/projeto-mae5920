@@ -122,6 +122,15 @@ controle. Os filtros aprendidos e seus pesos na saída também participam
 da inversão no segundo caso. [Controles da CNN](diagnosticos.md) ·
 [Resultados anteriores de pooling](pooling_ordem.md).
 
+Em um controle com a mesma cabeça de 300 entradas, trocar o máximo pelo
+máximo suave elevou a acurácia de 87,11% para 87,71% com teto de 400 tokens,
+na média de três sementes. Com 768, foi de 87,63% para 88,13%. A posição
+ponderada também foi testada e o acerto nos pares com veredito no fim
+continuou perto de zero. Podemos atribuir o ganho observado à mudança de
+agregação nessa receita. O controle deixa em aberto quanto do restante
+vem dos filtros e do sinal de ordem nos dados de treino.
+[Ensaio de pooling com capacidade fixa](ensaios_cnn.md#o-que-muda-ao-trocar-só-o-pooling).
+
 ## O que o Qwen mostra?
 
 No teste oficial de 25.000 resenhas, a acurácia foi **95,26%** para

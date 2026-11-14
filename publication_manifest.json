@@ -623,6 +623,22 @@
       "bytes": 4127,
       "sha256": "77b968709a8e84422726231e912983554519c569aa1a10339cc0e900b0686da5"
     },
+    "results/cnn_pooling_matched/predictions.npz": {
+      "bytes": 2518305,
+      "sha256": "ea554f4fc4cdce38a74b7cf0f9cb812cf5d40ae69231f6633a070228e3618482"
+    },
+    "results/cnn_pooling_matched/protocol.json": {
+      "bytes": 2328,
+      "sha256": "21f39e8093de68f8a5960bbb1ab60f01375016109321cfb6fa546e2d8f637bc1"
+    },
+    "results/cnn_pooling_matched/selection.json": {
+      "bytes": 58633,
+      "sha256": "431cadc3feeed4e630b3d00c9834be800e903044174a91692219a84bf20d4fdc"
+    },
+    "results/cnn_pooling_matched/summary.json": {
+      "bytes": 23452,
+      "sha256": "e22b6d64d938b12c3a8831bb3ed38e3dd94aad7622f10951191dba39f878b4f0"
+    },
     "results/comparison.csv": {
       "bytes": 4755,
       "sha256": "7256f63f77c84e6457611235505c09494bb00929f5633e224f5908d543294570"
@@ -3440,8 +3456,8 @@
       "sha256": "36538ae18c5b21ca0544b02726b7b674c9fb71c70c6a9ba920c69dc8caf1dfef"
     },
     "seminario/ensaios_cnn.md": {
-      "bytes": 10862,
-      "sha256": "9b233d9cde8edf0c8ff9ff2f4ab79b0d68e0de0caeb1d4857b9e305ad11fa58c"
+      "bytes": 14370,
+      "sha256": "84c02b77bb6dcba30f32c3c303089179e52b0127957519f1470323a151e51045"
     },
     "seminario/figuras/bpe_pareado.pdf": {
       "bytes": 16473,
@@ -3588,12 +3604,12 @@
       "sha256": "308bd85e3f245005c9ea81463a2a3afea74bc51430c775d73bb990f5b55f6872"
     },
     "seminario/revisao_metodologica.md": {
-      "bytes": 11945,
-      "sha256": "ed3a8a6f3dac43899e364ddb41fc347880d05cc3c6179216fa2f875a26b72a10"
+      "bytes": 12544,
+      "sha256": "54432a1161227a8d70268d9b3ce661349eed19316f39770c4a614cfd825f7376"
     },
     "seminario/roteiro.md": {
-      "bytes": 14508,
-      "sha256": "80d678d41920283896d1dd8741600b83a67ced3889e210de9a8b846a1622bb95"
+      "bytes": 14878,
+      "sha256": "c1b366da6122f18772ecc3685a6b3915d4abea95eaf7fe4e105a354d9a83b7d0"
     },
     "seminario/slides.tex": {
       "bytes": 27341,
