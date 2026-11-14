@@ -220,11 +220,18 @@ divisões, separadas do teste oficial.
 
 ## 10 · Desempenho por tamanho
 
-“Nas primeiras duas faixas, nenhuma resenha foi cortada. O TF-IDF já
+“Nas primeiras duas faixas, a CNN leu todas as resenhas inteiras. O TF-IDF já
 fica à frente. A maior diferença acontece acima de 500 palavras, em
 1.845 resenhas. Com o teto, a CNN faz 81,52%. Ao deixar os mesmos pesos
-lerem o texto inteiro, sobe para 86,18%. Na aba F1 macro, que dá o mesmo
-peso às duas classes, aparece o mesmo padrão.”
+lerem o texto inteiro, sobe para 86,18%. O BERT também melhora com mais
+texto. Na aba F1 macro, o prefixo de 512 tokens leva o mesmo BERT de
+82,46% a 89,69%, ainda com recorte.”
+
+Para o BERT, o teto de 192 inclui `[CLS]` e `[SEP]`, então sobram
+190 posições para o texto. Todas as
+resenhas acima de 250 palavras passam do teto. O resultado com 512 foi
+medido na faixa acima de 500 palavras.
+[Controle do BERT](dados/recorte_bert/resumo.json).
 
 No HTML, marque **Mostrar CNN com texto inteiro** para mostrar o controle.
 Se faltar tempo, leia só a última linha e a comparação em destaque.

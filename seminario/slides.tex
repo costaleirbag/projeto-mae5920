@@ -328,26 +328,27 @@ Com os primeiros 400 tokens por regex \strong{\TfidfControleCorte}.}
 
 % 07:50–08:30
 % lab:lengths
-\begin{frame}{Onde a CNN perde mais?}
+\begin{frame}{Desempenho por comprimento da resenha}
 \eyebrow{Teste oficial \(\cdot\) acurácia / F1 macro em \%}\par
 \vfill
 {\small
 \setlength{\tabcolsep}{5pt}
-\renewcommand{\arraystretch}{1.62}
+\renewcommand{\arraystretch}{1.44}
 \begin{tabularx}{\linewidth}{@{}Xrrrr@{}}
 \toprule
 \textbf{Palavras na resenha} & \textbf{\(n\)} & \textbf{TF-IDF} &
-\textbf{\textcolor{Teal}{CNN}} & \textbf{BERT}\\
+\textbf{\textcolor{Teal}{CNN}} & \textbf{BERT \scriptsize(\BertTetoOriginal{} WordPieces)}\\
 \midrule
 \LinhasPorComprimentoSlide
 \bottomrule
 \end{tabularx}}
 \vfill
-\slidecard{Mint}{\small \textbf{Acima de 500 palavras.}
-Com o texto inteiro, a mesma CNN sobe de \strong{\AcuraciaLongasCNN{} a \AcuraciaLongasCNNIntegral{}}.}
-\smallsource{Faixas por palavras antes do recorte. CNN original com teto de 400 tokens por regex.
+\slidecard{Mint}{\small \textbf{Acima de 500 palavras, com os mesmos pesos.}\par
+CNN com texto inteiro \strong{\AcuraciaLongasCNN{} \(\to\) \AcuraciaLongasCNNIntegral{}} de acurácia.\par
+BERT com \BertTetoMaior{} tokens \strong{\FUmLongasBert{} \(\to\) \FUmLongasBertMaior{}} de F1 macro.}
+\smallsource{O BERT ainda recebe um prefixo.
 \href{https://costaleirbag.github.io/projeto-mae5920/\#comprimento}{Gráfico interativo}.
-\fonteatual{seminario/dados/comprimentos.json}{Dados}.}
+\fonteatual{seminario/dados/recorte_bert/resumo.json}{Controle do BERT}.}
 \end{frame}
 
 % 08:30–09:05

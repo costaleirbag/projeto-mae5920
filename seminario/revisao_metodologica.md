@@ -190,6 +190,51 @@ de F1 macro. Com os mesmos pesos no texto integral, fez 86,18% e
 o TF-IDF ainda ficou à frente. As faixas contam palavras por espaços.
 O teto da CNN conta tokens por regex. [Resultados por faixa](dados/comprimentos.json).
 
+### Quanto o recorte afeta o BERT?
+
+O estudo original reservou 192 posições por entrada do BERT, duas
+para os marcadores `[CLS]` e `[SEP]` e até 190 para tokens do texto.
+O WordPiece pode dividir uma palavra em várias unidades, e a pontuação
+também pode ocupar posições. As faixas do slide 10 contam palavras
+separadas por espaços antes desse passo.
+
+| Palavras na resenha | Resenhas cortadas com 192 tokens |
+|---|---:|
+| Até 100 | 2 de 3.246 |
+| 101 a 250 | 7.615 de 14.624 |
+| 251 a 500 | 5.285 de 5.285 |
+| Acima de 500 | 1.845 de 1.845 |
+| Total | 14.747 de 25.000 (58,99%) |
+
+Acima de 500 palavras, a mediana é 823 tokens de texto antes do recorte.
+Essa faixa conserva 21,75% dos tokens com o teto de 192. Com 512, o maior
+comprimento aceito pelo checkpoint, a faixa conserva 58,38%, e todas as
+suas resenhas continuam parcialmente recortadas.
+
+Repetimos a inferência nas mesmas 1.845 resenhas com os mesmos pesos,
+tokenizador e limiar. As duas passagens usaram o mesmo ambiente. A de
+192 tokens reproduziu todas as classes publicadas. O prefixo de 512
+corrigiu 193 previsões e fez 62 passarem a erro.
+
+| Teto do prefixo | Acurácia | F1 macro |
+|---|---:|---:|
+| 192 tokens | 82,60% | 82,46% |
+| 512 tokens | 89,70% | 89,69% |
+
+O recorte explica uma parte importante da queda observada nas resenhas
+longas. A comparação mede o efeito de mostrar mais texto durante a
+inferência para o BERT ajustado com 192 tokens.
+[Métricas por comprimento](dados/comprimentos.json) ·
+[Resultados e hashes](dados/recorte_bert/resumo.json) ·
+[Margens e rótulos](dados/recorte_bert/predicoes.npz) ·
+[Código](medir_recorte_bert.py).
+
+~~~bash
+PYTHONPATH=src python seminario/medir_recorte_bert.py --data data --checkpoint /caminho/artefatos/bert --output tmp/recorte-bert
+~~~
+
+### Limite dos ensaios internos
+
 O teto de 256 tokens pertence aos ensaios internos. Ele se aplica depois
 de selecionar as primeiras 128 palavras, para comparar a mesma entrada
 entre tokenizadores e encoders e limitar o custo. Nenhum dos prefixos

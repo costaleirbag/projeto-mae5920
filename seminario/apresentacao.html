@@ -187,7 +187,7 @@
     <article id="lengths" class="lab readable length-slide" hidden aria-labelledby="length-title">
       <header class="lab-heading">
         <p class="eyebrow">02 · Treino e avaliação</p>
-        <h1 id="length-title">Onde a CNN perde mais?</h1>
+        <h1 id="length-title">Desempenho por comprimento da resenha</h1>
       </header>
       <div class="length-controls">
         <div class="cnn-view" role="group" aria-label="Métrica por comprimento">
@@ -200,16 +200,19 @@
         <caption class="sr-only" id="length-caption"></caption>
         <thead>
           <tr><th scope="col">Palavras</th><th scope="col"><span aria-hidden="true">n</span><span class="sr-only">Resenhas</span></th>
-          <th scope="col">TF-IDF</th><th scope="col" id="length-cnn-heading">CNN <small>400 tokens</small></th><th scope="col">BERT</th></tr>
+          <th scope="col">TF-IDF</th><th scope="col" id="length-cnn-heading">CNN <small>400 tokens</small></th>
+          <th scope="col">BERT <small id="length-bert-cap"></small></th></tr>
         </thead>
         <tbody id="length-rows"></tbody>
       </table>
       <div class="length-insight">
-        <div class="length-score"><p class="micro">Acima de 500 palavras</p><p id="length-readout" aria-live="polite"></p></div>
-        <p id="length-explain">Ao receber o texto inteiro, a mesma CNN ganha acesso ao fim dessas resenhas.</p>
+        <p class="micro">Acima de 500 palavras · mesmos pesos</p>
+        <div class="length-score"><p>CNN · 400 tokens → texto inteiro</p><p id="length-readout" aria-live="polite"></p></div>
+        <div class="length-score bert-length-score"><p id="bert-readout-label"></p><p id="bert-length-readout" aria-live="polite"></p></div>
       </div>
-      <footer class="lab-source"><span id="length-scale">Escala dos pontos de 80% a 94%. Faixas de texto inteiro por espaços.</span>
+      <footer class="lab-source"><span id="length-scale">Escala de 80% a 94%. A contagem de palavras precede o recorte.</span>
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/comprimentos.json" target="_blank" rel="noopener">Métricas e contagens</a>
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/recorte_bert/resumo.json" target="_blank" rel="noopener">Controle do BERT</a>
         <a href="#recorte">Ver uma resenha recortada</a>
       </footer>
     </article>

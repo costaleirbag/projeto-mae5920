@@ -42,6 +42,7 @@ def latex_rows(rows):
 
 def length_macros(data):
     lengths = json.loads((data / "comprimentos.json").read_text(encoding="utf-8"))
+    bert = json.loads((data / "recorte_bert/resumo.json").read_text(encoding="utf-8"))
     populations = [
         ("Resenha no treino", lengths["lengths"]["train"]["review_words"]),
         ("Resenha no teste", lengths["lengths"]["test"]["review_words"]),
@@ -75,6 +76,10 @@ def length_macros(data):
         macro("QuantidadeLongas", decimal(long["n"])),
         macro("AcuraciaLongasCNN", pct(long["metrics"]["cnn"]["accuracy"], 2)),
         macro("AcuraciaLongasCNNIntegral", pct(long["metrics"]["cnn_integral"]["accuracy"], 2)),
+        macro("BertTetoOriginal", str(bert["caps_including_specials"][0])),
+        macro("BertTetoMaior", str(bert["caps_including_specials"][1])),
+        macro("FUmLongasBert", pct(bert["replay"]["f1_macro"])),
+        macro("FUmLongasBertMaior", pct(bert["extended"]["f1_macro"])),
     ]
 
 

@@ -1,0 +1,124 @@
+{
+  "caps_including_specials": [
+    192,
+    512
+  ],
+  "special_tokens": [
+    101,
+    102
+  ],
+  "coverage": [
+    {
+      "min_words": 0,
+      "max_words": 100,
+      "n": 3246,
+      "median_wordpieces_without_specials": 88.0,
+      "truncated": {
+        "192": 2,
+        "512": 0
+      },
+      "retained": {
+        "192": 0.999538874924157,
+        "512": 1.0
+      }
+    },
+    {
+      "min_words": 101,
+      "max_words": 250,
+      "n": 14624,
+      "median_wordpieces_without_specials": 194.0,
+      "truncated": {
+        "192": 7615,
+        "512": 0
+      },
+      "retained": {
+        "192": 0.8586747485492972,
+        "512": 1.0
+      }
+    },
+    {
+      "min_words": 251,
+      "max_words": 500,
+      "n": 5285,
+      "median_wordpieces_without_specials": 422.0,
+      "truncated": {
+        "192": 5285,
+        "512": 1241
+      },
+      "retained": {
+        "192": 0.43178197407545166,
+        "512": 0.9665406057374565
+      }
+    },
+    {
+      "min_words": 501,
+      "max_words": null,
+      "n": 1845,
+      "median_wordpieces_without_specials": 823.0,
+      "truncated": {
+        "192": 1845,
+        "512": 1845
+      },
+      "retained": {
+        "192": 0.2174938111517152,
+        "512": 0.5837991773019724
+      }
+    },
+    {
+      "min_words": 0,
+      "max_words": null,
+      "n": 25000,
+      "median_wordpieces_without_specials": 217.0,
+      "truncated": {
+        "192": 14747,
+        "512": 3086
+      },
+      "retained": {
+        "192": 0.5836177980285426,
+        "512": 0.8962942984326252
+      }
+    }
+  ],
+  "evaluated_min_words": 501,
+  "original": {
+    "n": 1845,
+    "accuracy": 0.8260162601626017,
+    "f1_macro": 0.8245616373713971,
+    "log_loss": 0.3878659251009142
+  },
+  "replay": {
+    "n": 1845,
+    "accuracy": 0.8260162601626017,
+    "f1_macro": 0.8245616373713971,
+    "log_loss": 0.3878604635981243
+  },
+  "extended": {
+    "n": 1845,
+    "accuracy": 0.8970189701897019,
+    "f1_macro": 0.8968662400293734,
+    "log_loss": 0.2511396868849692
+  },
+  "corrected": 193,
+  "lost": 62,
+  "prefix_replay": {
+    "n": 1845,
+    "max_logit_difference": 0.00750422477722168,
+    "changed_decisions": 0
+  },
+  "temperature": 1.4021648464080956,
+  "test_sha256": "491f3801523a42232e584bb2e732d08b2269e34e474161c153a73c2068fd887a",
+  "original_predictions_sha256": "53f024643d5d8893ac427e11d1f44fa855b54427b491e19fa68a9f564fbbee6c",
+  "checkpoint_hashes": {
+    "config.json": "2cf9d952422f43f31e386a482c61fdb50324a3a6fe7b0b376815d349bce1bb23",
+    "model.safetensors": "62be04b22f7e00fc72e62082e76bfbc1ed251356ea9be88aad9b9022e743b0aa",
+    "special_tokens_map.json": "b6d346be366a7d1d48332dbc9fdf3bf8960b5d879522b7799ddba59e76237ee3",
+    "tokenizer.json": "d241a60d5e8f04cc1b2b3e9ef7a4921b27bf526d9f6050ab90f9267a1f9e5c66",
+    "tokenizer_config.json": "1f92c93d2e31974acffab86d48e80a9357acb18c68346c5472ef1d12c72d5d77",
+    "vocab.txt": "07eced375cec144d27c900241f3e339478dec958f92fddbc551f295c992038a3"
+  },
+  "paired_predictions_sha256": "e4ae6533a799524fe5d6ecaca34d285574210ff2981551b091c8d5442eaabedc",
+  "source_sha256": "b52e59194d9deaa204494c166a31726cb05f4af1ee17d80773c04dbeef1eb6d8",
+  "device": "mps",
+  "torch": "2.14.1",
+  "transformers": "4.57.6"
+}

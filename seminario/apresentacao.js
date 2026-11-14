@@ -1,7 +1,7 @@
 "use strict";
 
 const byId = (id) => document.getElementById(id);
-const { slides, evidence, architecture, contrast, position, youtubeQwen, cut, tfidf, lengthBands } =
+const { slides, evidence, architecture, contrast, position, youtubeQwen, cut, tfidf, lengthBands, bertCut } =
   JSON.parse(byId("deck-data").textContent);
 const number = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
@@ -491,6 +491,9 @@ const lengthReplay = byId("length-replay");
 const lengthPercent = new Intl.NumberFormat("pt-BR", { style: "percent", minimumFractionDigits: 2 });
 const lengthCount = new Intl.NumberFormat("pt-BR");
 let lengthMetric = "accuracy";
+const [bertCap, bertLargerCap] = bertCut.caps_including_specials;
+byId("length-bert-cap").textContent = bertCap + " WordPieces";
+byId("bert-readout-label").textContent = "BERT · prefixo de " + bertCap + " → " + bertLargerCap + " tokens";
 
 function drawLengths() {
   const columns = ["tfidf", lengthReplay.checked ? "cnn_integral" : "cnn", "bert"];
@@ -524,6 +527,8 @@ function drawLengths() {
   const long = lengthBands.at(-1).metrics;
   byId("length-readout").textContent = lengthPercent.format(long.cnn[lengthMetric]) +
     " → " + lengthPercent.format(long.cnn_integral[lengthMetric]);
+  byId("bert-length-readout").textContent = lengthPercent.format(bertCut.replay[lengthMetric]) +
+    " → " + lengthPercent.format(bertCut.extended[lengthMetric]);
 }
 lengthControls.forEach((button) => button.addEventListener("click", () => {
   lengthMetric = button.dataset.lengthMetric;

@@ -51,6 +51,8 @@ Para repetir a conta do slide 7, passe o `model.joblib` original para
 O slide 3 resume o tamanho das resenhas e das frases. No slide 10,
 alterne **Acurácia** e **F1 macro** para as quatro faixas de comprimento.
 **Mostrar CNN com texto inteiro** reaplica os mesmos pesos a toda a resenha.
+O quadro do BERT compara, nas resenhas acima de 500 palavras, o prefixo
+original de 192 tokens com um prefixo de 512.
 O slide 11 compara regex e BPE no mesmo prefixo de texto.
 [Desempenho por comprimento](https://costaleirbag.github.io/projeto-mae5920/#comprimento).
 

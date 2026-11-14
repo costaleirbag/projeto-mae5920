@@ -193,11 +193,13 @@ def build(pdf: Path, output: Path) -> None:
         for case in youtube_results["comentarios"]
     }
     lengths = json.loads((HERE / "dados/comprimentos.json").read_text(encoding="utf-8"))
+    bert_cut = json.loads((HERE / "dados/recorte_bert/resumo.json").read_text(encoding="utf-8"))
     tfidf = json.loads((HERE / "dados/tfidf_slide.json").read_text(encoding="utf-8"))
     data = json.dumps({
         "slides": slides, "evidence": evidence, "architecture": architecture_steps(),
         "contrast": contrast_example(), "position": position, "youtubeQwen": youtube_qwen,
         "cut": cut_example(), "tfidf": tfidf, "lengthBands": lengths["bands"],
+        "bertCut": {key: bert_cut[key] for key in ("caps_including_specials", "replay", "extended")},
     }, ensure_ascii=False, separators=(",", ":"))
     template = (HERE / "apresentacao.html").read_text(encoding="utf-8")
     for marker, file in (("ROOM", "the-room"), ("FRIDAY", "friday")):

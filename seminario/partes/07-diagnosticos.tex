@@ -35,6 +35,11 @@ na CNN, dar o texto inteiro aos mesmos pesos elevou a acurácia de
 até 250 palavras, o TF-IDF ficou à frente mesmo com todas as entradas
 da CNN intactas. Isso delimita o que o recorte explica.
 
+Nas mesmas resenhas longas, o BERT preservou os pesos e ganhou acesso a
+até \BertTetoMaior{} tokens. O F1 macro subiu de \FUmLongasBert{} a
+\FUmLongasBertMaior{}. Todas ainda ficaram parcialmente recortadas.
+\fonteatual{seminario/dados/recorte_bert/resumo.json}{Controle do BERT}.
+
 \subsection{Custo computacional}
 \begin{tabularx}{\linewidth}{@{}Xlrr@{}}
 \toprule
