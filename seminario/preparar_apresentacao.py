@@ -239,7 +239,10 @@ def build(pdf: Path, output: Path) -> None:
     cnn_youtube = json.loads((HERE / "dados/fora_dominio_resultados.json").read_text(encoding="utf-8"))
     for case in cnn_youtube["comentarios_youtube"]:
         if case["id"] in youtube:
-            youtube[case["id"]]["cnn"] = [answer["classe"] for answer in case["predicoes"]]
+            youtube[case["id"]]["cnn"] = [
+                {key: answer[key] for key in ("classe", "modelo", "semente")}
+                for answer in case["predicoes"]
+            ]
     lengths = json.loads((HERE / "dados/comprimentos.json").read_text(encoding="utf-8"))
     bert_cut = json.loads((HERE / "dados/recorte_bert/resumo.json").read_text(encoding="utf-8"))
     tfidf = json.loads((HERE / "dados/tfidf_slide.json").read_text(encoding="utf-8"))

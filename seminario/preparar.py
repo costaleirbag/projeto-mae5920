@@ -202,15 +202,17 @@ def cnn_scan() -> None:
     save(fig, "cnn_varredura.pdf")
 
 
-def vote_badge(outputs: list[dict]) -> str:
+def vote_badge(outputs: list[dict], *, identify_cnn: bool = False) -> str:
     counts = Counter(output["classe"] for output in outputs)
     total = len(outputs)
     for kind, command in (("positiva", r"\good"), ("negativa", r"\bad")):
         if counts[kind] == total:
             return f"{command}{{{kind.capitalize()} {total}/{total}}}"
-    parts = [f"{counts[kind]} {label}" for kind, label in (
-        ("positiva", "pos."), ("negativa", "neg."), (None, "s/ rótulo")
-    ) if counts[kind]]
+    labels = {"positiva": "pos.", "negativa": "neg.", None: "s/ rótulo"}
+    if identify_cnn and counts["negativa"] == 1:
+        negative = next(output for output in outputs if output["classe"] == "negativa")
+        labels["negativa"] += f" ({negative['modelo']}, semente {negative['semente']})"
+    parts = [f"{counts[kind]} {label}" for kind, label in labels.items() if counts[kind]]
     return r"\pill{Paper}{Ink}{" + " / ".join(parts) + "}"
 
 
@@ -410,8 +412,8 @@ def tables() -> str:
         "FiltroControle": str(pool["filtro"]),
         "PicoPrimeiraMetade": pt(early),
         "PicoSegundaMetade": pt(late),
-        "CnnRoom": vote_badge(youtube_cnn["E"]),
-        "CnnSquad": vote_badge(youtube_cnn["F"]),
+        "CnnRoom": vote_badge(youtube_cnn["E"], identify_cnn=True),
+        "CnnSquad": vote_badge(youtube_cnn["F"], identify_cnn=True),
         "QwenRoomSem": vote_badge(qwen_labels["E"]["sem_raciocinio"]),
         "QwenRoomCom": vote_badge(qwen_labels["E"]["com_raciocinio"]),
         "QwenSquadSem": vote_badge(qwen_labels["F"]["sem_raciocinio"]),

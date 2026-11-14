@@ -446,7 +446,14 @@ function showVotes(badge, votes) {
     .join(" · ");
 }
 document.querySelectorAll("[data-youtube-cnn]").forEach((row) => {
-  showVotes(row.querySelector(".class-label"), youtube[row.dataset.youtubeCnn].cnn);
+  const predictions = youtube[row.dataset.youtubeCnn].cnn;
+  const badge = row.querySelector(".class-label");
+  showVotes(badge, predictions.map(({ classe }) => classe));
+  const negative = predictions.filter(({ classe }) => classe === "negativa");
+  if (negative.length === 1) {
+    const { modelo, semente } = negative[0];
+    badge.textContent += " (" + modelo + ", semente " + semente + ")";
+  }
 });
 document.querySelectorAll("[data-youtube-qwen] [data-mode]").forEach((row) => {
   const id = row.closest("[data-youtube-qwen]").dataset.youtubeQwen;

@@ -316,7 +316,8 @@ palavras e três com BPE, usando as sementes 17, 29 e 43 em cada grupo.
 “Em *The Room*, *No one* faz a citação soar como crítica. A CNN e o Qwen
 previram positiva. Em *Suicide Squad*, o comentário sugere que o espectador
 se sentiu enganado e faz uma alusão à letra da música do trailer. Cinco
-dos seis checkpoints da CNN previram positiva. O Qwen respondeu negativa
+dos seis checkpoints da CNN previram positiva. A única negativa veio da
+CNN com BPE, na semente 43. O Qwen respondeu negativa
 nas três gerações sem raciocínio e nas três com raciocínio. Aqui a leitura
 é nossa. A avaliação com rótulos fora do IMDb usa 2.000 frases de Amazon e
 Yelp. As CNNs ficaram entre 68 e 70 por cento.”
