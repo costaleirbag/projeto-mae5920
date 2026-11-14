@@ -32,6 +32,52 @@ def position_rows(results: dict) -> str:
     return "\n".join(rows)
 
 
+def decimal(value, digits=0):
+    return f"{value:,.{digits}f}".translate(str.maketrans(",.", ".,"))
+
+
+def latex_rows(rows):
+    return "\n".join(" & ".join(row) + r" \\" for row in rows)
+
+
+def length_macros(data):
+    lengths = json.loads((data / "comprimentos.json").read_text(encoding="utf-8"))
+    populations = [
+        ("Resenha no treino", lengths["lengths"]["train"]["review_words"]),
+        ("Resenha no teste", lengths["lengths"]["test"]["review_words"]),
+        ("Frase no teste*", lengths["lengths"]["test"]["sentence_words"]),
+    ]
+
+    def corpus_rows(columns):
+        return latex_rows([
+            [name, *(decimal(stats[key], 1 if key == "mean" else 0) for key in columns)]
+            for name, stats in populations
+        ])
+
+    def metric_rows(models, digits):
+        rows = []
+        for group in lengths["bands"]:
+            lo, hi = group["min_words"], group["max_words"]
+            name = (r"Até 100" if lo == 0 else f"{lo} a {hi}") if hi else "Acima de 500"
+            values = (group["metrics"][model] for model in models)
+            cells = [" / ".join(decimal(100 * m[key], digits) for key in ("accuracy", "f1_macro"))
+                     for m in values]
+            rows.append([name, decimal(group["n"]), *cells])
+        return latex_rows(rows)
+
+    long = lengths["bands"][-1]
+    return [
+        "% Gerado por preparar_relatorio.py a partir de dados/comprimentos.json.",
+        macro("LinhasDistribuicao", corpus_rows(("n", "min", "p10", "mean", "median", "p90", "max"))),
+        macro("LinhasDistribuicaoSlide", corpus_rows(("mean", "median", "p90"))),
+        macro("LinhasPorComprimento", metric_rows(("tfidf", "cnn", "bert", "qwen"), 2)),
+        macro("LinhasPorComprimentoSlide", metric_rows(("tfidf", "cnn", "bert"), 1)),
+        macro("QuantidadeLongas", decimal(long["n"])),
+        macro("AcuraciaLongasCNN", pct(long["metrics"]["cnn"]["accuracy"], 2)),
+        macro("AcuraciaLongasCNNIntegral", pct(long["metrics"]["cnn_integral"]["accuracy"], 2)),
+    ]
+
+
 def main() -> None:
     data = HERE / "dados"
     pairs = json.loads((data / "pares_resultados.json").read_text(encoding="utf-8"))
@@ -66,6 +112,7 @@ def main() -> None:
             macro(f"JanelaPico{case}", str(scan["max_indice"] + 1)),
         ))
     (data / "relatorio.tex").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    (data / "comprimentos.tex").write_text("\n".join(length_macros(data)) + "\n", encoding="utf-8")
 
 
 if __name__ == "__main__":

@@ -260,7 +260,8 @@ def tables() -> str:
     bpe_rows = []
     for r in bpe["groups"]:
         stats = bpe["tokenization"][r["kind"]]["audit"]
-        bpe_rows.append(row(r["label"], pct(r["accuracy_mean"]), pt(r["f1_macro_mean"], 4),
+        label = "Regex por palavras" if r["kind"] == "word" else r["label"]
+        bpe_rows.append(row(label, pct(r["accuracy_mean"]), pt(r["f1_macro_mean"], 4),
                             pt(r["ce_mean"], 4), pct(stats["unknown_rate"]),
                             pt(stats["mean_tokens"], 1)))
     cases = read_json("seminario/dados/pares_resultados.json")

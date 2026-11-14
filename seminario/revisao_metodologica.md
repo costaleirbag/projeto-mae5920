@@ -2,6 +2,7 @@
 
 ## Por que ambos os vocabulários têm 20 mil entradas?
 
+A mesma regex separa palavras, contrações e números nas duas versões.
 A CNN por palavras mantém os 19.998 itens mais frequentes do treino, além de
 `<pad>` e `<unk>`. No BPE, configuramos 20.000 como alvo. Ele parte de caracteres
 e aprende a fundir pares que aparecem pelo menos duas vezes. Neste treino,
@@ -26,6 +27,15 @@ diferentes de palavras. [Protocolo BPE](../docs/PROTOCOLO_BPE.md) ·
    vezes seu coeficiente, mais um viés. A sigmoide transforma esse escore
    em uma probabilidade para a classe positiva. A penalização L2 limita
    os pesos, com \(C=8\) selecionado entre 0,5, 2 e 8 pelo F1 macro na validação.
+
+No treino real de 19.823 resenhas, *movie* aparece em 12.153 e *awful*
+em 1.151. Os IDFs são 1,49 e 3,85. Se os termos ocorrem uma vez cada,
+o segundo recebe 2,58 vezes o valor do primeiro. Isso reserva mais
+espaço para termos que distinguem resenhas. Uma grafia rara também
+pode ter IDF alto. O coeficiente que a logística aprende com os
+rótulos determina o sinal da contribuição. Nosso vocabulário só
+admite termos com pelo menos duas resenhas de treino.
+[Frequências medidas](../results/tfidf_regularization/summary.json).
 
 O par sintético da apresentação dá **47,93%** de escore positivo em A e
 **47,86%** em B para o TF-IDF. A troca alterou o vetor, mas as duas classes
@@ -57,6 +67,24 @@ O teste de duplicatas também confirmou zero hashes de texto limpo
 compartilhados entre treino, validação, calibração e teste. Isso cobre
 duplicatas exatas após normalização. [Métricas originais](../results/tfidf/metrics.json) ·
 [Controle e valores de regularização](../results/tfidf_ablation/summary.json).
+
+### Mais regularização ajudou?
+
+Ampliamos a busca de \(C\) de 0,125 a 64. Um \(C\) menor penaliza mais
+os coeficientes. Com \(C=0{,}125\), a acurácia no treino baixou para
+89,35% e o F1 macro de validação para 0,8796, ante 99,72% e 0,9152
+com \(C=8\). O melhor F1 na validação escolheu \(C=16\). No teste oficial,
+essa escolha fez 90,04%, ante 90,15% na repetição de \(C=8\) no mesmo
+ambiente. O resultado original de 90,14% continua sendo o principal.
+
+Ao tirar só o IDF e manter \(C=8\), fizemos 89,45% no teste. Mesmo com
+sua própria escolha na validação (\(C=64\)), a versão sem IDF fez 89,31%.
+Os modelos mantêm palavras, bigramas, TF logarítmico e normalização.
+A comparação apoia o uso do IDF nesta receita. O objetivo é melhorar
+em dados novos. Uma acurácia menor no treino, por si só, pouco diz
+sobre o desempenho fora dele.
+[Busca ampliada](../results/tfidf_regularization/selection.json) ·
+[Teste pareado](../results/tfidf_regularization/summary.json).
 
 ## Por que o baseline se saiu melhor?
 
@@ -113,9 +141,9 @@ e não audita eventual exposição ao IMDb no pré-treino.
 | Slide | Treino e entrada | Avaliação | Minibatches de treino |
 |---|---|---|---|
 | 9 | Estudo original, 19.823 textos. TF-IDF lê o texto inteiro. CNN e BERT usam até 400 tokens por palavras e 192 WordPieces, respectivamente. | 25.000 resenhas do teste oficial. Uma execução por modelo. O BERT fez 90,94%. | CNN 64, BERT 32. A regressão logística usa LIBLINEAR. |
-| 15 | Extensão, 6.144 textos e o mesmo prefixo de 128 palavras para todos os encoders. | 2.048 resenhas da auditoria interna, média de três sementes. BERT com cabeça nova fez 84,52%. BERT ajustado por inteiro fez 88,31%. | 128 ao ajustar só a cabeça, 32 no ajuste completo. |
+| 16 | Extensão, 6.144 textos e o mesmo prefixo de 128 palavras para todos os encoders. | 2.048 resenhas da auditoria interna, média de três sementes. BERT com cabeça nova fez 84,52%. BERT ajustado por inteiro fez 88,31%. | 128 ao ajustar só a cabeça, 32 no ajuste completo. |
 
-O quadro do Qwen no slide 15 cita separadamente seu resultado no teste oficial.
+O quadro do Qwen no slide 16 cita separadamente seu resultado no teste oficial.
 As duas tabelas de BERT mudam amostra, comprimento e protocolo. A diferença
 entre 90,94% e 88,31% não mede o efeito de trocar o tamanho do lote.
 [Configuração original](../config.json) · [Configuração da extensão](../sequence_config.json).
@@ -146,6 +174,12 @@ No teste oficial, a maior resenha tinha 2.247 tokens por palavras. O teto
 de 400 cortou 3.118 de 25.000 resenhas (12,47%) e 10,41% dos tokens. O
 efeito medido com os pesos originais foi de 0,50 ponto no teste completo
 e 3,98 pontos nas resenhas cortadas.
+
+Acima de 500 palavras, a CNN original fez 81,52% de acurácia e 0,8146
+de F1 macro. Com os mesmos pesos no texto integral, fez 86,18% e
+0,8615. Nas duas faixas até 250 palavras, nenhuma entrada foi cortada e
+o TF-IDF ainda ficou à frente. As faixas contam palavras por espaços.
+O teto da CNN conta tokens por regex. [Resultados por faixa](dados/comprimentos.json).
 
 O teto de 256 tokens pertence aos ensaios internos. Ele se aplica depois
 de selecionar as primeiras 128 palavras, para comparar a mesma entrada

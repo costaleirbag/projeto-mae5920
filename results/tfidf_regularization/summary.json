@@ -1,0 +1,50 @@
+{
+  "selected_by_validation": "com_idf_c16",
+  "test": {
+    "com_idf_c8": {
+      "temperature": 0.7139222137118876,
+      "n": 25000,
+      "accuracy": 0.90148,
+      "f1_macro": 0.901479998581312,
+      "log_loss": 0.2396386604860216
+    },
+    "com_idf_c16": {
+      "temperature": 0.8421095666426899,
+      "n": 25000,
+      "accuracy": 0.90036,
+      "f1_macro": 0.9003599730573366,
+      "log_loss": 0.24095915124837297
+    },
+    "sem_idf_c8": {
+      "temperature": 0.7892665055140647,
+      "n": 25000,
+      "accuracy": 0.89452,
+      "f1_macro": 0.8945191492336501,
+      "log_loss": 0.25357982516469724
+    },
+    "sem_idf_c64": {
+      "temperature": 1.2227576892464032,
+      "n": 25000,
+      "accuracy": 0.89308,
+      "f1_macro": 0.8930799984603519,
+      "log_loss": 0.2557722094115644
+    }
+  },
+  "train_documents": 19823,
+  "document_frequencies": {
+    "movie": {
+      "df": 12153,
+      "idf": 1.4892349911736231
+    },
+    "awful": {
+      "df": 1151,
+      "idf": 3.845393762613087
+    },
+    "not good": {
+      "df": 214,
+      "idf": 5.5240105757412605
+    }
+  },
+  "prediction_sha256": "1fbab386dcb93df86bc21d5e29fff8dcf0429bdfe7eba1cc0c23d1280ce85242",
+  "selection_sha256": "3be69b246d923d0d4033422c8180207f2d89b3885b2a946f9eee72ca77427099"
+}

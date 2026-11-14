@@ -1,7 +1,8 @@
 "use strict";
 
 const byId = (id) => document.getElementById(id);
-const { slides, evidence, architecture, contrast, position, youtubeQwen, cut, tfidf } = JSON.parse(byId("deck-data").textContent);
+const { slides, evidence, architecture, contrast, position, youtubeQwen, cut, tfidf, lengthBands } =
+  JSON.parse(byId("deck-data").textContent);
 const number = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
 function makeTransport(name, draw, nextView) {
@@ -464,6 +465,52 @@ cutButtons.forEach((button) => button.addEventListener("click", () => showCut(bu
 showCut("prefixo");
 const cutTransport = { move: (direction) => showCut(direction > 0 ? "inteiro" : "prefixo") };
 
+const lengthControls = [...document.querySelectorAll("[data-length-metric]")];
+const lengthReplay = byId("length-replay");
+const lengthPercent = new Intl.NumberFormat("pt-BR", { style: "percent", minimumFractionDigits: 2 });
+const lengthCount = new Intl.NumberFormat("pt-BR");
+let lengthMetric = "accuracy";
+
+function drawLengths() {
+  const columns = ["tfidf", lengthReplay.checked ? "cnn_integral" : "cnn", "bert"];
+  const metricLabel = lengthControls.find((button) => button.dataset.lengthMetric === lengthMetric).textContent;
+  byId("length-caption").textContent = metricLabel + " por faixa de comprimento no teste oficial";
+  byId("length-cnn-heading").lastElementChild.textContent = lengthReplay.checked ? "Completa" : "400 tokens";
+  lengthControls.forEach((button) => button.setAttribute("aria-pressed", button.dataset.lengthMetric === lengthMetric));
+  const rows = lengthBands.map((band) => {
+    const row = document.createElement("tr");
+    const label = document.createElement("th");
+    label.scope = "row";
+    const { min_words: lo, max_words: hi } = band;
+    label.textContent = lo === 0 ? "Até " + hi : hi === null ? "501 ou mais" : lo + "–" + hi;
+    row.append(label);
+    row.insertCell().textContent = lengthCount.format(band.n);
+    for (const model of columns) {
+      const value = band.metrics[model][lengthMetric];
+      const cell = row.insertCell();
+      cell.className = "length-metric";
+      const score = document.createElement("span");
+      score.textContent = lengthPercent.format(value);
+      const dot = document.createElement("span");
+      dot.className = "length-dot";
+      dot.setAttribute("aria-hidden", "true");
+      dot.style.setProperty("--length-position", (100 * (value - .8) / .14) + "%");
+      cell.append(score, dot);
+    }
+    return row;
+  });
+  byId("length-rows").replaceChildren(...rows);
+  const long = lengthBands.at(-1).metrics;
+  byId("length-readout").textContent = lengthPercent.format(long.cnn[lengthMetric]) +
+    " → " + lengthPercent.format(long.cnn_integral[lengthMetric]);
+}
+lengthControls.forEach((button) => button.addEventListener("click", () => {
+  lengthMetric = button.dataset.lengthMetric;
+  drawLengths();
+}));
+lengthReplay.addEventListener("change", drawLengths);
+drawLengths();
+
 const picker = byId("slide-picker");
 const previous = byId("previous");
 const next = byId("next");
@@ -535,7 +582,9 @@ function showSlide(index, view = "build") {
   cnnView = view;
   bpeTransport.pause();
   cnnTransport.pause();
-  for (const id of ["bpe", "contrast", "pooling", "position", "youtube", "closing", "cut", "tfidf"]) byId(id).hidden = slide.interactive !== id;
+  for (const id of ["bpe", "lengths", "contrast", "pooling", "position", "youtube", "closing", "cut", "tfidf"]) {
+    byId(id).hidden = slide.interactive !== id;
+  }
   byId("cnn-build").hidden = slide.interactive !== "cnn" || cnnView !== "build";
   byId("cnn").hidden = slide.interactive !== "cnn" || cnnView !== "scan";
   centerArchitectureStage();
@@ -610,10 +659,11 @@ window.addEventListener("keydown", (event) => {
 });
 function openFromHash() {
   const match = location.hash.match(/^#slide-(\d+)(-varredura)?$/);
-  const cutIndex = slides.findIndex((slide) => slide.interactive === "cut");
-  const tfidfIndex = slides.findIndex((slide) => slide.interactive === "tfidf");
-  const shortcuts = { "#encerramento": ending, "#apoio": ending + 1, "#recorte": cutIndex, "#tf-idf": tfidfIndex };
-  showSlide(match ? Number(match[1]) - 1 : (shortcuts[location.hash] ?? 0), match?.[2] ? "scan" : "build");
+  const shortcuts = { "#encerramento": "closing", "#recorte": "cut", "#tf-idf": "tfidf",
+    "#comprimento": "lengths", "#contraste": "contrast", "#maximo-global": "pooling", "#posicao": "position" };
+  const named = slides.findIndex((slide) => slide.interactive && slide.interactive === shortcuts[location.hash]);
+  const index = location.hash === "#apoio" ? ending + 1 : Math.max(0, named);
+  showSlide(match ? Number(match[1]) - 1 : index, match?.[2] ? "scan" : "build");
 }
 window.addEventListener("hashchange", openFromHash);
 openFromHash();

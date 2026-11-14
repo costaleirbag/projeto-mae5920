@@ -1,10 +1,8 @@
 \section{Dados e protocolo de avaliação}
 \label{sec:dados}
-O Large Movie Review Dataset contém 25.000 resenhas em inglês no treino
-oficial e 25.000 no teste \cite{maas}. Os rótulos são \(0\) para negativo e
-\(1\) para positivo. A limpeza aplica regras fixas a cada resenha, decodificando
-HTML, removendo tags e normalizando espaços. A busca de duplicatas usa SHA-256
-do texto limpo após normalizar maiúsculas e minúsculas (\textit{casefold}).
+O IMDb tem 25.000 resenhas em inglês no treino oficial e 25.000 no teste
+\cite{maas}, com rótulos \(0\) (negativo) e \(1\) (positivo). A limpeza
+decodifica HTML, remove tags e normaliza espaços em cada texto.
 
 \subsection{Papéis das amostras}
 \begin{tabularx}{\linewidth}{@{}lrrX@{}}
@@ -17,30 +15,38 @@ Calibração   &  2.478 &  --   & Ajustar temperatura após a seleção original
 Teste/auditoria & 25.000 & 2.048 & Avaliar a configuração já escolhida.\\
 \bottomrule
 \end{tabularx}
-\legendinha{Tabela 1. CNN/encoders, palavras/BPE e MLP usam auditorias
-distintas de 2.048 resenhas.}
+\legendinha{Tabela 1. Cada extensão tem auditoria própria, aberta após
+congelar pesos e escolhas.}
 
-CNN/encoders e palavras/BPE partem do treino limpo e compartilham treino e
-validação. O prefixo comum de 128 palavras abreviou 1.535 resenhas na
-auditoria BPE e preservou 51,24\% dos tokens por palavras. O teto de 256
-tokens não fez cortes adicionais nas auditorias. Abrimos cada auditoria
-após congelar pesos e escolhas. Protocolos
-\fonte{docs/PROTOCOLO_SEQUENCIAS.md}{sequencial} e
-\fonte{docs/PROTOCOLO_BPE.md}{BPE}.
+Os ensaios internos com sequências usam até 128 palavras. Na auditoria
+BPE, esse teto cortou 1.535 resenhas e manteve 51,24\% dos tokens por
+palavras. Os prefixos já cabiam no teto adicional de 256 tokens.
+\fonte{docs/PROTOCOLO_SEQUENCIAS.md}{Protocolo sequencial} e
+\fonte{docs/PROTOCOLO_BPE.md}{protocolo BPE}.
+
+\subsection{Comprimento antes dos recortes}
+{\small
+\begin{tabularx}{\linewidth}{@{}Xrrrrrrr@{}}
+\toprule
+\tabelahead{Unidade} & \tabelahead{\(n\)} & \tabelahead{Mín.} & \tabelahead{P10} &
+\tabelahead{Média} & \tabelahead{Mediana} & \tabelahead{P90} & \tabelahead{Máx.}\\
+\midrule
+\LinhasDistribuicao
+\bottomrule
+\end{tabularx}}
+\legendinha{Tabela 2. Palavras separadas por espaços no texto limpo.
+*Frases estimadas por pontuação final. \fonteatual{seminario/dados/comprimentos.json}{Distribuições completas}.}
 
 \subsection{Análise de possíveis vazamentos de informação}
-No preparo original, removemos 123 linhas do treino com hash presente no
-teste e 98 duplicatas internas. A comparação acessou os textos do teste
-para excluir duplicatas, com os rótulos reservados à avaliação. Os quatro
-conjuntos finais têm zero hashes compartilhados entre papéis. O teste
-oficial conserva 201 ocorrências duplicadas.
-\fonte{data/manifest.json}{Manifesto original}.
+Removemos 123 linhas do treino com hash presente no teste e 98 duplicatas
+internas, usando SHA-256 do texto limpo com \textit{casefold}. Para excluir
+duplicatas, lemos o texto do teste e reservamos os rótulos à avaliação.
+Os quatro conjuntos finais têm zero hashes em comum. O teste conserva
+201 ocorrências duplicadas. \fonte{data/manifest.json}{Manifesto}.
 
-TF-IDF, vocabulário da CNN e fusões do BPE foram ajustados apenas no treino.
-A checagem cobre igualdade de texto após normalização. Paráfrases e possível
-exposição ao IMDb no pré-treinamento seguem como limitações. A análise de
-erros e a extensão do Qwen sobre o IMDb reutilizam o teste em caráter
-exploratório.
+Ajustamos TF-IDF, vocabulário da CNN e fusões do BPE no treino. A checagem
+cobre igualdade de texto, e paráfrases ou exposição no pré-treino seguem
+em aberto. A análise de erros e o Qwen reutilizam o teste em caráter exploratório.
 
 \subsection{Dicionário de dados resumido}
 \begin{tabularx}{\linewidth}{@{}lX@{}}
@@ -54,15 +60,9 @@ exploratório.
 \texttt{text\_sha256} & Impressão do texto normalizado usada para verificar duplicações.\\
 \bottomrule
 \end{tabularx}
-\legendinha{Tabela 2. O texto é a entrada do classificador. ID, rótulo e hash têm papéis
-de preparação ou avaliação. \fonte{DATA_DICTIONARY.md}{Dicionário completo}.}
+\legendinha{Tabela 3. A única entrada do classificador é o texto.
+\fonte{DATA_DICTIONARY.md}{Dicionário completo}.}
 
 \subsection{Métricas}
-A acurácia é a fração de acertos. O F1 macro é a média do F1 das duas
-classes. A entropia cruzada (CE) penaliza probabilidades baixas para o
-rótulo verdadeiro. Uma resenha positiva recebe perda \(-\log(0{,}9)\)
-se \(p_i=0{,}9\), e \(-\log(0{,}1)\) se \(p_i=0{,}1\).
-\[
-  \mathrm{CE}=-\frac{1}{n}\sum_i\left[y_i\log p_i+(1-y_i)\log(1-p_i)\right].
-\]
-Aqui \(p_i\) é a probabilidade atribuída à classe positiva.
+Acurácia é a fração de acertos. F1 macro dá o mesmo peso ao F1 de cada
+classe. A entropia cruzada (CE) é a média de \(-\log p(\text{classe verdadeira})\).

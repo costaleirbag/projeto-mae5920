@@ -5,19 +5,19 @@ A TextCNN usada nos ensaios por palavras e por BPE reúne 300 filtros
 Filtros diferentes podem atingir o máximo em trechos diferentes. A camada
 final aprende quanto cada uma das 300 respostas conta para cada classe.
 
-\subsection{De palavras a IDs}
-O tokenizador por palavras preserva contrações, números e negações. Retém
-as 19.998 palavras e números mais frequentes do treino, mais \texttt{<pad>}
-e \texttt{<unk>}. O BPE parte de caracteres e aprende fusões de pares
-frequentes nos 6.144 textos de treino, com frequência mínima 2. O alvo de
-20.000 entradas mantém o mesmo número de parâmetros no embedding das duas
-CNNs. Nesta amostra, o BPE atingiu o alvo. O marcador \texttt{</w>} indica
-o fim de palavra \cite{sennrich}.
+\subsection{Tokenização por regex e por BPE}
+A mesma expressão regular, ou \textit{regex}, separa palavras, contrações
+e números em minúsculas. A CNN por palavras guarda os 19.998 termos mais
+frequentes do treino, além de \texttt{<pad>} e \texttt{<unk>}. Na versão
+BPE, cada palavra começa em caracteres. O tokenizer aprende a fundir pares
+frequentes nos 6.144 textos de treino, com frequência mínima 2 e sem usar
+rótulos. Os dois vocabulários chegaram ao alvo de 20.000 entradas, igualando
+o tamanho dos embeddings. \texttt{</w>} marca o fim da palavra \cite{sennrich}.
 \fonte{docs/PROTOCOLO_BPE.md}{Normalização e vocabulários}.
 
 \painel[SoftBlue]{\rotulo{Quando uma palavra vira três peças}\enspace
   \textit{\ExemploCobertura}\par\smallskip
-  \small Palavras\enspace\tokenrel[SoftRust]{<unk>}
+  \small Regex + vocabulário\enspace\tokenrel[SoftRust]{<unk>}
   \qquad BPE\enspace\tokenrel[SoftTeal]{p}\enspace
   \tokenrel[SoftTeal]{all}\enspace\tokenrel[SoftTeal]{bearer</w>}\par\smallskip
   Uma janela de largura 3 pode cobrir as três peças de uma única palavra.}

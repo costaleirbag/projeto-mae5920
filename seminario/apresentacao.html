@@ -40,14 +40,14 @@
         </section>
         <aside class="rail bpe-rail">
           <div>
-            <p class="micro">Vocabulário por palavras</p>
+            <p class="micro">Regex + vocabulário por palavras</p>
             <p class="readout"><code>&lt;unk&gt;</code></p>
           </div>
           <div>
             <p class="micro">Saída final do BPE</p>
             <div id="bpe-result" class="pieces compact"></div>
           </div>
-          <p>Escolhemos <strong>20.000 entradas</strong> em ambos os vocabulários para igualar as tabelas de embeddings. <code>&lt;/w&gt;</code> marca o fim da palavra.</p>
+          <p>Ambas começam com a mesma regex. O BPE ainda funde caracteres conforme regras aprendidas no treino. Fixamos <strong>20.000 entradas</strong> nas duas. <code>&lt;/w&gt;</code> marca o fim da palavra.</p>
         </aside>
       </div>
       <div class="transport">
@@ -176,6 +176,36 @@
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/src/imdb_lab/models.py" target="_blank" rel="noopener">Implementação</a>
       </footer>
     </article>
+    <article id="lengths" class="lab readable length-slide" hidden aria-labelledby="length-title">
+      <header class="lab-heading">
+        <p class="eyebrow">02 · Treino e avaliação</p>
+        <h1 id="length-title">Onde a CNN perde mais?</h1>
+      </header>
+      <div class="length-controls">
+        <div class="cnn-view" role="group" aria-label="Métrica por comprimento">
+          <button type="button" data-length-metric="accuracy" aria-pressed="true">Acurácia</button>
+          <button type="button" data-length-metric="f1_macro" aria-pressed="false">F1 macro</button>
+        </div>
+        <label class="length-replay"><input type="checkbox" id="length-replay"> Mostrar CNN com texto inteiro</label>
+      </div>
+      <table class="length-table" aria-describedby="length-scale">
+        <caption class="sr-only" id="length-caption"></caption>
+        <thead>
+          <tr><th scope="col">Palavras</th><th scope="col"><span aria-hidden="true">n</span><span class="sr-only">Resenhas</span></th>
+          <th scope="col">TF-IDF</th><th scope="col" id="length-cnn-heading">CNN <small>400 tokens</small></th><th scope="col">BERT</th></tr>
+        </thead>
+        <tbody id="length-rows"></tbody>
+      </table>
+      <div class="length-insight">
+        <div class="length-score"><p class="micro">Acima de 500 palavras</p><p id="length-readout" aria-live="polite"></p></div>
+        <p id="length-explain">Ao receber o texto inteiro, a mesma CNN ganha acesso ao fim dessas resenhas.</p>
+      </div>
+      <footer class="lab-source"><span id="length-scale">Escala dos pontos de 80% a 94%. Faixas de texto inteiro por espaços.</span>
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/comprimentos.json" target="_blank" rel="noopener">Métricas e contagens</a>
+        <a href="#recorte">Ver uma resenha recortada</a>
+      </footer>
+    </article>
+
     <article id="contrast" class="lab contrast" hidden aria-labelledby="contrast-title">
       <header class="lab-heading">
         <p class="eyebrow">03 · Limites <span>Teste de contraste</span></p>
@@ -515,8 +545,8 @@
             <h2>TF · frequência na resenha</h2>
             <p>Quanto mais vezes o termo aparece, maior o TF.</p>
             <h2>IDF · raridade no treino</h2>
-            <p><i>Awful</i> aparece em menos resenhas, então tem IDF maior.</p>
-            <p class="tfidf-note">Multiplicamos TF e IDF e normalizamos o vetor.</p>
+            <p><i>Movie</i> aparece em quase toda resenha. O IDF reduz seu peso para dar mais espaço aos termos que distinguem os textos.</p>
+            <p class="tfidf-note">Multiplicamos TF e IDF e normalizamos. O sinal de sentimento vem do coeficiente aprendido com os rótulos.</p>
           </div>
         </section>
         <section id="tfidf-score" class="tfidf-panel" aria-label="Contribuições reais na regressão logística" hidden>

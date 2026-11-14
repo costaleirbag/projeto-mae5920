@@ -1,12 +1,12 @@
 \subsection{Conclusão}
 O TF-IDF soma sinais lexicais da resenha inteira e teve 90,14\% ante
-86,78\% da TextCNN. Dar o texto inteiro à mesma CNN recuperou 0,50
-dos 3,36 pontos. Reajustado com teto de 400, o TF-IDF fez 89,66\%.
-Com as mesmas janelas, o máximo global apaga a mudança de posição.
-No par com \textit{but}, as janelas mudam. Seguir a primeira oração
-pode depender dos filtros e da saída aprendida. BERT ajustado (90,94\%)
-e Qwen congelado (95,26\%) superaram o baseline com pré-treinos e
-entradas distintos. Os testes explicam parte dos erros da TextCNN.
+86,78\% da TextCNN. Com os mesmos pesos, o texto inteiro recuperou
+0,50 ponto no total e 4,66 acima de 500 palavras. A diferença persiste
+nos textos curtos. O controle com janelas iguais isolou a perda de
+posição no máximo global. No par com \textit{but}, as janelas mudam e a
+decisão também depende dos filtros e da camada final. BERT ajustado
+(90,94\%) e Qwen congelado (95,26\%) superaram o baseline com outras
+arquiteturas, entradas e pré-treinos.
 \fonteatual{seminario/revisao_metodologica.md}{Controles}.
 
 \begin{thebibliography}{9}

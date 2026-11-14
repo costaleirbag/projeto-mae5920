@@ -1,8 +1,8 @@
 # Roteiro de fala
 
-A apresentação termina no slide 16, **Conclusão**. Na versão de 12 minutos,
-vá do slide 13 direto para **Conclusão** pelo link no topo. Na de 15, passe
-também pelos slides 14 e 15. A explicação do TF-IDF entra na sequência
+A apresentação termina no slide 17, **Conclusão**. Na versão de 12 minutos,
+vá do slide 14 direto para **Conclusão** pelo link no topo. Na de 15, passe
+também pelos slides 15 e 16. A explicação do TF-IDF entra na sequência
 principal antes da comparação no IMDb. Os slides 4 e 7 são pontos
 naturais para trocar de pessoa.
 
@@ -10,20 +10,21 @@ naturais para trocar de pessoa.
 |---:|---|---|
 | 1 | 00:00–00:20 | Pergunta do seminário |
 | 2 | 00:20–01:15 | Duas frases e a hipótese de ordem |
-| 3 | 01:15–02:00 | Amostras e escolhas de treino |
+| 3 | 01:15–02:00 | Amostras e comprimentos de resenha e frase |
 | 4 | 02:00–02:50 | Palavras e BPE |
 | 5 | 02:50–04:15 | Arquitetura da TextCNN |
 | 6 | 04:15–05:25 | Taxa, época e generalização |
 | 7 | 05:25–06:40 | Como TF-IDF e regressão logística classificam |
-| 8 | 06:40–07:20 | Controle com rótulos embaralhados |
-| 9 | 07:20–08:15 | Teste oficial e controle de recorte |
-| 10 | 08:15–09:05 | Auditoria de palavras e BPE |
-| 11 | 09:05–10:05 | A predição do par inicial |
-| 12 | 10:05–11:00 | O limite do máximo global |
-| 13 | 11:00–11:35 | Dois picos por filtro e acerto em pares |
-| 14 | 11:35–13:00 | Comentários do YouTube ou demonstração |
-| 15 | 13:00–14:30 | Encoders e geração com o Qwen |
-| 16 | 14:30–15:00 ou 11:35–12:00 | Conclusão e perguntas |
+| 8 | 06:40–07:10 | Controle com rótulos embaralhados |
+| 9 | 07:10–07:50 | Teste oficial e controle de recorte |
+| 10 | 07:50–08:30 | Acurácia e F1 macro por comprimento |
+| 11 | 08:30–09:05 | Auditoria de regex e BPE |
+| 12 | 09:05–10:05 | A predição do par inicial |
+| 13 | 10:05–11:00 | O limite do máximo global |
+| 14 | 11:00–11:35 | Dois picos por filtro e acerto em pares |
+| 15 | 11:35–13:00 | Comentários do YouTube ou demonstração |
+| 16 | 13:00–14:30 | Encoders e geração com o Qwen |
+| 17 | 14:30–15:00 ou 11:35–12:00 | Conclusão e perguntas |
 
 ## 1 · Pergunta do seminário
 
@@ -46,15 +47,12 @@ os modelos fizeram depois de ver como eles foram treinados.”
 
 ## 3 · Treino, validação e avaliação
 
-“Usamos o IMDb, que traz resenhas em inglês com dois rótulos. No estudo original,
-separamos treino, validação e calibração antes da avaliação nas 25 mil resenhas
-do teste oficial. Removemos do treino textos repetidos, incluindo os que
-coincidiam com o teste por hash. A validação serve para escolher a configuração.
-A calibração usa outra amostra. Nos ensaios internos, todos recebem o
-mesmo prefixo de 128 palavras e cada comparação tem uma auditoria reservada
-de 2.048 resenhas. O teto adicional de 256 tokens não cortou nenhum desses
-prefixos. A CNN original usa 400 tokens, com os pesos ajustados em uma
-amostra de treino maior.”
+“Temos 25 mil resenhas em inglês no teste oficial. As resenhas têm, em
+média, 226 palavras no teste e 231 no nosso treino. Uma frase típica tem
+mediana de 16 palavras, contando pontuação como separador de frases.
+Uma em cada dez resenhas do teste passa de 439 palavras. Antes de olhar
+o teste, escolhemos a configuração na validação e a temperatura na
+calibração. Os ensaios de tokenização usam uma auditoria própria.”
 
 ## 4 · Fusões do BPE
 
@@ -62,16 +60,13 @@ No HTML, use **Próxima etapa** ou a seta direita para mostrar a primeira
 fusão, `r + e → re`. Avance no ritmo da fala ou arraste até a última etapa
 ao falar das três peças. No PDF, aponte as três linhas da sequência.
 
-“A CNN recebe índices. Na versão por palavras, a expressão regular preserva
-palavras, contrações e números. Contamos a frequência só no treino e reservamos
-um índice para padding e outro para desconhecidos. Nesta frase, *pallbearer*
-fica com o índice de desconhecido. No BPE, aprendemos uniões de caracteres
-frequentes nos mesmos textos, sem consultar os rótulos. O tokenizer congelado
-reconhece *p*, *all* e *bearer* com marca de fim de palavra. Isso dá à rede
-uma representação específica para a palavra rara e aumenta o comprimento
-da sequência. Um filtro com a mesma largura passa a ver outro contexto.
-Os dois vocabulários têm 20 mil entradas por escolha experimental. Assim
-as duas tabelas de embeddings têm 20 mil linhas de 128 valores.”
+“A mesma expressão regular separa palavras, contrações e números nas duas
+versões. A versão por palavras guarda os termos mais frequentes do treino.
+*Pallbearer* ficou fora e vira desconhecido. Para o BPE, partimos dos caracteres
+de cada palavra e aprendemos fusões pelos pares frequentes no treino, sem os
+rótulos. Aqui saem *p*, *all* e *bearer*. O BPE pode segmentar a palavra rara
+em peças conhecidas. Uma janela de largura três pode cobrir só essa palavra.
+Fixamos 20 mil IDs em ambos para igualar o tamanho das tabelas de embeddings.”
 
 ## 5 · Arquitetura da TextCNN
 
@@ -122,9 +117,10 @@ resenha, sem guardar onde caíram.
 
 Aqui *movie* e *awful* aparecem uma vez. No exemplo fictício, *movie*
 aparece em nove das dez resenhas de treino. *Awful* aparece em duas.
-O IDF dá mais peso a *awful* por ser mais raro. O sinal positivo ou
-negativo vem da regressão. Ela aprende um coeficiente para cada termo
-usando os rótulos das resenhas. Multiplica pelo peso TF-IDF e soma.
+O IDF reduz a influência de *movie*, que é uma pista pouco distintiva
+quando aparece em quase todo texto. O sinal positivo ou negativo vem da
+regressão. Ela aprende um coeficiente para cada termo usando os rótulos
+das resenhas, multiplica pelo peso TF-IDF e soma.
 Nessa resenha real, *bad* contribuiu com menos 0,40. Somados os outros
 termos e o viés, o escore ficou negativo.”
 
@@ -151,19 +147,31 @@ Acurácia e F1 macro usam as classes previstas. A CE usa as probabilidades
 calibradas numa amostra separada. Na receita original, a CNN treinou com
 lote 64 e o BERT com lote 32.
 
-## 10 · Auditoria de palavras e BPE
+## 10 · Desempenho por tamanho
+
+“Nas primeiras duas faixas, nenhuma resenha foi cortada. O TF-IDF já
+fica à frente. A maior diferença acontece acima de 500 palavras, em
+1.845 resenhas. Com o teto, a CNN faz 81,52%. Ao deixar os mesmos pesos
+lerem o texto inteiro, sobe para 86,18%. Na aba F1 macro, que dá o mesmo
+peso às duas classes, aparece o mesmo padrão.”
+
+No HTML, marque **Mostrar CNN com texto inteiro** para mostrar o controle.
+Se faltar tempo, leia só a última linha e a comparação em destaque.
+
+## 11 · Auditoria de regex e BPE
 
 “Aqui os dois tokenizadores enfrentam a mesma auditoria interna. Usamos
 a mesma arquitetura, orçamento e taxa de Adam, com três sementes pareadas.
 A figura liga a versão por palavras à BPE dentro de cada semente. BPE
 reduziu de 3,27 por cento para zero a fração de tokens desconhecidos.
+No mesmo texto, a entrada passou de 121 para 129 tokens em média.
 Na mesma comparação, a acurácia média foi de 82 por cento para 81,41.
 Uma janela de cinco subpalavras pode cobrir menos palavras do que a de
 cinco palavras completas. E a taxa foi escolhida originalmente na CNN por
 palavras. Os números mostram o que ocorreu sob esse controle. Os escores
 dos pares ajudam a ver o que mudou em frases específicas.”
 
-## 11 · Dois adjetivos trocam de lugar
+## 12 · Dois adjetivos trocam de lugar
 
 Comece na frase **A** e aponte a conclusão. Depois clique em **B · Trocar
 adjetivos** ou pressione a seta direita. Volte a A se quiser refazer a troca.
@@ -181,7 +189,7 @@ cinco tokens já contém *terrible but it was wonderful*. Uma de sete incluiria
 também *movie was*. A troca muda as janelas, então esse teste mede a rede
 inteira. [Tokens e classes](dados/pares_resultados.json).
 
-## 12 · O máximo global descarta a posição
+## 13 · O máximo global descarta a posição
 
 Mostre A e depois pressione **B** ou a seta direita. No PDF, compare as duas
 linhas e aponte a posição e o valor do pico.
@@ -193,7 +201,7 @@ filtro dá 0,47 nos dois casos. Cada um dos 300 filtros guarda seu próprio
 máximo. Como as janelas são as mesmas, os 300 valores e a saída coincidem.”
 [Código do controle](medir_pares.py).
 
-## 13 · Guardar a posição ajudou a classificar?
+## 14 · Guardar a posição ajudou a classificar?
 
 “Pegamos um pico por metade. Ordenados pelo valor, A e B dão 0,25 e
 0,47. Na ordem do texto, o primeiro número vem do início e o segundo vem
@@ -206,7 +214,7 @@ Se perguntarem sobre o teste sintético, há quatro moldes com veredito no
 começo ou no fim. Nenhuma das cabeças acertou as duas frases de qualquer
 par com veredito no fim. [Método e resultados por semente](diagnosticos.md#o-que-acontece-quando-guardamos-a-posição-dos-picos).
 
-## 14 · Comentários fora do IMDb
+## 15 · Comentários fora do IMDb
 
 Mostre os prints e aponte o destaque em *No one*. O modelo recebeu o
 texto de cada comentário. Os vídeos e a interface ajudam a plateia a
@@ -227,7 +235,7 @@ Se optarem pela demonstração, abram o navegador antes da fala e usem até
 classe, o escore e os tokens das duas CNNs. Se a resposta demorar, voltem
 aos resultados salvos no slide.
 
-## 15 · Encoders e geração com o Qwen
+## 16 · Encoders e geração com o Qwen
 
 “Aqui são 2.048 resenhas internas, cortadas em 128 palavras. Os vetores
 já trazem contexto dos outros tokens. Fazemos uma média mascarada e uma
@@ -240,9 +248,9 @@ tokens da resenha, usamos o prompt e a diferença dos logits dos dois
 rótulos. Ele atingiu 95,26%. Pré-treino, arquitetura e entrada mudam
 juntos. A geração com intervenção nas ativações fica no apoio.”
 
-## 16 · Conclusão
+## 17 · Conclusão
 
-“A nossa CNN ficou 3,36 pontos abaixo do TF-IDF. Cortar as resenhas explica
+“A nossa CNN ficou 3,36 pontos abaixo do TF-IDF. O texto inteiro recupera
 meio ponto, com os pesos fixos. O máximo global perde a posição, como
 mostra a troca de blocos. No par com *but*, os filtros responderam à
 troca, mas a CNN seguiu a primeira opinião. BERT e Qwen mostram que outras
@@ -251,10 +259,10 @@ Deixe o quadro de perguntas na tela.
 
 ## Cortes para o ensaio
 
-- Na versão de 12 minutos, vá do slide 13 à conclusão pelo link no topo.
-- Para 10 minutos, fale a conclusão da auditoria BPE em uma frase e passe do slide 9 ao 11. Resuma a escolha de época no slide 6 e mostre só uma troca de posição no slide 12.
+- Na versão de 12 minutos, vá do slide 14 à conclusão pelo link no topo.
+- Para 10 minutos, apresente só a última linha no slide 10 e resuma a auditoria BPE em uma frase. Mostre uma troca de posição no slide 13.
 - Na seção de apoio, usem o primeiro slide para mostrar o recorte da resenha, o segundo para calibração e o quarto para largura e passo.
-- Se quiserem mostrar a geração do Qwen nos 15 minutos, reservem os últimos 30 segundos do slide 15 para o terceiro slide de apoio e depois voltem à conclusão.
+- Se quiserem mostrar a geração do Qwen nos 15 minutos, reservem os últimos 30 segundos do slide 16 para o terceiro slide de apoio e depois voltem à conclusão.
 
 As tabelas de treino, validação e teste, os controles e os casos completos
 estão no relatório. [Relatório do seminário](../output/pdf/relatorio_seminario.pdf).

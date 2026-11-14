@@ -175,7 +175,7 @@ def build(pdf: Path, output: Path) -> None:
     frames = list(FRAME.finditer((HERE / "slides.tex").read_text(encoding="utf-8")))
     assert len(frames) == len(reader.pages), "O PDF deve ter uma página por frame."
     assert [frame["lab"] for frame in frames if frame["lab"]] == [
-        "bpe", "cnn", "tfidf", "contrast", "pooling", "position", "youtube", "closing", "cut",
+        "bpe", "cnn", "tfidf", "lengths", "contrast", "pooling", "position", "youtube", "closing", "cut",
     ]
 
     slides = []
@@ -206,10 +206,11 @@ def build(pdf: Path, output: Path) -> None:
         case["id"]: {mode: [answer["classe"] for answer in answers] for mode, answers in case["geracao"].items()}
         for case in youtube_results["comentarios"]
     }
+    lengths = json.loads((HERE / "dados/comprimentos.json").read_text(encoding="utf-8"))
     data = json.dumps({
         "slides": slides, "evidence": evidence, "architecture": architecture_steps(),
         "contrast": contrast_example(), "position": position, "youtubeQwen": youtube_qwen,
-        "cut": cut_example(), "tfidf": tfidf_example(),
+        "cut": cut_example(), "tfidf": tfidf_example(), "lengthBands": lengths["bands"],
     }, ensure_ascii=False, separators=(",", ":"))
     template = (HERE / "apresentacao.html").read_text(encoding="utf-8")
     for marker, file in (("ROOM", "the-room"), ("FRIDAY", "friday")):

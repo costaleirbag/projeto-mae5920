@@ -14,7 +14,7 @@ palavras e nas três com BPE, a CNN deu negativa a A e positiva a B. A
 leitura adotada segue a oração depois de \textit{but}.
 
 \input{partes/figura-votos-relatorio.tex}
-\legendinha{Figura 4. Escores sem calibração, por checkpoint. Da frase A para B,
+\legendinha{Figura 3. Escores sem calibração, por checkpoint. Da frase A para B,
 a média sobe de \PalavrasA{} para \PalavrasB{} com palavras, e de
 \BPEA{} para \BPEB{} com BPE.
 \fonteatual{seminario/dados/pares_resultados.json}{Escores e logits por treino}.
@@ -28,7 +28,7 @@ apenas a altura do pico. A camada linear combina essa altura com
 as dos outros 299 filtros.
 
 \input{partes/figura-filtro-relatorio.tex}
-\legendinha{Figura 5. Ativações após a ReLU nas oito janelas de cada frase.
+\legendinha{Figura 4. Ativações após a ReLU nas oito janelas de cada frase.
 Em A, a primeira janela \textit{i thought this} vai de \(-0{,}42\) a 0.
 Com passo 2, só são visitadas as janelas 1, 3, 5 e 7. O pico da janela 4
 fica de fora e o máximo passa de \MaximoDemo{} a \MaximoPassoDois{}.

@@ -1,0 +1,34 @@
+{
+  "scikit_learn": "1.8.0",
+  "C_grid": [
+    0.125,
+    0.5,
+    2,
+    4,
+    8,
+    16,
+    32,
+    64
+  ],
+  "penalty": "L2",
+  "selection": "F1 macro na validação. Em empate, menor C e manutenção do IDF.",
+  "shared_vectorizer": {
+    "ngram_range": [
+      1,
+      2
+    ],
+    "min_df": 2,
+    "max_df": 0.99,
+    "norm": "l2",
+    "sublinear_tf": true,
+    "max_features": 80000
+  },
+  "sources": {
+    "data/manifest.json": "635f65abc3197e1afa723add073246fcfc51a69d785b04855a57b6e21457b133",
+    "config.json": "8be6ecc138be2f351e60e14dde6e3ea34ad802e07f4ce5e7dae04883aff16c4e",
+    "seminario/medir_pooling_regularizacao.py": "5f350ba460d379fade5d1c09245bfe20eaa067d7625353cc068b0aa6537186f4",
+    "seminario/auditar_baseline.py": "b1a17d19af433dcebd4b9792ac187807230ef9e5ebd8332327e953c0d7a44686",
+    "src/imdb_lab/baseline.py": "7816fe789079f472b04101d04106ff295850a19b60b7d91c26ac59c23451d831",
+    "src/imdb_lab/metrics.py": "32dd22c0a15b07c8b90864dd5843405d202aa33772a8b371e08354bf4316f87c"
+  }
+}

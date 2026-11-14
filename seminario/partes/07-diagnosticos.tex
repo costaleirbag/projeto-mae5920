@@ -1,4 +1,4 @@
-\subsection{Calibração e desempenho por comprimento}
+\subsection{Probabilidades calibradas no teste oficial}
 \label{sec:diagnosticos}
 A calibração ajusta \(\tau>0\) para minimizar a CE em uma amostra
 separada. A probabilidade passa de \(\sigma(\Delta)\) a
@@ -12,18 +12,28 @@ separada. A probabilidade passa de \(\sigma(\Delta)\) a
 \LinhasTeste
 \bottomrule
 \end{tabularx}
-\legendinha{Tabela 6. Teste oficial, \(n=25.000\), com temperatura escolhida em
-2.478 resenhas reservadas. A CE bruta está na Tabela 5.}
+\legendinha{Tabela 7. Teste oficial, \(n=25.000\), com temperatura escolhida em
+2.478 resenhas reservadas. A CE bruta está na Tabela 6.}
 
-\medskip
-\noindent\makebox[\linewidth]{\includegraphics[width=.94\linewidth]{figuras/diagnostico_oficial.pdf}}
-\legendinha{Figura 3. As faixas de comprimento por contagem de palavras
-têm 3.246, 14.624, 5.285 e 1.845 resenhas. Na calibração, a diagonal
-indica coincidência entre o escore médio e a fração observada de positivos.}
+\subsection{Acurácia e F1 macro por tamanho de resenha}
+{\small
+\begin{tabularx}{\linewidth}{@{}Xrrrrr@{}}
+\toprule
+\tabelahead{Palavras} & \tabelahead{\(n\)} & \tabelahead{TF-IDF} &
+\tabelahead{CNN} & \tabelahead{BERT} & \tabelahead{Qwen}\\
+\midrule
+\LinhasPorComprimento
+\bottomrule
+\end{tabularx}}
+\legendinha{Tabela 8. Cada célula indica acurácia / F1 macro, ambos em \%.
+As faixas usam o texto inteiro, contado por espaços. Qwen é uma extensão
+no mesmo teste. \fonteatual{seminario/dados/comprimentos.json}{Métricas e contagens}.}
 
-A acurácia da CNN cai de 87,34\% até cem palavras a 81,52\% acima de 500.
-O TF-IDF lê o texto completo e varia menos.
-\fonte{results/analysis/subgroup_metrics.csv}{Métricas por faixa}.
+Nas \QuantidadeLongas{} resenhas acima de 500 palavras, todas recortadas
+na CNN, dar o texto inteiro aos mesmos pesos elevou a acurácia de
+\AcuraciaLongasCNN{} a \AcuraciaLongasCNNIntegral{}. Já nas duas faixas
+até 250 palavras, o TF-IDF ficou à frente mesmo com todas as entradas
+da CNN intactas. Isso delimita o que o recorte explica.
 
 \subsection{Custo computacional}
 \begin{tabularx}{\linewidth}{@{}Xlrr@{}}
@@ -34,7 +44,7 @@ O TF-IDF lê o texto completo e varia menos.
 \LinhasCusto
 \bottomrule
 \end{tabularx}
-\legendinha{Tabela 7. A inferência soma as quatro divisões. O ajuste
+\legendinha{Tabela 9. A inferência soma as quatro divisões. O ajuste
 do baseline inclui TF-IDF e seleção da regularização. Cada tempo vale para
 o dispositivo e o orçamento da receita medida.}
 

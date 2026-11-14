@@ -1,8 +1,9 @@
-\subsection{Palavras e BPE no mesmo experimento}
+\subsection{Regex e BPE no mesmo experimento}
 \label{sec:bpe}
-As duas tokenizações usam Adam a 0,001, as mesmas dimensões, dropout,
-minibatches e orçamento. Escolhemos a época na validação. Na mesma semente,
-a matriz inicial é igual, e suas linhas representam unidades diferentes.
+As duas CNNs recebem o mesmo prefixo de até 128 palavras. Usam Adam a
+0,001, as mesmas dimensões, dropout, minibatches e orçamento. Escolhemos
+a época na validação. Na mesma semente, a matriz inicial é igual, e suas
+linhas representam unidades diferentes.
 
 \begin{tabularx}{\linewidth}{@{}Xrrrrr@{}}
 \toprule
@@ -12,6 +13,6 @@ a matriz inicial é igual, e suas linhas representam unidades diferentes.
 \LinhasBPE
 \bottomrule
 \end{tabularx}
-\legendinha{Tabela 4. Médias de três sementes em 2.048 resenhas. UNK é a
-fração de tokens desconhecidos. Com BPE, a acurácia caiu nas três sementes
-e 0,59 ponto percentual em média. \fonte{results/bpe/audit_metrics.json}{Métricas por execução}.}
+\legendinha{Tabela 5. Médias de três sementes em 2.048 resenhas. UNK é a
+fração de tokens desconhecidos. BPE reduziu UNK, alongou as sequências e
+caiu 0,59 ponto em acurácia. \fonte{results/bpe/audit_metrics.json}{Métricas por execução}.}

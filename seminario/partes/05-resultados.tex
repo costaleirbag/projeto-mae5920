@@ -1,18 +1,23 @@
 \subsection{TF-IDF e regressão logística}
 \label{sec:resultados}
 Em \textit{not good}, contamos \textit{not}, \textit{good} e o par
-\textit{not good}. TF pesa a frequência no texto, IDF valoriza termos
-raros no treino e o vetor é normalizado. Os bigramas captam ordem local.
-O vetor agrega as ocorrências na resenha inteira e perde suas posições.
-A regressão aprende os pesos, soma \(b+\sum_j w_jx_j\) e aplica a sigmoide.
+\textit{not good}. Os bigramas captam ordem local. O vetor agrega as
+ocorrências da resenha inteira e perde suas posições. TF mede a frequência
+local e IDF reduz o peso de termos comuns no treino. A regressão usa os
+valores normalizados \(x_j\), aprende os coeficientes \(w_j\) com os rótulos
+e aplica a sigmoide à soma \(b+\sum_j w_jx_j\).
 \fonteatual{src/imdb_lab/baseline.py}{Código do baseline}.
 
 \subsection{Resultados no teste oficial do IMDb}
 A CNN lê até 400 tokens e BERT até 192 WordPieces \cite{devlin}. Com 80.000
-atributos e L2 (\(C=8\), escolhido na validação), o baseline errou só
-56 de 19.823 resenhas de treino. Com os rótulos embaralhados, ainda
-atingiu 99,75\% no treino, com 50,08\% na validação.
+atributos e L2, o baseline ajustou 99,72\% do treino. Os candidatos com
+regularização mais forte (\(C=0{,}5\) ou \(2\)) tiveram menor F1 macro
+na validação que \(C=8\). Na busca ampliada, \(C=16\) ganhou na validação
+e ficou em 90,04\% no teste, ante 90,15\% na repetição com \(C=8\).
+Com os rótulos embaralhados, o modelo ajustou 99,75\% do treino e ficou
+em 50,08\% na validação com rótulos reais.
 \fonteatual{seminario/auditar_baseline.py}{Controle de capacidade}.
+\fonteatual{results/tfidf_regularization/summary.json}{Busca ampliada}.
 
 \begin{tabularx}{\linewidth}{@{}lXrrr@{}}
 \toprule
@@ -22,7 +27,7 @@ atingiu 99,75\% no treino, com 50,08\% na validação.
 \LinhasOriginal
 \bottomrule
 \end{tabularx}
-\legendinha{Tabela 5. Escores antes da calibração. Treino com 19.823 resenhas,
+\legendinha{Tabela 6. Escores antes da calibração. Treino com 19.823 resenhas,
 validação com 2.478 e teste oficial com 25.000.
 \fonte{results/comparison.csv}{Resultados originais}.}
 

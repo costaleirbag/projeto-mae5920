@@ -10,6 +10,7 @@ de apoio. O relatório tem oito páginas, dentro da faixa do enunciado.
 | Relatório | [PDF](../output/pdf/relatorio_seminario.pdf) · [LaTeX](relatorio.tex) · [seções](partes/) |
 | Apresentação | [Abrir no navegador](https://costaleirbag.github.io/projeto-mae5920/) · [HTML para baixar](../output/slides/slides_15_min_interativos.html) · [PDF 16:9](../output/pdf/slides_15_min.pdf) · [Beamer](slides.tex) |
 | Fala, tempos e cortes | [Roteiro](roteiro.md) |
+| Comprimento das resenhas e métricas por faixa | [Gráfico interativo](https://costaleirbag.github.io/projeto-mae5920/#comprimento) · [Estatísticas e métricas](dados/comprimentos.json) · [Código](medir_comprimentos.py) |
 | Experimentos e código explicado | [Notebook único](../notebooks/seminario_completo.ipynb) |
 | Predições dos quatro pares e teste de cobertura | [Entradas](casos.json) · [Resultados por semente](dados/pares_resultados.json) |
 | Avaliação fora do IMDb e exemplos do YouTube | [Protocolo](#avaliação-fora-do-imdb) · [Resultados por semente](dados/fora_dominio_resultados.json) |
@@ -23,7 +24,7 @@ de apoio. O relatório tem oito páginas, dentro da faixa do enunciado.
 
 Abra a apresentação pelo GitHub Pages. Nos slides 4 e 5, use **Anterior**
 e **Próxima etapa** ou as setas para passar uma etapa por vez. A barra pula
-para qualquer etapa. No slide 11, as setas ou os botões A e B trocam os
+para qualquer etapa. No slide 12, as setas ou os botões A e B trocam os
 adjetivos e atualizam a predição. Use `F` para tela cheia.
 [Abrir a apresentação](https://costaleirbag.github.io/projeto-mae5920/).
 
@@ -41,20 +42,26 @@ direita para avançar. O controle com rótulos embaralhados vem no slide 8
 e o resultado no teste oficial, no 9.
 [TF-IDF e regressão logística](https://costaleirbag.github.io/projeto-mae5920/#tf-idf).
 
-O slide 11 retoma as frases do início. Mostra as duas orações, a leitura
+O slide 3 resume o tamanho das resenhas e das frases. No slide 10,
+alterne **Acurácia** e **F1 macro** para as quatro faixas de comprimento.
+**Mostrar CNN com texto inteiro** reaplica os mesmos pesos a toda a resenha.
+O slide 11 compara regex e BPE no mesmo prefixo de texto.
+[Desempenho por comprimento](https://costaleirbag.github.io/projeto-mae5920/#comprimento).
+
+O slide 12 retoma as frases do início. Mostra as duas orações, a leitura
 esperada da conclusão e o escore positivo de cada tokenizador. Cada linha
 resume três treinos, um por semente. A régua mantém o limiar de 50% e marca
-onde estava A quando você mostra B. [Par de contraste](https://costaleirbag.github.io/projeto-mae5920/#slide-11).
+onde estava A quando você mostra B. [Par de contraste](https://costaleirbag.github.io/projeto-mae5920/#contraste).
 
-No slide 12, troque A por B e acompanhe um pico real da CNN. A mesma
+No slide 13, troque A por B e acompanhe um pico real da CNN. A mesma
 janela começa no token 8 em A e no 20 em B. O valor que o filtro entrega
-continua igual. [Controle do máximo global](https://costaleirbag.github.io/projeto-mae5920/#slide-12).
+continua igual. [Controle do máximo global](https://costaleirbag.github.io/projeto-mae5920/#maximo-global).
 
-Os textos A e B do slide 12 são construídos. A frase separadora aparece
+Os textos A e B do slide 13 são construídos. A frase separadora aparece
 três vezes em cada um, preservando as janelas quando os blocos trocam de
-lugar. O slide 13 mostra os picos reais das duas metades desse mesmo
+lugar. O slide 14 mostra os picos reais das duas metades desse mesmo
 exemplo e separa esse controle do teste com pares de resenhas editadas.
-[Dois picos por filtro](https://costaleirbag.github.io/projeto-mae5920/#slide-13).
+[Dois picos por filtro](https://costaleirbag.github.io/projeto-mae5920/#posicao).
 
 O primeiro slide de apoio alterna entre o recorte de 400 tokens e o texto
 inteiro de uma resenha do IMDb. **Conclusão** no topo vai ao encerramento.
@@ -83,9 +90,12 @@ e selecione `relatorio.tex` ou `slides.tex` como documento principal, com pdfLaT
 As figuras e tabelas do LaTeX estão nessa própria pasta.
 
 Para recompilar apenas o relatório, rode `make -C seminario relatorio`.
-Após atualizar os escores do contraste ou as métricas de posição, rode
+Após atualizar escores de contraste, métricas de posição ou comprimentos, rode
 `python seminario/preparar_relatorio.py` antes de compilar para regenerar
-os dados das figuras estáticas e da tabela de posição.
+os dados das figuras e tabelas do relatório e do Beamer. Para refazer as
+métricas de comprimento, rode
+`PYTHONPATH=src python seminario/medir_comprimentos.py --data data` com as
+divisões originais restauradas.
 
 Para reconstruir também o HTML, rode `make -C seminario interativo` com
 `pypdf` e `pdftoppm` instalados. O HTML usa as páginas renderizadas do PDF
@@ -130,7 +140,7 @@ O endpoint local `POST /predict` recebe JSON no formato
 `{"text":"The movie was wonderful."}`. Para usar o terminal, acrescente
 `--text 'The movie was wonderful.'`.
 
-No dia, carreguem a página antes da fala e façam um teste rápido. O slide 14
+No dia, carreguem a página antes da fala e façam um teste rápido. O slide 15
 traz os prints e as classes previstas para *Friday* e *The Room*. Esses
 casos podem ocupar o tempo da demonstração. As animações dos slides 4 e 5 já funcionam no HTML baixado.
 

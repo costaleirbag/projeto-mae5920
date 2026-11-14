@@ -18,11 +18,17 @@
 \setbeamercolor{frametitle}{fg=Ink}
 \setbeamerfont{frametitle}{size=\Large,series=\bfseries}
 \setbeamersize{text margin left=8mm,text margin right=8mm}
+\newcommand{\framenumberdisplay}{%
+  \ifnum\insertframenumberinappendix>0
+    Apoio \insertframenumberinappendix/\insertappendixframenumber
+  \else
+    \insertframenumber/\insertmainframenumber
+  \fi}
 \newcommand{\actlabel}{%
   \ifnum\insertframenumber<6 01\enspace REPRESENTAÇÃO\else
-  \ifnum\insertframenumber<11 02\enspace TREINO E AVALIAÇÃO\else
-  \ifnum\insertframenumber<14 03\enspace LIMITES\else
-  \ifnum\insertframenumber<16 EXTENSÃO\else APOIO\fi\fi\fi\fi}
+  \ifnum\insertframenumber<12 02\enspace TREINO E AVALIAÇÃO\else
+  \ifnum\insertframenumber<15 03\enspace LIMITES\else
+  \ifnum\insertframenumber<17 EXTENSÃO\else APOIO\fi\fi\fi\fi}
 \setbeamertemplate{frametitle}{%
   \vspace{2.7mm}{\scriptsize\color{Teal}\bfseries\actlabel\par}%
   \vspace{1mm}\insertframetitle\par\vspace{2mm}%
@@ -31,7 +37,7 @@
   \leavevmode\hbox{\begin{beamercolorbox}[wd=\paperwidth,ht=3.3ex,dp=1.7ex,
   leftskip=8mm,rightskip=8mm]{normal text}%
   \color{Quiet}\scriptsize MAE5920\enspace$\cdot$\enspace IMDb\hfill
-  \textcolor{Teal}{\rule{7mm}{.7pt}}\enspace\insertframenumber/\inserttotalframenumber
+  \textcolor{Teal}{\rule{7mm}{.7pt}}\enspace\framenumberdisplay
   \end{beamercolorbox}}}
 \setlength{\parskip}{3pt}
 \newcommand{\smallsource}[1]{\vfill{\scriptsize\color{Quiet}#1\par}}
@@ -141,9 +147,8 @@
 \end{frame}
 
 % 01:15–02:00
-\begin{frame}{O que cada divisão decide}
-\vfill
-\begin{tikzpicture}[x=1mm,y=1mm,font=\sffamily\small]
+\begin{frame}{As resenhas do IMDb e suas divisões}
+\begin{tikzpicture}[x=1mm,y=.70mm,font=\sffamily\small]
   \foreach \x/\what/\why in {27/Treinar/Pesos e vocabulário,56/Escolher/Taxa e época,
                            85/Calibrar/Temperatura,114/Medir/Avaliação final} {
     \node[anchor=west,font=\bfseries] at (\x,41) {\what};
@@ -163,11 +168,16 @@
   \node[anchor=west,text=Forest,font=\bfseries] at (114,10.2) {2.048};
   \node[anchor=west,text=Forest,font=\scriptsize] at (114,5.6) {Auditoria interna};
 \end{tikzpicture}
-\par\vfill
-{\small A CNN original usa até 400 tokens. Nos ensaios internos, as primeiras 128 palavras
-formam o prefixo comum. O teto adicional de 256 tokens não cortou esses prefixos.}
-\smallsource{IMDb, Maas et al. (2011). \fonte{data/manifest.json}{Dados} e
-\fonte{docs/PROTOCOLO_SEQUENCIAS.md}{protocolo das extensões}.}
+\par\smallskip
+\eyebrow{Comprimento dos textos inteiros, em palavras}\par
+{\small
+\begin{tabular*}{\linewidth}{@{}l@{\extracolsep{\fill}}rrr@{}}
+ & Média & Mediana & P90\\
+\midrule
+\LinhasDistribuicaoSlide
+\end{tabular*}}
+\smallsource{*Frases estimadas por pontuação. P90 é o valor abaixo do qual ficam cerca de 90\% das observações.
+\fonteatual{seminario/dados/comprimentos.json}{Distribuições}.}
 \end{frame}
 
 % 02:00–02:50
@@ -185,13 +195,13 @@ formam o prefixo comum. O teto adicional de 256 tokens não cortou esses prefixo
 \BPEFim
 \end{column}
 \begin{column}{.29\textwidth}
-\slidecard{Mint}{\eyebrow{Por palavras}\par
+\slidecard{Mint}{\eyebrow{Regex + vocabulário}\par
   {\Large\bfseries\texttt{<unk>}}\par
   {\small \textit{pallbearer} ficou fora do vocabulário.}}
 \end{column}
 \end{columns}
-\smallsource{Escolhemos 20.000 entradas em ambos para igualar a tabela de embeddings.
-\texttt{</w>} marca o fim da palavra. Sennrich et al. (2016). \liveversion{4}.}
+\smallsource{Ambas começam com regex. BPE aplica fusões aprendidas no treino.
+Os 20.000 IDs igualam os embeddings. \texttt{</w>} marca o fim da palavra. \liveversion{4}.}
 \end{frame}
 
 % 02:50–04:15
@@ -252,7 +262,7 @@ Faixas de três sementes.
 {\small\texttt{movie}\hfill 9 de 10 \(\to\) 1,10\par
 \texttt{awful}\hfill 2 de 10 \(\to\) 2,30}\par
 \vspace{.8mm}
-{\small Ambos ocorrem uma vez. Neste treino fictício, \textit{awful} tem IDF maior.}
+{\small Ambos ocorrem uma vez. O IDF reduz o peso de \textit{movie}, que aparece na maioria das resenhas.}
 \end{column}
 \begin{column}{.315\textwidth}
 \textbf{3. Classificar (logística)}\par
@@ -272,7 +282,7 @@ Demais termos e viés\hfill\(-1{,}386\)}\par
 \href{https://costaleirbag.github.io/projeto-mae5920/\#tf-idf}{Versão interativa}.}
 \end{frame}
 
-% 06:40–07:20
+% 06:40–07:10
 \begin{frame}{Por que o modelo ajusta até rótulos embaralhados?}
 \eyebrow{Mesmas 19.823 resenhas de treino, mesmos 80.000 atributos}
 \vfill
@@ -295,7 +305,7 @@ distinguem as resenhas de treino. Com rótulos embaralhados, fica perto do acaso
 \fonteatual{results/tfidf_ablation/summary.json}{Controle}.}
 \end{frame}
 
-% 07:20–08:15
+% 07:10–07:50
 \begin{frame}{A CNN ficou atrás no teste oficial}
 \eyebrow{25.000 resenhas \(\cdot\) estudo original}
 \vfill
@@ -318,8 +328,32 @@ distinguem as resenhas de treino. Com rótulos embaralhados, fica perto do acaso
 \fonteatual{results/tfidf_ablation/summary.json}{Controle de recorte}.}
 \end{frame}
 
-% 08:15–09:05
-\begin{frame}{BPE cobriu mais do vocabulário}
+% 07:50–08:30
+% lab:lengths
+\begin{frame}{Onde a CNN perde mais?}
+\eyebrow{Teste oficial \(\cdot\) acurácia / F1 macro em \%}\par
+\vfill
+{\small
+\setlength{\tabcolsep}{5pt}
+\renewcommand{\arraystretch}{1.62}
+\begin{tabularx}{\linewidth}{@{}Xrrrr@{}}
+\toprule
+\textbf{Palavras na resenha} & \textbf{\(n\)} & \textbf{TF-IDF} &
+\textbf{\textcolor{Teal}{CNN}} & \textbf{BERT}\\
+\midrule
+\LinhasPorComprimentoSlide
+\bottomrule
+\end{tabularx}}
+\vfill
+\slidecard{Mint}{\small \textbf{Acima de 500 palavras.}
+Com o texto inteiro, a mesma CNN sobe de \strong{\AcuraciaLongasCNN{} a \AcuraciaLongasCNNIntegral{}}.}
+\smallsource{Faixas por palavras antes do recorte. CNN original com teto de 400 tokens por regex.
+\href{https://costaleirbag.github.io/projeto-mae5920/\#comprimento}{Gráfico interativo}.
+\fonteatual{seminario/dados/comprimentos.json}{Dados}.}
+\end{frame}
+
+% 08:30–09:05
+\begin{frame}{BPE elimina os desconhecidos na auditoria}
 \vfill
 \begin{columns}[c,onlytextwidth]
 \begin{column}{.56\textwidth}
@@ -327,15 +361,17 @@ distinguem as resenhas de treino. Com rótulos embaralhados, fica perto do acaso
 \end{column}
 \begin{column}{.39\textwidth}
 \eyebrow{Tokens desconhecidos}\par
-{\LARGE\strong{3,27\% \(\to\) 0\%}}\par\vspace{2mm}
+{\LARGE\strong{3,27\% \(\to\) 0\%}}\par\vspace{1mm}
+\eyebrow{Tokens por entrada, em média}\par
+{\Large\bfseries 121,3 \(\to\) 129,1}\par\vspace{1mm}
 \eyebrow{Acurácia média}\par
 {\Large\bfseries 82,00\% \(\to\) 81,41\%}\par\vspace{1mm}
-{\small A mesma largura em tokens pode cobrir menos palavras quando usamos BPE.}
+{\small A mesma janela em tokens pode cobrir menos palavras com BPE.}
 \end{column}
 \end{columns}
 \vfill
-\smallsource{2.048 resenhas na auditoria BPE. Cada linha liga a mesma semente nas duas receitas.
-Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
+\smallsource{Regex por palavras \(\to\) BPE. Mesmo prefixo de até 128 palavras, CNN e Adam a 0,001.
+Três sementes na auditoria de 2.048 resenhas. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
 \end{frame}
 
 % 09:05–10:05
@@ -364,7 +400,8 @@ Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
 \end{columns}
 \par\vfill
 {\large\bfseries Dois tokenizadores \(\times\) três treinos cada \(=\) seis treinos.}
-\smallsource{Escores positivos médios, sementes 17, 29 e 43 em cada tokenizador. \liveversion{9}.
+\smallsource{Escores positivos médios, sementes 17, 29 e 43 em cada tokenizador.
+\href{https://costaleirbag.github.io/projeto-mae5920/\#contraste}{Abrir animação}.
 \fonteatual{seminario/dados/pares_resultados.json}{Resultados por semente}.}
 \end{frame}
 
@@ -405,7 +442,8 @@ Mesma CNN e Adam a 0,001. \fonte{results/bpe/audit_metrics.json}{Resultados}.}
 {\small Os separadores preservam as janelas de 3, 4 e 5 tokens na troca.}\par
 \strong{Os 300 máximos coincidem, e a CNN dá os mesmos escores.}
 \smallsource{Filtro \FiltroControle{} de largura 3, CNN por palavras, semente 17.
-\liveversion{10}. \fonteatual{seminario/dados/pares_resultados.json}{Resultados}.
+\href{https://costaleirbag.github.io/projeto-mae5920/\#maximo-global}{Abrir animação}.
+\fonteatual{seminario/dados/pares_resultados.json}{Resultados}.
 \fonteatual{seminario/medir_pares.py}{Código}.}
 \end{frame}
 

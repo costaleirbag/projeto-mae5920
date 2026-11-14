@@ -43,7 +43,7 @@ cedo, e um segundo pico ausente vale zero. [Código](treinar_pooling.py) ·
 - **Edições humanas.** São 344 pares do IMDb Contrast Sets. Oito ficaram
   idênticos após o recorte. As predições também permitem conferir o acerto
   nos 336 pares com entradas distintas.
-- **Auditoria.** Acurácia em 2.048 resenhas do IMDb. O controle do máximo global (slide 12)
+- **Auditoria.** Acurácia em 2.048 resenhas do IMDb. O controle do máximo global (slide 13)
   mede a mudança de margem em A e B, duas versões com as mesmas janelas.
 
 Os checkpoints são selecionados pela validação das resenhas comuns. Os pares
