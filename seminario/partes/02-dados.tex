@@ -2,9 +2,9 @@
 \label{sec:dados}
 O IMDb tem 25.000 resenhas em inglês no treino oficial e 25.000 no teste
 \cite{maas}, com rótulos \(0\) (negativo) e \(1\) (positivo). A limpeza
-decodifica HTML, remove tags e normaliza espaços em cada texto.
+decodificou HTML, removeu tags e normalizou espaços em cada texto.
 
-\subsection{Papéis das amostras}
+\subsection{Divisão dos dados}
 \begin{tabularx}{\linewidth}{@{}lrrX@{}}
 \toprule
 \tabelahead{Papel} & \tabelahead{Original} & \tabelahead{Ensaios internos} & \tabelahead{Uso}\\
@@ -15,16 +15,15 @@ Calibração   &  2.478 &  --   & Ajustar temperatura após a seleção original
 Teste/auditoria & 25.000 & 2.048 & Avaliar a configuração já escolhida.\\
 \bottomrule
 \end{tabularx}
-\legendinha{Tabela 1. Cada extensão tem auditoria própria, aberta após
-congelar pesos e escolhas.}
+\legendinha{Tabela 1}
 
-Os ensaios internos com sequências usam até 128 palavras. Na auditoria
+Os ensaios internos com sequências usam até 128 palavras. No teste com tokenizador
 BPE, esse teto cortou 1.535 resenhas e manteve 51,24\% dos tokens por
 palavras. Os prefixos já cabiam no teto adicional de 256 tokens.
 \fonte{docs/PROTOCOLO_SEQUENCIAS.md}{Protocolo sequencial} e
 \fonte{docs/PROTOCOLO_BPE.md}{protocolo BPE}.
 
-\subsection{Comprimento antes dos recortes}
+\subsection{Comprimento das resenhas antes dos recortes}
 {\small
 \begin{tabularx}{\linewidth}{@{}Xrrrrrrr@{}}
 \toprule
@@ -38,15 +37,11 @@ palavras. Os prefixos já cabiam no teto adicional de 256 tokens.
 *Frases estimadas por pontuação final. \fonteatual{seminario/dados/comprimentos.json}{Distribuições completas}.}
 
 \subsection{Análise de possíveis vazamentos de informação}
-Removemos 123 linhas do treino com hash presente no teste e 98 duplicatas
-internas, usando SHA-256 do texto limpo com \textit{casefold}. Para excluir
-duplicatas, lemos o texto do teste e reservamos os rótulos à avaliação.
+Removemos 123 linhas do treino pois a hash de cada uma estava presente no teste. Além disso, foram encontradas 98 linhas duplicadas
+nos dados de treino e também foram removidas. Usamos o SHA-256 do texto limpo com \textit{casefold}. 
 Os quatro conjuntos finais têm zero hashes em comum. O teste conserva
-201 ocorrências duplicadas. \fonte{data/manifest.json}{Manifesto}.
-
-Ajustamos TF-IDF, vocabulário da CNN e fusões do BPE no treino. A checagem
-cobre igualdade de texto, e paráfrases ou exposição no pré-treino seguem
-em aberto. A análise de erros e o Qwen reutilizam o teste em caráter exploratório.
+201 ocorrências duplicadas.
+Ressaltamos a importância de realizar a criação do vocabulário após a divisão dos dados entre treino e validação, utilizando somente os dados de treino. Desta forma, garantimos que o vocabulário criado não seja influenciado por dados que serão utilizados na validação. \fonte{data/manifest.json}{Manifesto}.
 
 \subsection{Dicionário de dados resumido}
 \begin{tabularx}{\linewidth}{@{}lX@{}}
