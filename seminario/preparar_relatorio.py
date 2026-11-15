@@ -1,4 +1,4 @@
-"""Atualiza os dados das figuras estáticas do relatório."""
+"""Atualiza os dados das tabelas e figuras do relatório."""
 from __future__ import annotations
 
 import json
@@ -68,6 +68,21 @@ def length_macros(data):
 
 def main() -> None:
     data = HERE / "dados"
+    original = json.loads((HERE.parent / "data/manifest.json").read_text(encoding="utf-8"))["splits"]
+    sequence_manifest = HERE.parent / "results/sequences/data_manifest.json"
+    internal = json.loads(sequence_manifest.read_text(encoding="utf-8"))["roles"]
+    split_rows = []
+    for role, internal_role, label, purpose in (
+        ("train", "train", "Treino", "Ajustar representação e pesos."),
+        ("validation", "validation", "Validação", "Escolher configuração e época."),
+        ("calibration", None, "Calibração", "Ajustar a temperatura."),
+        ("test", "audit", "Teste/auditoria", "Medir o desempenho."),
+    ):
+        split = original[role]
+        counts = split["label_counts"]
+        internal_total = decimal(internal[internal_role]["n"]) if internal_role else "--"
+        split_rows.append([label, decimal(split["n"]), decimal(counts["1"]),
+                           decimal(counts["0"]), internal_total, purpose])
     pairs = json.loads((data / "pares_resultados.json").read_text(encoding="utf-8"))
     contrast = next(pair for pair in pairs["pares"] if pair["id"] == "contraste")
     scores = [
@@ -87,7 +102,9 @@ def main() -> None:
         error_rows.append([model, decimal(calibrated["fp"]), decimal(calibrated["fn"]),
                            decimal(calibrated["log_loss"], 4)])
     lines = [
-        "% Gerado por preparar_relatorio.py a partir das predições e ativações salvas.",
+        "% Gerado por preparar_relatorio.py a partir dos manifestos, das predições e das ativações salvas.",
+        macro("LinhasDivisao", latex_rows(split_rows)),
+        macro("PositivasTreino", pct(original["train"]["label_counts"]["1"] / original["train"]["n"], 1)),
         macro("VotosPalavras", "%\n  ".join(scores[:3])),
         macro("VotosBPE", "%\n  ".join(scores[3:])),
         macro("LinhasErros", latex_rows(error_rows)),

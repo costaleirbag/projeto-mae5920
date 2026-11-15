@@ -5,24 +5,24 @@ rotuladas no treino oficial e outras 25.000 no teste, com 12.500 por classe
 em cada divisão (\(0\) negativo, \(1\) positivo). Na limpeza, decodificamos
 entidades HTML, removemos tags e normalizamos espaços.
 
-\subsection{Divisão dos dados}
-\begin{tabularx}{\linewidth}{@{}lrrX@{}}
+\subsection{Divisão e balanceamento dos dados}
+\begin{tabularx}{\linewidth}{@{}lrrrr>{\raggedright\arraybackslash}X@{}}
 \toprule
-\tabelahead{Papel} & \tabelahead{Original} & \tabelahead{Ensaios internos} & \tabelahead{Uso}\\
+ & \multicolumn{3}{c}{\tabelahead{Estudo original}} & & \\
+\cmidrule(lr){2-4}
+\tabelahead{Papel} & \tabelahead{Total} & \tabelahead{Positivas} &
+\tabelahead{Negativas} & \tabelahead{Ensaios internos} & \tabelahead{Uso}\\
 \midrule
-Treino       & 19.823 & 6.144 & Ajustar representação, vocabulário e pesos.\\
-Validação    &  2.478 & 1.536 & Escolher hiperparâmetros e época.\\
-Calibração   &  2.478 &  --   & Ajustar temperatura após a seleção original.\\
-Teste/auditoria & 25.000 & 2.048 & Avaliar a configuração já escolhida.\\
+\LinhasDivisao
 \bottomrule
 \end{tabularx}
-\legendinha{Tabela 1. Os ensaios internos tiram treino, validação e auditoria
-das 19.823 resenhas usadas no treino original. Os ensaios de sequências e de
-BPE compartilham treino e validação. Cada um tem sua própria auditoria,
-com 2.048 casos balanceados e reservados.}
+\legendinha{Tabela 1. Os ensaios internos usam amostras das 19.823 resenhas
+do treino original. Cada divisão interna tem 50\% de cada classe. Sequências
+e BPE compartilham treino e validação e têm auditorias distintas.}
 
 Das 25.000 do treino oficial, 221 foram removidas na deduplicação.
-As 24.779 restantes se dividem em \(19.823+2.478+2.478\). Nos ensaios
+As 24.779 restantes se dividem em \(19.823+2.478+2.478\). O treino usado
+para ajuste ficou com \PositivasTreino{} de resenhas positivas. Nos ensaios
 internos, usamos prefixos de até 128 palavras. Na auditoria BPE, isso
 recortou 1.535 resenhas e manteve 51,24\% dos tokens por palavras. Os
 prefixos couberam no teto adicional de 256 tokens.
