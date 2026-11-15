@@ -30,6 +30,6 @@ notebook.metadata.kernelspec = {"name": "python3", "display_name": "Python 3", "
 nbformat.write(notebook, path)
 cells_executed = len([c for c in notebook.cells if c.cell_type == 'code'])
 if notebook.metadata.get("mae5920_seminar"):
-    print("Teaching notebook executed with small CPU exercises:", cells_executed, "code cells")
+    print("Notebook do seminário executado:", cells_executed, "células de código")
 else:
     print("Notebook executed without retraining", cells_executed, "code cells")

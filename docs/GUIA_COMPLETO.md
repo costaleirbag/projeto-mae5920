@@ -10,15 +10,11 @@ mesmo contexto para observar conceitos da disciplina e intervenções nas ativa�
 
 ## Um percurso para estudar e apresentar
 
-Comece pelas seções 1–8 do notebook único: dados, tokenização, CNN, treinamento,
-hiperparâmetros, BPE, Transformers e métricas. A seção 12 reúne a comparação original
-no teste oficial e a calibração. Isso cobre a linha principal de classificação.
-
-Para ampliar a apresentação, escolha um mecanismo das seções 9–10 ou a demonstração
-de steering da seção 11. A seção 15 tem referências ao livro/slides e roteiro de
-fala. Os [slides editáveis](../output/slides/seminario_mae5920.pptx) e suas
-[notas](NOTAS_APRESENTACAO.md) ajudam a selecionar o que cabe no tempo disponível.
-Não é necessário apresentar todos os experimentos para contar uma história completa.
+O sumário do [notebook único](../notebooks/seminario_completo.ipynb) indica a
+seção correspondente a cada página do relatório e aos slides. A apresentação
+segue da representação do texto ao teste oficial e às limitações. O apoio
+inclui as três intervenções no Qwen. [Slides do seminário](https://costaleirbag.github.io/projeto-mae5920/) ·
+[Roteiro de fala](../seminario/roteiro.md)
 
 ## 1. De onde vêm os dados
 
@@ -207,16 +203,15 @@ diferença de médias escolhida para a demonstração atual.
 
 | Parte | Arquivo principal | No notebook único |
 |---|---|---|
-| Limpeza e divisão dos dados | [data.py](../src/imdb_lab/data.py) | Seções 1–2 |
-| Regex, vocabulário, CNN e padding | [models.py](../src/imdb_lab/models.py) | Seções 2–4 |
-| Baseline e treino original | [baseline.py](../src/imdb_lab/baseline.py), [training.py](../src/imdb_lab/training.py) | Seções 2 e 12 |
-| Grades CNN, encoders e pooling | [sequences.py](../src/imdb_lab/sequences.py) | Seções 4–7 |
-| Aprendizagem e aplicação de BPE | [bpe_study.py](../src/imdb_lab/bpe_study.py) | Seção 6 |
-| Métricas e calibração | [metrics.py](../src/imdb_lab/metrics.py) | Seções 8 e 12 |
-| MLPs, resíduos e regularização | [didactic.py](../src/imdb_lab/didactic.py) | Seção 9 |
-| Inicialização e regressão sintética | [didactic_toys.py](../src/imdb_lab/didactic_toys.py) | Seções 9–10 |
-| Inferência Qwen e hooks | [qwen_core.py](../src/imdb_lab/qwen_core.py), [run_qwen_improve.py](../run_qwen_improve.py) | Seção 11 |
-| RFM/AGOP | [rfm.py](../src/imdb_lab/rfm.py), [factorized_rfm.py](../src/imdb_lab/factorized_rfm.py) | Seção 11 e notebook Qwen específico |
+| Limpeza e divisão dos dados | [data.py](../src/imdb_lab/data.py) | Dados e protocolo de avaliação |
+| Regex, vocabulário, CNN e padding | [models.py](../src/imdb_lab/models.py) | Arquitetura da TextCNN |
+| Baseline e treino original | [baseline.py](../src/imdb_lab/baseline.py), [training.py](../src/imdb_lab/training.py) | Teste oficial do IMDb |
+| Grades CNN, encoders e pooling | [sequences.py](../src/imdb_lab/sequences.py) | Experimentos e resultados · Diagnósticos e custo |
+| Aprendizagem e aplicação de BPE | [bpe_study.py](../src/imdb_lab/bpe_study.py) | Arquitetura da TextCNN · Experimentos e resultados |
+| Métricas e calibração | [metrics.py](../src/imdb_lab/metrics.py) | Diagnósticos e custo |
+| MLPs e regressão sintética | [didactic.py](../src/imdb_lab/didactic.py), [didactic_toys.py](../src/imdb_lab/didactic_toys.py) | [Notebook complementar](../notebooks/conexoes_disciplina.ipynb) |
+| Inferência Qwen e hooks | [qwen_core.py](../src/imdb_lab/qwen_core.py), [run_qwen_improve.py](../run_qwen_improve.py) | Fora do IMDb · Apoio |
+| RFM/AGOP | [rfm.py](../src/imdb_lab/rfm.py), [factorized_rfm.py](../src/imdb_lab/factorized_rfm.py) | [Notebook Qwen](../notebooks/qwen3_8b_steering.ipynb) |
 | Construir o notebook único | [builder](../tools/build_seminar_notebook.py) | Evidências e código incorporados |
 
 Os verificadores comparam definições incorporadas com o código real e reconstroem

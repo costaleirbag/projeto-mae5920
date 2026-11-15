@@ -23,7 +23,7 @@ ensemble. As faixas por semente e demais métricas estão nos arquivos de origem
 
 Uma execução por modelo, com probabilidades calibradas por temperatura em uma
 divisão separada. CNN e BERT têm pesos ajustados; o Qwen usa pesos congelados e
-escores de rótulos. A tabela também está na seção 12 do notebook único.
+escores de rótulos. A tabela também está na seção de diagnósticos do notebook único.
 
 | Modelo / condição | Acurácia ↑ | F1 macro ↑ | Loss CE ↓ |
 |---|---:|---:|---:|

@@ -37,10 +37,10 @@ para baixo. O arquivo deve existir na pasta de execução ou na subpasta
 sem copiá-lo para os arquivos do runtime, copie também o `.ipynb` para essa pasta.
 Não é necessário clonar o repositório neste percurso.
 
-O caminho padrão executa 45 células: exercícios pequenos em CPU e conferência dos
-resultados salvos. Não há download de encoders ou do Qwen. O treino completo das
-seis CNNs fica desligado; ativá-lo requer o corpus restaurado e uma saída nova.
-Veja [o conteúdo de cada capítulo e o teste de portabilidade](NOTEBOOK_UNICO.md).
+O modo padrão reconstrói em CPU as métricas e os exemplos do relatório e dos
+slides. No bloco final, o modo de reprodução prepara o corpus, baixa os
+pesos-base e refaz treinos e diagnósticos em outra pasta. Veja [os requisitos e
+o teste de portabilidade](NOTEBOOK_UNICO.md).
 
 ## 3. Instalar o repositório para verificações e desenvolvimento
 

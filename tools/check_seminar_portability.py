@@ -19,7 +19,8 @@ ROOT=Path(__file__).resolve().parents[1]
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--corpus",type=Path,help="Optional full-input, one-epoch CPU wiring check of the six-run function (one seed, two models)")
+    parser.add_argument("--corpus", type=Path,
+                        help="Diretório com os quatro Parquets e o manifesto, para reajustar o TF-IDF real.")
     args=parser.parse_args()
     path=ROOT/"notebooks/seminario_completo.ipynb";original=nbformat.read(path,as_version=4)
     started=time.perf_counter()
@@ -33,28 +34,35 @@ def main():
         guarded=nbformat.from_dict(json.loads(json.dumps(original)))
         guard=nbformat.v4.new_code_cell("import socket\ndef _deny_python_network(*args,**kwargs):\n    raise RuntimeError('Python network disabled during portability check')\nsocket.socket.connect=_deny_python_network\nsocket.create_connection=_deny_python_network\n")
         guarded.cells.insert(0,guard)
-        if args.corpus:
-            corpus=args.corpus.resolve()
-            assert corpus.is_file()
-            # Run the real input dimensions with a deliberately short budget, never as benchmark evidence.
-            smoke="""
-import copy
-cfg["seeds"]=[17]
-_original_read_json=read_json
-def _short_budget_read_json(name):
-    r=_original_read_json(name)
-    if str(name)=="bpe_config.json":
-        r=copy.deepcopy(r);r["cnn"]["epochs"]=1
-    return r
-read_json=_short_budget_read_json
-with redirect_stdout(io.StringIO()):
-    smoke_metrics=treinar_comparacao_cnn(CORPUS_PATH,"runner_smoke",device="cpu")
-assert len(smoke_metrics)==2 and set(smoke_metrics.modelo)=={"word__s17","bpe__s17"}
-assert all(0<=p<=1 for p in smoke_metrics.accuracy)
-assert len(json.loads(Path("runner_smoke/selecao_congelada.json").read_text())["selecoes"])==2
-print("Optional runner wiring passed: full train/validation/audit inputs, two representations, one seed, one epoch, CPU")
+        commands = """
+pasta = preparar_execucao(Path("reproducao-portabilidade"))
+for script in ("tools/seminar_retrain.py", "tools/seminar_recompute.py"):
+    resultado = subprocess.run([sys.executable, script, "--help"], cwd=pasta,
+                               check=True, capture_output=True, text=True)
+    assert "usage:" in resultado.stdout.lower()
+assert (pasta / "referencia/derived/oficial.npz").is_file()
+assert (pasta / "src/imdb_lab/training.py").is_file()
 """
-            guarded.cells.append(nbformat.v4.new_code_cell("CORPUS_PATH="+repr(str(corpus))+"\n"+smoke))
+        if args.corpus:
+            corpus = args.corpus.resolve()
+            if corpus.is_file():
+                corpus = corpus.parent
+            files = ("manifest.json", "train.parquet", "validation.parquet", "calibration.parquet", "test.parquet")
+            for name in files:
+                if not (corpus / name).is_file():
+                    parser.error(f"Arquivo do corpus ausente: {name}")
+            commands += "CORPUS_PATH = Path(" + repr(str(corpus)) + ")\n"
+            commands += """
+import shutil
+shutil.copytree(CORPUS_PATH, pasta / "data", ignore=shutil.ignore_patterns("*.csv"))
+processo = subprocess.run([sys.executable, "tools/seminar_retrain.py", "original",
+                           "--original-models", "tfidf"], cwd=pasta, capture_output=True, text=True)
+assert processo.returncode == 0, processo.stdout[-3000:] + processo.stderr[-3000:]
+comparacao = json.loads((pasta / "results/seminar_retrain/original/comparacao.json").read_text())
+assert len(comparacao["comparacao"]) == 16
+assert all(abs(row["diferença"]) < 1e-6 for row in comparacao["comparacao"]), comparacao
+"""
+        guarded.cells.append(nbformat.v4.new_code_cell(commands))
         nb=guarded
         client=NotebookClient(nb,timeout=300,kernel_name="seminario_cpu",resources={"metadata":{"path":str(scratch)}})
         try: client.execute()
@@ -70,7 +78,9 @@ print("Optional runner wiring passed: full train/validation/audit inputs, two re
             "reader_code_cells_executed":sum(c.cell_type=="code" for c in original.cells),
             "payload_sha256":original.metadata.mae5920_seminar.payload_sha256,
             "reader_code_sha256":hashlib.sha256(original_code.encode()).hexdigest(),
-            "optional_full_runner_smoke":"passed: full input dimensions, one seed, one epoch, two models, CPU" if args.corpus else "not requested",
+            "runtime_extracted_from_notebook": True,
+            "optional_full_runner_smoke": "passed: full TF-IDF with restored IMDb; 16 metrics within 1e-6"
+                                        if args.corpus else "not requested",
             "scientific_benchmark_rerun":False,"elapsed_seconds":time.perf_counter()-started}
         target=ROOT/"results/seminar/portability.json";target.parent.mkdir(parents=True,exist_ok=True)
         target.write_text(json.dumps(result,ensure_ascii=False,indent=2)+"\n")

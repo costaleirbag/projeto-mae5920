@@ -1,16 +1,53 @@
 {
   "status": "passed",
   "notebook": "seminario_completo.ipynb",
-  "cells": 84,
-  "executed_code_cells": 45,
-  "embedded_files": 206,
-  "inline_production_definitions": 27,
-  "chapters": 15,
-  "payload_sha256": "28b6129ce9f41957d1bf84bb2997df813761acf035fd4166e689d5abf2642e65",
-  "notebook_sha256": "71615b78d7a31bac6f4586034f93699e55fb0a7c78157cbfb7d6b74bd3edccd4",
-  "code_sha256": "662e46a8a09e2963c4ad91a5aeb3f050243979e04d5199aa3cbcdf20383859de",
+  "cells": 46,
+  "executed_code_cells": 29,
+  "embedded_files": 106,
+  "inline_production_definitions": 25,
+  "chapters": 10,
+  "payload_sha256": "8e280ee597d28e80f22452cf83b9b015dd226b245fc26df681d6d5fc13df7bc6",
+  "notebook_sha256": "eee2a8df1946654345ef9641b07f5b44f3cc8620b1b04f05c3e3e326b21b2dc0",
+  "code_sha256": "13fc50bf88e76d246f73ecd1ea9b43b0d8802628dfd9fede7f55cc8be21eff5a",
   "self_contained_data": true,
   "architecture_matches_production": true,
   "full_training_disabled_by_default": true,
-  "checks_executed": 476
+  "reproduction_stages": [
+    [
+      "tools/seminar_retrain.py",
+      "original"
+    ],
+    [
+      "tools/seminar_retrain.py",
+      "encoders"
+    ],
+    [
+      "tools/seminar_retrain.py",
+      "textcnn"
+    ],
+    [
+      "tools/seminar_retrain.py",
+      "qwen"
+    ],
+    [
+      "tools/seminar_recompute.py",
+      "original"
+    ],
+    [
+      "tools/seminar_recompute.py",
+      "textcnn"
+    ],
+    [
+      "tools/seminar_recompute.py",
+      "bert-cap"
+    ],
+    [
+      "tools/seminar_recompute.py",
+      "qwen-youtube"
+    ],
+    [
+      "tools/seminar_steering.py"
+    ]
+  ],
+  "checks_executed": 84
 }

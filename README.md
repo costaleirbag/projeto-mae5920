@@ -24,12 +24,11 @@ As fontes em LaTeX e as instruções para ensaiar ficam na pasta do seminário.
 
 ## Comece por aqui
 
-**O [notebook único do seminário](notebooks/seminario_completo.ipynb) é o roteiro
-para estudar com o grupo, do começo ao fim.** Contém 15 capítulos, arquitetura e
-treinador escritos no próprio arquivo, parâmetros, tokenização, gráficos,
-exemplos e resultados identificados. Está executado e pode ser lido no GitHub,
-sem instalar nada. Você pode compartilhar somente esse `.ipynb`: suas evidências
-de leitura estão em um anexo interno. Veja [como abrir e executar](docs/NOTEBOOK_UNICO.md).
+O [notebook único do seminário](notebooks/seminario_completo.ipynb) acompanha
+as oito páginas do relatório. O sumário indica o slide e a seção de cada
+resultado. O arquivo inclui o código e as evidências necessários para conferir
+em CPU. O modo de reprodução baixa o corpus e refaz os ajustes em uma pasta
+de trabalho. Veja [como abrir e executar](docs/NOTEBOOK_UNICO.md).
 
 | Se você quer… | Abra |
 |---|---|
@@ -37,7 +36,7 @@ de leitura estão em um anexo interno. Veja [como abrir e executar](docs/NOTEBOO
 | Encontrar acurácia, F1 macro e loss juntos | [Resultados por estudo](docs/RESULTADOS.md) · [CSV consolidado](results/resumo_metricas.csv) |
 | Preparar a apresentação | [Abrir slides interativos](https://costaleirbag.github.io/projeto-mae5920/) · [PDF](output/pdf/slides_15_min.pdf) · [roteiro](seminario/roteiro.md) |
 | Ler arquiteturas, hiperparâmetros e BPE | [Relatório CNN e encoders](output/pdf/relatorio_cnn_encoders.pdf) |
-| Estudar intervenções nas ativações | [Relatório Qwen3-8B](relatorio_qwen3.pdf) · seção 11 do notebook único |
+| Estudar intervenções nas ativações | [Relatório Qwen3-8B](relatorio_qwen3.pdf) · apoio do notebook único |
 | Conferir ou repetir as execuções | [Guia de reprodução](docs/REPRODUCAO.md) |
 
 ## O que fizemos
@@ -132,11 +131,9 @@ python -m pytest -q
 python execute_notebook.py --notebook notebooks/seminario_completo.ipynb
 ```
 
-Reexecutar pode mudar tempos, metadados e hashes. Preserve a versão baixada e use
-uma cópia de trabalho. O notebook tem **45 células executadas, 16 figuras e 476
-verificações**. Seu certificado registra execução fora do repositório, sem GPU e
-com conexões de sockets Python bloqueadas. Isso verifica o caminho didático;
-não significa repetir todos os treinos grandes.
+Reexecutar pode mudar tempos, metadados e hashes. Use uma cópia de trabalho. O
+certificado registra a conferência fora do repositório, em CPU, e a extração
+do código incluído no notebook. O modo de reprodução fica no bloco final.
 
 Para instalar somente o necessário ao notebook, restaurar dados, conferir os
 experimentos ou treinar novamente, siga o [guia de reprodução](docs/REPRODUCAO.md).

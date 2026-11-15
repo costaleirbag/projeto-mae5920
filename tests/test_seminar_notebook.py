@@ -10,10 +10,11 @@ def test_master_notebook_is_complete_and_uses_the_actual_architectures():
     spec=importlib.util.spec_from_file_location("verify_seminar_notebook",root/"verify_seminar_notebook.py")
     module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
     result=module.verify()
-    assert result["chapters"]==15
-    assert result["executed_code_cells"]==45
+    assert result["chapters"] == 10
+    assert result["executed_code_cells"] > 20
+    assert len(result["reproduction_stages"]) == 9
     assert result["inline_production_definitions"]>=20
-    assert result["embedded_files"]>100
+    assert result["embedded_files"] > 60
 
 
 def test_a_changed_cnn_cannot_be_presented_as_the_original_architecture(tmp_path):

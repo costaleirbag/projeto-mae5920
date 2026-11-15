@@ -4,10 +4,11 @@
   "working_directory_outside_repository": true,
   "python_socket_connections_blocked": true,
   "gpu_hidden": true,
-  "reader_code_cells_executed": 45,
-  "payload_sha256": "28b6129ce9f41957d1bf84bb2997df813761acf035fd4166e689d5abf2642e65",
-  "reader_code_sha256": "662e46a8a09e2963c4ad91a5aeb3f050243979e04d5199aa3cbcdf20383859de",
-  "optional_full_runner_smoke": "passed: full input dimensions, one seed, one epoch, two models, CPU",
+  "reader_code_cells_executed": 29,
+  "payload_sha256": "8e280ee597d28e80f22452cf83b9b015dd226b245fc26df681d6d5fc13df7bc6",
+  "reader_code_sha256": "13fc50bf88e76d246f73ecd1ea9b43b0d8802628dfd9fede7f55cc8be21eff5a",
+  "runtime_extracted_from_notebook": true,
+  "optional_full_runner_smoke": "passed: full TF-IDF with restored IMDb; 16 metrics within 1e-6",
   "scientific_benchmark_rerun": false,
-  "elapsed_seconds": 164.27976441697683
+  "elapsed_seconds": 80.62536262487993
 }
