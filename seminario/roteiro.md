@@ -284,11 +284,14 @@ inteira. [Tokens e classes](dados/pares_resultados.json).
 Mostre A e depois pressione **B** ou a seta direita. No PDF, compare as duas
 linhas e aponte a posição e o valor do pico.
 
-“Montamos dois textos de controle. A mesma frase vem antes, entre e depois
-das opiniões. Assim, cada opinião tem os mesmos vizinhos quando troca de
-lugar. A janela *movie i loved* começa no token 8 em A e no 20 em B. O
-filtro dá 0,47 nos dois casos. Cada um dos 300 filtros guarda seu próprio
-máximo. Como as janelas são as mesmas, os 300 valores e a saída coincidem.”
+“No par com *but*, a troca muda o conteúdo das janelas. Aqui queremos
+mudar só onde as janelas aparecem. Mesmo com largura quatro, a janela
+anda um token por vez e pode cruzar a borda. Pusemos a mesma frase dos
+dois lados de cada opinião. Vejam *movie* do separador seguido por
+*i loved*, por *i loved the* ou por *i loved the acting*. Os três trechos
+aparecem em A e B. No gráfico de largura três, o pico passa do token 8
+ao 20, com o mesmo valor de 0,47. Cada filtro entrega só seu maior valor.
+Os 300 máximos ficam iguais e a saída também.”
 [Código do controle](medir_pares.py).
 
 ## 14 · Guardar a posição ajudou a classificar?

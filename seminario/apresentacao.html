@@ -273,7 +273,7 @@
           <button type="button" data-pool-case="A" aria-pressed="true">A · Elogio primeiro</button>
           <button type="button" data-pool-case="B" aria-pressed="false">B · Crítica primeiro ⇄</button>
         </div>
-        <p>Dois textos de controle com as opiniões em ordem trocada.</p>
+        <p>Se só a posição das janelas muda, a saída muda?</p>
       </div>
 
       <div class="lab-body pool-layout">
@@ -286,7 +286,7 @@
 
           <div class="plot pool-plot">
             <div class="pool-plot-heading">
-              <p class="micro">Resposta do filtro por janela</p>
+              <p class="micro">Resposta de um filtro de largura 3</p>
               <p id="pool-current" aria-live="polite"></p>
             </div>
             <div class="bars pool-bars" id="pool-bars" aria-hidden="true"></div>
@@ -294,11 +294,17 @@
           </div>
         </section>
 
-        <aside class="rail pool-rail" aria-label="O que chega à camada final">
+        <aside class="rail pool-rail" aria-label="Janelas e máximo global">
           <div>
-            <p class="micro">Janela com maior resposta</p>
-            <div id="pool-window" class="pieces compact" lang="en"></div>
-            <p class="pool-window-note">Uma palavra do separador e duas da opinião.</p>
+            <table class="pool-windows">
+              <caption class="micro">Janelas junto ao elogio, iguais em A e B</caption>
+              <tbody>
+                <tr><th scope="row">k = 3</th><td lang="en"><code><span>movie</span> i loved</code></td></tr>
+                <tr><th scope="row">k = 4</th><td lang="en"><code><span>movie</span> i loved the</code></td></tr>
+                <tr><th scope="row">k = 5</th><td lang="en"><code><span>movie</span> i loved the acting</code></td></tr>
+              </tbody>
+            </table>
+            <p class="pool-window-note">A janela começa em <code lang="en">movie</code>, no separador, e cruza a borda.</p>
           </div>
           <div class="pool-comparison">
             <div>
@@ -306,7 +312,7 @@
               <p class="readout" id="pool-positions"></p>
             </div>
             <div>
-              <p class="micro">Máximo guardado em A e B</p>
+              <p class="micro">Máximo do filtro de largura 3</p>
               <p class="readout" id="pool-maxima"></p>
             </div>
           </div>
@@ -314,8 +320,8 @@
       </div>
 
       <div class="pool-takeaway">
-        <p>Os separadores preservam as janelas de 3, 4 e 5 tokens na troca.</p>
-        <p><strong>Os 300 máximos coincidem, e a CNN dá os mesmos escores.</strong></p>
+        <p>O separador impede que a janela alcance as duas opiniões.</p>
+        <p><strong>Mesmas janelas em outra ordem. Os 300 máximos e os logits ficam iguais.</strong></p>
       </div>
       <footer class="lab-source"><span id="pool-evidence"></span>
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/pares_resultados.json" target="_blank" rel="noopener">Controle nos seis treinos</a>

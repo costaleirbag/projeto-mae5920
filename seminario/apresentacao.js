@@ -390,7 +390,6 @@ const poolBars = Array.from({ length: poolCount }, (_, index) => {
 poolChart.append(...poolBars);
 
 byId("pool-separator-text").textContent = "“" + pooling.separador + "”";
-byId("pool-window").append(...pooling.janela.map((word) => token(word)));
 byId("pool-positions").textContent = poolCases.map(({ max_indice }) => max_indice + 1).join(" → ");
 byId("pool-maxima").textContent = poolMaxima.map((value) => number.format(value)).join(" = ");
 byId("pool-evidence").textContent = "CNN por palavras, semente " + pooling.semente + ". Filtro "

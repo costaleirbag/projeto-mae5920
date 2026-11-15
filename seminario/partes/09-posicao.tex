@@ -1,8 +1,8 @@
 \subsection{Controle da posição com as mesmas janelas}
 \label{sec:posicao}
-Criamos dois textos para ver se o máximo global distingue um elogio seguido
-de uma crítica da ordem inversa. A frase \(S\), ``\textit{I have a few thoughts
-about this movie.}'', vem antes, entre e depois das opiniões.
+Para isolar o efeito do máximo global, mudamos a posição das opiniões mantendo
+o conteúdo das janelas. Usamos \(S\), a frase ``\textit{I have a few thoughts
+about this movie.}'', como separador.
 
 \painel{\small\sffamily
   \textbf{A}\quad \tokenrel{S}\enspace
@@ -12,19 +12,19 @@ about this movie.}'', vem antes, entre e depois das opiniões.
     \tokenrel[SoftRust]{I hated the ending}\enspace\tokenrel{S}\enspace
     \tokenrel[SoftTeal]{I loved the acting}\enspace\tokenrel{S}}
 
-O separador deixa os mesmos vizinhos em torno de cada opinião. Para janelas
-de 3, 4 e 5 tokens, A e B têm os mesmos trechos em posições diferentes, nas
-duas tokenizações. Como o máximo por filtro guarda só a altura do pico,
-os 300 máximos e os dois logits coincidiram nos seis treinos.
+Com passo 1, até uma janela de largura 4 pode cruzar a borda. \(S\) tem
+oito tokens e mantém os vizinhos de cada opinião. Cada janela alcança no
+máximo uma opinião. Em A e B, aparecem \textit{movie i loved} (\(k=3\)) e
+\textit{movie i loved the acting} (\(k=5\)). Nas duas tokenizações, os 300 máximos
+e os logits coincidem nos seis treinos.
 \fonteatual{seminario/medir_pares.py}{Código}.
 \fonteatual{seminario/dados/pares_resultados.json}{Predições}.
 
 \subsection{Teste com um pico por metade}
-Com embeddings e filtros fixos nas CNNs por palavras, dividimos as janelas
-de cada filtro em duas metades e guardamos o pico de cada uma. As duas
-regressões recebem 600 valores. Uma recebe cada par de picos do menor ao
-maior e a outra na ordem das metades. Ajustamos em 6.144 resenhas e
-escolhemos \(C\) pela CE em 1.536 de validação.
+Com embeddings e filtros fixos nas CNNs por palavras, guardamos o pico de
+cada metade das janelas. As duas regressões recebem 600 valores, com cada
+par de picos do menor ao maior ou na ordem das metades. Ajustamos em
+6.144 resenhas e escolhemos \(C\) pela CE em 1.536 de validação.
 \fonteatual{seminario/medir_posicao.py}{Código}.
 
 \begin{tabularx}{\linewidth}{@{}Xrrr@{}}

@@ -704,9 +704,13 @@ p, h1 { margin: 0; }
 .pool-bars { min-height: 4.7em; }
 .pool-bars .bar { width: calc(71% / var(--window-count)); min-height: 0; }
 .pool-rail { display: flex; flex-direction: column; justify-content: center; gap: .72em; }
-.pool-rail .pieces { margin-top: .25em; }
-.pool-rail .pieces code:first-child { background: #eeeee7; color: var(--quiet); }
-.pool-window-note { color: var(--quiet); font-size: .75em; }
+.pool-windows { width: 100%; border-collapse: collapse; }
+.pool-windows caption { text-align: left; margin-bottom: .32em; }
+.pool-windows th { width: 3.7em; padding-right: .5em; text-align: left; font-size: .75em; color: var(--quiet); white-space: nowrap; }
+.pool-windows td { padding: .16em 0; }
+.pool-windows code { display: inline-block; padding: .19em .45em; border-radius: .3em; background: var(--paper); font-size: .79em; }
+.pool-windows code span { padding-right: .32em; border-right: 1px dashed #83968e; color: var(--quiet); }
+.pool-window-note { margin-top: .36em; color: var(--quiet); font-size: .75em; }
 .pool-comparison { display: grid; gap: .45em; }
 .pool-comparison > div { border-top: 1px solid #afcdc0; padding-top: .45em; }
 .pool-comparison .readout { margin-top: .1em; font-size: 1.55em; white-space: nowrap; }
@@ -1271,7 +1275,7 @@ p, h1 { margin: 0; }
           <button type="button" data-pool-case="A" aria-pressed="true">A · Elogio primeiro</button>
           <button type="button" data-pool-case="B" aria-pressed="false">B · Crítica primeiro ⇄</button>
         </div>
-        <p>Dois textos de controle com as opiniões em ordem trocada.</p>
+        <p>Se só a posição das janelas muda, a saída muda?</p>
       </div>
 
       <div class="lab-body pool-layout">
@@ -1284,7 +1288,7 @@ p, h1 { margin: 0; }
 
           <div class="plot pool-plot">
             <div class="pool-plot-heading">
-              <p class="micro">Resposta do filtro por janela</p>
+              <p class="micro">Resposta de um filtro de largura 3</p>
               <p id="pool-current" aria-live="polite"></p>
             </div>
             <div class="bars pool-bars" id="pool-bars" aria-hidden="true"></div>
@@ -1292,11 +1296,17 @@ p, h1 { margin: 0; }
           </div>
         </section>
 
-        <aside class="rail pool-rail" aria-label="O que chega à camada final">
+        <aside class="rail pool-rail" aria-label="Janelas e máximo global">
           <div>
-            <p class="micro">Janela com maior resposta</p>
-            <div id="pool-window" class="pieces compact" lang="en"></div>
-            <p class="pool-window-note">Uma palavra do separador e duas da opinião.</p>
+            <table class="pool-windows">
+              <caption class="micro">Janelas junto ao elogio, iguais em A e B</caption>
+              <tbody>
+                <tr><th scope="row">k = 3</th><td lang="en"><code><span>movie</span> i loved</code></td></tr>
+                <tr><th scope="row">k = 4</th><td lang="en"><code><span>movie</span> i loved the</code></td></tr>
+                <tr><th scope="row">k = 5</th><td lang="en"><code><span>movie</span> i loved the acting</code></td></tr>
+              </tbody>
+            </table>
+            <p class="pool-window-note">A janela começa em <code lang="en">movie</code>, no separador, e cruza a borda.</p>
           </div>
           <div class="pool-comparison">
             <div>
@@ -1304,7 +1314,7 @@ p, h1 { margin: 0; }
               <p class="readout" id="pool-positions"></p>
             </div>
             <div>
-              <p class="micro">Máximo guardado em A e B</p>
+              <p class="micro">Máximo do filtro de largura 3</p>
               <p class="readout" id="pool-maxima"></p>
             </div>
           </div>
@@ -1312,8 +1322,8 @@ p, h1 { margin: 0; }
       </div>
 
       <div class="pool-takeaway">
-        <p>Os separadores preservam as janelas de 3, 4 e 5 tokens na troca.</p>
-        <p><strong>Os 300 máximos coincidem, e a CNN dá os mesmos escores.</strong></p>
+        <p>O separador impede que a janela alcance as duas opiniões.</p>
+        <p><strong>Mesmas janelas em outra ordem. Os 300 máximos e os logits ficam iguais.</strong></p>
       </div>
       <footer class="lab-source"><span id="pool-evidence"></span>
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/pares_resultados.json" target="_blank" rel="noopener">Controle nos seis treinos</a>
@@ -2046,7 +2056,6 @@ const poolBars = Array.from({ length: poolCount }, (_, index) => {
 poolChart.append(...poolBars);
 
 byId("pool-separator-text").textContent = "“" + pooling.separador + "”";
-byId("pool-window").append(...pooling.janela.map((word) => token(word)));
 byId("pool-positions").textContent = poolCases.map(({ max_indice }) => max_indice + 1).join(" → ");
 byId("pool-maxima").textContent = poolMaxima.map((value) => number.format(value)).join(" = ");
 byId("pool-evidence").textContent = "CNN por palavras, semente " + pooling.semente + ". Filtro "

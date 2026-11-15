@@ -699,9 +699,13 @@ p, h1 { margin: 0; }
 .pool-bars { min-height: 4.7em; }
 .pool-bars .bar { width: calc(71% / var(--window-count)); min-height: 0; }
 .pool-rail { display: flex; flex-direction: column; justify-content: center; gap: .72em; }
-.pool-rail .pieces { margin-top: .25em; }
-.pool-rail .pieces code:first-child { background: #eeeee7; color: var(--quiet); }
-.pool-window-note { color: var(--quiet); font-size: .75em; }
+.pool-windows { width: 100%; border-collapse: collapse; }
+.pool-windows caption { text-align: left; margin-bottom: .32em; }
+.pool-windows th { width: 3.7em; padding-right: .5em; text-align: left; font-size: .75em; color: var(--quiet); white-space: nowrap; }
+.pool-windows td { padding: .16em 0; }
+.pool-windows code { display: inline-block; padding: .19em .45em; border-radius: .3em; background: var(--paper); font-size: .79em; }
+.pool-windows code span { padding-right: .32em; border-right: 1px dashed #83968e; color: var(--quiet); }
+.pool-window-note { margin-top: .36em; color: var(--quiet); font-size: .75em; }
 .pool-comparison { display: grid; gap: .45em; }
 .pool-comparison > div { border-top: 1px solid #afcdc0; padding-top: .45em; }
 .pool-comparison .readout { margin-top: .1em; font-size: 1.55em; white-space: nowrap; }

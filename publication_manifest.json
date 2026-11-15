@@ -300,20 +300,20 @@
       "sha256": "67411fc666ffcb89209297b7afb98bd9e51d641a4c863297e84367c1350f1e3c"
     },
     "output/pdf/relatorio_seminario.pdf": {
-      "bytes": 759993,
-      "sha256": "9549e360abc849c4b3575c30cb4f826831c9ae455536ddae6231e40aef64da82"
+      "bytes": 760099,
+      "sha256": "03aba524bb44059abaacff89ea6e15af616aa541a265596444682a401b8bb94d"
     },
     "output/pdf/slides_15_min.pdf": {
-      "bytes": 481011,
-      "sha256": "af15db755a51b831174f9fc7f30ccbadd767f0b3038b997186efc79582485f28"
+      "bytes": 487116,
+      "sha256": "f22f53a38cd76af1690f398bfa778f6faf4b99b0d5dedf86543c5b9e7644d1f6"
     },
     "output/slides/seminario_mae5920.pptx": {
       "bytes": 139325,
       "sha256": "c5eeff28fa6d0df9b53187f2465ac9c970885cf2660d54be9ff414d6e9e9006f"
     },
     "output/slides/slides_15_min_interativos.html": {
-      "bytes": 1779575,
-      "sha256": "2ad8875d8354e65cd2e98ea70539423cbfe5ed6c2a0142f7695e5ddc78932dd4"
+      "bytes": 1780383,
+      "sha256": "c55eb190b821c985124472964f60daafa55702097d3edaff881d9bfa0bd6d98b"
     },
     "plot_qwen_improve.py": {
       "bytes": 2970,
@@ -3388,16 +3388,16 @@
       "sha256": "46795c4875c41fb03eaeca5d1da0bb389fbaf9be3f4bcd14f003fa3187704ef2"
     },
     "seminario/apresentacao.css": {
-      "bytes": 36335,
-      "sha256": "c253aa82c8632a3e6228777a79ff302f055a3af1097f1f4d6cc96631f2aacc6e"
+      "bytes": 36765,
+      "sha256": "c3c9664bbb61a1c4ccba19f3ccbe179894cf6a9811280871d6c578fa56e89857"
     },
     "seminario/apresentacao.html": {
-      "bytes": 37490,
-      "sha256": "e919be86dabcae68f3e6143e3ac426a8813a3166dfffc5b83cd5c150bd041438"
+      "bytes": 37942,
+      "sha256": "eef30cd0d7f7bebbb2c3b253b77188a9da920ab45711894f789c2a7941f4e06b"
     },
     "seminario/apresentacao.js": {
-      "bytes": 36390,
-      "sha256": "9e8c72b5ff5209c5f0164c6c8707ddea26560e8572af98cc92f644adbf940322"
+      "bytes": 36316,
+      "sha256": "e5efd9798595d4b8504650194faa292434ac2f621024df70cdce5348ef7b8a21"
     },
     "seminario/arquitetura.tex": {
       "bytes": 1166,
@@ -3500,8 +3500,8 @@
       "sha256": "c1dbf7991ca918108357c874db963e10fb8cd0fc20c71e6f2f7501d473fbb830"
     },
     "seminario/dados/tabelas.tex": {
-      "bytes": 5597,
-      "sha256": "df3c52b766fdf8a96c58821861cc3119e278cea8af0f1eccf34d11268b123c70"
+      "bytes": 5553,
+      "sha256": "ede387ac771840929d82717e0babe2cca6f51427f0bf74e35b302c473b78a8fd"
     },
     "seminario/dados/tfidf_slide.json": {
       "bytes": 1708,
@@ -3632,8 +3632,8 @@
       "sha256": "a9c1878bcf6ee55a44a07cedbaf7baad7899c04f625dd62c3156a9320d10cdb6"
     },
     "seminario/partes/09-posicao.tex": {
-      "bytes": 2559,
-      "sha256": "a78b65838dbc1c8455c182408f17a3428c69876cd60b33a735bf8a86152601c6"
+      "bytes": 2541,
+      "sha256": "92472ae4e0364c4d71f2157767dccdd1daccdbc58599a743aef439874914d04c"
     },
     "seminario/partes/10-conclusao.tex": {
       "bytes": 2453,
@@ -3668,8 +3668,8 @@
       "sha256": "0003ed7740a932b9cca93b1ad33a2480c68b8ad4cd769f47108fea328aa838d3"
     },
     "seminario/preparar.py": {
-      "bytes": 22664,
-      "sha256": "4c470e0d10e644117f10d5d2c506dc0fee349d00f259b6ab21e8ba006c677c90"
+      "bytes": 22612,
+      "sha256": "d15dcb5503363a34ffc8d775a89aa9ff79496cb9d75f802e602f6349b7b917c1"
     },
     "seminario/preparar_apresentacao.py": {
       "bytes": 14740,
@@ -3688,12 +3688,12 @@
       "sha256": "1c823ea714af0fb21d9e04a4a47e0214de0e800a343cf03070bd20590e4e36ae"
     },
     "seminario/roteiro.md": {
-      "bytes": 23568,
-      "sha256": "18eebaeb531044eec790a37da9f11e11936105b2a7d044be6fa9b944ba2c2a52"
+      "bytes": 23745,
+      "sha256": "2384998aa3ec2152f2070e1c2b00e4936ad80b75f71b881e22a9a77bb5e43490"
     },
     "seminario/slides.tex": {
-      "bytes": 28504,
-      "sha256": "1555d47947761310fa8b1084cbee8b0aa71195680219e81e85b5ece0c4357812"
+      "bytes": 28865,
+      "sha256": "662fa40f1102a6f89dbd470da05b1b714424817ecf622b6a1a16bd4333cb3cd5"
     },
     "seminario/treinar_cnn_comprimento.py": {
       "bytes": 18397,

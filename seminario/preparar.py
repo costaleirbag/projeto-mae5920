@@ -405,7 +405,6 @@ def tables() -> str:
         "FiltroDemo": str(trace["filtro"]),
         "MaximoDemo": pt(max(trace["ativacoes"])),
         "MaximoPassoDois": pt(max(trace["ativacoes"][::2])),
-        "JanelaControle": " ".join(pool["janela"]),
         "InicioControleA": str(pool["casos"]["A"]["max_indice"] + 1),
         "InicioControleB": str(pool["casos"]["B"]["max_indice"] + 1),
         "MaximoControle": pt(max(pool["casos"]["A"]["ativacoes"])),
