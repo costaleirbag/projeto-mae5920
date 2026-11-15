@@ -33,28 +33,27 @@ validação com 2.478 e teste oficial com 25.000.
 \fonte{results/comparison.csv}{Resultados originais}.}
 
 \subsection{Discordâncias entre TF-IDF e CNN e efeito do recorte}
-Cruzamos as previsões da CNN e do TF-IDF pelo ID das 25.000 resenhas.
-Apenas o TF-IDF acertou \SoTFIDF{} e apenas a CNN acertou \SoCNN{}.
-O teto de 400 limita padding e cálculo em alguns casos. Este valor foi fixado priorizando a investigação de outras particularidades do problema. 
-Dessa forma, 3.118 resenhas foram truncadas (12,47\%) retirando 10,41\%
-dos tokens do conjunto de teste. Com os mesmos pesos, o texto inteiro elevou a acurácia de
-82,33\% a 86,31\% nas resenhas cortadas e de 86,78\% a 87,28\% no teste.
-\fonteatual{seminario/diagnosticos.md}{Comparação pareada}.
+Ao parear as previsões por ID, só o TF-IDF acertou \SoTFIDF{} resenhas e só a
+CNN, \SoCNN{}. A CNN aceita comprimentos variáveis, com padding por lote.
+O teto original de 400 tokens limita o custo. Cortou 3.118 resenhas
+(12,47\%) e removeu 10,41\% dos tokens do teste. Com os mesmos pesos, ler o
+texto inteiro elevou a acurácia de 82,33\% a 86,31\% nas cortadas e de
+86,78\% a 87,28\% no total. \fonteatual{seminario/diagnosticos.md}{Comparação pareada}.
+Nas divisões originais, \fonteatual{seminario/ensaios_cnn.md\#o-efeito-de-treinar-com-mais-texto}{treinos adicionais}
+compararam 256, 400 e 768 tokens e o texto inteiro.
 
 \medskip
 \painel[SoftBlue]{\rotulo{Resenha longa / 780 tokens / rótulo negativo}\par\smallskip
-  \small A frase ``\textit{\TrechoFinal{}}'' aparece depois do limite de 400 tokens.
-  Passamos o prefixo e o texto inteiro aos mesmos modelos. Com a entrada
-  maior, a CNN percorre mais janelas com os mesmos filtros.
+  \small ``\textit{\TrechoFinal{}}'' aparece após os 400 tokens. Aplicamos os
+  mesmos modelos ao prefixo e ao texto inteiro.
   \par\smallskip
   \newcommand{\cutrow}[4]{#1 & #2 & #3\\}
   \begin{tabularx}{\linewidth}{@{}Xrr@{}}
     & \tabelahead{TF-IDF \(p(+)\)} & \tabelahead{CNN \(p(+)\)}\\
     \RecorteVisual
   \end{tabularx}\par\smallskip
-  Com limiar de 50\%, a classe dos dois muda de positiva para negativa.
-  No texto inteiro, janelas
-  como \textit{hate to waste} empurram a margem da CNN para o negativo.}
+  As duas previsões passam de positiva a negativa. Janelas como
+  \textit{hate to waste} contribuem para a classe negativa na CNN.}
 \smallskip
 \painel[SoftTeal]{\rotulo{Resenha curta / 61 tokens / rótulo positivo}\par\smallskip
   \small Ambos leem o texto inteiro. A CNN dá \CurtaCNN{} de escore positivo e

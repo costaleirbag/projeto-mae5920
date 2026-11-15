@@ -1,8 +1,8 @@
 \subsection{Controle da posição com as mesmas janelas}
 \label{sec:posicao}
-Montamos dois textos de controle com o elogio e a crítica em ordens
-opostas. Repetimos \(S\), a frase ``\textit{I have a few thoughts about this
-movie.}'', antes, entre e depois das opiniões para manter os vizinhos de cada uma.
+Criamos dois textos para ver se o máximo global distingue um elogio seguido
+de uma crítica da ordem inversa. A frase \(S\), ``\textit{I have a few thoughts
+about this movie.}'', vem antes, entre e depois das opiniões.
 
 \painel{\small\sffamily
   \textbf{A}\quad \tokenrel{S}\enspace
@@ -12,23 +12,20 @@ movie.}'', antes, entre e depois das opiniões para manter os vizinhos de cada u
     \tokenrel[SoftRust]{I hated the ending}\enspace\tokenrel{S}\enspace
     \tokenrel[SoftTeal]{I loved the acting}\enspace\tokenrel{S}}
 
-O separador de oito palavras mantém no máximo uma opinião em cada janela.
-Para \(k=3,4,5\), A e B contêm as mesmas janelas de IDs, com as mesmas
-multiplicidades, nas duas tokenizações. O máximo de cada filtro descarta
-a posição da resposta. Assim, os 300 máximos e os dois logits coincidiram
-nos seis treinos. Ambas as versões expressam opiniões mistas.
+O separador deixa os mesmos vizinhos em torno de cada opinião. Para janelas
+de 3, 4 e 5 tokens, A e B têm os mesmos trechos em posições diferentes, nas
+duas tokenizações. Como o máximo por filtro guarda só a altura do pico,
+os 300 máximos e os dois logits coincidiram nos seis treinos.
 \fonteatual{seminario/medir_pares.py}{Código}.
 \fonteatual{seminario/dados/pares_resultados.json}{Predições}.
 
 \subsection{Teste com um pico por metade}
-Congelamos embeddings e filtros das três CNNs por palavras. Cada filtro
-entrega o máximo \(u\) da primeira metade e \(v\) da segunda. A primeira
-recebe a janela extra se a contagem for ímpar, e \(v=0\) se a segunda for vazia.
-A regressão logística recebe 600 valores. Ordenar os dois picos pelo valor
-descarta a metade de origem. Ao fornecer \((u,v)\), a primeira e a segunda
-entrada de cada par indicam as metades. Ajustamos a regressão em 6.144
-resenhas e escolhemos \(C\) por CE em 1.536 de validação.
-\fonteatual{seminario/medir_posicao.py}{Código e grade de \(C\)}.
+Com embeddings e filtros fixos nas CNNs por palavras, dividimos as janelas
+de cada filtro em duas metades e guardamos o pico de cada uma. As duas
+regressões recebem 600 valores. Uma recebe cada par de picos do menor ao
+maior e a outra na ordem das metades. Ajustamos em 6.144 resenhas e
+escolhemos \(C\) pela CE em 1.536 de validação.
+\fonteatual{seminario/medir_posicao.py}{Código}.
 
 \begin{tabularx}{\linewidth}{@{}Xrrr@{}}
 \toprule
@@ -38,17 +35,14 @@ resenhas e escolhemos \(C\) por CE em 1.536 de validação.
 \LinhasPosicao
 \bottomrule
 \end{tabularx}
-\legendinha{Tabela 10. Média de três sementes. A auditoria (teste realizado com um conjunto de dados à parte) mede acurácia
-por texto em 2.048 resenhas. Nas outras colunas, o par conta como acerto
-se as duas versões forem classificadas corretamente.}
+\legendinha{Tabela 10. Médias de três sementes. A auditoria mede acurácia em 2.048 resenhas
+reservadas. Um par conta como acerto quando as duas versões recebem a classe correta.}
 
-Os 256 pares sintéticos cruzam quatro moldes e dois conjuntos de oito
-adjetivos. Dos 488 pares editados do IMDb Contrast Set \cite{gardner},
-excluímos 144 com entrada de IDs já vista no treino ou na validação.
-Oito dos 344 pares restantes ficam idênticos após o recorte, com rótulos
-opostos. No controle, a ordem das metades produziu margens diferentes
-para A e B nas três sementes, com a mesma classe. Nos pares editados, o
-acerto foi 39,15\%, ante 39,83\% com os picos ordenados pelo valor. Nos
-moldes sintéticos com veredito no fim, todas as cabeças acertaram 0 de 128
-pares por semente.
-\href{\projetourl/blob/24672b7c4fb090899c3517947f0132d1f6d6296d/seminario/dados/posicao_resultados.json}{Métricas e margens por semente}.
+Nos 256 pares sintéticos, montamos duas versões com as mesmas palavras,
+como no exemplo com \textit{but}. Trocar os adjetivos da impressão inicial e
+do veredito inverte o rótulo. Nos 128 pares com veredito no fim, nenhuma
+cabeça acertou as duas versões. Nos pares do IMDb Contrast Sets
+\cite{gardner}, uma edição humana muda o rótulo. Excluímos 144 pares com
+entradas vistas no treino ou na validação. Dos 344 restantes, oito ficam
+idênticos após o recorte. No controle A/B, guardar a metade mudou os
+escores e preservou a classe. \fonteatual{seminario/dados/posicao_resultados.json}{Métricas por semente}.

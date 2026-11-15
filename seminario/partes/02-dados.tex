@@ -1,8 +1,8 @@
 \section{Dados e protocolo de avaliação}
 \label{sec:dados}
 O IMDb tem 25.000 resenhas em inglês no treino oficial e 25.000 no teste
-\cite{maas}, com rótulos \(0\) (negativo) e \(1\) (positivo). A limpeza
-decodificou HTML, removeu tags e normalizou espaços em cada texto.
+\cite{maas}, com rótulos \(0\) (negativo) e \(1\) (positivo). Na limpeza,
+decodificamos entidades HTML, removemos tags e normalizamos espaços.
 
 \subsection{Divisão dos dados}
 \begin{tabularx}{\linewidth}{@{}lrrX@{}}
@@ -15,10 +15,12 @@ Calibração   &  2.478 &  --   & Ajustar temperatura após a seleção original
 Teste/auditoria & 25.000 & 2.048 & Avaliar a configuração já escolhida.\\
 \bottomrule
 \end{tabularx}
-\legendinha{Tabela 1}
+\legendinha{Tabela 1. A auditoria é o conjunto reservado para avaliar os ensaios internos.}
 
-Os ensaios internos são testes realizados para explorar diferentes abordagens do problema. Os ensaios com sequências usam até 128 palavras. No teste com tokenizador BPE, esse teto cortou 1.535 resenhas e manteve 51,24\% dos tokens por
-palavras. Os prefixos já cabiam no teto adicional de 256 tokens.
+Nos ensaios internos com sequências, comparamos configurações em amostras
+menores e usamos até 128 palavras por resenha. Na auditoria BPE, esse limite
+recortou 1.535 resenhas e manteve 51,24\% dos tokens por palavras. Os prefixos
+couberam no teto adicional de 256 tokens.
 \fonte{docs/PROTOCOLO_SEQUENCIAS.md}{Protocolo sequencial} e
 \fonte{docs/PROTOCOLO_BPE.md}{protocolo BPE}.
 
@@ -36,11 +38,16 @@ palavras. Os prefixos já cabiam no teto adicional de 256 tokens.
 *Frases estimadas por pontuação final. \fonteatual{seminario/dados/comprimentos.json}{Distribuições completas}.}
 
 \subsection{Análise de possíveis vazamentos de informação}
-Removemos 123 linhas do treino pois a hash de cada uma estava presente no teste. Além disso, foram encontradas 98 linhas duplicadas
-nos dados de treino e também foram removidas. Usamos o SHA-256 do texto limpo com \textit{casefold}. 
-Os quatro conjuntos finais têm zero hashes em comum. O teste conserva
-201 ocorrências duplicadas.
-Ressaltamos a importância de realizar a criação do vocabulário após a divisão dos dados entre treino e validação, utilizando somente os dados de treino. Desta forma, garantimos que o vocabulário criado não seja influenciado por dados que serão utilizados na validação. \fonte{data/manifest.json}{Manifesto}.
+Removemos 123 resenhas do treino que também apareciam no teste e 98 duplicatas
+internas, comparando hashes SHA-256 do texto limpo com \textit{casefold}.
+Usamos os textos do teste para deduplicar e reservamos seus rótulos à avaliação.
+Cada hash aparece em uma só divisão. O teste mantém 201 ocorrências duplicadas.
+\fonte{data/manifest.json}{Manifesto}.
+
+Depois da divisão, ajustamos o TF-IDF, o vocabulário por palavras e as fusões do
+BPE usando apenas o treino. A checagem por hash cobre igualdade textual.
+Paráfrases e exposição no pré-treino seguem em aberto. A análise de erros e o
+Qwen reutilizam o teste em caráter exploratório.
 
 \subsection{Dicionário de dados resumido}
 \begin{tabularx}{\linewidth}{@{}lX@{}}

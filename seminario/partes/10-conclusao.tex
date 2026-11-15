@@ -1,11 +1,17 @@
 \subsection{Conclusão}
-O TF-IDF considera a informação de toda a resenha e obteve uma acurácia de 90,14\%, enquanto a TextCNN (que se limitou no nosso estudo a 400 tokens) alcançou acurácia de 86,78\%. Ao utilizar o texto completo, mantendo os mesmos pesos da CNN, observamos uma melhora de 0,50 ponto percentual na acurácia geral e de 4,66 pontos percentuais nas resenhas com mais de 500 palavras. No entanto, a diferença de desempenho entre os modelos também aparece nos textos curtos. 
-Dessa forma, concluímos que o tamanho da resenha para a TextCNN (quantidade de tokens considerados) é uma oportunidade a ser explorada de acordo com o poder computacional e tempo disponível, assim como a arquitetura da rede e todos os demais hiperparâmetros. Em todo o caso, o modelo baseline mostrou um ótimo desempenho para o problema abordado, principalmente tendo em vista sua baixa complexidade em comparação com um modelo de deep learning.  
-
-Além disso, o experimento com janelas convolucionais iguais mostrou que o Global Max Pooling perde informações sobre a posição dos padrões identificados. Já no exemplo com \textit{but}, a mudança na ordem das palavras altera as janelas analisadas, e a classificação depende tanto das ativações dos filtros quanto da camada final.
-
-Por fim, o BERT ajustado (90,94\%) e o Qwen com pesos congelados (95,26\%) superaram o baseline, embora utilizem arquiteturas, representações de entrada e pré-treinamentos diferentes.
+O TF-IDF com regressão logística obteve 90,14\% de acurácia com 80.001
+parâmetros. Na TextCNN, ler a resenha inteira com os mesmos pesos elevou a
+acurácia de 86,78\% a 87,28\%, com ganho de 4,66 pontos percentuais acima de
+500 palavras. O baseline também ficou à frente nas resenhas curtas.
+O controle com janelas iguais mostrou a perda de posição no máximo global.
+No par com \textit{but}, mudam as janelas e a decisão depende dos filtros e da
+saída. BERT ajustado (90,94\%) e Qwen congelado (95,26\%) superaram o baseline
+com arquiteturas, entradas e pré-treinos distintos.
 \fonteatual{seminario/revisao_metodologica.md}{Controles}.
+
+{\small\textbf{Uso de IA.} Usamos o Codex, da OpenAI, para auxiliar no código,
+na execução e análise dos experimentos e na preparação do relatório, das figuras
+e dos slides. A versão final é de responsabilidade do grupo.\par}
 
 \begin{thebibliography}{9}
 \footnotesize

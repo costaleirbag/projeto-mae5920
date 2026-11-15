@@ -1,11 +1,11 @@
 \section{Experimentos e resultados}
 \label{sec:treino}
 \subsection{Otimização e seleção de época}
-Usamos os gradientes da entropia cruzada para atualizar embeddings,
-filtros e saída, com norma global limitada a 1(gradient clipping). 
-Nos ensaios internos usamos a distribuição normal com média zero e desvio 0,1 nos embeddings, He normal nos
-filtros e Xavier uniforme na saída. Os vieses e o vetor de padding começam
-zerados \cite{prince}.
+Usamos os gradientes da entropia cruzada para atualizar embeddings, filtros e
+saída, com norma global limitada a 1 por \textit{gradient clipping}. Nos ensaios
+internos, inicializamos os embeddings com uma distribuição normal de média zero
+e desvio padrão 0,1, os filtros com He normal e a saída com Xavier uniforme.
+Os vieses e o vetor de padding começam zerados \cite{prince}.
 
 \begin{tabularx}{\linewidth}{@{}lXr@{}}
 \toprule

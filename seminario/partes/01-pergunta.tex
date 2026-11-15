@@ -11,18 +11,21 @@
 {\color{Rule}\rule{\linewidth}{.7pt}}\par
 
 \subsection*{Resumo}
-No teste oficial de 25.000 resenhas de filmes, TF-IDF, TextCNN e BERT ajustado atingiram
-90,14\%, 86,78\% e 90,94\% de acurácia. Em um teste apartado e com menos dados, BPE reduziu
-a taxa de tokens desconhecidos de 3,27\% para zero, porém obteve uma acurácia média de
-81,41\% enquanto a tokenização usando palavras obteve 82,00\% de acurácia. 
+No teste oficial de 25.000 resenhas de filmes, TF-IDF, TextCNN e BERT
+ajustado atingiram 90,14\%, 86,78\% e 90,94\% de acurácia. Em uma avaliação
+interna com 2.048 resenhas, o BPE reduziu a taxa de tokens desconhecidos de
+3,27\% para zero e obteve 81,41\% de acurácia, ante 82,00\% com palavras.
+Em um par que troca elogio e crítica, os seis treinos da CNN seguiram o
+sentimento da primeira parte da frase.
 
 \section{Introdução}
 \label{sec:ordem}
-Classificamos resenhas de filmes do banco de dados IMDb como positivas ou negativas.
-Comparamos o modelo baseline TF-IDF com regressão logística, uma TextCNN treinada do zero e
-BERT ajustado. O objetivo didático é entender como tokenização, janelas de
-convolução e máximo global condicionam as decisões da CNN. Além das métricas
-médias, usamos diferentes exemplos de texto para investigar os limites dos modelos.
+Classificamos resenhas de filmes do IMDb como positivas ou negativas.
+Comparamos o modelo de referência, TF-IDF com regressão logística, com uma
+TextCNN treinada do zero e um BERT ajustado no IMDb. O objetivo é entender
+como a tokenização, as janelas de convolução e o máximo global afetam as
+decisões da CNN. Além das métricas médias, examinamos casos em que a ordem
+das palavras muda e exemplos de outros domínios.
 
 \subsection{Duas frases, dois finais}
 As micro-resenhas abaixo usam as mesmas palavras. A troca coloca um elogio
@@ -37,3 +40,6 @@ isoladas recebe a mesma entrada. O TF-IDF do estudo inclui bigramas, que podem
 mudar com a troca. A CNN também recebe informação de ordem dentro de cada
 janela. A Seção~\ref{sec:falhas} mostra o que cada treino fez com os dois finais.
 
+\vfill
+\nota{Código, notebook executado e métricas por execução.
+\href{\projetourl}{Repositório do projeto}.}
