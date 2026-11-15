@@ -232,17 +232,24 @@ def build(pdf: Path, output: Path) -> None:
         },
     }
     youtube_results = json.loads((HERE / "dados/qwen_youtube_resultados.json").read_text(encoding="utf-8"))
-    youtube = {
-        case["id"]: {mode: [answer["classe"] for answer in answers] for mode, answers in case["geracao"].items()}
-        for case in youtube_results["comentarios"]
-    }
     cnn_youtube = json.loads((HERE / "dados/fora_dominio_resultados.json").read_text(encoding="utf-8"))
-    for case in cnn_youtube["comentarios_youtube"]:
-        if case["id"] in youtube:
-            youtube[case["id"]]["cnn"] = [
+    tfidf_youtube = json.loads((HERE / "dados/tfidf_youtube_resultados.json").read_text(encoding="utf-8"))
+    cnn_cases = {case["id"]: case for case in cnn_youtube["comentarios_youtube"]}
+    tfidf_cases = {case["id"]: case for case in tfidf_youtube["comentarios"]}
+    youtube = {}
+    for case in youtube_results["comentarios"]:
+        case_id = case["id"]
+        cnn_case, tfidf_case = cnn_cases[case_id], tfidf_cases[case_id]
+        if not case["texto"] == cnn_case["texto"] == tfidf_case["texto"]:
+            raise ValueError(f"Os modelos receberam textos diferentes no comentário {case_id}.")
+        youtube[case_id] = {
+            **{mode: [answer["classe"] for answer in answers] for mode, answers in case["geracao"].items()},
+            "cnn": [
                 {key: answer[key] for key in ("classe", "modelo", "semente")}
-                for answer in case["predicoes"]
-            ]
+                for answer in cnn_case["predicoes"]
+            ],
+            "tfidf": tfidf_case["classe"],
+        }
     lengths = json.loads((HERE / "dados/comprimentos.json").read_text(encoding="utf-8"))
     bert_cut = json.loads((HERE / "dados/recorte_bert/resumo.json").read_text(encoding="utf-8"))
     tfidf = json.loads((HERE / "dados/tfidf_slide.json").read_text(encoding="utf-8"))

@@ -78,8 +78,8 @@
 }
 
 \newcommand{\youtubeprint}[1]{\begingroup\setlength{\fboxsep}{0pt}%
-  \colorbox{ScreenBlack}{\parbox[c][29mm][c]{\linewidth}{\centering
-  \includegraphics[width=.96\linewidth,height=27mm,keepaspectratio]{figuras/youtube-#1.png}\par}}%
+  \colorbox{ScreenBlack}{\parbox[c][27mm][c]{\linewidth}{\centering
+  \includegraphics[width=.96\linewidth,height=25mm,keepaspectratio]{figuras/youtube-#1.png}\par}}%
   \endgroup}
 \newcommand{\excerptcard}[3]{\slidecard{#1}{\parbox[t][11mm][t]{\linewidth}{%
   \eyebrow{#2}\par\small\itshape #3}}}
@@ -493,20 +493,21 @@ Auditoria com 2.048 entradas. \fonte{results/bpe/audit_metrics.json}{Resultados}
 \setbeamercolor{background canvas}{bg=Forest}
 \setbeamertemplate{frametitle}{}
 % lab:youtube
-\begin{frame}[plain]{CNN e Qwen leem o YouTube}
+\begin{frame}[plain]{Classificação de comentários do YouTube}
 \color{white}
 \vfill
 \pill{ScreenRed}{white}{\(\triangleright\) YouTube}
 \enspace {\small\color{Lime} Palavras e BPE, três sementes cada. Uma previsão por CNN treinada.}
-\par\vspace{1.3mm}
-{\Large\bfseries CNN e Qwen leem o YouTube\par}
-\vspace{2mm}
+\par\vspace{.8mm}
+{\Large\bfseries Classificação de comentários do YouTube\par}
+\vspace{1mm}
 \begin{columns}[T,onlytextwidth]
 \begin{column}{.485\textwidth}
 \textbf{The Room}\hfill
 \href{https://www.youtube.com/watch?v=cG_e8k9PILM&t=2s}{\textcolor{Lime}{\small Trailer \(\nearrow\)}}\par
 \youtubeprint{the-room}\par\vspace{.7mm}
-{\scriptsize\bfseries\color{Lime} CNN}\enspace\CnnRoom\par\vspace{.4mm}
+{\scriptsize\bfseries\color{Lime} TF-IDF}\enspace{\small\TfidfRoom}\par\vspace{.2mm}
+{\scriptsize\bfseries\color{Lime} CNN}\enspace{\small\CnnRoom}\par\vspace{.4mm}
 {\scriptsize\bfseries\color{Lime} Qwen3-8B}\par
 \makebox[.50\linewidth][l]{\scriptsize Sem raciocínio}
 \makebox[.48\linewidth][l]{\scriptsize Com raciocínio}\par
@@ -519,6 +520,7 @@ Auditoria com 2.048 entradas. \fonte{results/bpe/audit_metrics.json}{Resultados}
 \textbf{Suicide Squad}\hfill
 \href{https://www.youtube.com/watch?v=PLLQK9la6Go}{\textcolor{Lime}{\small Trailer \(\nearrow\)}}\par
 \youtubeprint{suicide-squad}\par\vspace{.7mm}
+{\scriptsize\bfseries\color{Lime} TF-IDF}\enspace{\small\TfidfSquad}\par\vspace{.2mm}
 {\scriptsize\bfseries\color{Lime} CNN}\enspace{\small\CnnSquad}\par\vspace{.4mm}
 {\scriptsize\bfseries\color{Lime} Qwen3-8B}\par
 \makebox[.50\linewidth][l]{\scriptsize Sem raciocínio}
@@ -526,11 +528,12 @@ Auditoria com 2.048 entradas. \fonte{results/bpe/audit_metrics.json}{Resultados}
 \makebox[.50\linewidth][l]{\scriptsize\QwenSquadSem}
 \makebox[.48\linewidth][l]{\scriptsize\QwenSquadCom}
 \par\vspace{.6mm}
-{\small “The joke was on me” sugere frustração e ecoa a música do trailer.}
+{\small “The joke was on me” sugere frustração.}
 \end{column}
 \end{columns}
 \vfill
 {\scriptsize\color{Lime}Só texto. Três gerações do Qwen por modo. Comentários sem rótulo de referência.
+\fonteatual{seminario/dados/tfidf_youtube_resultados.json}{\textcolor{Lime}{TF-IDF}} \(\cdot\)
 \fonteatual{seminario/dados/fora_dominio_resultados.json}{\textcolor{Lime}{CNN}} \(\cdot\)
 \fonteatual{seminario/dados/qwen_youtube_resultados.json}{\textcolor{Lime}{Qwen}} \(\cdot\)
 \fonteatual{seminario/medir_qwen_youtube.py}{\textcolor{Lime}{Código}}.\par}

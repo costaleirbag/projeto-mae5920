@@ -316,8 +316,9 @@ interpretá-lo. [Trailer de The Room](https://www.youtube.com/watch?v=cG_e8k9PIL
 Cada comentário recebeu uma previsão de cada CNN já treinada, três por
 palavras e três com BPE, usando as sementes 17, 29 e 43 em cada grupo.
 
-“Em *The Room*, *No one* faz a citação soar como crítica. A CNN e o Qwen
-previram positiva. Em *Suicide Squad*, o comentário sugere que o espectador
+“O TF-IDF previu a classe positiva para os dois comentários. Em *The Room*,
+*No one* faz a citação soar como crítica. A CNN e o Qwen também previram
+positiva. Em *Suicide Squad*, o comentário sugere que o espectador
 se sentiu enganado e faz uma alusão à letra da música do trailer. Cinco
 dos seis checkpoints da CNN previram positiva. A única negativa veio da
 CNN com BPE, na semente 43. O Qwen respondeu negativa
@@ -325,7 +326,7 @@ nas três gerações sem raciocínio e nas três com raciocínio. Aqui a leitura
 é nossa. A avaliação com rótulos fora do IMDb usa 2.000 frases de Amazon e
 Yelp. As CNNs ficaram entre 68 e 70 por cento.”
 
-[Resultados das gerações](dados/qwen_youtube_resultados.json) · [Código](medir_qwen_youtube.py).
+[Escores do TF-IDF](dados/tfidf_youtube_resultados.json) · [Código do TF-IDF](medir_tfidf_youtube.py) · [Resultados das gerações](dados/qwen_youtube_resultados.json) · [Código do Qwen](medir_qwen_youtube.py).
 
 Se optarem pela demonstração, abram o navegador antes da fala e usem até
 30 segundos para obter uma resenha curta em inglês da plateia. Mostrem a

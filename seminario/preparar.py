@@ -33,6 +33,7 @@ SOURCES = (
     "seminario/casos.json",
     "seminario/dados/pares_resultados.json",
     "seminario/dados/fora_dominio_resultados.json",
+    "seminario/dados/tfidf_youtube_resultados.json",
     "seminario/dados/qwen_youtube_resultados.json",
     "seminario/dados/animacoes.json",
     "seminario/dados/discordancias.json",
@@ -305,8 +306,10 @@ def tables() -> str:
     pool = demo["pooling"]
     qwen = read_json("seminario/dados/qwen_youtube_resultados.json")
     qwen_labels = {case["id"]: case["geracao"] for case in qwen["comentarios"]}
-    youtube_cnn = {case["id"]: case["predicoes"] for case in
-                   read_json("seminario/dados/fora_dominio_resultados.json")["comentarios_youtube"]}
+    youtube_cnn = {case["id"]: case["predicoes"] for case in external["comentarios_youtube"]}
+    tfidf_youtube = read_json("seminario/dados/tfidf_youtube_resultados.json")
+    label_badge = {"positiva": r"\good{Positiva}", "negativa": r"\bad{Negativa}"}
+    tfidf_badges = {case["id"]: label_badge[case["classe"]] for case in tfidf_youtube["comentarios"]}
     early, late = pool["casos"]["A"]["picos_por_metade"]
     steps = demo["bpe"]["etapas"]
     trace = demo["cnn"]["casos"]["A"]["janelas"]["3"]
@@ -411,6 +414,8 @@ def tables() -> str:
         "FiltroControle": str(pool["filtro"]),
         "PicoPrimeiraMetade": pt(early),
         "PicoSegundaMetade": pt(late),
+        "TfidfRoom": tfidf_badges["E"],
+        "TfidfSquad": tfidf_badges["F"],
         "CnnRoom": vote_badge(youtube_cnn["E"], identify_cnn=True),
         "CnnSquad": vote_badge(youtube_cnn["F"], identify_cnn=True),
         "QwenRoomSem": vote_badge(qwen_labels["E"]["sem_raciocinio"]),

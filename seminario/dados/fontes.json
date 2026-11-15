@@ -13,6 +13,7 @@
   "seminario/casos.json": "9168ef07b2580802b4ec71d0d3b9a02e0ef85716df5cd1dfbed783676bf1402c",
   "seminario/dados/pares_resultados.json": "37d1a33a0da97e7f1a4d713d50c24ae5dc3ce98f5a8013d2bde81e6aba43af1e",
   "seminario/dados/fora_dominio_resultados.json": "d4c2c3382ca720bf0b149a98b2c04e46f81ee153575d81c354aaa4ae7de38c22",
+  "seminario/dados/tfidf_youtube_resultados.json": "e16bc079158ed9537adfd3b6c7b0776f510901e47713c1101aeb2bec726300f5",
   "seminario/dados/qwen_youtube_resultados.json": "17419b787966671898ef4bdad7271eff0ac7e362deac5f8b753d6384bc942a75",
   "seminario/dados/animacoes.json": "8fc2afcaca1093d9629415866181aa60fb03d6f32890e4750f3bebc7c77ef871",
   "seminario/dados/discordancias.json": "521e2f62cab2f4ab5f054e4fcd3e46a372f7b01830207657e82acf45dd602b8d",

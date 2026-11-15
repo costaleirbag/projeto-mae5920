@@ -444,6 +444,12 @@ function showVotes(badge, votes) {
     .map(([count, label]) => count + " " + label)
     .join(" · ");
 }
+document.querySelectorAll("[data-youtube-tfidf]").forEach((row) => {
+  const label = youtube[row.dataset.youtubeTfidf].tfidf;
+  const badge = row.querySelector(".class-label");
+  badge.dataset.tone = label;
+  badge.textContent = label[0].toUpperCase() + label.slice(1);
+});
 document.querySelectorAll("[data-youtube-cnn]").forEach((row) => {
   const predictions = youtube[row.dataset.youtubeCnn].cnn;
   const badge = row.querySelector(".class-label");

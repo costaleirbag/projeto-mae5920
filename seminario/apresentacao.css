@@ -572,11 +572,11 @@ p, h1 { margin: 0; }
 }
 .youtube-print img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .youtube-prediction { display: grid; gap: .38em; font-size: .85em; }
-.youtube-prediction > div:first-child { display: flex; align-items: center; gap: .43em; }
+.youtube-model { display: grid; grid-template-columns: 3.3em minmax(0, 1fr); align-items: center; justify-items: start; gap: .43em; }
 .youtube-qwen { border-top: 1px solid var(--rule); padding-top: .34em; }
 .youtube-modes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55em; margin-top: .23em; }
 .youtube-modes > div { display: flex; align-items: baseline; flex-wrap: wrap; gap: .19em .42em; }
-.youtube-modes span, .youtube-prediction > div:first-child span:last-child, .youtube-reading { color: var(--quiet); }
+.youtube-modes span, .youtube-reading { color: var(--quiet); }
 .youtube-modes span, .youtube-modes .class-label { font-size: .82em; }
 .youtube-prediction .class-label:not([data-tone]) { color: var(--paper); background: #31534d; }
 .youtube-reading { font-size: .88em; }

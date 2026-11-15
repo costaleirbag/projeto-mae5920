@@ -380,7 +380,7 @@
     <article id="youtube" class="lab readable youtube-slide" hidden aria-labelledby="youtube-title">
       <header class="lab-heading">
         <p class="eyebrow">Extensão <span class="youtube-brand"><span aria-hidden="true">▶</span> YouTube</span></p>
-        <h1 id="youtube-title">CNN e Qwen leem o YouTube</h1>
+        <h1 id="youtube-title">Classificação de comentários do YouTube</h1>
       </header>
       <p class="youtube-intro">Só o texto do comentário. Palavras e BPE usam três sementes cada, com uma previsão por CNN treinada.</p>
       <div class="youtube-cases">
@@ -394,7 +394,11 @@
                  alt="“The best movie of the year” - No one.">
           </figure>
           <div class="youtube-prediction">
-            <div data-youtube-cnn="E">
+            <div class="youtube-model" data-youtube-tfidf="E">
+              <span class="micro">TF-IDF</span>
+              <strong class="class-label"></strong>
+            </div>
+            <div class="youtube-model" data-youtube-cnn="E">
               <span class="micro">CNN</span>
               <strong class="class-label"></strong>
             </div>
@@ -418,7 +422,11 @@
                  alt="I saw the movie and now I see that the joke was on me">
           </figure>
           <div class="youtube-prediction">
-            <div data-youtube-cnn="F">
+            <div class="youtube-model" data-youtube-tfidf="F">
+              <span class="micro">TF-IDF</span>
+              <strong class="class-label"></strong>
+            </div>
+            <div class="youtube-model" data-youtube-cnn="F">
               <span class="micro">CNN</span>
               <strong class="class-label"></strong>
             </div>
@@ -434,6 +442,7 @@
         </section>
       </div>
       <footer class="lab-source">Três respostas do Qwen por modo. Comentários sem rótulo de referência.
+        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/tfidf_youtube_resultados.json" target="_blank" rel="noopener">Escores do TF-IDF</a>
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/fora_dominio_resultados.json" target="_blank" rel="noopener">Escores da CNN</a>
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/qwen_youtube_resultados.json" target="_blank" rel="noopener">Resultados do Qwen</a>
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/medir_qwen_youtube.py" target="_blank" rel="noopener">Código</a>
