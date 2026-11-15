@@ -35,9 +35,9 @@ validação com 2.478 e teste oficial com 25.000.
 \subsection{Discordâncias entre TF-IDF e CNN e efeito do recorte}
 Cruzamos as previsões da CNN e do TF-IDF pelo ID das 25.000 resenhas.
 Apenas o TF-IDF acertou \SoTFIDF{} e apenas a CNN acertou \SoCNN{}.
-O teto de 400 limita padding e cálculo. O valor vem da configuração
-inicial, sem busca documentada. Cortou 3.118 resenhas (12,47\%) e 10,41\%
-dos tokens. Com os mesmos pesos, o texto inteiro elevou a acurácia de
+O teto de 400 limita padding e cálculo em alguns casos. Este valor foi fixado priorizando a investigação de outras particularidades do problema. 
+Dessa forma, 3.118 resenhas foram truncadas (12,47\%) retirando 10,41\%
+dos tokens do conjunto de teste. Com os mesmos pesos, o texto inteiro elevou a acurácia de
 82,33\% a 86,31\% nas resenhas cortadas e de 86,78\% a 87,28\% no teste.
 \fonteatual{seminario/diagnosticos.md}{Comparação pareada}.
 

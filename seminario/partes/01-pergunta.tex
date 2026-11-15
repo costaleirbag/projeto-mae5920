@@ -11,14 +11,14 @@
 {\color{Rule}\rule{\linewidth}{.7pt}}\par
 
 \subsection*{Resumo}
-No teste oficial de 25.000 resenhas de filmes, TF-IDF, TextCNN e BERT ajustado atingirams
+No teste oficial de 25.000 resenhas de filmes, TF-IDF, TextCNN e BERT ajustado atingiram
 90,14\%, 86,78\% e 90,94\% de acurácia. Em um teste apartado e com menos dados, BPE reduziu
 a taxa de tokens desconhecidos de 3,27\% para zero, porém obteve uma acurácia média de
 81,41\% enquanto a tokenização usando palavras obteve 82,00\% de acurácia. 
 
 \section{Introdução}
 \label{sec:ordem}
-No projeto do presetnte relatório classificamos resenhas de filmes do banco de dados IMDb como positivas ou negativas.
+Classificamos resenhas de filmes do banco de dados IMDb como positivas ou negativas.
 Comparamos o modelo baseline TF-IDF com regressão logística, uma TextCNN treinada do zero e
 BERT ajustado. O objetivo didático é entender como tokenização, janelas de
 convolução e máximo global condicionam as decisões da CNN. Além das métricas
