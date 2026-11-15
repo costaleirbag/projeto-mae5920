@@ -1,7 +1,7 @@
 "use strict";
 
 const byId = (id) => document.getElementById(id);
-const { slides, evidence, architecture, contrast, position, youtube, cost, cut, tfidf, lengthBands, bertCut } =
+const { slides, evidence, architecture, contrast, youtube, cost, cut, tfidf, lengthBands, bertCut } =
   JSON.parse(byId("deck-data").textContent);
 const number = new Intl.NumberFormat("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
@@ -372,65 +372,6 @@ swapButtons.forEach((button) => button.addEventListener("click", () => showContr
 showContrast("a", false);
 const contrastTransport = { move: (direction) => showContrast(direction > 0 ? "b" : "a") };
 
-const pooling = evidence.pooling;
-const poolButtons = [...document.querySelectorAll("[data-pool-case]")];
-const poolBlocks = [byId("pool-first"), byId("pool-second")];
-const poolCases = [pooling.casos.A, pooling.casos.B];
-const poolMaxima = poolCases.map(({ ativacoes, max_indice }) => ativacoes[max_indice]);
-const poolScale = 1.14 * Math.max(...poolMaxima);
-const poolCount = poolCases[0].ativacoes.length;
-const poolChart = byId("pool-bars");
-poolChart.style.setProperty("--window-count", poolCount);
-const poolBars = Array.from({ length: poolCount }, (_, index) => {
-  const bar = document.createElement("span");
-  bar.className = "bar";
-  bar.style.left = (100 * (index + .5) / poolCount) + "%";
-  return bar;
-});
-poolChart.append(...poolBars);
-
-byId("pool-separator-text").textContent = "“" + pooling.separador + "”";
-byId("pool-positions").textContent = poolCases.map(({ max_indice }) => max_indice + 1).join(" → ");
-byId("pool-maxima").textContent = poolMaxima.map((value) => number.format(value)).join(" = ");
-byId("pool-evidence").textContent = "CNN por palavras, semente " + pooling.semente + ". Filtro "
-  + pooling.filtro + ", janelas de " + pooling.largura + " tokens.";
-
-let poolState;
-function showPooling(state) {
-  if (state === poolState) return false;
-  const order = state === "A" ? ["elogio", "critica"] : ["critica", "elogio"];
-  poolBlocks.forEach((block, index) => {
-    block.textContent = pooling[order[index]];
-    block.dataset.tone = order[index] === "elogio" ? "positiva" : "negativa";
-  });
-  const { ativacoes, max_indice } = pooling.casos[state];
-  poolBars.forEach((bar, index) => {
-    bar.style.height = (100 * ativacoes[index] / poolScale) + "%";
-    bar.classList.toggle("current", index === max_indice);
-  });
-  byId("pool-current").textContent = "Em " + state + ", pico no token " + (max_indice + 1);
-  poolButtons.forEach((button) => button.setAttribute("aria-pressed", button.dataset.poolCase === state));
-  poolState = state;
-  return true;
-}
-poolButtons.forEach((button) => button.addEventListener("click", () => showPooling(button.dataset.poolCase)));
-showPooling("A");
-const poolingTransport = { move: (direction) => showPooling(direction > 0 ? "B" : "A") };
-
-document.querySelectorAll("[data-position-order]").forEach((table) => {
-  const byValue = table.dataset.positionOrder === "value";
-  table.querySelectorAll("[data-position-case]").forEach((row) => {
-    const peaks = pooling.casos[row.dataset.positionCase].picos_por_metade;
-    const values = byValue ? [...peaks].sort((a, b) => a - b) : peaks;
-    row.querySelectorAll("td").forEach((cell, index) => {
-      cell.textContent = number.format(values[index]);
-      cell.classList.toggle("peak", values[index] === Math.max(...peaks));
-    });
-  });
-});
-byId("position-pairs").textContent = position.pairs;
-for (const order of ["value", "half"]) byId("position-rate-" + order).textContent = percent.format(position.rates[order]);
-
 function showVotes(badge, votes) {
   const [first] = votes;
   if (first && votes.every((vote) => vote === first)) {
@@ -672,7 +613,7 @@ byId("tfidf-next").addEventListener("click", () => {
 
 const labs = {
   bpe: bpeTransport, cnn: cnnTransport, tfidf: tfidfTransport,
-  contrast: contrastTransport, pooling: poolingTransport, cut: cutTransport, cost: costTransport,
+  contrast: contrastTransport, cut: cutTransport, cost: costTransport,
 };
 const ending = slides.findIndex((slide) => slide.interactive === "closing");
 const mainGroup = document.createElement("optgroup");
@@ -695,7 +636,7 @@ function showSlide(index, view = "build") {
   bpeTransport.pause();
   cnnTransport.pause();
   if (slide.interactive === "cost") showCost("original");
-  for (const id of ["bpe", "lengths", "contrast", "pooling", "position", "youtube", "cost", "closing", "cut", "tfidf"]) {
+  for (const id of ["bpe", "lengths", "contrast", "youtube", "cost", "closing", "cut", "tfidf"]) {
     byId(id).hidden = slide.interactive !== id;
   }
   byId("cnn-build").hidden = slide.interactive !== "cnn" || cnnView !== "build";
@@ -773,7 +714,7 @@ window.addEventListener("keydown", (event) => {
 function openFromHash() {
   const match = location.hash.match(/^#slide-(\d+)(-varredura)?$/);
   const shortcuts = { "#encerramento": "closing", "#recorte": "cut", "#tf-idf": "tfidf", "#custo": "cost",
-    "#comprimento": "lengths", "#contraste": "contrast", "#maximo-global": "pooling", "#posicao": "position" };
+    "#comprimento": "lengths", "#contraste": "contrast", "#youtube": "youtube" };
   const named = slides.findIndex((slide) => slide.interactive && slide.interactive === shortcuts[location.hash]);
   const index = location.hash === "#apoio" ? ending + 1 : Math.max(0, named);
   showSlide(match ? Number(match[1]) - 1 : index, match?.[2] ? "scan" : "build");

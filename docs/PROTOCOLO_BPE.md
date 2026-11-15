@@ -74,11 +74,32 @@ de **121,3 para 129,1 tokens**. Logo, a cobertura melhorou sem melhorar a
 acurácia nesta receita. Não concluímos inferioridade universal do BPE.
 
 Faixas entre três sementes são descritivas, não intervalos de confiança.
-Usamos uma divisão, pouco treino e taxa herdada. Não fizemos busca de tamanho
-de vocabulário ou de janelas em número equivalente de palavras. Os tempos
+Usamos uma divisão, pouco treino e taxa herdada. O comparativo principal fixa
+o vocabulário em 20 mil e mede as janelas em tokens. Os tempos
 brutos preservados incluem aquecimento e não fundamentam um ranking de
 velocidade. Seis checkpoints reproduziram exatamente os logits em outro
 processo; o verificador reconstrói 18 conjuntos de métricas.
+
+## Tamanho do vocabulário na validação
+
+Em um ensaio exploratório, treinamos nove TextCNNs com Adam a 0,001,
+os mesmos 6.144 exemplos, três sementes e 12 épocas por treino. Variamos
+as fusões do BPE e mantivemos a tabela de embeddings com 20 mil linhas
+para parear os pesos iniciais. Nos vocabulários menores, as linhas extras
+ficaram sem uso. O BPE de 20 mil reutilizou o tokenizer do estudo principal.
+
+| Vocabulário | Acurácia média | F1 macro | CE bruta | Média de tokens por trecho |
+|---:|---:|---:|---:|---:|
+| 5.000 | 83,96% | 0,8395 | 0,3749 | 147,1 |
+| 10.000 | 83,88% | 0,8387 | 0,3756 | 134,9 |
+| 20.000 | 83,29% | 0,8328 | 0,3832 | 127,6 |
+
+Os números vêm dos mesmos 1.536 exemplos de validação usados para escolher
+a época de menor CE em cada treino. Nenhum dos três vocabulários gerou
+`<unk>` ou excedeu 256 tokens. Os tamanhos menores ficaram à frente nessa
+amostra. A auditoria interna e o teste oficial ficaram fora dessa rodada.
+[Resultados por semente e tokenizers congelados](../results/bpe_vocab/) ·
+[Código](../seminario/medir_vocabulario_bpe.py).
 
 ## Conferir e reproduzir
 

@@ -1,4 +1,4 @@
-\subsection{Probabilidades calibradas no teste oficial}
+\subsection{Tipos de erro e calibração no teste oficial}
 \label{sec:diagnosticos}
 A calibração ajusta \(\tau>0\) para minimizar a CE em uma amostra
 separada. A probabilidade passa de \(\sigma(\Delta)\) a
@@ -6,14 +6,19 @@ separada. A probabilidade passa de \(\sigma(\Delta)\) a
 
 \begin{tabularx}{\linewidth}{@{}Xrrr@{}}
 \toprule
-\tabelahead{Modelo} & \tabelahead{Acurácia} & \tabelahead{F1 macro} &
+\tabelahead{Modelo} & \tabelahead{Falsos positivos} & \tabelahead{Falsos negativos} &
 \tabelahead{CE calibrada}\\
 \midrule
-\LinhasTeste
+\LinhasErros
 \bottomrule
 \end{tabularx}
-\legendinha{Tabela 7. Teste oficial, \(n=25.000\), com temperatura escolhida em
-2.478 resenhas reservadas. A CE bruta está na Tabela 6.}
+\legendinha{Tabela 7. Teste oficial com 12.500 resenhas por classe.
+FP é prever positivo para uma negativa. FN é prever negativo para uma positiva.
+A temperatura usa as 2.478 resenhas de calibração. A CE bruta está na Tabela 6.}
+
+O TF-IDF errou quase igualmente nos dois sentidos. CNN e BERT erraram
+mais ao chamar uma resenha negativa de positiva. BERT deixou passar
+menos resenhas positivas que os outros dois modelos.
 
 \subsection{Acurácia e F1 macro por tamanho de resenha}
 {\small
@@ -53,15 +58,6 @@ até \BertTetoMaior{} tokens. O F1 macro subiu de \FUmLongasBert{} a
 divisões. O ajuste do baseline inclui vetorização e busca de \(C\). O das
 redes inclui validação por época.}
 
-\subsection{Avaliação fora do IMDb}
-Em 1.000 frases por fonte, as CNNs por palavras e BPE atingiram 68,10\% e
-69,97\% na Amazon, e 69,43\% e 69,67\% no Yelp \cite{kotzias}.
-No YouTube, o elogio seguido de \textit{No one} recebeu classe positiva
-das \hyperref[sec:bpe]{seis CNNs} e do Qwen. Em \textit{Suicide Squad}, cinco CNNs deram
-positiva e o Qwen deu negativa nos dois modos de geração.
-\fonteatual{seminario/dados/fora_dominio_resultados.json}{CNN}.
-\fonteatual{seminario/dados/qwen_youtube_resultados.json}{Qwen}.
-
 \subsection{Encoders e Qwen em dois protocolos}
 Em 2.048 prefixos, treinar só a camada linear do BERT deu \AcuraciaCabecaBert{}
 em \AjusteCabecaBert{} s com extração dos vetores. Ajustar todo o BERT deu
@@ -70,8 +66,8 @@ receita, com tempos sem as rodadas de avaliação. No mesmo protocolo,
 CNN, TF-IDF, DistilBERT e ModernBERT fizeram 81,95\%, 83,30\%, 86,80\% e 91,24\%.
 \fonte{results/sequences/summary.json}{Métricas e receitas}.
 
-O Qwen3-8B congelado atingiu 95,26\% e F1 macro de 0,9526 no teste oficial,
+O Qwen3-8B \cite{qwen} congelado atingiu 95,26\% e F1 macro de 0,9526 no teste oficial,
 comparando os logits de dois rótulos com até 768 tokens de resenha.
 Errou 635 resenhas que o TF-IDF acertou. A intervenção nas ativações
-é um ensaio de geração \cite{qwen}.
+é um ensaio de geração.
 \fonte{QWEN_EXPERIMENTO.md}{Classificação e intervenções}.

@@ -40,6 +40,13 @@ isoladas recebe a mesma entrada. O TF-IDF do estudo inclui bigramas, que podem
 mudar com a troca. A CNN também recebe informação de ordem dentro de cada
 janela. A Seção~\ref{sec:falhas} mostra o que cada treino fez com os dois finais.
 
+\subsection{Métricas}
+Acurácia é a fração de acertos. Para uma classe, precisão (\(P\)) é a fração
+correta entre as previsões dessa classe. Recall (\(R\)) é a fração de exemplos
+reais dessa classe que o modelo identifica. O F1 combina as duas por
+\(2PR/(P+R)\). F1 macro é a média dos F1 das duas classes.
+A entropia cruzada (CE) é a média de \(-\log p(\text{classe verdadeira})\).
+
 \vfill
 \nota{Código, notebook executado e métricas por execução.
 \href{\projetourl}{Repositório do projeto}.}

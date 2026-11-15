@@ -1,0 +1,215 @@
+{
+  "scope": "Exploratório, somente validação. A época de cada treino foi escolhida pela mesma perda de validação.",
+  "runtime": {
+    "torch": "2.10.0a0+b4e4ee81d3.nv25.12",
+    "tokenizers": "0.22.1",
+    "device": "NVIDIA GB10"
+  },
+  "train_documents": 6144,
+  "validation_documents": 1536,
+  "training": {
+    "embedding_dim": 128,
+    "filters": 100,
+    "kernels": [
+      3,
+      4,
+      5
+    ],
+    "dropout": 0.5,
+    "optimizer": "adam",
+    "lr": 0.001,
+    "epochs": 12,
+    "batch_size": 64,
+    "gradient_clip_norm": 1.0
+  },
+  "embedding_rows": 20000,
+  "whitespace_words": 128,
+  "token_cap": 256,
+  "data_manifest_sha256": "1c3bf145a13c1e7489b947740950f05eb87ccf22c0df7c4f0ee8fd1966744b44",
+  "reference_tokenizer_sha256": "da29d8be8d7a45befcc3a0eda9b9236182325bc9f56c58d48fb3042305896611",
+  "groups": [
+    {
+      "vocabulary_size": 5000,
+      "tokenizer_sha256": "5d68b72baec2c8540fa3e0f4cdcbfe72212092151193fc5ebc9e9845a5088b07",
+      "validation_tokenization": {
+        "documents": 1536,
+        "tokens_before_cap": 226004,
+        "unknown_tokens": 0,
+        "unknown_rate": 0.0,
+        "documents_with_unknown": 0,
+        "mean_tokens": 147.13802083333334,
+        "max_tokens": 245,
+        "p95_tokens": 184.0,
+        "truncated_documents": 0,
+        "empty_documents": 0,
+        "cap": 256,
+        "empty_policy": "A single <unk> when the canonicalized text is empty"
+      },
+      "validation_mean": {
+        "accuracy": 0.8396267361111112,
+        "f1_macro": 0.8395287791041558,
+        "ce": 0.37487053528948006
+      },
+      "runs": [
+        {
+          "seed": 17,
+          "best_epoch": 7,
+          "initial_state_sha256": "1363a04bd71fab26012f1799ac2104b130048cd897741d99f6ee24346cb56012",
+          "batch_order_sha256": "fe3df4f8a9fab31e4f52c5684e4c4e843f1f2b816e05018d31068c42550f1898",
+          "accuracy": 0.841796875,
+          "ce": 0.36731377943605753,
+          "f1_macro": 0.8417968079447462,
+          "roc_auc": 0.9186842176649306,
+          "brier": 0.11293140875164569,
+          "correct": 1293
+        },
+        {
+          "seed": 29,
+          "best_epoch": 7,
+          "initial_state_sha256": "68692f823283afc4e6ec4e6559ca42ae8baa0cea1743e423aa43aefedab56b88",
+          "batch_order_sha256": "32a6eaa3b8c1900790273d9bb886a0df398a35e379f6414910d1bbad3c968bd0",
+          "accuracy": 0.833984375,
+          "ce": 0.3805006113050983,
+          "f1_macro": 0.8337390669471074,
+          "roc_auc": 0.9136827256944445,
+          "brier": 0.11685343880969919,
+          "correct": 1281
+        },
+        {
+          "seed": 43,
+          "best_epoch": 7,
+          "initial_state_sha256": "cf0bf4685bf2e78ff41229db39d178f7395aa44d383cf0113f6992c79012647f",
+          "batch_order_sha256": "f21c175369cbd817bb7f4c18884a484f322ec05173b6104f95aafd2476d9d738",
+          "accuracy": 0.8430989583333334,
+          "ce": 0.37679721512728426,
+          "f1_macro": 0.8430504624206139,
+          "roc_auc": 0.9164326985677084,
+          "brier": 0.11569918185707385,
+          "correct": 1295
+        }
+      ]
+    },
+    {
+      "vocabulary_size": 10000,
+      "tokenizer_sha256": "90fb555071df5f647956f7e454123b8b66666e634b7adef246852a7358606989",
+      "validation_tokenization": {
+        "documents": 1536,
+        "tokens_before_cap": 207228,
+        "unknown_tokens": 0,
+        "unknown_rate": 0.0,
+        "documents_with_unknown": 0,
+        "mean_tokens": 134.9140625,
+        "max_tokens": 215,
+        "p95_tokens": 163.0,
+        "truncated_documents": 0,
+        "empty_documents": 0,
+        "cap": 256,
+        "empty_policy": "A single <unk> when the canonicalized text is empty"
+      },
+      "validation_mean": {
+        "accuracy": 0.8387586805555556,
+        "f1_macro": 0.8387156159611246,
+        "ce": 0.3755536947818614
+      },
+      "runs": [
+        {
+          "seed": 17,
+          "best_epoch": 7,
+          "initial_state_sha256": "1363a04bd71fab26012f1799ac2104b130048cd897741d99f6ee24346cb56012",
+          "batch_order_sha256": "fe3df4f8a9fab31e4f52c5684e4c4e843f1f2b816e05018d31068c42550f1898",
+          "accuracy": 0.8359375,
+          "ce": 0.37542072359198914,
+          "f1_macro": 0.8358974358974359,
+          "roc_auc": 0.9167582194010416,
+          "brier": 0.11431776165422507,
+          "correct": 1284
+        },
+        {
+          "seed": 29,
+          "best_epoch": 6,
+          "initial_state_sha256": "68692f823283afc4e6ec4e6559ca42ae8baa0cea1743e423aa43aefedab56b88",
+          "batch_order_sha256": "32a6eaa3b8c1900790273d9bb886a0df398a35e379f6414910d1bbad3c968bd0",
+          "accuracy": 0.8365885416666666,
+          "ce": 0.3777503535545656,
+          "f1_macro": 0.8365036506534367,
+          "roc_auc": 0.9144541422526042,
+          "brier": 0.11581748361864712,
+          "correct": 1285
+        },
+        {
+          "seed": 43,
+          "best_epoch": 6,
+          "initial_state_sha256": "cf0bf4685bf2e78ff41229db39d178f7395aa44d383cf0113f6992c79012647f",
+          "batch_order_sha256": "f21c175369cbd817bb7f4c18884a484f322ec05173b6104f95aafd2476d9d738",
+          "accuracy": 0.84375,
+          "ce": 0.3734900071990295,
+          "f1_macro": 0.8437457613325015,
+          "roc_auc": 0.9167310926649306,
+          "brier": 0.11562592918853372,
+          "correct": 1296
+        }
+      ]
+    },
+    {
+      "vocabulary_size": 20000,
+      "tokenizer_sha256": "da29d8be8d7a45befcc3a0eda9b9236182325bc9f56c58d48fb3042305896611",
+      "validation_tokenization": {
+        "documents": 1536,
+        "tokens_before_cap": 196018,
+        "unknown_tokens": 0,
+        "unknown_rate": 0.0,
+        "documents_with_unknown": 0,
+        "mean_tokens": 127.61588541666667,
+        "max_tokens": 188,
+        "p95_tokens": 149.0,
+        "truncated_documents": 0,
+        "empty_documents": 0,
+        "cap": 256,
+        "empty_policy": "A single <unk> when the canonicalized text is empty"
+      },
+      "validation_mean": {
+        "accuracy": 0.8328993055555556,
+        "f1_macro": 0.8327700333390754,
+        "ce": 0.3831885757802673
+      },
+      "runs": [
+        {
+          "seed": 17,
+          "best_epoch": 5,
+          "initial_state_sha256": "1363a04bd71fab26012f1799ac2104b130048cd897741d99f6ee24346cb56012",
+          "batch_order_sha256": "fe3df4f8a9fab31e4f52c5684e4c4e843f1f2b816e05018d31068c42550f1898",
+          "accuracy": 0.83203125,
+          "ce": 0.377653874745642,
+          "f1_macro": 0.83195831524099,
+          "roc_auc": 0.916751437717014,
+          "brier": 0.11727854968837338,
+          "correct": 1278
+        },
+        {
+          "seed": 29,
+          "best_epoch": 5,
+          "initial_state_sha256": "68692f823283afc4e6ec4e6559ca42ae8baa0cea1743e423aa43aefedab56b88",
+          "batch_order_sha256": "32a6eaa3b8c1900790273d9bb886a0df398a35e379f6414910d1bbad3c968bd0",
+          "accuracy": 0.8326822916666666,
+          "ce": 0.39009684743663114,
+          "f1_macro": 0.8324350596290455,
+          "roc_auc": 0.9084862603081596,
+          "brier": 0.12155872650149376,
+          "correct": 1279
+        },
+        {
+          "seed": 43,
+          "best_epoch": 6,
+          "initial_state_sha256": "cf0bf4685bf2e78ff41229db39d178f7395aa44d383cf0113f6992c79012647f",
+          "batch_order_sha256": "f21c175369cbd817bb7f4c18884a484f322ec05173b6104f95aafd2476d9d738",
+          "accuracy": 0.833984375,
+          "ce": 0.3818150051585288,
+          "f1_macro": 0.8339167251471907,
+          "roc_auc": 0.9124399820963541,
+          "brier": 0.11906942575407646,
+          "correct": 1281
+        }
+      ]
+    }
+  ]
+}

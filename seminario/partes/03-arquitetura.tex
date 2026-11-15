@@ -1,7 +1,7 @@
 \section{Arquitetura da TextCNN}
 \label{sec:arquitetura}
 A TextCNN usada nos ensaios por palavras e por BPE reúne 300 filtros
-\cite{kim,prince}. Cada filtro entrega a maior resposta entre suas janelas.
+\cite{kim}. Cada filtro entrega a maior resposta entre suas janelas.
 Filtros diferentes podem atingir o máximo em trechos diferentes. A camada
 final aprende quanto cada uma das 300 respostas conta para cada classe.
 
@@ -12,31 +12,34 @@ ao vocabulário dos 19.998 termos mais frequentes, mais \texttt{<pad>} e
 \texttt{<unk>}. Na versão BPE, enviamos as palavras ainda como texto ao
 tokenizador, que aplica fusões aprendidas nos 6.144 textos de treino, com
 frequência mínima 2 e sem rótulos \cite{sennrich}. As duas CNNs são treinadas
-separadamente e têm vocabulários de 20.000 IDs. \texttt{</w>} marca o fim da palavra.
+separadamente com vocabulários de 20.000 IDs. O sufixo \texttt{</w>} faz parte
+da peça e indica que ela termina a palavra.
 \fonte{docs/PROTOCOLO_BPE.md}{Normalização e vocabulários}.
 
-\painel[SoftBlue]{\rotulo{Quando uma palavra vira três peças}\enspace
+\painel[SoftBlue]{\rotulo{Ganho de cobertura com BPE}\enspace
   \textit{\ExemploCobertura}\par\smallskip
   \small Por palavras\enspace\tokenrel[SoftRust]{<unk>}
   \qquad BPE\enspace\tokenrel[SoftTeal]{p}\enspace
   \tokenrel[SoftTeal]{all}\enspace\tokenrel[SoftTeal]{bearer</w>}\par\smallskip
-  Uma janela de largura 3 pode cobrir as três peças de uma única palavra.}
+  \textit{Pallbearer} ficou fora do vocabulário por palavras. No BPE,
+  uma janela de três tokens lê as três peças aprendidas no treino.}
 
-\smallskip
 \input{partes/figura-cnn-relatorio.tex}
-\legendinha{Figura 1. Fluxo da TextCNN. \(B\) é o número de resenhas no
-minibatch e \(T\) é o comprimento com padding. As dimensões representam
-tensores. Os trechos abaixo levam às linhas da implementação.}
+\legendinha{Figura 1. Fluxo da TextCNN. \(B\) é o tamanho do lote e \(T\) é o
+comprimento com padding. As dimensões são as dos tensores.}
 
 \subsection{A mesma conta em cada janela}
 A tabela de embeddings tem \(20.000\times128\) valores. Um lote de \(B\times T\)
 IDs gera \(B\times T\times128\). A transposição põe os 128 canais antes de \(T\).
 Cada filtro de
-largura \(k\) lê \(k\) tokens consecutivos em ordem. Usamos larguras 3, 4 e 5.
+largura \(k\) lê \(k\) tokens consecutivos em ordem, de \(t\) a \(t+k-1\).
+Usamos larguras 3, 4 e 5.
 O filtro \(f\) reaplica os pesos \(W_f\) e o viés \(b_f\) em cada janela.
-Se \(e_t\) é o embedding na posição \(t\), temos
+As colunas \(e_t,\ldots,e_{t+k-1}\) são embeddings. O produto interno
+\(\langle\cdot,\cdot\rangle_F\) soma os produtos termo a termo das duas
+matrizes \(128\times k\) \cite[cap.~10]{prince}.
 \[
-  a_{f,t}=\max\!\left(0,\,\langle W_f,[e_t,\ldots,e_{t+k-1}]\rangle+b_f\right),
+  a_{f,t}=\max\!\left(0,\,\langle W_f,[e_t,\ldots,e_{t+k-1}]\rangle_F+b_f\right),
   \qquad m_f=\max_{t\in\mathcal V_k} a_{f,t}.
 \]
 A ReLU põe respostas negativas em zero. O máximo \(m_f\) guarda a altura
@@ -46,15 +49,14 @@ padding. \codigoCNN{38-L45}{embedding}, \codigoCNN{47-L48}{conv},
 \codigoCNN{49-L52}{masked\_fill}.
 
 \subsection{Do pico à classe}
-Os máximos formam um vetor \(m\) de 300 componentes. No treino, passa-se
-por dropout de 0,5 antes da camada linear. Na inferência, a saída é
-\(z=Wm+b\), com dois logits, \(z_-\) e \(z_+\). A margem
-\(\Delta=z_+-z_-\) expressa a diferença entre os votos das duas classes.
-O softmax binário dá \(p(+)=\sigma(\Delta)\). Uma margem positiva
-corresponde a \(p(+)>0{,}5\). Na frase A da semente 17 por palavras,
-\(z_-\approx2{,}259\) e \(z_+\approx-2{,}863\) dão \(p(+)\approx0{,}59\%\).
-A entropia cruzada do treino recebe os dois logits diretamente.
-\codigoCNN{41-L53}{classifier}.
+Juntamos um máximo por filtro no vetor \(m\), com 300 componentes. No
+treino, o dropout zera cada componente com probabilidade de 50\% e
+dobra as que sobrevivem. Na inferência, a camada linear recebe \(m\)
+inteiro e produz os logits \(z_-\) e \(z_+\). O softmax dá
+\(p(+)=\sigma(z_+-z_-)\). Na frase A, com palavras e semente 17,
+\(z_-\approx2{,}259\) e \(z_+\approx-2{,}863\). A margem é negativa
+e \(p(+)\approx0{,}0059=0{,}59\%\). No treino, a entropia cruzada recebe
+os dois logits. \codigoCNN{41-L54}{classificador}.
 
 \painel[SoftTeal]{\rotulo{Onde estão os 2.714.502 parâmetros da CNN por palavras?}\par
   \smallskip\small

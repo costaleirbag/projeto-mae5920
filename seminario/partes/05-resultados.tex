@@ -10,8 +10,11 @@ e aplica a sigmoide à soma \(b+\sum_j w_jx_j\).
 
 \subsection{Resultados no teste oficial do IMDb}
 O TF-IDF lê a resenha inteira. A CNN usa até 400 tokens por regex e
-o BERT até 192 WordPieces \cite{devlin}. Ao reajustar o TF-IDF com o
-mesmo recorte da CNN, a acurácia caiu de 90,15\% para 89,66\% no controle.
+o BERT até 192 tokens WordPiece \cite{devlin}. Num controle separado,
+ajustamos duas versões de TF-IDF e logística com \(C=8\). A primeira
+usou o texto inteiro e fez 90,15\%. Para a outra, cortamos cada entrada
+nos primeiros 400 tokens da regex da CNN \emph{antes} de vetorizar,
+e a acurácia foi 89,66\%.
 No ajuste original com L2 (\(C=8\)), o baseline atingiu 99,72\% no treino.
 Penalização mais forte reduziu o F1 de validação. Na busca ampliada,
 \(C=16\) venceu na validação e fez 90,04\% no teste. Com rótulos
@@ -33,17 +36,14 @@ validação com 2.478 e teste oficial com 25.000.
 \fonte{results/comparison.csv}{Resultados originais}.}
 
 \subsection{Discordâncias entre TF-IDF e CNN e efeito do recorte}
-Ao parear as previsões por ID, só o TF-IDF acertou \SoTFIDF{} resenhas e só a
-CNN, \SoCNN{}. A CNN aceita comprimentos variáveis, com padding por lote.
-O teto original de 400 tokens limita o custo. Cortou 3.118 resenhas
-(12,47\%) e removeu 10,41\% dos tokens do teste. Com os mesmos pesos, ler o
-texto inteiro elevou a acurácia de 82,33\% a 86,31\% nas cortadas e de
-86,78\% a 87,28\% no total. \fonteatual{seminario/diagnosticos.md}{Comparação pareada}.
-Nas divisões originais, \fonteatual{seminario/ensaios_cnn.md\#o-efeito-de-treinar-com-mais-texto}{treinos adicionais}
-compararam 256, 400 e 768 tokens e o texto inteiro.
+Só o TF-IDF acertou \SoTFIDF{} resenhas e só a CNN, \SoCNN{}. O teto da CNN
+reduz o custo, cortando 3.118 resenhas (12,47\%) e 10,41\% dos tokens do teste.
+Com os mesmos pesos, ler o texto inteiro elevou a acurácia de 82,33\% a
+86,31\% nas cortadas e de 86,78\% a 87,28\% no total.
+\fonteatual{seminario/ensaios_cnn.md\#o-efeito-de-treinar-com-mais-texto}{Treinos com outros limites}.
 
-\medskip
-\painel[SoftBlue]{\rotulo{Resenha longa / 780 tokens / rótulo negativo}\par\smallskip
+\painel[SoftBlue]{\rotulo{Resenha longa / 780 tokens / rótulo negativo}\hfill
+  {\footnotesize\fonteatual{seminario/diagnosticos.md\#s\%C3\%B3-tf-idf-acertou-na-avalia\%C3\%A7\%C3\%A3o-original}{\texttt{imdb\_test\_03531}}}\par\smallskip
   \small ``\textit{\TrechoFinal{}}'' aparece após os 400 tokens. Aplicamos os
   mesmos modelos ao prefixo e ao texto inteiro.
   \par\smallskip
@@ -55,13 +55,13 @@ compararam 256, 400 e 768 tokens e o texto inteiro.
   As duas previsões passam de positiva a negativa. Janelas como
   \textit{hate to waste} contribuem para a classe negativa na CNN.}
 \smallskip
-\painel[SoftTeal]{\rotulo{Resenha curta / 61 tokens / rótulo positivo}\par\smallskip
+\painel[SoftTeal]{\rotulo{Resenha curta / 61 tokens / rótulo positivo}\hfill
+  {\footnotesize\fonteatual{seminario/diagnosticos.md\#s\%C3\%B3-a-cnn-acertou}{\texttt{imdb\_test\_22831}}}\par\smallskip
   \small Ambos leem o texto inteiro. A CNN dá \CurtaCNN{} de escore positivo e
   o TF-IDF, \CurtaTFIDF{}. Na CNN, \textit{part is brilliant} soma \(+0{,}257\)
   à margem e \textit{the ending doesn't make much} soma \(-0{,}167\).
   No TF-IDF, \textit{brilliant} soma \(+0{,}503\) e o bigrama \textit{not one}
   soma \(-0{,}337\), embora esse bigrama esteja numa comparação de enredos.}
 
-\legendinha{Escores com temperaturas originais. Contribuições à margem bruta
-são os produtos dos coeficientes pelos máximos da CNN ou pelos valores de TF-IDF.
+\legendinha{Escores com temperaturas originais.
 \fonteatual{seminario/diagnosticos.md}{Decomposição e contagens}.}

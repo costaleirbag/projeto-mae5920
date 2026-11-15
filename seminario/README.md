@@ -64,15 +64,8 @@ o baseline original. A régua mantém o limiar de 50% e marca onde estava
 A quando você mostra B. [Par de contraste](https://costaleirbag.github.io/projeto-mae5920/#contraste).
 [Saídas do baseline para A e B](dados/discordancias.json#L39) · [Código da comparação](comparar_erros.py).
 
-No slide 13, troque A por B e acompanhe um pico real da CNN. A mesma
-janela começa no token 8 em A e no 20 em B. O valor que o filtro entrega
-continua igual. [Controle do máximo global](https://costaleirbag.github.io/projeto-mae5920/#maximo-global).
-
-Os textos A e B do slide 13 são construídos. A frase separadora aparece
-três vezes em cada um, preservando as janelas quando os blocos trocam de
-lugar. O slide 14 mostra os picos reais das duas metades desse mesmo
-exemplo e separa esse controle do teste com pares de resenhas editadas.
-[Dois picos por filtro](https://costaleirbag.github.io/projeto-mae5920/#posicao).
+Os slides 13 e 14 estendem a fala com comentários do YouTube e com os
+tempos de treino. [YouTube](https://costaleirbag.github.io/projeto-mae5920/#youtube) · [Custo](https://costaleirbag.github.io/projeto-mae5920/#custo).
 
 O primeiro slide de apoio alterna entre o recorte de 400 tokens e o texto
 inteiro de uma resenha do IMDb. **Conclusão** no topo vai ao encerramento.
@@ -101,7 +94,7 @@ e selecione `relatorio.tex` ou `slides.tex` como documento principal, com pdfLaT
 As figuras e tabelas do LaTeX estão nessa própria pasta.
 
 Para recompilar apenas o relatório, rode `make -C seminario relatorio`.
-Após atualizar escores de contraste, métricas de posição ou comprimentos, rode
+Após atualizar escores de contraste ou comprimentos, rode
 `python seminario/preparar_relatorio.py` antes de compilar para regenerar
 os dados das figuras e tabelas do relatório e do Beamer. Para refazer as
 métricas de comprimento, rode
@@ -151,7 +144,7 @@ O endpoint local `POST /predict` recebe JSON no formato
 `{"text":"The movie was wonderful."}`. Para usar o terminal, acrescente
 `--text 'The movie was wonderful.'`.
 
-No dia, carreguem a página antes da fala e façam um teste rápido. O slide 15
+No dia, carreguem a página antes da fala e façam um teste rápido. O slide 13
 traz os prints e as classes previstas para *Suicide Squad* e *The Room*. Esses
 casos podem ocupar o tempo da demonstração. As animações dos slides 4 e 5 já funcionam no HTML baixado.
 

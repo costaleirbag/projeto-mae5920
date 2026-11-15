@@ -205,7 +205,7 @@ def build(pdf: Path, output: Path) -> None:
     frames = list(FRAME.finditer((HERE / "slides.tex").read_text(encoding="utf-8")))
     assert len(frames) == len(reader.pages), "O PDF deve ter uma página por frame."
     assert [frame["lab"] for frame in frames if frame["lab"]] == [
-        "bpe", "cnn", "tfidf", "lengths", "contrast", "pooling", "position", "youtube", "cost", "closing", "cut",
+        "bpe", "cnn", "tfidf", "lengths", "contrast", "youtube", "cost", "closing", "cut",
     ]
 
     slides = []
@@ -222,15 +222,8 @@ def build(pdf: Path, output: Path) -> None:
                              png=b64encode(png.read_bytes()).decode("ascii"))
             slides.append(slide)
 
-    evidence = json.loads((HERE / "dados/animacoes.json").read_text(encoding="utf-8"))
-    position_results = json.loads((HERE / "dados/posicao_resultados.json").read_text(encoding="utf-8"))
-    position = {
-        "pairs": position_results["n"]["contrast"] // 2,
-        "rates": {
-            order: position_results["medias"][key]["contrast"]["fracao_pares"]
-            for order, key in (("value", "dois_picos_sem_posicao"), ("half", "dois_picos_com_posicao"))
-        },
-    }
+    animations = json.loads((HERE / "dados/animacoes.json").read_text(encoding="utf-8"))
+    evidence = {name: animations[name] for name in ("bpe", "cnn")}
     youtube_results = json.loads((HERE / "dados/qwen_youtube_resultados.json").read_text(encoding="utf-8"))
     cnn_youtube = json.loads((HERE / "dados/fora_dominio_resultados.json").read_text(encoding="utf-8"))
     tfidf_youtube = json.loads((HERE / "dados/tfidf_youtube_resultados.json").read_text(encoding="utf-8"))
@@ -255,7 +248,7 @@ def build(pdf: Path, output: Path) -> None:
     tfidf = json.loads((HERE / "dados/tfidf_slide.json").read_text(encoding="utf-8"))
     data = json.dumps({
         "slides": slides, "evidence": evidence, "architecture": architecture_steps(),
-        "contrast": contrast_example(), "position": position, "youtube": youtube, "cost": cost_evidence(),
+        "contrast": contrast_example(), "youtube": youtube, "cost": cost_evidence(),
         "cut": cut_example(), "tfidf": tfidf, "lengthBands": lengths["bands"],
         "bertCut": {key: bert_cut[key] for key in ("caps_including_specials", "replay", "extended")},
     }, ensure_ascii=False, separators=(",", ":"))

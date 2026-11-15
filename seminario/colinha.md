@@ -556,7 +556,7 @@ a acurácia de treino em cerca de 1,5 ponto e mudou o teste em
 ### Ordem, pooling e robustez
 
 <details>
-<summary>27 · O slide dos separadores representa uma resenha plausível? Por que repetir a frase?</summary>
+<summary>27 · Por que repetir a frase no controle dos separadores?</summary>
 
 **Resposta.** É um controle sintético para isolar um mecanismo. Cada
 versão tem três cópias da frase separadora de oito palavras e dois
@@ -567,14 +567,14 @@ encontra o mesmo contexto local nas duas versões. Nem mesmo a janela
 da borda precisa ser descartada. As janelas aparecem em outra ordem
 e em igual quantidade.
 
-**No quadro.** O filtro 61 de largura 3 tem pico **0,47** em
+**No controle.** O filtro 61 de largura 3 tem pico **0,47** em
 `movie i loved`. A posição inicial vai de **8 para 20**. O maior valor
 fica igual. Para cada um dos 300 filtros, mesma coleção de janelas
 significa mesma coleção de respostas, mesmo máximo e mesmo valor
 entregue à camada final. Os seis treinos produziram logits iguais entre
 A e B. O teste em textos editados mede o alcance em material menos
 artificial.
-[Controle interativo](https://costaleirbag.github.io/projeto-mae5920/#maximo-global) · [Textos exatos](casos.json) · [Escores do controle](dados/pares_resultados.json)
+[Textos exatos](casos.json) · [Escores do controle](dados/pares_resultados.json)
 
 </details>
 
@@ -623,7 +623,7 @@ e rótulos definidos previamente.
 </details>
 
 <details>
-<summary>30 · No slide 14, vocês deram à CNN um vetor de posições?</summary>
+<summary>30 · No ensaio com dois picos, vocês deram à CNN um vetor de posições?</summary>
 
 **Resposta.** Usamos os mesmos embeddings e filtros congelados.
 Por filtro, dividimos suas janelas válidas pela metade e extraímos
@@ -639,7 +639,7 @@ continuaram iguais. Nos 344 pares editados, **39,83%** por valor e
 **40,02%**. Cada par conta somente se as duas versões forem classificadas
 corretamente. Oito pares ficaram com entradas idênticas depois
 do recorte e foram mantidos nessa contagem.
-[Slide de posição](https://costaleirbag.github.io/projeto-mae5920/#posicao) · [Protocolo, controle e métricas](diagnosticos.md#o-que-acontece-quando-guardamos-a-posição-dos-picos)
+[Protocolo, controle e métricas](diagnosticos.md#o-que-acontece-quando-guardamos-a-posição-dos-picos)
 
 </details>
 
@@ -821,7 +821,7 @@ contexto do trailer. O rótulo final coincidiu entre os modos para
 esses comentários. O teste rotulado usa outras fontes, 1.000
 frases da Amazon e 1.000 do Yelp, com cerca de **68–70%** de
 acurácia nas CNNs.
-[Slide do YouTube](https://costaleirbag.github.io/projeto-mae5920/#slide-15) · [CNNs fora do domínio](dados/fora_dominio_resultados.json) · [Gerações do Qwen](dados/qwen_youtube_resultados.json)
+[Slide do YouTube](https://costaleirbag.github.io/projeto-mae5920/#youtube) · [CNNs fora do domínio](dados/fora_dominio_resultados.json) · [Gerações do Qwen](dados/qwen_youtube_resultados.json)
 
 </details>
 
@@ -1047,7 +1047,7 @@ mesmo quando eles explicam só parte da diferença para o baseline.
 | **Onde o baseline aprende** | `fit_transform` no treino, `transform` nas demais divisões, seleção de `C` na validação. | [TF-IDF e regressão](../src/imdb_lab/baseline.py#L13-L32) |
 | **De onde vêm os sorteios** | `orders`, `initialize_cnn` e `train_one`. Aponte para a permutação, os inicializadores e a semente do dropout. | [Lotes](../src/imdb_lab/sequences.py#L128-L133) · [Inicialização](../src/imdb_lab/sequences.py#L190-L199) · [Treino](../src/imdb_lab/sequences.py#L235-L280) |
 | **Como atribuímos classe ao comentário** | `load_models` carrega dois checkpoints por semente. `predict` usa o `argmax` dos logits. | [Inferência das CNNs](demo.py#L41-L102) |
-| **Onde entra a posição** | Compare a cabeça com picos por valor e a cabeça com picos por metade. Localize a avaliação que exige dois acertos por par. | [Experimento do slide 14](medir_posicao.py) |
+| **Onde entra a posição** | Compare a cabeça com picos por valor e a cabeça com picos por metade. Localize a avaliação que exige dois acertos por par. | [Experimento com dois picos](medir_posicao.py) |
 | **Qual token dá a classe do Qwen** | `forward_labels` resolve os IDs de rótulo, lê a última posição do prompt e guarda os dois logits e sua massa total. | [Inferência por logits](../src/imdb_lab/qwen_core.py#L139-L166) |
 
 ## Ensaio em grupo
@@ -1066,7 +1066,7 @@ mesmo quando eles explicam só parte da diferença para o baseline.
    global e expliquem por que a posição muda sem mudar o pico.
    Terminando, abram um resultado salvo pelo link do gabarito.
 
-[Varredura](https://costaleirbag.github.io/projeto-mae5920/#slide-5-varredura) · [Controle da troca](https://costaleirbag.github.io/projeto-mae5920/#maximo-global)
+[Varredura](https://costaleirbag.github.io/projeto-mae5920/#slide-5-varredura) · [Par de contraste](https://costaleirbag.github.io/projeto-mae5920/#contraste)
 
 ### Três contas sem computador
 

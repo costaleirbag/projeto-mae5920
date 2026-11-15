@@ -1,11 +1,9 @@
 \subsection{Regex e BPE no mesmo experimento}
 \label{sec:bpe}
-Para cada semente, treinamos a mesma arquitetura usando tokenização por palavras e com BPE.
-Cada par recebe os mesmos prefixos de até 128 palavras e repete os
-três sorteios do treino. Os embeddings partem dos mesmos valores, com
-IDs definidos por cada tokenizador. Usamos Adam a 0,001, com o mesmo
-orçamento e seleção de época pela validação. Na avaliação, cada uma
-das seis CNNs faz uma previsão por texto com dropout desligado.
+Para cada semente, as duas CNNs partem dos mesmos pesos e recebem os mesmos
+prefixos de até 128 palavras. Os IDs variam conforme o tokenizador. Ambas usam
+Adam a 0,001, sem decaimento, por 12 épocas, com seleção pela CE de validação.
+Na avaliação, cada uma das seis CNNs faz uma previsão com dropout desligado.
 
 \begin{tabularx}{\linewidth}{@{}Xrrrrr@{}}
 \toprule

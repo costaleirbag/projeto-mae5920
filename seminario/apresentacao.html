@@ -263,120 +263,6 @@
         <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/discordancias.json#L39" target="_blank" rel="noopener">Baseline original</a>
       </footer>
     </article>
-    <article id="pooling" class="lab readable pooling-slide" hidden aria-labelledby="pool-title">
-      <header class="lab-heading">
-        <p class="eyebrow">03 · Limites <span>Controle sintético</span></p>
-        <h1 id="pool-title">O máximo global descarta a posição</h1>
-      </header>
-      <div class="pool-switch-row">
-        <div class="cnn-view" role="group" aria-label="Ordem das opiniões">
-          <button type="button" data-pool-case="A" aria-pressed="true">A · Elogio primeiro</button>
-          <button type="button" data-pool-case="B" aria-pressed="false">B · Crítica primeiro ⇄</button>
-        </div>
-        <p>Se só a posição das janelas muda, a saída muda?</p>
-      </div>
-
-      <div class="lab-body pool-layout">
-        <section class="panel pool-panel" aria-label="Ativações ao longo do texto">
-          <div class="pool-blocks" aria-label="Blocos do texto na ordem escolhida">
-            <span>Separador</span><strong id="pool-first" lang="en"></strong><span>Separador</span>
-            <strong id="pool-second" lang="en"></strong><span>Separador</span>
-          </div>
-          <p class="pool-separator">A mesma frase nos três separadores <span id="pool-separator-text" lang="en"></span></p>
-
-          <div class="plot pool-plot">
-            <div class="pool-plot-heading">
-              <p class="micro">Resposta de um filtro de largura 3</p>
-              <p id="pool-current" aria-live="polite"></p>
-            </div>
-            <div class="bars pool-bars" id="pool-bars" aria-hidden="true"></div>
-            <div class="pool-axis" aria-hidden="true"><span>Início</span><span>Fim do texto</span></div>
-          </div>
-        </section>
-
-        <aside class="rail pool-rail" aria-label="Janelas e máximo global">
-          <div>
-            <table class="pool-windows">
-              <caption class="micro">Janelas junto ao elogio, iguais em A e B</caption>
-              <tbody>
-                <tr><th scope="row">k = 3</th><td lang="en"><code><span>movie</span> i loved</code></td></tr>
-                <tr><th scope="row">k = 4</th><td lang="en"><code><span>movie</span> i loved the</code></td></tr>
-                <tr><th scope="row">k = 5</th><td lang="en"><code><span>movie</span> i loved the acting</code></td></tr>
-              </tbody>
-            </table>
-            <p class="pool-window-note">A janela começa em <code lang="en">movie</code>, no separador, e cruza a borda.</p>
-          </div>
-          <div class="pool-comparison">
-            <div>
-              <p class="micro">Token inicial em A e B</p>
-              <p class="readout" id="pool-positions"></p>
-            </div>
-            <div>
-              <p class="micro">Máximo do filtro de largura 3</p>
-              <p class="readout" id="pool-maxima"></p>
-            </div>
-          </div>
-        </aside>
-      </div>
-
-      <div class="pool-takeaway">
-        <p>O separador impede que a janela alcance as duas opiniões.</p>
-        <p><strong>Mesmas janelas em outra ordem. Os 300 máximos e os logits ficam iguais.</strong></p>
-      </div>
-      <footer class="lab-source"><span id="pool-evidence"></span>
-        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/dados/pares_resultados.json" target="_blank" rel="noopener">Controle nos seis treinos</a>
-        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/medir_pares.py" target="_blank" rel="noopener">Código</a>
-      </footer>
-    </article>
-
-    <article id="position" class="lab readable position-slide" hidden aria-labelledby="position-title">
-      <header class="lab-heading">
-        <p class="eyebrow">03 · Limites <span>Dois picos por filtro</span></p>
-        <h1 id="position-title">Guardar a posição ajudou a classificar?</h1>
-      </header>
-      <p class="position-lead">Cada filtro entrega dois picos. Um vem da primeira metade das janelas e o outro, da segunda.</p>
-      <section class="position-example" aria-label="Os dois picos do filtro do slide anterior">
-        <p class="micro">Exemplo do slide anterior · mesmo filtro</p>
-        <div class="position-cards">
-          <section class="position-card" aria-labelledby="position-value-title">
-            <h2 id="position-value-title">Picos ordenados pelo valor</h2>
-            <table data-position-order="value" aria-label="Os mesmos picos ordenados pelo valor">
-              <thead><tr><th scope="col">Texto</th><th scope="col">Pico menor</th><th scope="col">Pico maior</th></tr></thead>
-              <tbody>
-                <tr data-position-case="A"><th scope="row">A</th><td></td><td></td></tr>
-                <tr data-position-case="B"><th scope="row">B</th><td></td><td></td></tr>
-              </tbody>
-            </table>
-            <p>A coluna indica apenas se o pico é menor ou maior.</p>
-          </section>
-          <section class="position-card" aria-labelledby="position-half-title">
-            <h2 id="position-half-title">Picos na ordem do texto</h2>
-            <table data-position-order="half" aria-label="Os picos na ordem das metades">
-              <thead><tr><th scope="col">Texto</th><th scope="col">1ª metade</th><th scope="col">2ª metade</th></tr></thead>
-              <tbody>
-                <tr data-position-case="A"><th scope="row">A</th><td></td><td></td></tr>
-                <tr data-position-case="B"><th scope="row">B</th><td></td><td></td></tr>
-              </tbody>
-            </table>
-            <p>A coluna indica de qual metade veio cada pico.</p>
-          </section>
-        </div>
-        <p class="position-lead">No controle, a ordem das metades separou os escores de A e B. As classes coincidiram.</p>
-      </section>
-      <section class="position-test" aria-label="Avaliação com resenhas editadas por pessoas">
-        <p class="micro">Teste separado · <span id="position-pairs"></span> pares de resenhas</p>
-        <div class="position-rates">
-          <div><strong id="position-rate-value"></strong><span>Picos por valor</span></div>
-          <div><strong id="position-rate-half"></strong><span>Picos por metade</span></div>
-        </div>
-        <p>Cada par tem uma resenha e uma edição humana que inverte o rótulo. Contamos acerto só quando as duas versões estão certas.</p>
-      </section>
-      <footer class="lab-source">Cada regressão recebe 600 valores. Ajustamos a camada final com os filtros fixos.
-        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/diagnosticos.md#o-que-acontece-quando-guardamos-a-posi%C3%A7%C3%A3o-dos-picos" target="_blank" rel="noopener">Protocolo e três sementes</a>
-        <a href="https://github.com/costaleirbag/projeto-mae5920/blob/main/seminario/medir_posicao.py" target="_blank" rel="noopener">Código</a>
-      </footer>
-    </article>
-
     <article id="youtube" class="lab readable youtube-slide" hidden aria-labelledby="youtube-title">
       <header class="lab-heading">
         <p class="eyebrow">Extensão <span class="youtube-brand"><span aria-hidden="true">▶</span> YouTube</span></p>
@@ -513,19 +399,19 @@
     <article id="closing" class="lab readable closing-slide" hidden aria-labelledby="closing-title">
       <p class="eyebrow">Conclusão</p>
       <h1 id="closing-title">Onde a nossa CNN falhou?</h1>
-      <p class="closing-lead"><strong>86,78%</strong> com a CNN. <strong>90,14%</strong> com TF-IDF e regressão logística.</p>
+      <p class="closing-lead"><strong>O TF-IDF superou a TextCNN</strong> nas quatro faixas de comprimento.</p>
       <div class="closing-points">
         <section>
-          <h2>Recorte</h2>
-          <p>O texto inteiro recuperou 0,50 ponto no teste, com os mesmos pesos.</p>
+          <h2>Pistas no vocabulário</h2>
+          <p>Palavras e bigramas espalhados pela resenha já dão bons sinais de sentimento.</p>
         </section>
         <section>
-          <h2>Ordem</h2>
-          <p>O máximo global guarda a força do padrão e descarta onde ele apareceu.</p>
+          <h2>Contexto e ordem</h2>
+          <p>Com os mesmos pesos, ler o texto inteiro recuperou 0,50 ponto. No par com <em lang="en">but</em>, a CNN seguiu a primeira opinião.</p>
         </section>
         <section>
           <h2>Pré-treino</h2>
-          <p>BERT e Qwen superaram o baseline neste teste, com outras receitas.</p>
+          <p>BERT e Qwen superaram o baseline. O efeito de mais dados para a CNN ficou em aberto.</p>
         </section>
       </div>
       <footer class="closing-footer">

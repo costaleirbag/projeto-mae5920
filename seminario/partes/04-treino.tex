@@ -1,11 +1,11 @@
 \section{Experimentos e resultados}
 \label{sec:treino}
 \subsection{Otimização e seleção de época}
-Usamos os gradientes da entropia cruzada para atualizar embeddings, filtros e
-saída, com norma global limitada a 1 por \textit{gradient clipping}. Nos ensaios
-internos, inicializamos os embeddings com uma distribuição normal de média zero
-e desvio padrão 0,1, os filtros com He normal e a saída com Xavier uniforme.
-Os vieses e o vetor de padding começam zerados \cite{prince}.
+A entropia cruzada fornece os gradientes. Se a norma global passa de 1,
+o \textit{clipping} reduz a norma para 1 e mantém a direção. Nos ensaios
+internos, os embeddings começam com distribuição normal de média zero e
+desvio padrão 0,1, os filtros com He normal e a saída com Xavier uniforme.
+Os vieses e o vetor de padding começam em zero.
 
 \begin{tabularx}{\linewidth}{@{}lXr@{}}
 \toprule
@@ -25,13 +25,13 @@ exemplos nos lotes a cada época e o sorteio das ativações zeradas
 pelo dropout.
 Ao comparar otimizadores, repetimos os três sorteios dentro da mesma
 semente e mantemos a divisão dos dados. Guardamos a época de menor CE
-de validação e escolhemos a taxa pela média dessa perda. Os ensaios usam
-decaimento de pesos zero. A CNN original usa AdamW com decaimento de
-0,01, dropout de 0,5 e seleção pelo F1 macro de validação, com paciência
-de duas épocas.
+de validação e escolhemos a taxa pela média dessa perda, sem encolhimento
+explícito dos pesos. A CNN do estudo original usa AdamW, que contrai os
+pesos a cada passo com decaimento de 0,01. Ela guarda o maior F1 macro de
+validação e encerra após duas épocas seguidas sem melhora ou ao chegar a cinco.
 
-\medskip
-\noindent\makebox[\linewidth]{\includegraphics[width=.84\linewidth]{figuras/otimizacao.pdf}}
+\smallskip
+\noindent\makebox[\linewidth]{\includegraphics[width=.79\linewidth]{figuras/otimizacao.pdf}}
 \legendinha{Figura 2. A época zero mostra a inicialização. As linhas são médias e as faixas cobrem mínimo e máximo
 entre sementes. À esquerda, cada otimizador usa sua taxa escolhida. À direita,
 a perda de treino com Adam continua caindo depois da melhor região de
@@ -40,6 +40,6 @@ validação. Os checkpoints de Adam vêm das épocas 5 e 6.}
 \subsection{Largura, número de filtros e dropout}
 Na auditoria, as larguras 3 e 5, com 100 filtros, deram 81,27\% e 80,94\%.
 Com 3/4/5, 300 filtros deram 81,95\% e 96 deram 81,64\%.
-Com dropout de 0,8, a acurácia foi 80,44\%.
+Com dropout de 0, de 0,5 e de 0,8, foram 81,80\%, 81,95\% e 80,44\%.
 \fonte{results/sequences/summary.json}{Métricas por semente}.
 \fonteatual{src/imdb_lab/sequences.py}{Código dos treinos}.

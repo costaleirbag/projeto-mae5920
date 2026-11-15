@@ -1,10 +1,9 @@
 # Roteiro de fala
 
-A apresentação termina no slide 17, **Conclusão**. Na versão de 12 minutos,
-vá do slide 14 direto para **Conclusão** pelo link no topo. Na de 15, passe
-também pelos slides 15 e 16. A explicação do TF-IDF entra na sequência
-principal antes da comparação no IMDb. Os slides 4 e 7 são pontos
-naturais para trocar de pessoa.
+A apresentação termina no slide 15, **Conclusão**. Na versão de 12 minutos,
+vá do slide 12 direto para **Conclusão** pelo link no topo. Na de 15, passe
+também pelos slides 13 e 14. Os slides 4 e 7 são pontos naturais para
+trocar de pessoa.
 
 | Slide | Relógio | Assunto |
 |---:|---|---|
@@ -16,15 +15,13 @@ naturais para trocar de pessoa.
 | 6 | 04:15–05:25 | Taxa, época e generalização |
 | 7 | 05:25–06:40 | Como TF-IDF e regressão logística classificam |
 | 8 | 06:40–07:10 | Controle com rótulos embaralhados |
-| 9 | 07:10–07:50 | Teste oficial e controle de recorte |
-| 10 | 07:50–08:30 | Acurácia e F1 macro por comprimento |
-| 11 | 08:30–09:05 | Auditoria de regex e BPE |
-| 12 | 09:05–10:05 | A predição do par inicial |
-| 13 | 10:05–11:00 | O limite do máximo global |
-| 14 | 11:00–11:35 | Dois picos por filtro e acerto em pares |
-| 15 | 11:35–13:00 | Comentários do YouTube ou demonstração |
-| 16 | 13:00–14:30 | Custo de treino e adaptação do BERT |
-| 17 | 14:30–15:00 ou 11:35–12:00 | Conclusão e perguntas |
+| 9 | 07:10–08:20 | Teste oficial, tipos de erro e controle de recorte |
+| 10 | 08:20–09:10 | Acurácia e F1 macro por comprimento |
+| 11 | 09:10–09:50 | Auditoria de regex e BPE |
+| 12 | 09:50–11:15 | A predição do par inicial |
+| 13 | 11:15–12:40 | Comentários do YouTube ou demonstração |
+| 14 | 12:40–14:10 | Custo de treino e adaptação do BERT |
+| 15 | 14:10–15:00 ou 11:15–12:00 | Conclusão e perguntas |
 
 ## 1 · Pergunta do seminário
 
@@ -49,12 +46,12 @@ os modelos fizeram depois de ver como eles foram treinados.”
 
 ## 3 · Treino, validação e avaliação
 
-“Temos 25 mil resenhas em inglês no teste oficial. As resenhas têm, em
-média, 226 palavras no teste e 231 no nosso treino. Uma frase típica tem
-mediana de 16 palavras, contando pontuação como separador de frases.
-Uma em cada dez resenhas do teste passa de 439 palavras. Antes de olhar
-o teste, escolhemos a configuração na validação e a temperatura na
-calibração. Os ensaios de tokenização usam uma auditoria própria.”
+“O IMDb fornece 25 mil resenhas para treino e 25 mil para teste, com metade
+positiva e metade negativa em cada conjunto. Depois de tirar 221 duplicatas
+do treino, dividimos as 24.779 restantes entre treino, validação e calibração.
+Nos ensaios internos, treino, validação e auditoria usam partes separadas
+dessas 19.823 resenhas de treino. As resenhas têm, em média, 226 palavras no teste
+e 231 no nosso treino. Uma em cada dez resenhas do teste passa de 439 palavras.”
 
 ## 4 · Fusões do BPE
 
@@ -190,13 +187,20 @@ ambiente. [Busca de regularização](../results/tfidf_regularization/summary.jso
 
 “No estudo original, o TF-IDF leu resenhas inteiras e fez 90,14%. A
 CNN leu até 400 tokens por regex e fez 86,78%. O BERT leu até 192
-WordPieces e fez 90,94%. Depois fizemos um controle à parte. Na repetição,
-o TF-IDF fez 90,15% com texto inteiro e 89,66% quando cortamos o texto aos
-400 tokens da CNN e reajustamos o modelo. Mesmo com o prefixo comum,
-a CNN original fica atrás.”
+WordPieces e fez 90,94%. Na CNN, foram 1.818 resenhas negativas previstas
+como positivas, ante 1.486 erros no sentido inverso.”
+
+“Para medir quanto o recorte favorece o TF-IDF, treinamos duas versões.
+Uma recebeu as resenhas inteiras. Na outra, cortamos todos os textos
+previamente no token 400, usando a contagem da CNN. Os resultados no teste
+foram 90,15% e 89,66% de acurácia. A CNN original ficou atrás mesmo
+quando os dois modelos leram o mesmo prefixo.”
 
 Acurácia e F1 macro usam as classes previstas. A CE usa as probabilidades
 calibradas numa amostra separada.
+
+Nas mesmas 25.000 resenhas, o TF-IDF teve 1.234 falsos positivos e 1.230 falsos
+negativos. O BERT teve 1.342 e 922. [Contagens por modelo](../results/comparison.csv).
 
 Na versão curta, cabe uma frase sobre custo aqui. “No Mac M1, o TF-IDF
 levou 13 s na CPU e a CNN levou 140 s na GPU.” [Slide de computação](https://costaleirbag.github.io/projeto-mae5920/#custo).
@@ -279,35 +283,7 @@ cinco tokens já contém *terrible but it was wonderful*. Uma de sete incluiria
 também *movie was*. A troca muda as janelas, então esse teste mede a rede
 inteira. [Tokens e classes](dados/pares_resultados.json).
 
-## 13 · O máximo global descarta a posição
-
-Mostre A e depois pressione **B** ou a seta direita. No PDF, compare as duas
-linhas e aponte a posição e o valor do pico.
-
-“No par com *but*, a troca muda o conteúdo das janelas. Aqui queremos
-mudar só onde as janelas aparecem. Mesmo com largura quatro, a janela
-anda um token por vez e pode cruzar a borda. Pusemos a mesma frase dos
-dois lados de cada opinião. Vejam *movie* do separador seguido por
-*i loved*, por *i loved the* ou por *i loved the acting*. Os três trechos
-aparecem em A e B. No gráfico de largura três, o pico passa do token 8
-ao 20, com o mesmo valor de 0,47. Cada filtro entrega só seu maior valor.
-Os 300 máximos ficam iguais e a saída também.”
-[Código do controle](medir_pares.py).
-
-## 14 · Guardar a posição ajudou a classificar?
-
-“Pegamos um pico por metade. Ordenados pelo valor, A e B dão 0,25 e
-0,47. Na ordem do texto, o primeiro número vem do início e o segundo vem
-do fim. Isso mudou os escores do controle, e a classe coincidiu. Cada
-regressão recebe 600 valores. Nos 344 pares editados por pessoas, o
-acerto ficou perto de 40% nas duas opções. O par conta quando acertamos
-as duas versões.” [Código do teste de posição](medir_posicao.py).
-
-Se perguntarem sobre o teste sintético, há quatro moldes com veredito no
-começo ou no fim. Nenhuma das cabeças acertou as duas frases de qualquer
-par com veredito no fim. [Método e resultados por semente](diagnosticos.md#o-que-acontece-quando-guardamos-a-posição-dos-picos).
-
-## 15 · Comentários fora do IMDb
+## 13 · Comentários fora do IMDb
 
 Mostre os prints e aponte o destaque em *No one*. O modelo recebeu o
 texto de cada comentário. Os vídeos e a interface ajudam a plateia a
@@ -333,7 +309,7 @@ Se optarem pela demonstração, abram o navegador antes da fala e usem até
 classe, o escore e os tokens das duas CNNs. Se a resposta demorar, voltem
 aos resultados salvos no slide.
 
-## 16 · Custo de treino e adaptação do BERT
+## 14 · Custo de treino e adaptação do BERT
 
 Comece em **Estudo original**. Avance com a seta direita para **Ajuste
 do BERT**. No PDF, leia a coluna da esquerda e depois a da direita.
@@ -401,19 +377,23 @@ melhor os rótulos nesse ensaio.”
   uma amostra separada. [Metadados](../results/qwen/classification/metadata.json) ·
   [Código de classificação](../src/imdb_lab/qwen_experiment.py).
 
-## 17 · Conclusão
+## 15 · Conclusão
 
-“A nossa CNN ficou 3,36 pontos abaixo do TF-IDF. O texto inteiro recupera
-meio ponto, com os pesos fixos. O máximo global perde a posição, como
-mostra a troca de blocos. No par com *but*, os filtros responderam à
-troca, mas a CNN seguiu a primeira opinião. BERT e Qwen mostram que outras
-receitas de deep learning superaram o baseline no mesmo teste.”
+“Palavras e bigramas captam boa parte do sentimento das resenhas. Nessa
+tarefa, isso fez do TF-IDF um baseline forte em todas as faixas de tamanho.
+Dar o texto inteiro à CNN recuperou meio ponto. No exemplo com *but*, ela
+seguiu a primeira opinião mesmo com a frase inteira. Isso ajuda a levantar
+duas questões diferentes sobre a entrada e sobre como a CNN combina pistas.
+BERT ajustado e Qwen com prompt reaproveitam pesos pré-treinados e ficaram
+à frente do baseline. Para a CNN treinada do zero, mais dados podem ajudar.
+Uma curva de aprendizado com diferentes volumes de treino ajudaria a testar
+essa hipótese.”
 Deixe o quadro de perguntas na tela.
 
 ## Cortes para o ensaio
 
-- Na versão de 12 minutos, vá do slide 14 à conclusão pelo link no topo.
-- Para 10 minutos, apresente só a última linha no slide 10 e resuma a auditoria BPE em uma frase. Mostre uma troca de posição no slide 13.
+- Na versão de 12 minutos, vá do slide 12 à conclusão pelo link no topo.
+- Para 10 minutos, apresente só a última linha no slide 10, resuma a auditoria BPE em uma frase e mostre uma troca de adjetivos no slide 12.
 - Na seção de apoio, usem o primeiro slide para mostrar o recorte da resenha, o segundo para calibração e o quarto para largura e passo.
 - A geração do Qwen com intervenção nas ativações fica no terceiro slide de apoio, para perguntas.
 

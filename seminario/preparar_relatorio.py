@@ -15,23 +15,6 @@ def pct(value: float, digits: int = 2) -> str:
     return f"{100 * value:.{digits}f}".replace(".", ",") + r"\%"
 
 
-def position_rows(results: dict) -> str:
-    recipes = {
-        "original": "Máximo, cabeça original",
-        "global_reajustado": "Máximo, cabeça reajustada",
-        "dois_picos_sem_posicao": "Dois picos por valor",
-        "dois_picos_com_posicao": "Dois picos por posição",
-    }
-    columns = (("audit", "accuracy"), ("synthetic", "fracao_pares"),
-               ("contrast", "fracao_pares"))
-    rows = []
-    for key, label in recipes.items():
-        metrics = results["medias"][key]
-        values = [pct(metrics[role][metric]) for role, metric in columns]
-        rows.append(" & ".join((label, *values)) + r" \\")
-    return "\n".join(rows)
-
-
 def decimal(value, digits=0):
     return f"{value:,.{digits}f}".translate(str.maketrans(",.", ".,"))
 
@@ -94,15 +77,20 @@ def main() -> None:
         for seed in contrast["resultados"][name]["predicoes"]
     ]
     trace = json.loads((data / "animacoes.json").read_text(encoding="utf-8"))["cnn"]
-    position = json.loads((data / "posicao_resultados.json").read_text(encoding="utf-8"))
-
     errors = json.loads((data / "discordancias.json").read_text(encoding="utf-8"))
     short_review = next(case for case in errors["casos"] if case["id"] == "imdb_test_22831")
+    error_rows = []
+    for key, model in (("tfidf", "TF-IDF + logística"), ("cnn", "TextCNN"), ("bert", "BERT")):
+        source = HERE.parent / f"results/{key}/metrics.json"
+        test = json.loads(source.read_text(encoding="utf-8"))["test"]
+        calibrated = test["calibrated"]
+        error_rows.append([model, decimal(calibrated["fp"]), decimal(calibrated["fn"]),
+                           decimal(calibrated["log_loss"], 4)])
     lines = [
         "% Gerado por preparar_relatorio.py a partir das predições e ativações salvas.",
         macro("VotosPalavras", "%\n  ".join(scores[:3])),
         macro("VotosBPE", "%\n  ".join(scores[3:])),
-        macro("LinhasPosicao", position_rows(position)),
+        macro("LinhasErros", latex_rows(error_rows)),
         macro("CurtaCNN", pct(short_review["cnn_prefixo"]["p_positiva"], 1)),
         macro("CurtaTFIDF", pct(short_review["tfidf_inteiro"]["p_positiva"], 1)),
     ]

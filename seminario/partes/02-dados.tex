@@ -1,8 +1,9 @@
 \section{Dados e protocolo de avaliação}
 \label{sec:dados}
-O IMDb tem 25.000 resenhas em inglês no treino oficial e 25.000 no teste
-\cite{maas}, com rótulos \(0\) (negativo) e \(1\) (positivo). Na limpeza,
-decodificamos entidades HTML, removemos tags e normalizamos espaços.
+O Large Movie Review Dataset do IMDb \cite{maas} tem 25.000 resenhas
+rotuladas no treino oficial e outras 25.000 no teste, com 12.500 por classe
+em cada divisão (\(0\) negativo, \(1\) positivo). Na limpeza, decodificamos
+entidades HTML, removemos tags e normalizamos espaços.
 
 \subsection{Divisão dos dados}
 \begin{tabularx}{\linewidth}{@{}lrrX@{}}
@@ -15,12 +16,16 @@ Calibração   &  2.478 &  --   & Ajustar temperatura após a seleção original
 Teste/auditoria & 25.000 & 2.048 & Avaliar a configuração já escolhida.\\
 \bottomrule
 \end{tabularx}
-\legendinha{Tabela 1. A auditoria é o conjunto reservado para avaliar os ensaios internos.}
+\legendinha{Tabela 1. Os ensaios internos tiram treino, validação e auditoria
+das 19.823 resenhas usadas no treino original. Os ensaios de sequências e de
+BPE compartilham treino e validação. Cada um tem sua própria auditoria,
+com 2.048 casos balanceados e reservados.}
 
-Nos ensaios internos com sequências, comparamos configurações em amostras
-menores e usamos até 128 palavras por resenha. Na auditoria BPE, esse limite
-recortou 1.535 resenhas e manteve 51,24\% dos tokens por palavras. Os prefixos
-couberam no teto adicional de 256 tokens.
+Das 25.000 do treino oficial, 221 foram removidas na deduplicação.
+As 24.779 restantes se dividem em \(19.823+2.478+2.478\). Nos ensaios
+internos, usamos prefixos de até 128 palavras. Na auditoria BPE, isso
+recortou 1.535 resenhas e manteve 51,24\% dos tokens por palavras. Os
+prefixos couberam no teto adicional de 256 tokens.
 \fonte{docs/PROTOCOLO_SEQUENCIAS.md}{Protocolo sequencial} e
 \fonte{docs/PROTOCOLO_BPE.md}{protocolo BPE}.
 
@@ -38,10 +43,10 @@ couberam no teto adicional de 256 tokens.
 *Frases estimadas por pontuação final. \fonteatual{seminario/dados/comprimentos.json}{Distribuições completas}.}
 
 \subsection{Análise de possíveis vazamentos de informação}
-Removemos 123 resenhas do treino que também apareciam no teste e 98 duplicatas
-internas, comparando hashes SHA-256 do texto limpo com \textit{casefold}.
-Usamos os textos do teste para deduplicar e reservamos seus rótulos à avaliação.
-Cada hash aparece em uma só divisão. O teste mantém 201 ocorrências duplicadas.
+Identificamos 123 resenhas do treino que também apareciam no teste e 98
+duplicatas internas com hashes SHA-256 do texto limpo com \textit{casefold}.
+Reservamos os rótulos do teste à avaliação. Cada hash aparece em uma só divisão
+do estudo original. O teste mantém 201 ocorrências duplicadas.
 \fonte{data/manifest.json}{Manifesto}.
 
 Depois da divisão, ajustamos o TF-IDF, o vocabulário por palavras e as fusões do
@@ -63,7 +68,3 @@ Qwen reutilizam o teste em caráter exploratório.
 \end{tabularx}
 \legendinha{Tabela 3. A única entrada do classificador é o texto.
 \fonte{DATA_DICTIONARY.md}{Dicionário completo}.}
-
-\subsection{Métricas}
-Acurácia é a fração de acertos. F1 macro dá o mesmo peso ao F1 de cada
-classe. A entropia cruzada (CE) é a média de \(-\log p(\text{classe verdadeira})\).

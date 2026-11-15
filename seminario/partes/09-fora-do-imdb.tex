@@ -1,0 +1,28 @@
+\subsection{Avaliação fora do IMDb}
+Aplicamos as seis CNNs do ensaio de tokenização, com os pesos congelados,
+a 1.000 frases rotuladas da Amazon e 1.000 do Yelp, balanceadas por fonte
+\cite{kotzias}. Os textos eram comentários curtos sobre produtos e serviços,
+com medianas de 9 e 10 palavras, respectivamente.
+
+\begin{tabularx}{\linewidth}{@{}Xrrrrrr@{}}
+\toprule
+ & \multicolumn{3}{c}{\tabelahead{CNN por palavras}}
+ & \multicolumn{3}{c}{\tabelahead{CNN com BPE}}\\
+\cmidrule(lr){2-4}\cmidrule(l){5-7}
+\tabelahead{Fonte} & \tabelahead{Acurácia} & \tabelahead{F1 macro} & \tabelahead{CE}
+ & \tabelahead{Acurácia} & \tabelahead{F1 macro} & \tabelahead{CE}\\
+\midrule
+\LinhasForaDominio
+\bottomrule
+\end{tabularx}
+\legendinha{Tabela 10. Média das três sementes por tokenização.
+\fonteatual{seminario/dados/fora_dominio_resultados.json}{Métricas por fonte e semente}.}
+
+Em dois exemplos do YouTube sem rótulo de referência, o TF-IDF previu
+positiva nos dois. As seis CNNs e o Qwen também leram o elogio seguido
+de \textit{No one}, em \textit{The Room}, como positivo. No comentário
+irônico de \textit{Suicide Squad}, cinco CNNs deram positiva e o Qwen
+deu negativa nos dois modos de geração.
+\fonteatual{seminario/dados/tfidf_youtube_resultados.json}{TF-IDF}.
+\fonteatual{seminario/dados/fora_dominio_resultados.json}{CNN}.
+\fonteatual{seminario/dados/qwen_youtube_resultados.json}{Qwen}.
