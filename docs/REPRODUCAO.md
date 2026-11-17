@@ -15,10 +15,9 @@ mostra código, saídas e figuras. Use o sumário do Jupyter/VS Code ou a busca 
 navegador por número/título: o roteiro da capa é textual para evitar atalhos
 internos incompatíveis com o visualizador do GitHub.
 
-Para apresentar, baixe os [slides](../output/slides/seminario_mae5920.pptx) e
-consulte as [notas de fala](NOTAS_APRESENTACAO.md). Relatórios, HTMLs e notebooks
-estão no [pacote atual](https://github.com/costaleirbag/projeto-mae5920/releases/latest).
-Baixe os HTMLs e abra no navegador; o GitHub mostra seu código-fonte.
+Para apresentar, abra os [slides interativos](https://costaleirbag.github.io/projeto-mae5920/)
+e consulte o [roteiro slide a slide](../seminario/colinha.md#roteiro-slide-a-slide).
+Também há uma [cópia dos slides em PDF](../output/pdf/slides_15_min.pdf).
 
 ## 2. Executar somente o notebook único — CPU, sem modelos grandes
 

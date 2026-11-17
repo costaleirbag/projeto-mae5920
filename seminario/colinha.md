@@ -6,30 +6,31 @@ sentimento no IMDb e o que se perde entre o texto e a decisão. Usem as pergunta
 como cartões. Uma pessoa lê, outra responde em voz alta e a terceira abre o
 gabarito e pede o controle que sustenta a resposta.
 
-[Revisão rápida](#revisão-rápida) · [Mapa dos modelos](#mapa-dos-modelos) · [Perguntas de banca](#perguntas-de-banca) · [Código para abrir na hora](#código-para-abrir-na-hora) · [Ensaio em grupo](#ensaio-em-grupo)
+[Roteiro slide a slide](#roteiro-slide-a-slide) · [Revisão rápida](#revisão-rápida) · [Mapa dos modelos](#mapa-dos-modelos) · [Perguntas de banca](#perguntas-de-banca) · [Código para abrir na hora](#código-para-abrir-na-hora) · [Ensaio em grupo](#ensaio-em-grupo)
 
-**Primeiro passe, em cinco minutos.** Cartões 02 (vazamento), 17 (rótulos
-embaralhados), 19 (por que a CNN perdeu), 22 (sementes), 27 (máximo global)
+[Slides interativos](https://costaleirbag.github.io/projeto-mae5920/) · [Relatório de 8 páginas](../output/pdf/relatorio_seminario.pdf) · [Notebook de entrega](../notebooks/seminario_completo.ipynb)
+
+**Primeiro passe, em cinco minutos.** Cartões 01–02 (divisões e vazamento),
+17 (rótulos embaralhados), 19 (por que a CNN perdeu), 22 (sementes), 29 (ordem)
 e 45 (uso de IA). Abra o gabarito depois de responder.
 
 ## Revisão rápida
 
 ### A resposta de 30 segundos
 
-> Partimos de uma tarefa binária, com resenhas positivas e negativas. No
-> IMDb, o TF-IDF com regressão logística acertou 90,14% e a nossa TextCNN
-> acertou 86,78%. Mostrar a resenha inteira à mesma CNN recuperou meio
-> ponto no total e ajudou mais nas resenhas longas. Em outro controle,
-> trocamos dois blocos preservando todas as janelas locais. Os máximos e
-> os logits ficaram iguais, o que mostra exatamente onde a posição se
-> perdeu. BERT e Qwen passaram do baseline com outras receitas e
-> pré-treinamento. O trabalho explica o comportamento da nossa CNN por
-> meio dessas comparações.
+> No IMDb, o TF-IDF com regressão logística fez 90,14% e a nossa TextCNN,
+> 86,78%. Palavras e bigramas já capturam pistas de sentimento espalhadas
+> pela resenha. Dar o texto inteiro à mesma CNN recuperou meio ponto.
+> No par curto com *but*, os seis treinos seguiram a primeira opinião.
+> A TextCNN lê ordem local, e o máximo global entrega a força de cada
+> pico sem a posição. BERT e Qwen ficaram acima do baseline reaproveitando
+> pré-treino. O efeito de treinar a CNN com mais dados ficou em aberto.
 
 ### Os números que a banca pode pedir
 
 | Referência | Número para lembrar | Onde aconteceu |
 |---|---|---|
+| Balanceamento | **9.954 positivas e 9.869 negativas** para ajuste. **12.500 por classe** no teste | Estudo original |
 | Teste principal | TF-IDF **90,14%**, CNN **86,78%**, BERT **90,94%** | Mesmas **25.000** resenhas do teste oficial |
 | Qwen3-8B | **95,26%**, pesos congelados, classificação por logits de rótulos | Extensão no teste oficial já consultado |
 | Recorte da CNN | **400 tokens por regex**, **3.118** resenhas cortadas. Com o mesmo checkpoint e texto inteiro, **87,28%** | Teste oficial |
@@ -37,17 +38,284 @@ e 45 (uso de IA). Abra o gabarito depois de responder.
 | Vocabulário e rede | **20.000 × 128** no embedding. Janelas **3/4/5**, **100 filtros** por largura, **300 máximos**, **2 logits** | TextCNN base |
 | Custo original | **13,1 s** TF-IDF, **139,6 s** CNN, **446,4 s** BERT | CPU do M1, GPU do M1 e NVIDIA GB10, respectivamente |
 | BERT congelado / completo | **84,52% / 88,31%**. **17,6 s / 148,9 s** para extração + ajuste / ajuste | Mesma auditoria sequencial, três sementes |
-| Posição | Mesmas janelas em outra ordem dão **logits idênticos**. Nos **344** pares editados, dois picos por valor deram **39,83%** e por posição **39,15%** | Troca de blocos sintética e teste da cabeça com os filtros congelados |
+| Contraste com *but* | As **seis CNNs** deram negativa a A e positiva a B. O TF-IDF deu negativa às duas | Par sintético dos slides 2 e 12 |
 
-[Métricas oficiais e auditorias](../docs/RESULTADOS.md) · [Roteiro e cronômetros](roteiro.md#como-os-tempos-foram-medidos) · [Controles de recorte e posição](diagnosticos.md)
+[Métricas oficiais e auditorias](../docs/RESULTADOS.md) · [Cronômetros](roteiro.md#como-os-tempos-foram-medidos) · [Erros e efeito do recorte](diagnosticos.md)
 
 > **Antes de citar uma porcentagem**, diga em que conjunto ela foi medida,
 > qual foi a entrada e quais pesos foram atualizados. A maior parte das
 > perguntas difíceis começa quando uma dessas três informações fica implícita.
 
+## Roteiro slide a slide
+
+O relógio vai até **14:50**, com dez segundos de margem. Para dividir a fala
+entre três pessoas, façam as trocas ao abrir os slides 6 e 11. Em uma versão de
+12 minutos, depois do 12 usem **Conclusão** na barra superior e encerrem em
+11:15–12:00. Na hora, avancem as demonstrações pelos controles manuais.
+
+### 01 · O que a CNN lê em uma resenha?
+
+**00:00–00:25** · Relatório p. 1. [Abrir slide 1](https://costaleirbag.github.io/projeto-mae5920/#slide-1)
+
+> Nosso problema é decidir se uma resenha do IMDb é positiva ou negativa.
+> Vamos mostrar como transformamos texto em entrada da CNN, comparar o que os
+> modelos aprenderam e voltar a duas frases que desafiam essa comparação.
+> Queremos descobrir que pistas da resenha chegam até a decisão.
+
+### 02 · Mesmas palavras. Outra conclusão.
+
+**00:25–01:05** · Relatório p. 1 e 7. [Abrir slide 2](https://costaleirbag.github.io/projeto-mae5920/#slide-2)
+
+Leiam A e B e deixem a plateia olhar para o que vem depois de *but*.
+
+> Em A, eu achava que o filme era terrível, mas ele foi maravilhoso. Em B,
+> a conclusão é a oposta. As palavras são as mesmas. Só trocamos de lugar
+> *terrible* e *wonderful*. Pela contagem de palavras isoladas, as duas seriam
+> iguais. Nosso baseline também conta pares vizinhos, e a CNN lê janelas
+> ainda maiores. Guardem o palpite de vocês. A gente volta às duas depois.
+
+### 03 · As resenhas do IMDb e suas divisões
+
+**01:05–01:55** · Relatório p. 2. [Abrir slide 3](https://costaleirbag.github.io/projeto-mae5920/#slide-3)
+
+Apontem para os quatro papéis na tabela e para a coluna de ensaios internos.
+
+> O IMDb fornece 25 mil resenhas no treino oficial e outras 25 mil no teste,
+> metade de cada classe nos dois. Do treino oficial, removemos 221 duplicatas
+> e separamos o restante para ajustar pesos, escolher configurações e calibrar
+> probabilidades. Os ensaios menores saem das 19.823 resenhas reservadas ao
+> ajuste. O teste oficial fica em outra divisão. Antes dos recortes, a resenha
+> média do teste tem 226 palavras, e cerca de uma em dez passa de 439.
+
+### 04 · Como o BPE divide uma palavra rara
+
+**01:55–02:45** · Relatório p. 3. [Abrir slide 4](https://costaleirbag.github.io/projeto-mae5920/#slide-4)
+
+Mostrem a primeira fusão com **Próxima etapa** e arrastem o controle até
+aparecerem as três peças finais.
+
+> A regex separa as palavras nos dois casos. Com o vocabulário por palavras,
+> `pallbearer` vira desconhecido porque ficou fora da lista. O BPE começa pelos
+> caracteres e aplica fusões aprendidas no treino. Aqui, sobram `p`, `all` e
+> `bearer</w>`. O marcador indica o fim da palavra. Fixamos 20 mil IDs nas
+> duas versões para igualar o tamanho da tabela de embeddings. A unidade
+> mudou, então uma janela de três tokens pode cobrir só uma palavra.
+
+### 05 · Arquitetura da TextCNN
+
+**02:45–04:20** · Relatório p. 3. [Montagem](https://costaleirbag.github.io/projeto-mae5920/#slide-5) · [Varredura](https://costaleirbag.github.io/projeto-mae5920/#slide-5-varredura)
+
+Avancem a montagem junto com a primeira fala. Abram **Varredura** em A,
+janela 3 e passo 1. Usem o controle até a quarta janela e, se couber no tempo,
+cliquem em **Ver o filtro 6 com wonderful**.
+
+> Cada ID seleciona um vetor de 128 números aprendidos. Três ramos leem os
+> mesmos vetores com janelas de 3, 4 e 5 tokens. Cada ramo tem 100 filtros.
+> Um filtro usa os mesmos pesos em toda a frase, com pesos próprios para
+> cada posição dentro da janela. A ReLU zera respostas negativas. Depois
+> guardamos o maior valor de cada filtro, com uma máscara para o padding.
+> Juntamos os 300 valores, usamos dropout no treino e a camada linear dá
+> dois logits. A perda usa os logits. O softmax nos dá as probabilidades.
+
+> Na quarta janela, o filtro 89 responde forte a *movie was terrible*.
+> O filtro 6 responde a *it was wonderful*. A saída combina os dois sinais
+> e os outros 298. O máximo preserva a força de cada sinal e perde sua posição.
+
+### 06 · Quando guardar os pesos?
+
+**04:20–05:25** · Relatório p. 4. [Abrir slide 6](https://costaleirbag.github.io/projeto-mae5920/#slide-6) · [Leitura das curvas](roteiro.md#como-ler-as-curvas)
+
+Apontem para a curva de validação à esquerda e para a separação entre treino
+e validação à direita.
+
+> Nos ensaios internos, comparamos SGD, momentum e Adam, com três taxas
+> candidatas por método. Dentro da mesma semente, repetimos a inicialização,
+> a ordem dos lotes e os sorteios do dropout. Escolhemos a taxa e a época
+> pela perda de validação. Com Adam, o treino continua melhorando e a
+> validação volta a piorar. Rodamos doze épocas, e guardamos os pesos das
+> épocas cinco ou seis nesse caso. Também variamos larguras, filtros e
+> dropout. As grades estão no relatório.
+
+### 07 · Da resenha à previsão com TF-IDF
+
+**05:25–06:40** · Relatório p. 5. [Abrir slide 7](https://costaleirbag.github.io/projeto-mae5920/#slide-7)
+
+Passem por **Contar → Ponderar → Classificar**. Na última etapa, acompanhem
+só a linha de `awful` com o dedo.
+
+> Em *Movie was awful*, há três palavras e dois pares seguidos. São cinco
+> posições ativas no vetor de 80 mil atributos. Contamos cada termo,
+> multiplicamos pela raridade dele no treino, que é o IDF, e normalizamos
+> o vetor. *Awful* ganha mais TF-IDF que *movie* porque aparece em menos
+> resenhas de treino. Até aqui, só representamos o texto.
+
+> A regressão aprende a ligação com sentimento usando os rótulos. Para
+> *awful*, o TF-IDF de 0,451 vezes o coeficiente aprendido de −10,744
+> soma −4,846 ao escore. Repetimos isso para os cinco termos, somamos o
+> viés e aplicamos a sigmoide. A classe sai negativa.
+
+### 08 · Por que o modelo ajusta até rótulos embaralhados?
+
+**06:40–07:15** · Relatório p. 5. [Abrir slide 8](https://costaleirbag.github.io/projeto-mae5920/#slide-8)
+
+> Embaralhamos só os rótulos do treino. Com 80 mil atributos, a logística
+> consegue distinguir quase todas as resenhas que já viu e ajustar até
+> essas classes arbitrárias. Fez 99,75% no treino e caiu para 50,08% em
+> validação, com rótulos reais. Quando ajustamos com os rótulos verdadeiros,
+> a mesma receita chega a 91,53% na validação. É ali que vemos se o que
+> ela aprendeu se repete em textos novos.
+
+### 09 · A CNN ficou atrás no teste oficial
+
+**07:15–08:25** · Relatório p. 5–6. [Abrir slide 9](https://costaleirbag.github.io/projeto-mae5920/#slide-9) · [Hiperparâmetros](roteiro.md#configuracao-original)
+
+> Nas mesmas 25 mil resenhas, o TF-IDF com texto inteiro fez 90,14%, a CNN
+> com até 400 tokens fez 86,78%, e o BERT com até 192 WordPieces fez 90,94%.
+> A CNN errou mais chamando resenhas negativas de positivas do que no
+> sentido inverso. A acurácia conta acertos, o F1 macro dá o mesmo peso
+> às duas classes, e a última coluna mede a perda após calibração.
+
+> Para testar o recorte, fizemos dois novos ajustes de TF-IDF. Um com
+> resenhas inteiras, que fez 90,15%, e um cortando todos os textos no
+> token 400 antes de vetorizar, que fez 89,66%. Dar acesso ao texto completo
+> ajudou nesse controle. A vantagem sobre a CNN persiste com o mesmo prefixo.
+
+### 10 · Desempenho por comprimento da resenha
+
+**08:25–09:20** · Relatório p. 6. [Abrir slide 10](https://costaleirbag.github.io/projeto-mae5920/#slide-10)
+
+Apontem primeiro para as duas faixas até 250 palavras. Na última linha,
+marquem **Mostrar CNN com texto inteiro** e depois abram **F1 macro**.
+
+> O TF-IDF já ganha onde a CNN lê o texto inteiro. Acima de 500 palavras,
+> todas as 1.845 resenhas foram cortadas. Com os mesmos pesos e texto
+> inteiro, a CNN vai de 81,52% a 86,18% de acurácia nessa faixa. No BERT,
+> 192 é o teto de tokens, contando os especiais. Dar a ele até 512 com
+> os mesmos pesos leva o F1 macro de 82,46% a 89,69% nas resenhas longas.
+> O recorte explica parte da queda dos dois modelos.
+
+### 11 · BPE elimina os desconhecidos na auditoria
+
+**09:20–10:00** · Relatório p. 4. [Abrir slide 11](https://costaleirbag.github.io/projeto-mae5920/#slide-11)
+
+> Aqui são os ensaios internos. Usamos prefixos de até 128 palavras,
+> teto de 256 tokens e três treinos por tokenizador, pareados por semente.
+> Nos 2.048 exemplos da auditoria BPE, o desconhecido caiu de 3,27% para
+> zero. As sequências ficaram um pouco mais longas e a acurácia foi de
+> 82,00% com palavras para 81,41% com BPE. Ganhamos cobertura. Nessa
+> receita, isso veio junto de uma pequena queda na acurácia.
+
+### 12 · Dois adjetivos trocam de lugar
+
+**10:00–11:15** · Relatório p. 7. [Abrir slide 12](https://costaleirbag.github.io/projeto-mae5920/#slide-12)
+
+Comecem em **A · Frase original**. Depois de ler as predições, abram
+**B · Trocar adjetivos** e apontem para os pontos que mudaram de lado.
+
+> Voltando à frase do começo, A termina bem, mas os seis treinos de CNN
+> previram negativa. O escore positivo médio ficou perto de 1% nos dois
+> tokenizadores. Em B, a frase termina mal. As seis CNNs passam para
+> positiva, com cerca de 90% na versão por palavras e 84% no BPE. Aqui
+> elas acompanharam a primeira impressão.
+
+> Já o TF-IDF fica perto de 48% de positivo nas duas, então prevê
+> negativa nas duas e coincide com nossa leitura de B. A troca mexe
+> pouco nos bigramas do baseline, mas muda as janelas que a CNN vê.
+> Os filtros, o máximo global e a camada final participam do resultado.
+
+### 13 · Classificação de comentários do YouTube
+
+**11:15–12:30** · Relatório p. 8. [Abrir slide 13](https://costaleirbag.github.io/projeto-mae5920/#slide-13)
+
+Apontem para `No one` no primeiro print e `the joke was on me` no segundo.
+
+> Os modelos receberam só o texto. Em *The Room*, o `No one` transforma
+> o elogio em crítica na nossa leitura. TF-IDF, as seis CNNs e o Qwen
+> deram positiva. Em *Suicide Squad*, a frase sugere frustração. O
+> TF-IDF e cinco CNNs deram positiva. A CNN BPE da semente 43 deu
+> negativa, assim como as três respostas do Qwen em cada modo, com e
+> sem raciocínio.
+
+> São dois exemplos sem rótulo de referência. Para medir desempenho com
+> rótulos fora do IMDb, também rodamos as CNNs em duas mil frases da
+> Amazon e do Yelp. A acurácia ficou na faixa de 68 a 70%.
+
+### 14 · Quanto custa treinar e adaptar?
+
+**12:30–14:00** · Relatório p. 6. [Abrir slide 14](https://costaleirbag.github.io/projeto-mae5920/#slide-14) · [Como medimos](roteiro.md#como-os-tempos-foram-medidos)
+
+Comecem em **Estudo original**. Só depois abram **Ajuste do BERT** e leiam
+em voz alta que a segunda aba é a auditoria de 2.048 prefixos.
+
+> No Mac M1, o TF-IDF com a logística levou 13 segundos na CPU, com
+> vetorização e busca de regularização. A CNN levou 140 segundos em
+> cinco épocas na GPU e ficou atrás em acurácia. O BERT partiu de pesos
+> pré-treinados e ajustou o modelo inteiro na DGX Spark. Foram duas
+> épocas, 446 segundos e 90,94% no teste oficial.
+
+> Os autores do BERT-base reportaram quatro dias em 16 chips TPU para
+> o pré-treino. A gente aproveitou esses pesos. Nessa auditoria de 2.048
+> prefixos, treinar só a cabeça deu 84,52% e demorou 17,6 segundos
+> contando a extração. As quarenta épocas eram só da camada linear.
+> Ajustar o BERT todo por três épocas levou 148,9 segundos e deu 88,31%.
+> Congelar o encoder barateou a adaptação, e ambos ainda precisam
+> executá-lo para classificar texto novo.
+
+### 15 · Onde a nossa CNN falhou?
+
+**14:00–14:50** · Relatório p. 8. [Abrir conclusão](https://costaleirbag.github.io/projeto-mae5920/#slide-15)
+
+> Para esta tarefa, palavras e bigramas espalhados pela resenha já
+> resolvem muito. Por isso o TF-IDF foi um baseline forte e ficou à
+> frente da nossa CNN nas quatro faixas. Ler o texto inteiro recuperou
+> meio ponto no total. Na frase com *but*, o texto já estava inteiro,
+> e a CNN seguiu a primeira opinião. A rede detecta padrões locais,
+> mas sua saída recebe a força de cada pico sem a posição.
+> BERT e Qwen ficaram acima do baseline reaproveitando pré-treino.
+> Para saber se a CNN teria fechado a diferença com mais dados,
+> precisaríamos medir uma curva de aprendizado.
+
+Deixem **Perguntas?** na tela. Na versão de 12 minutos, encurtem a fala ao
+contraste entre a recuperação de meio ponto e a inversão no par com *but*.
+
+### Slides de apoio
+
+#### Apoio 1 · O fim da resenha ficou fora do recorte
+
+Em `imdb_test_03531`, uma resenha negativa de 780 tokens, abram **Texto
+inteiro**. Mostrem *I had to leave because it was so bad.*, que ficou
+depois do token 400. Com os mesmos modelos, a CNN vai de 94,7% a 12,1% de positivo e a
+logística de 71,7% a 6,5%. O teste acrescenta todo o trecho final.
+[Abrir slide 16](https://costaleirbag.github.io/projeto-mae5920/#slide-16) · [Relatório, p. 5](../output/pdf/relatorio_seminario.pdf#page=5)
+
+#### Apoio 2 · Confiança e acurácia respondem perguntas diferentes
+
+Apontem para o gráfico de calibração. A temperatura foi escolhida em
+uma amostra separada e reescala a diferença de logits. Na CNN, a CE do
+teste foi de 0,3040 para 0,3037. A temperatura é positiva, então o sinal
+da margem, a classe, a acurácia e o F1 ficam iguais.
+[Abrir slide 17](https://costaleirbag.github.io/projeto-mae5920/#slide-17) · [Relatório, p. 6](../output/pdf/relatorio_seminario.pdf#page=6)
+
+#### Apoio 3 · O mesmo enredo com três intervenções
+
+Mostrem o mesmo enredo com −2, 0 e +2. Somamos um vetor de sentimento,
+com a intensidade de cada condição, às ativações do bloco 28 do Qwen
+enquanto ele gera a opinião. O prompt e os pesos são os mesmos. A ideia é
+observar o efeito da intervenção sobre a geração.
+[Abrir slide 18](https://costaleirbag.github.io/projeto-mae5920/#slide-18) · [Como obtivemos a direção](#qwen-steering-e-conexões-com-a-disciplina)
+
+#### Apoio 4 · Quanto da frase cada filtro vê?
+
+Mostrem as duas comparações. Na primeira, treinamos redes com larguras
+diferentes. Na segunda, reaplicamos os mesmos filtros pulando posições.
+Em A, com passo 2 o filtro 89 deixa de visitar `movie was terrible` e
+seu máximo cai de 0,98 para 0,40. O tamanho da janela decide quais
+tokens entram juntos, e o passo decide quais janelas são visitadas.
+[Abrir slide 19](https://costaleirbag.github.io/projeto-mae5920/#slide-19) · [Relatório, p. 7](../output/pdf/relatorio_seminario.pdf#page=7)
+
 ## Mapa dos modelos
 
-### O que vai à apresentação
+### Modelos do relatório e dos slides
 
 | Modelo ou ensaio | O que ajustamos | Por que entra no estudo |
 |---|---|---|
@@ -57,7 +325,7 @@ e 45 (uso de IA). Abra o gabarito depois de responder.
 | **CNNs internas por palavras** | 42 treinos. São 27 de otimização (3 métodos × 3 taxas × 3 sementes), nove de arquitetura e seis de dropout. | Entender como taxa, checkpoint, largura e regularização mudam uma TextCNN. |
 | **CNNs internas com BPE** | Três novos treinos usam um BPE ajustado no texto de treino. Reutilizam-se três checkpoints por palavras, pareados nas sementes 17, 29 e 43. | Separar, nesta receita, a troca de tokenização da variação entre treinos. Os mesmos seis fazem os testes com frases e comentários. |
 | **BERT, DistilBERT e ModernBERT internos** | 27 cabeças lineares sobre vetores congelados e 18 ajustes completos. Também ajustamos TF-IDF + logística no prefixo comum como referência. | Medir custo e acerto ao reaproveitar uma representação pronta ou adaptar todo o encoder. |
-| **Qwen3-8B** | Reutilizamos o modelo público com pesos congelados. A classificação lê logits e ajusta apenas uma temperatura fora do treino. Nas intervenções, estimamos direções separadamente. | Referência de LLM para sentimento e extensão didática sobre ativações internas. |
+| **Qwen3-8B** | Pesos congelados. No IMDb, lemos logits dos rótulos e ajustamos uma temperatura na calibração. No YouTube, geramos o rótulo com e sem raciocínio. | Referência de LLM para sentimento. A intervenção nas ativações aparece no apoio. |
 
 **Contagem da extensão sequencial.** Os 42 treinos de CNN por palavras, 27
 cabeças e 18 ajustes completos totalizam **87**. Com as três CNNs BPE novas,
@@ -67,7 +335,7 @@ depois são promediadas. Um ensemble teria de combinar as saídas por resenha
 antes de calcular a métrica. [Receitas e contagens](../docs/PROTOCOLO_SEQUENCIAS.md) ·
 [Protocolo BPE](../docs/PROTOCOLO_BPE.md) · [Configuração original](../config.json)
 
-### O que fica para perguntas
+### Ensaios exploratórios para perguntas
 
 | Estudo ou componente | O que fizemos | Para que serve |
 |---|---|---|
@@ -92,11 +360,17 @@ antes de calcular a métrica. [Receitas e contagens](../docs/PROTOCOLO_SEQUENCIA
 <details>
 <summary>01 · Por que separar treino, validação, calibração e teste?</summary>
 
-**Resposta.** No estudo original, usamos 19.823 resenhas para aprender
-vocabulário, IDF e pesos, 2.478 para escolher hiperparâmetros e checkpoints,
-2.478 para ajustar a temperatura e 25.000 para medir desempenho. Nas extensões
-principais, foram 6.144 de ajuste, 1.536 de validação e 2.048 de auditoria
-interna, com as escolhas congeladas antes da abertura da auditoria.
+**Resposta.** Das 25.000 resenhas do treino oficial, 221 foram removidas na
+deduplicação. Dividimos as 24.779 restantes em 19.823 para ajustar vocabulário,
+IDF e pesos, 2.478 para escolher hiperparâmetros e checkpoints e 2.478 para
+ajustar a temperatura. O teste oficial tem outras 25.000 resenhas.
+
+**Se perguntarem pelo balanceamento.** No conjunto de ajuste ficaram
+9.954 positivas e 9.869 negativas. Validação tem 1.245 positivas e
+1.233 negativas, e calibração tem 1.244 positivas e 1.234 negativas.
+O teste oficial tem 12.500 por classe. Os ensaios internos amostram as
+19.823 do ajuste original, com 6.144 para ajustar, 1.536 para validar
+e 2.048 para auditar. Cada divisão interna tem metade de cada classe.
 
 **Se o professor perguntar por que há várias auditorias de 2.048.** É
 o tamanho de cada conjunto reservado, e as amostras diferem entre
@@ -142,9 +416,11 @@ próprio texto, como “9/10”, pode permanecer como pista lexical.
 <details>
 <summary>04 · Por que acurácia, F1 macro e entropia cruzada?</summary>
 
-**Resposta.** Acurácia conta a fração de acertos. F1 combina precisão e
-revocação. Calculamos um F1 tratando positiva como alvo, outro tratando
-negativa como alvo, e tiramos a média. A entropia cruzada mede
+**Resposta.** Acurácia conta a fração de acertos. Para a classe positiva,
+precisão é a fração dos positivos previstos que eram positivos de fato.
+Revocação é a fração dos positivos reais que o modelo encontrou.
+F1 é a média harmônica, $2PR/(P+R)$. Calculamos um F1 por classe e tiramos
+a média para obter o F1 macro. A entropia cruzada mede
 $-\log p(\text{classe correta})$ por exemplo e depois faz a média.
 Dar 1% à classe correta custa cerca de 4,61. Dar 49% custa 0,71. Os dois
 casos podem ser erros de classe, com confiança bem diferente.
@@ -152,7 +428,11 @@ casos podem ser erros de classe, com confiança bem diferente.
 **No quadro.** Em 100 exemplos com 90 positivos, prever tudo como positivo
 dá 90% de acurácia. O F1 positivo é 0,947 e o negativo é 0, então o F1 macro
 fica em 0,474. No IMDb oficial balanceado, as métricas ficaram próximas.
-[Cálculo das métricas](../src/imdb_lab/metrics.py)
+
+**No teste oficial.** A CNN fez 1.818 falsos positivos (negativas
+previstas como positivas) e 1.486 falsos negativos. O TF-IDF fez
+1.234 e 1.230. O BERT fez 1.342 e 922.
+[Cálculo das métricas](../src/imdb_lab/metrics.py) · [Contagens por modelo](../results/comparison.csv)
 
 </details>
 
@@ -199,8 +479,9 @@ e a camada final pela loss de sentimento.
 
 **No quadro.** A palavra rara *pallbearer* vira um `<unk>` na versão por
 palavras. O BPE da execução devolve `p`, `all` e `bearer</w>`. O marcador
-`</w>` faz parte do último token. Nosso BPE opera sobre caracteres e pode
-chegar a `<unk>` se encontrar caracteres fora do alfabeto aprendido.
+`</w>` faz parte da última peça e distingue um fragmento no fim da
+palavra do mesmo fragmento no interior. Nosso BPE opera sobre caracteres
+e pode chegar a `<unk>` se encontrar caracteres fora do alfabeto aprendido.
 [Tokenizer](../src/imdb_lab/bpe_study.py) · [Fusões salvas](dados/animacoes.json)
 
 </details>
@@ -214,7 +495,13 @@ atingiu esse valor com 19.924 fusões. Assim ambas as CNNs têm a mesma
 quantidade de parâmetros no embedding. Uma janela de cinco tokens BPE
 pode cobrir menos palavras do que a janela da CNN por palavras. Parte da
 comparação é justamente essa mudança de unidade.
-[Configuração](../bpe_config.json) · [Treino do BPE](../results/bpe/tokenizer_training.json)
+
+**E um BPE menor?** Na exploração com tabela de embeddings fixa em 20 mil
+linhas, vocabulários de 5 mil, 10 mil e 20 mil deram, respectivamente,
+83,96%, 83,88% e 83,29% na validação. As linhas extras ficavam ociosas
+com os vocabulários menores. O efeito precisaria ser confirmado em uma
+amostra separada da usada para escolher a época.
+[Configuração](../bpe_config.json) · [Treino do BPE](../results/bpe/tokenizer_training.json) · [Ensaio de tamanhos](../docs/PROTOCOLO_BPE.md#tamanho-do-vocabulário-na-validação)
 
 </details>
 
@@ -420,16 +707,17 @@ amostras, inclusive para medir interações.
 <summary>20 · Mostre uma resenha que só um deles acertou. A frase do fim causou a mudança?</summary>
 
 **Resposta.** No teste original, só o TF-IDF acertou **1.715** resenhas
-e só a CNN, **875**. Em uma negativa de **780 tokens**, a CNN deu
+e só a CNN, **875**. Em `imdb_test_03531`, negativa de **780 tokens**, a CNN deu
 94,7% de positivo com os primeiros 400 e 12,1% com texto inteiro. O
 TF-IDF, com os mesmos pesos em cada passagem, caiu de 71,7% para 6,5%.
 O contraste altera todos os 380 tokens adicionais. O trecho de crítica
 ajuda a interpretar o caso. Para medir o efeito isolado de uma frase,
 precisaríamos editar só aquela frase e repetir a inferência.
 
-**Exemplo no sentido inverso.** Em uma resenha positiva de 61 tokens,
-os dois leram tudo. A CNN captou `part is brilliant` e fez 96,6% de
-positivo. O TF-IDF fez 45,5%. O bigrama `not one` entrou com coeficiente
+**Exemplo no sentido inverso.** Em `imdb_test_22831`, positiva de 61
+tokens, os dois leram tudo. Uma janela com `part is brilliant` contribuiu
+a favor da previsão positiva da CNN, cujo escore foi 96,6%. O TF-IDF
+fez 45,5%. O bigrama `not one` entrou com coeficiente
 negativo, embora ali comparasse um enredo com dois. A decomposição da
 margem explica a soma naquele texto. Alterá-lo pode mudar outros
 termos ou outros máximos ao mesmo tempo.
@@ -558,8 +846,8 @@ a acurácia de treino em cerca de 1,5 ponto e mudou o teste em
 <details>
 <summary>27 · Por que repetir a frase no controle dos separadores?</summary>
 
-**Resposta.** É um controle sintético para isolar um mecanismo. Cada
-versão tem três cópias da frase separadora de oito palavras e dois
+**Resposta.** É um controle sintético exploratório para isolar um
+mecanismo. Cada versão tem três cópias da frase separadora de oito palavras e dois
 blocos de opinião, na ordem `S → elogio → S → crítica → S` ou
 `S → crítica → S → elogio → S`. O separador é mais comprido que a
 maior janela. Assim, qualquer janela que cruza a borda de uma opinião
@@ -573,7 +861,8 @@ fica igual. Para cada um dos 300 filtros, mesma coleção de janelas
 significa mesma coleção de respostas, mesmo máximo e mesmo valor
 entregue à camada final. Os seis treinos produziram logits iguais entre
 A e B. O teste em textos editados mede o alcance em material menos
-artificial.
+artificial. Na apresentação, o exemplo de ordem é o par com *but*,
+que altera as janelas e tem outro objetivo.
 [Textos exatos](casos.json) · [Escores do controle](dados/pares_resultados.json)
 
 </details>
@@ -611,7 +900,9 @@ da primeira oração. Na versão por palavras, o escore médio positivo
 passou de **1,0% a 89,9%**. Com BPE, de **1,2% a 83,7%**.
 O máximo pode descartar onde apareceram os sinais, e os filtros
 aprendidos e os coeficientes finais também participam da inversão.
-A igualdade exata de logits pertence ao controle dos separadores.
+O filtro 89 da CNN por palavras alcança seu pico na primeira oração
+em A e na última em B, com 0,98 e 0,93. O TF-IDF dá negativa às duas
+frases, com 47,93% e 47,86% de positivo.
 
 **Se perguntarem sobre negação.** Em `good, not bad` versus
 `bad, not good`, a troca mudou a classe em duas sementes por palavras
@@ -625,8 +916,8 @@ e rótulos definidos previamente.
 <details>
 <summary>30 · No ensaio com dois picos, vocês deram à CNN um vetor de posições?</summary>
 
-**Resposta.** Usamos os mesmos embeddings e filtros congelados.
-Por filtro, dividimos suas janelas válidas pela metade e extraímos
+**Resposta.** Nesse ensaio exploratório, usamos os mesmos embeddings e
+filtros congelados. Por filtro, dividimos suas janelas válidas pela metade e extraímos
 um pico de cada metade. Uma cabeça recebe `[menor, maior]`. A outra
 recebe `[primeira metade, segunda metade]`. Cada cabeça recebe 600
 valores. Com os mesmos números em canais de significado diferente,
@@ -813,15 +1104,15 @@ desempenho de uma receita em uma tarefa, com custo e condições próprios.
 
 **Resposta.** O slide do YouTube mostra dois casos qualitativos,
 sem rótulo de referência. Em *The Room*, `No one` vira um elogio
-citado em crítica na leitura da equipe. Os seis checkpoints da CNN
-e as seis gerações do Qwen deram positiva. Em *Suicide Squad*,
-cinco CNNs deram positiva e o Qwen deu negativa nas três gerações
-de cada modo. Os modelos viram só o texto, e a plateia tem o
-contexto do trailer. O rótulo final coincidiu entre os modos para
-esses comentários. O teste rotulado usa outras fontes, 1.000
-frases da Amazon e 1.000 do Yelp, com cerca de **68–70%** de
-acurácia nas CNNs.
-[Slide do YouTube](https://costaleirbag.github.io/projeto-mae5920/#youtube) · [CNNs fora do domínio](dados/fora_dominio_resultados.json) · [Gerações do Qwen](dados/qwen_youtube_resultados.json)
+citado em crítica na leitura da equipe. O TF-IDF deu positiva aos dois
+comentários. Em *The Room*, os seis checkpoints da CNN e as seis gerações
+do Qwen também deram positiva. Em *Suicide Squad*, cinco CNNs deram
+positiva e a BPE da semente 43 deu negativa. O Qwen deu negativa nas três
+gerações de cada modo. Os modelos viram só o texto, e a plateia tem o
+contexto do trailer. A classe final do Qwen foi a mesma nos dois modos
+para esses comentários. O teste rotulado das CNNs usou 1.000 frases da
+Amazon e 1.000 do Yelp, com cerca de **68–70%** de acurácia.
+[Slide do YouTube](https://costaleirbag.github.io/projeto-mae5920/#youtube) · [TF-IDF](dados/tfidf_youtube_resultados.json) · [CNNs fora do domínio](dados/fora_dominio_resultados.json) · [Gerações do Qwen](dados/qwen_youtube_resultados.json)
 
 </details>
 
@@ -882,7 +1173,7 @@ analogia com GANs e flows é a intervenção em uma representação
 interna. Aqui ela é por camada e posição de token.
 
 **Um trio para falar em voz alta.** No mesmo enredo sintético,
-*Signal 2040*, o controle negativo critica a coerência e o ritmo.
+*Signal 2040*, a intervenção negativa critica a coerência e o ritmo.
 Com zero, a opinião elogia o andamento da história. O positivo
 elogia a narrativa e as atuações. O texto do campo `FACT` sai
 igual nas três. O zero é a resposta padrão, que pode ter opinião.
@@ -976,7 +1267,7 @@ verificaram. Escolham uma hipótese que os dados contrariaram,
 como “BPE vai subir a acurácia” ou “guardar a metade vai
 resolver os pares”. Expliquem o que o controle mostrou e qual
 conclusão vocês tiraram dele.
-[Declaração de IA no relatório](partes/01-pergunta.tex) · [O que o notebook executa](../docs/NOTEBOOK_UNICO.md)
+[Declaração de IA no relatório](partes/10-conclusao.tex) · [O que o notebook executa](../docs/NOTEBOOK_UNICO.md)
 
 </details>
 
@@ -991,12 +1282,15 @@ rótulos. Para as CNNs do YouTube, abro os seis pares de logits
 e comparo as classes por semente. As evidências vêm com metadados e
 hashes que identificam os artefatos.
 
-**Se pedirem para reproduzir.** O notebook único executa seus
-exercícios em CPU e abre resultados preservados. Há verificadores
-para recalcular métricas e testes como invariância a padding e à
-temperatura na classe prevista. Repetir os treinos grandes exige o
-corpus, o ambiente e, quando aplicável, restaurar os pesos históricos.
-[Conta do TF-IDF](dados/tfidf_slide.json) · [Métricas e metadados da CNN](../results/cnn/metrics.json) · [Reprodução](../docs/REPRODUCAO.md) · [Testes científicos](../tests/test_scientific_invariants.py)
+**Se pedirem para reproduzir.** No modo `conferir`, o notebook de
+entrega roda sozinho em CPU e recalcula métricas com as previsões
+incluídas. O modo `reproduzir` baixa as revisões registradas do corpus
+e dos pesos-base e executa os ajustes e diagnósticos numa pasta nova.
+O caminho completo usa CUDA com BF16. Na verificação em pasta vazia,
+o TF-IDF reproduziu 90,144% de acurácia. A CNN reajustada fez 86,988%
+ante 86,784% no registro original. Seeds, versões e hardware fazem
+parte das condições de reprodução.
+[Conta do TF-IDF](dados/tfidf_slide.json) · [Métricas da CNN](../results/cnn/metrics.json) · [Modos do notebook e escopo da verificação](../docs/NOTEBOOK_UNICO.md)
 
 </details>
 
@@ -1030,12 +1324,15 @@ Em uso real, eu pediria uma avaliação anotada do domínio-alvo,
 com latência de ponta a ponta e um tratamento explícito para
 comentários ambíguos.
 
-**Conclusão do trabalho.** A TextCNN aprende ordem dentro da
-janela. Global max pooling conserva a força do melhor sinal de
-cada filtro e perde onde ele ocorreu. Recorte tira evidências de
-algumas entradas. Nos controles, conseguimos medir esses efeitos
-mesmo quando eles explicam só parte da diferença para o baseline.
-[Teste oficial](../docs/RESULTADOS.md) · [Diagnósticos](diagnosticos.md)
+**Conclusão do trabalho.** Somar pistas lexicais da resenha inteira
+funcionou bem para essa tarefa. O recorte tirou evidências de parte
+das entradas. No par curto com *but*, as duas orações chegaram à
+CNN, e as seis versões deram mais peso à primeira impressão. O
+máximo global retém a força do melhor sinal de cada filtro e perde
+onde ele ocorreu. BERT e Qwen reaproveitam o pré-treino e ficaram à
+frente do baseline no IMDb. Para medir o quanto o tamanho do treino
+limitou a TextCNN, precisaríamos de uma curva de aprendizado.
+[Teste oficial](../docs/RESULTADOS.md) · [Conclusão entregue](partes/10-conclusao.tex)
 
 </details>
 
@@ -1043,6 +1340,7 @@ mesmo quando eles explicam só parte da diferença para o baseline.
 
 | Se pedirem para ver… | O que procurar | Arquivo |
 |---|---|---|
+| **O código da entrega** | Use o sumário por página do relatório. Para repetir os ajustes desde os dados, abra a seção “Reproduzir em uma pasta nova”. | [Notebook entregue](../notebooks/seminario_completo.ipynb) |
 | **A ordem das operações na CNN** | `TextCNN.forward` e `PadBatch.__call__`. Passe do comprimento real à máscara e aos dois logits. | [Modelo e padding](../src/imdb_lab/models.py#L35-L80) |
 | **Onde o baseline aprende** | `fit_transform` no treino, `transform` nas demais divisões, seleção de `C` na validação. | [TF-IDF e regressão](../src/imdb_lab/baseline.py#L13-L32) |
 | **De onde vêm os sorteios** | `orders`, `initialize_cnn` e `train_one`. Aponte para a permutação, os inicializadores e a semente do dropout. | [Lotes](../src/imdb_lab/sequences.py#L128-L133) · [Inicialização](../src/imdb_lab/sequences.py#L190-L199) · [Treino](../src/imdb_lab/sequences.py#L235-L280) |
@@ -1059,12 +1357,13 @@ mesmo quando eles explicam só parte da diferença para o baseline.
    desenhem as cinco colunas ativas do TF-IDF de `Movie was awful`.
    Usem os cartões 09, 10, 12 e 15 para conferir.
 2. **Cinco minutos de banca.** Cada pessoa pega uma pergunta difícil
-   dos cartões 02, 17, 24, 27, 30, 33, 39 e 42. Dê a conclusão em
+   dos cartões 02, 17, 24, 29, 33, 35, 39 e 45. Dê a conclusão em
    uma frase e defenda com um controle e um limite da evidência.
 3. **Três minutos de demonstração.** Abram a varredura da CNN e mudem
-   para o filtro de `wonderful`. Depois mostrem A e B no máximo
-   global e expliquem por que a posição muda sem mudar o pico.
-   Terminando, abram um resultado salvo pelo link do gabarito.
+   para o filtro de `wonderful`. Depois troquem A por B no slide 12.
+   Expliquem por que muda a predição da CNN e o que sabemos sobre a
+   participação das janelas e do pooling. Abram um resultado salvo
+   pelo link do gabarito.
 
 [Varredura](https://costaleirbag.github.io/projeto-mae5920/#slide-5-varredura) · [Par de contraste](https://costaleirbag.github.io/projeto-mae5920/#contraste)
 
@@ -1079,10 +1378,10 @@ mesmo quando eles explicam só parte da diferença para o baseline.
 ### Se faltar uma resposta na hora
 
 Use o resultado que vocês efetivamente mediram e proponha o controle
-que responderia à pergunta. Por exemplo, “O teste de 344 pares inclui
-edições diferentes. Para estimar a robustez só à ordem em resenhas
-naturais, eu coletaria novos pares nos quais a edição só troca a ordem
-e a classe esperada foi validada por anotadores.”
+que responderia à pergunta. Por exemplo, “Os textos com *but* já
+chegaram inteiros à CNN. Se quisermos medir o efeito do pooling sobre
+a ordem, podemos variar só a agregação, manter entrada, filtros e
+orçamento comparáveis, e avaliar novos pares anotados.”
 
 **Para ligar ao livro.** Prince, caps. 6–10 para otimização,
 inicialização, generalização, regularização e convoluções. Caps. 11–12

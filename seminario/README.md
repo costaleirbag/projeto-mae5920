@@ -2,15 +2,15 @@
 
 **O que a CNN lê em uma resenha?** O relatório acompanha a classificação do
 IMDb, da tokenização às falhas de ordem. Os slides usam a mesma sequência.
-A fala principal dura 12 minutos, com três minutos adicionais e quatro slides
-de apoio. O relatório tem oito páginas, dentro da faixa do enunciado.
+O roteiro reserva até 15 minutos, com uma versão de 12 e quatro slides
+de apoio para perguntas. O relatório tem oito páginas.
 
 | Material | Para ler ou editar |
 |---|---|
 | Relatório | [PDF](../output/pdf/relatorio_seminario.pdf) · [LaTeX](relatorio.tex) · [seções](partes/) |
 | Apresentação | [Abrir no navegador](https://costaleirbag.github.io/projeto-mae5920/) · [HTML para baixar](../output/slides/slides_15_min_interativos.html) · [PDF 16:9](../output/pdf/slides_15_min.pdf) · [Beamer](slides.tex) |
-| Fala, tempos e cortes | [Roteiro](roteiro.md) |
-| Ensaio para a banca | [Colinha com mapa dos modelos e 48 perguntas com gabarito](colinha.md) |
+| Fala, tempos e cortes | [Roteiro slide a slide](colinha.md#roteiro-slide-a-slide) |
+| Ensaio para a banca | [48 perguntas com gabarito](colinha.md#perguntas-de-banca) |
 | Comprimento das resenhas e métricas por faixa | [Gráfico interativo](https://costaleirbag.github.io/projeto-mae5920/#comprimento) · [Estatísticas e métricas](dados/comprimentos.json) · [Código](medir_comprimentos.py) |
 | Experimentos e código explicado | [Notebook único](../notebooks/seminario_completo.ipynb) |
 | Predições dos quatro pares e teste de cobertura | [Entradas](casos.json) · [Resultados por semente](dados/pares_resultados.json) |
@@ -85,7 +85,8 @@ em quadros fixos. [Valores usados nas animações](dados/animacoes.json).
 
 Editem uma seção de cada vez em `partes/`, ou um frame de cada vez em `slides.tex`.
 No PR, indiquem qual afirmação mudou, qual evidência a sustenta e se a fala ainda
-cabe no tempo. Atualizem `roteiro.md` quando mudarem a ordem ou a duração dos frames.
+cabe no tempo. Atualizem o [roteiro da colinha](colinha.md#roteiro-slide-a-slide)
+quando mudarem a ordem ou a duração dos slides.
 
 Para compilar com TeX Live e `latexmk`, rode `make -C seminario` na raiz do
 repositório. O comando grava os dois PDFs em `output/pdf/` e coloca arquivos

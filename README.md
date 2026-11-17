@@ -5,7 +5,7 @@ Nestor · Letícia · Gabriel
 ## Relatório e slides do seminário
 
 - **[Ler o relatório do seminário (PDF)](output/pdf/relatorio_seminario.pdf)** · 8 páginas sobre a TextCNN e os testes no IMDb.
-- **[Abrir os slides interativos no navegador](https://costaleirbag.github.io/projeto-mae5920/)** · Apresentação de 15 minutos. [Slides em PDF](output/pdf/slides_15_min.pdf) · [Roteiro](seminario/roteiro.md).
+- **[Abrir os slides interativos no navegador](https://costaleirbag.github.io/projeto-mae5920/)** · Apresentação de 15 minutos. [Slides em PDF](output/pdf/slides_15_min.pdf) · [Roteiro slide a slide](seminario/colinha.md#roteiro-slide-a-slide).
 - [Revisão metodológica do grupo](seminario/revisao_metodologica.md) · [Novos ensaios da TextCNN](seminario/ensaios_cnn.md).
 
 <p align="center">
@@ -34,7 +34,7 @@ de trabalho. Veja [como abrir e executar](docs/NOTEBOOK_UNICO.md).
 |---|---|
 | Entender o trabalho pela primeira vez | [Guia do projeto](docs/GUIA_COMPLETO.md), depois o [notebook único](notebooks/seminario_completo.ipynb) |
 | Encontrar acurácia, F1 macro e loss juntos | [Resultados por estudo](docs/RESULTADOS.md) · [CSV consolidado](results/resumo_metricas.csv) |
-| Preparar a apresentação | [Abrir slides interativos](https://costaleirbag.github.io/projeto-mae5920/) · [PDF](output/pdf/slides_15_min.pdf) · [roteiro](seminario/roteiro.md) |
+| Preparar a apresentação | [Abrir slides interativos](https://costaleirbag.github.io/projeto-mae5920/) · [Roteiro slide a slide](seminario/colinha.md#roteiro-slide-a-slide) · [Perguntas de banca](seminario/colinha.md#perguntas-de-banca) |
 | Ler arquiteturas, hiperparâmetros e BPE | [Relatório CNN e encoders](output/pdf/relatorio_cnn_encoders.pdf) |
 | Estudar intervenções nas ativações | [Relatório Qwen3-8B](relatorio_qwen3.pdf) · apoio do notebook único |
 | Conferir ou repetir as execuções | [Guia de reprodução](docs/REPRODUCAO.md) |

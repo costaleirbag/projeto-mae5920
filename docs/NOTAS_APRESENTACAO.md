@@ -1,6 +1,8 @@
 # Notas da apresentação
 
-Os slides 1–14 formam o roteiro principal. Os slides 15–24 são apoio. Os slides 22–24 acrescentam BPE e podem entrar após o slide 4. Para uma fala curta, priorize 1–3, 5–6 e 9–14.
+Estas notas acompanham a apresentação de 24 slides do estudo sequencial.
+A apresentação final tem 15 slides de fala e quatro de apoio.
+[Roteiro da apresentação final](../seminario/colinha.md#roteiro-slide-a-slide).
 
 ## 1. Sentimento, redes e treinamento
 
